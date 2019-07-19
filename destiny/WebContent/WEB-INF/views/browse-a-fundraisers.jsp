@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
 <html>
 
 <head>
@@ -140,6 +145,7 @@ var a1=  document.getElementById("mySidenav").style.width;
 //  }
   </script>
 </head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <body style="font-family: algerrian sans-serif">
 
@@ -366,6 +372,88 @@ $(function search_submit(){
   text-overflow: ellipsis;
 }
 </style>
+ 
+
+
+<script>
+$(function transfer_id(){
+	$(".ourcausebtn1").click(function(){
+    var id = (this).value;
+	//alert(id);
+	$(".c_id").html(id);
+  });
+
+	$(".camp_id").click(function(){
+  	    (this).attr('id');  
+	  });
+
+	
+})
+</script> 
+
+
+<span style=" flex-direction: row-reverse;">
+
+<c:forEach var="fm" items="${data}" >
+
+<!--    
+ Title : ${fm.fundraisers_title} <br><br>
+ Amount : ${fm.fundraisers_goal_amount} <br><br>
+Story : ${fm.fundraisers_story} <br><br><hr><br><br>
+ -->
+
+<div class="col-md-4">
+  <div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">
+    
+   <div class="ourcausecontainer" style="position: relative;">
+    <img src="/destiny/files/images/drintwater.jpg" class="ourcauseimage1">
+    <span class="ourcausedonate">
+        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-whatsapp"></i> Share</button>
+        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-facebook"></i> Share</button>
+    </span>
+  </div>
+
+  <div class="img-text" style="text-align:left; padding: 20px 20px;">
+    <div class="text-balance" style="height:250px;">
+  
+    <p style="font-size:25px; color:rgb(126, 131, 131)">${fm.fundraisers_title} id is : ${fm.fundraisers_id} </p>
+
+    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : ${fm.fundraisers_goal_amount}  <span style="float:right">Raised : ${fm.fundraisers_goal_amount}  </span></span> <br><br>
+    <div class="progress" style="height: 10px;">
+        <div class="progress-bar  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+         </div>
+    </div>
+      
+    <p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify;">${fm.fundraisers_story}</p>
+   </div>
+    <center>
+    <div class="col-md-6">  
+        <a href="cause-details/${fm.fundraisers_id}" style="text-decoration: none">
+          <button class="ourcausebtn1 form-control" value="${fm.fundraisers_id}" style="background-color:rgb(26, 145, 135); color:white">Read More</button>
+        </a>
+    </div> 
+    <div class="col-md-6"> 
+      <button class="ourcausebtn1 form-control donate-popup camp_id" value="${fm.fundraisers_id}" style="background-color:rgb(26, 145, 135); color:white">Donate Now</button>
+    </div>
+    </center>
+    <div class="container-fluid"></div>
+
+  </div>
+  </div>
+<br><br> </div>
+
+
+ 	
+</c:forEach>
+
+</span>
+
+
+
+
+
+<!-- 
+
 
 <div class="col-md-4">
   <div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">
@@ -407,6 +495,9 @@ $(function search_submit(){
   </div>
 <br><br> </div>
 
+ -->
+
+<!-- 
 <div class="col-md-4">
     <div class="ourcausesheet" style="border:solid 1px rgba(175, 171, 171, 0.445);">
     
@@ -485,7 +576,6 @@ $(function search_submit(){
   </div>
   </div>
 <br><br> </div>
-
 
 <div class="col-md-4">
   <div class="ourcausesheet" style="border:solid 1px rgba(185, 180, 180, 0.445);">
@@ -568,8 +658,6 @@ $(function search_submit(){
 <br><br> 
 </div>
 
-
-
 <div class="col-md-4">
   <div class="ourcausesheet" style="border:solid 1px rgba(185, 180, 180, 0.445);">
   
@@ -612,7 +700,7 @@ $(function search_submit(){
 
 <br><br> </div>
 
-
+-->
 <br><br>
 
 </div>

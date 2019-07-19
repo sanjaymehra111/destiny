@@ -34,7 +34,6 @@ public class StoreController
 		model.addAttribute("data", data);
 		model.addAttribute("name", sm.getName());
 		model.addAttribute("contact", sm.getContact());
-		model.addAttribute("allname", sm.getContact());
 		model.addAttribute("message", "DATA STORED SUUCESSFULLY");
 	
 		//For testing only
@@ -100,13 +99,17 @@ public class StoreController
 		return "how-it-works";
 		
 	}
-
+	
+	/*
+	  
 	@RequestMapping("/browse-a-fundraisers")
 	public String browse_a_fundraisers(Model model)
 	{
 		return "browse-a-fundraisers";
 		
 	}
+	
+	*/
 	
 	@RequestMapping("/become_a_volunteer")
 	public String become_a_volunteer(Model model)
@@ -260,13 +263,13 @@ public class StoreController
 	{
 		return "dashboard/user/manage-overview";
 	}
- 
+
 	@RequestMapping("/edit-cause-details")
 	public String edit_cause_details(Model model)
 	{
 		return "dashboard/user/edit-cause-details";
 	}
- 
+
 	@RequestMapping("/manage-header")
 	public String manage_header(Model model)
 	{
@@ -305,13 +308,14 @@ public class StoreController
 	//*************************redundant mapping*************************//
 	
 	
-	
+/*
 	@RequestMapping("/cause-details")
 	public String cause_details(Model model)
 	{
 		return "cause-details";
 		
 	}
+*/
 	
 	@RequestMapping("/footer")
 	public String footer(Model model)

@@ -2,6 +2,7 @@ package com.destiny.model;
 
 public class FundraisersModel 
 {
+	String fundraisers_id;
 	String category_type;
 	String personal_name;
 	String personal_email;
@@ -22,11 +23,12 @@ public FundraisersModel()
 
 
 
-	public FundraisersModel(String category_type, String personal_name, String personal_email, String personal_number,
+	public FundraisersModel(String fundraisers_id, String category_type, String personal_name, String personal_email, String personal_number,
 			String personal_city, String fundraisers_title, String fundraisers_goal_amount, String fundraisers_name,
 			String fundraisers_contact, String fundraisers_email, String fundraisers_beneficiary_relaion,
 			String fundraisers_story) {
 		super();
+		this.fundraisers_id = fundraisers_id;
 		this.category_type = category_type;
 		this.personal_name = personal_name;
 		this.personal_email = personal_email;
@@ -40,6 +42,17 @@ public FundraisersModel()
 		this.fundraisers_beneficiary_relaion = fundraisers_beneficiary_relaion;
 		this.fundraisers_story = fundraisers_story;
 	}
+	
+	public String getFundraisers_id() {
+		return fundraisers_id;
+	}
+
+
+
+	public void setFundraisers_id(String fundraisers_id) {
+		this.fundraisers_id = fundraisers_id;
+	}
+
 
 
 	public String getCategory_type() {
@@ -162,6 +175,25 @@ public FundraisersModel()
 	}
 
 
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("FundraisersModel [fundraisers_id=").append(fundraisers_id).append(", category_type=")
+				.append(category_type).append(", personal_name=").append(personal_name).append(", personal_email=")
+				.append(personal_email).append(", personal_number=").append(personal_number).append(", personal_city=")
+				.append(personal_city).append(", fundraisers_title=").append(fundraisers_title)
+				.append(", fundraisers_goal_amount=").append(fundraisers_goal_amount).append(", fundraisers_name=")
+				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
+				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relaion=")
+				.append(fundraisers_beneficiary_relaion).append(", fundraisers_story=").append(fundraisers_story)
+				.append("]");
+		return builder.toString();
+	}
+	
+	
+
+/*
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -175,7 +207,7 @@ public FundraisersModel()
 				.append(", fundraisers_story=").append(fundraisers_story).append("]");
 		return builder.toString();
 	}
-
+*/
 	
 	
 

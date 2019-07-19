@@ -384,6 +384,7 @@
         <div class="container-fluid" style="margin-bottom: 50px;">
         
                 <p style="font-size:30px; text-align: center; font-weight: bold; margin-top: -20px;">Donate Now</p>
+                <p style="text-align:center; font-weight:bold">ID : <span class="c_id"></span></p>
                 <hr style="border:solid 0.5px rgb(148, 115, 115);">
                 
             
