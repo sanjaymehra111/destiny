@@ -146,28 +146,28 @@ var currentScrollPos = window.pageYOffset;
                     <ul class="navbar-nav" style="list-style-type:none; font-size: 20px; text-align: left;  margin-left: -40px;">
     
 
-                      <li class="headerlist"><a href="start-a-fundraisers"class="white cause-menu" style="text-decoration:none; cursor: pointer;">Start A Fundraisers</a>                          
+                      <li class="headerlist"><a href="/destiny/start-a-fundraisers"class="white cause-menu" style="text-decoration:none; cursor: pointer;">Start A Fundraisers</a>                          
   
                       </li>
 
 
-                      <li class="headerlist"><a href="how-it-works" class="white events-menu" style="text-decoration:none; cursor: pointer;">How It Works </a>
+                      <li class="headerlist"><a href="/destiny/how-it-works" class="white events-menu" style="text-decoration:none; cursor: pointer;">How It Works </a>
                    
                         </li>
                       
-                      <li class="headerlist"><a href="browse-a-fundraisers" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Browse Fundraisers</a>
+                      <li class="headerlist"><a href="/destiny/browse-a-fundraisers" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Browse Fundraisers</a>
 
                       </li>
-                      <li class="headerlist"><a href="become_a_volunteer" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Become A Volunteer</a>
+                      <li class="headerlist"><a href="/destiny/become_a_volunteer" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Become A Volunteer</a>
                       </li>                  
     
     
                       <!--  for-testing-only -->
     
-                      <li class="headerlist"><a href="user-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">User </a>
+                      <li class="headerlist"><a href="/destiny/user-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">User </a>
                       </li>                  
     
-                      <li class="headerlist"><a href="admin-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Admin</a>
+                      <li class="headerlist"><a href="/destiny/admin-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Admin</a>
                       </li>                  
                       
                       <!--  for-testing-only -->
@@ -224,8 +224,8 @@ var amount = $(this).html();
 <li class="headerlist"><a class="white user-menu1 contact-menu" style="text-decoration:none; cursor: pointer;"><i class="fa fa-user" style="font-size: 25px;"></i> <i class="fa fa-chevron-down" style="font-size: 15px;"></i></a>
   <ul class="dropdown-content user-menu2 contact-menu2" style="list-style-type:none;">
 
-      <a class="internalmenu" href="login" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-in"></i> Login</li></a>
-      <a class="internalmenu" href="start-a-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-user-plus"></i> Sign Up</li></a>
+      <a class="internalmenu" href="/destiny/login" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-in"></i> Login</li></a>
+      <a class="internalmenu" href="/destiny/start-a-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-user-plus"></i> Sign Up</li></a>
       
   </ul>
 </li>

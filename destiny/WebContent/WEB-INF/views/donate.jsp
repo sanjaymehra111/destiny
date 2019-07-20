@@ -8,7 +8,7 @@
         <div class="container-fluid">
         <div class="boxes2">
         
-        <form name="forgor-password"  method="GET">
+        
         
         <style>
         
@@ -291,67 +291,6 @@
                
                 });
         
-
-        /*
-            $(".back-button-2").click(function()
-            {
-            $(".section1-box2").show();
-            $(".section1-box3").hide();
-            });
-        
-            $(".next-button-3").click(function(){
-                
-                var cd1 = $(".card-details-1").val();
-                var cd2 = $(".card-details-2").val();
-                var cd3 = $(".card-details-3").val();
-                var cd4 = $(".card-details-4").val();
-                var cd4l = $(".card-details-4").val().length;
-                
-                if(cd1 == '')
-                {
-                    $(".card-details-1").css({"border":"solid 2px red"});
-                    return false;
-                }
-        
-                else if (cd2 == 0)
-                {
-                    $(".card-details-1").css({"border":"none"});
-                    $(".card-details-2").css({"border":"solid 2px red"});
-                    return false;
-                }
-                
-                else if (cd3 == 0)
-                {
-                    $(".card-details-1").css({"border":"none"});
-                    $(".card-details-2").css({"border":"none"});
-                    $(".card-details-3").css({"border":"solid 2px red"});
-                    return false;
-                }
-                
-                else if (cd4 == '' ||  cd4l >4 ||  cd4l < 3)
-                {
-                    $(".card-details-1").css({"border":"none"});
-                    $(".card-details-2").css({"border":"none"});
-                    $(".card-details-3").css({"border":"none"});
-
-                    $(".card-details-4").css({"border":"solid 2px red"});
-                    return false;
-                }
-                else
-                {
-                    $(".card-details-1").css({"border":"none"});
-                    $(".card-details-2").css({"border":"none"});
-                    $(".card-details-3").css({"border":"none"});
-                    $(".card-details-4").css({"border":"none"});
-                    //alert("asd");
-                    //window.location.href="donate.html";
-                    
-                    return true;
-                }
-            })
-        
-            */
-        
         
         });
         
@@ -374,6 +313,9 @@
         
         <!--Close Button End-->
         
+        
+        <form name="donation-form" action="new_donation" modelAttribute="donation_model"  method="get">
+        
         <!--Section's Start-->
         
         <div class="section1-box1" style="display:block">
@@ -388,41 +330,7 @@
                 <hr style="border:solid 0.5px rgb(148, 115, 115);">
                 
             
-        <!--
-        
-        <style>
-        .amount-type
-        {
-            cursor: pointer;
-        }
-        </style>
-        
-        <script>
-            $(function(){
-                $(".amount-type").click(function(){
-              $(".amount-menu1").click();
-            });
-        
-            $(window).resize(function(){
-                var ww=$(window).width();
-                //alert(ww);
-        
-                if(ww < 400)
-                {
-                    $(".first-amount").hide();
-                }
-                else
-                {
-                    $(".first-amount").show();
-                }
-            });
-        
-            });
-        
-           
-        </script>
-        
-        -->
+    
         
         <div class="col-md-12">
                 <select name="amount_type" style="padding-left: 10px; border-radius: 0px; text-align: center; "  class="fixed-amount-type form-control second-button forgot-all-button">
@@ -441,7 +349,7 @@
                 <br>
             </div>
         <!--    
-        <button type="button" name="user_amount_type" class="amount-type form-control first-button forgot-all-button">
+        <button type="button" name="donor_amount_type" class="amount-type form-control first-button forgot-all-button">
              <span class="first-amount"> Amount Type :</span>  <span style="font-weight: bold; text-transform: uppercase" class="amount-type1" > &#8377; INR </span>
               
             </button>
@@ -463,7 +371,7 @@
         </div>
         
         <div class="col-md-12">
-        <input  type="number" name="user_new_amount" maxlength="10" class="final-amount form-control forgot-all-button second-button" placeholder="Enter Amount"> <br>
+        <input  type="number" name="amount" maxlength="10" class="final-amount form-control forgot-all-button second-button" placeholder="Enter Amount"> <br>
         </div>
         <br>
         
@@ -492,33 +400,36 @@
                 <hr style="border:solid 0.5px rgb(148, 115, 115);">
                 
                 
+        <div class="col-md-12">
+                <input type="text" hidden name="campaign_id"  class="cid" value="" style="height:1px:"><br>
+        </div> 
         
         <div class="col-md-6">
-                <input type="text" name="user_name"  class="user-details-1 form-control second-button forgot-all-button" placeholder="Name*"><br>
+                <input type="text" name="donor_name"  class="user-details-1 form-control second-button forgot-all-button" placeholder="Name*"><br>
         </div>        
         
         <div class="col-md-6">
-                <input type="text" name="user_contact_number" maxlength="10" class="number user-details-2 form-control second-button forgot-all-button" placeholder="Contact Number*"><br>
+                <input type="text" name="donor_contact" maxlength="10" class="number user-details-2 form-control second-button forgot-all-button" placeholder="Contact Number*"><br>
         </div>        
         
         <div class="col-md-6">
-                <input type="text" name="user_email"  class="user-details-3 form-control second-button forgot-all-button" placeholder="Email*"><br>
+                <input type="text" name="donor_email"  class="user-details-3 form-control second-button forgot-all-button" placeholder="Email*"><br>
         </div>        
         
         <div class="col-md-6">
-                <input type="text" name="user_address"  class="form-control second-button forgot-all-button" placeholder="Address"><br>
+                <input type="text" name="donor_address"  class="form-control second-button forgot-all-button" placeholder="Address"><br>
         </div>        
         
         <div class="col-md-6">
-                <input type="text" name="user_city"  class="form-control second-button forgot-all-button" placeholder="City"><br>
+                <input type="text" name="donor_city"  class="form-control second-button forgot-all-button" placeholder="City"><br>
         </div>        
         
         <div class="col-md-6">
-                <input type="text" name="user_country"  class="form-control second-button forgot-all-button" placeholder="Country"><br>
+                <input type="text" name="donor_country"  class="form-control second-button forgot-all-button" placeholder="Country"><br>
         </div>        
         
         <div class="col-md-12">
-                <textarea name="user_message"  class="form-control second-button forgot-all-button" style="border-radius: 0px; resize: none; text-align: left; max-width: 20%; max-height: 20%; min-width: 100%; min-height: 10%;" rows="2" placeholder="Message"></textarea>
+                <textarea name="donor_message"  class="form-control second-button forgot-all-button" style="border-radius: 0px; resize: none; text-align: left; max-width: 20%; max-height: 20%; min-width: 100%; min-height: 10%;" rows="2" placeholder="Message"></textarea>
                     <br>
         </div>        
         
@@ -540,79 +451,8 @@
         
         </div>
         
-        <!--
-        <div class="section1-box3" style="display:none">
-        <div class="col-md-12">
-        <div class="tag-first">
-        <br>
-        
-        <div class="container-fluid" style="margin-bottom: 50px;">
-        
-                <p style="font-size:30px; text-align: center; font-weight: bold; margin-top: -20px;">Donate Now</p>
-                <hr style="border:solid 0.5px rgb(148, 115, 115);">
-                
-                
-        
-        <div class="col-md-12">
-                <input type="text" name="user_card_number"  class="card-details-1 form-control second-button forgot-all-button" placeholder="Card Number"><br>
-        </div>        
-        
-        <div class="col-md-4">
-                <select name="user_card_exp_month" style="padding-left: 10px; padding-right: 0px; border-radius: 0px; "  class="card-details-2 form-control second-button forgot-all-button" placeholder="Contact Number">
-                <option value="0" hidden selected> Exp. Month </option>
-                <option value="1">1</option>    
-                <option value="2">2</option>    
-                <option value="3">3</option>    
-                <option value="4">4</option>    
-                <option value="5">5</option>    
-                <option value="6">6</option>    
-                <option value="7">7</option>    
-                <option value="8">8</option>    
-                <option value="9">9</option>    
-                <option value="10">10</option>    
-                <option value="11">11</option>    
-                <option value="12">12</option>    
-        
-                </select>
-                    <br>
-        </div>        
-        
-        <div class="col-md-4">
-
-                <select name="user_card_exp_date" style="padding-left: 10px; padding-right: 0px; border-radius: 0px; "  class=" card-details-3 form-control second-button forgot-all-button">
-                <option value="0" hidden selected> Exp. Year </option>
-                
-                <option value="2019">2019</option> <option value="2020">2020</option> <option value="2021">2021</option> <option value="2022">2022</option> <option value="2023">2023</option> <option value="2024">2024</option> <option value="2025">2025</option> <option value="2026">2026</option> <option value="2027">2027</option> <option value="2028">2028</option> <option value="2029">2029</option> <option value="2030">2030</option> <option value="2031">2031</option> <option value="2032">2032</option> <option value="2033">2033</option> <option value="2034">2034</option> <option value="2035">2035</option> <option value="2036">2036</option> <option value="2037">2037</option> <option value="2038">2038</option>
-        
-                </select>
-                    <br>
-        </div>          
-        
-        <div class="col-md-4">
-                <input type="number" name="user_card_cvv" style="padding-left: 10px; border-radius: 0px; "    class="card-details-4 form-control second-button forgot-all-button" placeholder="CVV*"><br>
-        </div>        
-        
-               <br>
-               <div class="col-md-6">
-                <button type="button" class="back-button-2 form-control forgot-all-button submit-new-password"><i class="fa fa-chevron-left" style="font-size: 13px;"></i> Previous </button>
-             </div>
-               <div class="col-md-6">
-                <button type="submit" class="next-button-3 form-control forgot-all-button submit-new-password"> Contribute <i class="fa fa-thumbs-o-up" style="font-size: 13px;"></i>  </button>
-               </div>
-        
-        
-        
-        
-        </div>
-        
-        </div> 
-        
-        </div>
-        
-        <div class="col-md-12"></div>
-        
-        </div>
-         -->
+  		</form>
+  		
         <div class="container-fluid"></div>
         </div>
         
@@ -621,7 +461,7 @@
         
         </div>
         
-        </form>
+       
         
         
         </div>

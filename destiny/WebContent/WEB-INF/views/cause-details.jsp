@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <!--For Responsive-->
@@ -19,21 +22,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.5/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
 
-    
+<!-- 
+	 <script>  
+        $(window).on("load", function()
+		{
+        	alert("thanks");
+        		$(".footer_import").load("footer");
+                $(".header_import").load("header");
+                $(".donate-import").load("donate");
+        });
+    </script>
+    -->  
    
 </head>
+ <c:forEach var="fm" items="${data2}" >
+ 
 <body style="font-family: algerrian sans-serif;  background-color: rgba(182, 184, 184, 0.11);">
 
        
 <!--Header Start-->
 
     <div class="header_import">
-    <script>
-    $(function(){
-    $(".header_import").load("header");  
-    })
-    </script>
-    </div>
+    <jsp:include page="header.jsp" />
+     </div>
     
 <!--Header End-->
 
@@ -152,6 +163,10 @@
 
 </style>
 
+
+
+
+
 <div class="cause-details-main">
 
 <div class="cause-details-section">
@@ -162,12 +177,12 @@
 <div class="container-fluid">
     <div class="cause_amount">
     
-        <div class="cause_title">Help My Friend Rahul</div>
+        <div class="cause_title">${fm.fundraisers_title}</div>
 
         <br><br>
         <div class="col-md-5">
-        <span class="t-amount amount-text">Goal &#8377; <span class="goal-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">201205152</span> </span>
-        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"> 55111265  </span></span>
+        <span class="t-amount amount-text">Goal &#8377; <span class="goal-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${fm.fundraisers_goal_amount}</span> </span>
+        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"> ${fm.fundraisers_goal_amount} </span></span>
         <br><br><br>
         </div>
 <script>
@@ -188,7 +203,7 @@ $(function()
         <br><br><br>
         </div>
         <div class="col-md-2">
-                <a href="#" style="text-decoration: none" class="donate-popup"><span class="d-button amount-text"><span style="font-weight: bold">Donate Now</span> </span></a>
+                <a href="#" style="text-decoration: none"  class=" donate-popup"><span class="d-button amount-text"><button value="${fm.fundraisers_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;">Donate Now</button> </span></a>
            <br><br>
         </div>
         
@@ -345,10 +360,10 @@ $(function(){
 <img class="img-icon" src="/destiny/files/images/voulnteer-d.jpg"></p>
 <br><br>
 <button class="verified-button">VERIFIED <i class="fa fa-check-circle"></i></button>
-<p class="tips-text"> Mandar Avhad </p>
-<p class="tips-text"> Self </p>
+<p class="tips-text"> ${fm.personal_name} </p>
+<p class="tips-text"> ${fm.category_type} </p>
 <p class="tips-text">
-<i class="fa fa-map-marker"></i> &nbsp; Delhi 
+<i class="fa fa-map-marker"></i> &nbsp; ${fm.personal_city} 
 &nbsp;<span style="cursor:pointer"> <i class="fa fa-envelope"></i> &nbsp; Message </p></span>
 </div>
 
@@ -362,7 +377,7 @@ $(function(){
 <br><br>
 
 <button class="verified-button">VERIFIED <i class="fa fa-check-circle"></i></button>
-<p class="tips-text"> Vikas Bharadwaj</p>
+<p class="tips-text"> ${fm.fundraisers_name} </p>
 <br>
 </div>
 
@@ -617,20 +632,8 @@ $(function hide_show(){
 
 <div class="col-md-12">
     <p style="font-size: 15px; text-align: justify;">
-            Struggling to pen down a fundraiser story on your own? No worries, just use the template below:
-
-<br><br>
-
-            Hi,
-            <br><br>
             
-            My name is (your name) and I am raising money for (your cause/problem). This is important to me because (write why you want to do this and how will it benefit). I am unable to fund this myself due to (explain your situation and the need for donations). I want to request for your help to achieve this. Please help by donating or sharing the fundraiser with your friends and family.
-            
-            <br><br>
-            
-            
-            We are grateful for your helps!
-            
+            ${fm.fundraisers_story}
             
     </p>
     
@@ -773,161 +776,8 @@ $(function zoom_image(){
 
 <br><br>
 </div>
+
 <!--ELIGIBILITY End-->
-
-
-<!--
-<!-- Donation Start
-<div class="donation-section" style="display: none">
-
-<style>
-.user-pic
-{
-    height:70px; 
-    width:70px;
-    border-radius: 50px;
-    border:solid 2px rgb(0, 0, 0);
-}
-</style>
-
-    <p style="text-align: center; font-size: 25px;">DONATIONS</p>
-    <hr style="border:solid 1.5px rgb(224, 109, 80); text-align: center; width: 90%;">
-    <br>    
-
-<div class="col-md-12">
-
-<div class="col-md-4">
-<div class="container-fluid">
-<img src="/destiny/files/images/single-user.png" class="user-pic" >
-<span style="font-size: 18px; margin-left: 20px; font-weight: bold;">  guru  </span>
-<span style="font-size: 18px; margin-top: 20px; float: right; font-weight: bold;">  $ 502  </span>
-</div>
-<hr style="border-bottom: 1px solid rgb(189, 189, 189)">
-</div>
-
-
-<div class="col-md-4">
-<div class="container-fluid">
-<img src="/destiny/files/images/single-user.png" class="user-pic" >
-<span style="font-size: 18px; margin-left: 20px; font-weight: bold;">  ron  </span>
-<span style="font-size: 18px; margin-top: 20px; float: right; font-weight: bold;">  $ 500  </span>
-</div>
-<hr style="border-bottom: 1px solid rgb(189, 189, 189)">
-</div>
-
-
-<div class="col-md-4">
-<div class="container-fluid">
-<img src="/destiny/files/images/single-user.png" class="user-pic" >
-<span style="font-size: 18px; margin-left: 20px; font-weight: bold;">  Jack  </span>
-<span style="font-size: 18px; margin-top: 20px; float: right; font-weight: bold;">  $ 5030  </span>
-</div>
-<hr style="border-bottom: 1px solid rgb(189, 189, 189)">
-</div>
-</div>
-
-<div class="col-md-12">
-
-<div class="col-md-4">
-<div class="container-fluid">
-<img src="/destiny/files/images/single-user.png" class="user-pic" >
-<span style="font-size: 18px; margin-left: 20px; font-weight: bold;">  sam  </span>
-<span style="font-size: 18px; margin-top: 20px; float: right; font-weight: bold;">  $ 100  </span>
-</div>
-<hr style="border-bottom: 1px solid rgb(189, 189, 189)">
-</div>
-
-
-<div class="col-md-4">
-<div class="container-fluid">
-<img src="/destiny/files/images/single-user.png" class="user-pic" >
-<span style="font-size: 18px; margin-left: 20px; font-weight: bold;">  Jane  </span>
-<span style="font-size: 18px; margin-top: 20px; float: right; font-weight: bold;">  $ 300  </span>
-</div>
-<hr style="border-bottom: 1px solid rgb(189, 189, 189)">
-</div>
-
-
-<div class="col-md-4">
-<div class="container-fluid">
-<img src="/destiny/files/images/single-user.png" class="user-pic" >
-<span style="font-size: 18px; margin-left: 20px; font-weight: bold;">  kito  </span>
-<span style="font-size: 18px; margin-top: 20px; float: right; font-weight: bold;">  $ 54  </span>
-</div>
-<hr style="border-bottom: 1px solid rgb(189, 189, 189)">
-</div>
-</div>
-
-</div>
-<!--AMOUNT DISBURSAL  End
-
-
-
-<!-- Comment Start
-<div class="comment-section" style="display: none">
-
-<style>
-.comment-text-field
-{
-    outline: none;
-    border:none;
-    background-color: transparent;
-    border-bottom: 1px rgb(3, 3, 3) solid;
-    width: 100%;
-    padding: 10px;
-
-}  
-
-.cs-button
-{
-    width:100%;
-    height: 40px;
-    color:white;
-    background-color: rgb(13, 13, 56);
-    outline: none;
-    transition: 0.3s ease-in-out;
-}
-
-.cs-button:hover
-{
-    background-color: rgb(35, 35, 128);
-}
-
-.cs-button:active
-{
-    transition: 0.0s ease-in-out;
-    transform: scale(0.98);
-}
-
-
-</style>
-
-    
-
-    <p style="text-align: center; font-size: 25px;">COMMENT'S</p>
-    <hr style="border:solid 1.5px rgb(224, 109, 80); text-align: center; width: 90%;">
-    <br>    
-
-<div class="col-md-4"></div>
-
-<div class="col-md-4 comments" style="border:solid 1px rgb(199, 196, 196); border-radius: 5px; background-color: rgba(255, 255, 255, 0.692);"> 
-<form name="comments">    
-<br>
-<input type="name" placeholder="Name" class="comment-text-field" required name="user_name"><br><br>
-<input type="email" placeholder="Email" class="comment-text-field" name="user_email"><br><br>
-<input type="number" placeholder="Contact" class="comment-text-field" required name="user_contact"><br><br><br>
-<textarea name="user_comments" rows="" placeholder="Comment's Please" style="max-width: 100%; max-height: 20%; padding: 20px; min-width: 100%; border:solid 1px black;  min-height: 10%; background-color: transparent" class="form-control"></textarea>
-<br><br>
-<button class="cs-button form-control"><i class="fa fa-comments"></i> Submit </button>
-</form>
-</div>
-<div class="container-fluid"></div>
-<br><br>
-
-</div>
-
-<!--SET UP COSTS AND REPAYMENT End
--->
 
 
 </div>
@@ -1093,7 +943,7 @@ function myFunction() {
 
 
 
-<button class="form-control dn-button donate-popup"><i class="fa fa-thumbs-up"></i> DONATE NOW </span></button>    
+<button class="ourcausebtn1 form-control dn-button donate-popup" value="${fm.fundraisers_id}"><i class="fa fa-thumbs-up"></i> DONATE NOW </span></button>    
 <br>
 <p style="font-size: 18px;font-weight: bold; text-align: justify; text-align: center; font-style: italic">Funds will be transferred to the hospital</p>
 <br>
@@ -1135,17 +985,23 @@ function myFunction() {
 <!--Footer Start-->
 
     <div class="footer_import">
-    <script>
-    $(function(){
-    $(".footer_import").load("footer");  
-    })
-    </script>
-    </div>
+    <jsp:include page="footer.jsp" />
+     </div>
   
 
 <!--Footer End-->
 
 
+<script>
+$(function transfer_id(){
+	$(".ourcausebtn1").click(function(){
+    var id = (this).value;
+	//alert(id);
+	$(".c_id").html(id);
+	$(".cid").val(id);
+  });
+})
+</script> 
 
 
 <!--Donate popup Start-->
@@ -1162,15 +1018,12 @@ function myFunction() {
           
     
     <div class="donate-import">
-    <script>
-    $(function(){
-    $(".donate-import").load("donate");  
-    })
-    </script>
-    </div>
+    <jsp:include page="donate.jsp" />
+     </div>
 
 <!--Donate Pop End-->    
 
 
-</body>    
+</body>
+</c:forEach>    
 </html>

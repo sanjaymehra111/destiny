@@ -381,13 +381,8 @@ $(function transfer_id(){
     var id = (this).value;
 	//alert(id);
 	$(".c_id").html(id);
-  });
-
-	$(".camp_id").click(function(){
-  	    (this).attr('id');  
-	  });
-
-	
+	$(".cid").val(id);
+  }); 
 })
 </script> 
 

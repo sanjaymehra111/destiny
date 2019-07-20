@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--Embeded Style Sheet-->
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/destiny/files/style/style.css">
 
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -53,10 +53,13 @@
     <div class="header_import">
         <script>
             $(function () {
-                $(".header_import").load("header.jsp");
+                $(".header_import").load("header");
             })
         </script>
     </div>
+
+
+
 
 
     <!--Header End-->
@@ -147,7 +150,7 @@
     <div class="footer_import">
         <script>
             $(function () {
-                $(".footer_import").load("footer.jsp");
+                $(".footer_import").load("footer");
             })
         </script>
     </div>
