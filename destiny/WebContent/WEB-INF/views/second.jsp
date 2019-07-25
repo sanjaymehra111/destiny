@@ -28,7 +28,7 @@ tr:nth-child(even) {
 </head>
 <body>
 
-Entered details are given below
+Entereds details are given below
 <br><br><br><br>
 Name: ${name} <br><br>
 
