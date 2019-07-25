@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <!--For Responsive-->
@@ -192,10 +195,9 @@ animation-duration: 0.8s;
 
 <p style="font-weight: bold; text-align: center; font-size: 20px;" >OR</p>
 
-    <form name="user-login" method="GET">
+    <form name="user-login" method="get" action="user_login" modelAttribute="user_login_model">
 
         <span class="fa fa-eye show_hide_password"></span>
-        <input type="text" name="user-type" value="user" hidden>
         <input type="text" name="user_id" class="form-control forgot-all-button" placeholder="ID"><br>
         <input type="password" name="user_password" class="new_password form-control forgot-all-button" placeholder="New Password"><br>
        
@@ -203,6 +205,39 @@ animation-duration: 0.8s;
         <input type="submit" class="form-control forgot-all-button submit-new-password">
     </form>
 
+<script>
+$(function check_validation(){
+	var check = $(".check-error").html().length;
+	//alert(check)
+	if(check == "7")
+		$(".error-msg").css({"font-size":"15px"})
+	else
+		return true;
+	
+})
+</script>
+
+<style>
+.error-msg
+{
+font-size:0px;
+transition:0.3s;
+}
+.check-error
+{
+display:none;
+}
+</style>
+
+<div class="check-id">
+<div style="text-align:center; font-size:15px; color:red; text-transform:uppercase; displaye:inline"><span class="error-msg" style="display:block">incorrect password </span><span><a href="#"><i>Forgot Password click here</i></span></div>
+
+
+<div class="check-error">
+${message}
+</div>
+
+</div>
 </div>
 
 

@@ -223,7 +223,7 @@ var amount = $(this).html();
     <a class="internalmenu" href="user-dashboard" style="text-decoration:none"><li class="padding"><i class="fa fa-user-circle-o"></i> My Profile</li></a>
     <a class="internalmenu" href="user-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-bars"></i> My Fundraisers</li></a>
     <a class="internalmenu" href="user-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Change Password</li></a>
-    <a class="internalmenu" href="user-dashboard" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
+    <a class="internalmenu" href="user_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
 </div>  
 
   </ul>

@@ -162,7 +162,7 @@ var currentScrollPos = window.pageYOffset;
                       </li>                  
     
     
-                      <!--  for-testing-only -->
+                      <!--  for-testing-only 
     
                       <li class="headerlist"><a href="/destiny/user-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">User </a>
                       </li>                  
@@ -170,7 +170,7 @@ var currentScrollPos = window.pageYOffset;
                       <li class="headerlist"><a href="/destiny/admin-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Admin</a>
                       </li>                  
                       
-                      <!--  for-testing-only -->
+                        for-testing-only -->
 
 <script>
 

@@ -17,7 +17,7 @@ import com.destiny.model.FundraisersModel;
 public class SpecificCauseDetailsDaoimpl 
 {
 	@Autowired
-	JdbcTemplate template = new JdbcTemplate();
+	JdbcTemplate template;
 	
 	public List<FundraisersModel> fetch(String camp_id)
 	{
@@ -44,7 +44,11 @@ public class SpecificCauseDetailsDaoimpl
 						fm.setFundraisers_email(rs.getString("fundraisers_email"));
 						fm.setFundraisers_beneficiary_relaion(rs.getString("fundraisers_beneficiary_relaion"));
 						fm.setFundraisers_story(rs.getString("fundraisers_story"));
+						fm.setPersonal_aadhar_no(rs.getString("personal_aadhar_no"));
+						fm.setPersonal_pan_no(rs.getString("personal_pan_no"));
+						fm.setPersonal_dob(rs.getString("personal_dob"));
 						
+						//System.out.println(" f id:"+ fm.getFundraisers_id());
 						
 						return fm;
 					}

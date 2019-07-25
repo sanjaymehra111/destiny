@@ -12,30 +12,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.destiny.dao.BrowseFundraisersDaoimpl;
 import com.destiny.dao.FundraisersDaoimpl;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
+import com.destiny.dao.UserLoginDaoimpl;
 import com.destiny.model.FundraisersModel;
 
 @Controller
-public class UserController 
+public class UserRegisterController 
 {
 	@Autowired
-	FundraisersDaoimpl fmdao = new FundraisersDaoimpl();
+	FundraisersDaoimpl fmdao;
 	
 	@Autowired
-	BrowseFundraisersDaoimpl fmdao2 = new BrowseFundraisersDaoimpl ();
+	BrowseFundraisersDaoimpl fmdao2;
 	
 	@Autowired
-	SpecificCauseDetailsDaoimpl smdao = new SpecificCauseDetailsDaoimpl ();
+	SpecificCauseDetailsDaoimpl smdao;
+	
+	
 	
 	//Store data in database
 	
 	@RequestMapping("/new_fundraisers")
 	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraisersModel fm, Model model)
 	{
-		System.out.println(fm.toString());
 		fmdao.save(fm);
-		return "start-a-fundraisers";
+		fetchdetails(fm, model);
+		
+		return "dashboard/user/user-dashboard";
 		
 	}
+	
+	public void fetchdetails(@ModelAttribute("new_fundraisers_model")FundraisersModel fm, Model model)
+	{
+		String f_id = fmdao.fetchData(fm.getPersonal_name(), fm.getPersonal_email());
+		System.out.println("fid data = " + f_id);
+		smdao.fetch(f_id);
+		List<FundraisersModel> data2 = smdao.fetch(f_id);
+		model.addAttribute("data2", data2);
+		model.addAttribute("fm", fm);
+		System.out.println("fetch data of fundraisers details is:" + data2);
+	}
+	
+
 	
 	//Fetch Data from database and show all campaign on browse fundraisers page
 	
@@ -51,11 +68,8 @@ public class UserController
 		model.addAttribute("fundraisers_title", fm.getFundraisers_title());
 		model.addAttribute("fundraisers_goal_amount", fm.getFundraisers_goal_amount());
 		model.addAttribute("fundraisers_story", fm.getFundraisers_story());
-		
 		model.addAttribute("message", "DATA STORED SUUCESSFULLY");
 		
-		//System.out.println("done");
-		//System.out.println(data);
 		return "browse-a-fundraisers";
 	}
 	
@@ -65,8 +79,7 @@ public class UserController
 	@RequestMapping("/cause-details/{camp_id}")
 	public String cause_details(@PathVariable("camp_id") String camp_id, FundraisersModel fm, Model model )
 	{
-		System.out.println(camp_id);
-		
+		//System.out.println(camp_id);
 		
 		List<FundraisersModel> data2 = smdao.fetch(camp_id);
 		model.addAttribute("data2", data2);
@@ -83,11 +96,6 @@ public class UserController
 		return "cause-details";
 		  
 	}
-	
 	 
-		
-	
-   
-
 }
 

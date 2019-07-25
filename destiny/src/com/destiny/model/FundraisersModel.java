@@ -15,6 +15,9 @@ public class FundraisersModel
 	String fundraisers_email;
 	String fundraisers_beneficiary_relaion;
 	String fundraisers_story;
+	String personal_pan_no;
+	String personal_aadhar_no;
+	String personal_dob;
 
 public FundraisersModel()
 {
@@ -23,26 +26,34 @@ public FundraisersModel()
 
 
 
-	public FundraisersModel(String fundraisers_id, String category_type, String personal_name, String personal_email, String personal_number,
-			String personal_city, String fundraisers_title, String fundraisers_goal_amount, String fundraisers_name,
-			String fundraisers_contact, String fundraisers_email, String fundraisers_beneficiary_relaion,
-			String fundraisers_story) {
-		super();
-		this.fundraisers_id = fundraisers_id;
-		this.category_type = category_type;
-		this.personal_name = personal_name;
-		this.personal_email = personal_email;
-		this.personal_number = personal_number;
-		this.personal_city = personal_city;
-		this.fundraisers_title = fundraisers_title;
-		this.fundraisers_goal_amount = fundraisers_goal_amount;
-		this.fundraisers_name = fundraisers_name;
-		this.fundraisers_contact = fundraisers_contact;
-		this.fundraisers_email = fundraisers_email;
-		this.fundraisers_beneficiary_relaion = fundraisers_beneficiary_relaion;
-		this.fundraisers_story = fundraisers_story;
-	}
-	
+
+	public FundraisersModel(String fundraisers_id, String category_type, String personal_name, String personal_email,
+		String personal_number, String personal_city, String fundraisers_title, String fundraisers_goal_amount,
+		String fundraisers_name, String fundraisers_contact, String fundraisers_email,
+		String fundraisers_beneficiary_relaion, String fundraisers_story, String personal_pan_no,
+		String personal_aadhar_no, String personal_dob) {
+	super();
+	this.fundraisers_id = fundraisers_id;
+	this.category_type = category_type;
+	this.personal_name = personal_name;
+	this.personal_email = personal_email;
+	this.personal_number = personal_number;
+	this.personal_city = personal_city;
+	this.fundraisers_title = fundraisers_title;
+	this.fundraisers_goal_amount = fundraisers_goal_amount;
+	this.fundraisers_name = fundraisers_name;
+	this.fundraisers_contact = fundraisers_contact;
+	this.fundraisers_email = fundraisers_email;
+	this.fundraisers_beneficiary_relaion = fundraisers_beneficiary_relaion;
+	this.fundraisers_story = fundraisers_story;
+	this.personal_pan_no = personal_pan_no;
+	this.personal_aadhar_no = personal_aadhar_no;
+	this.personal_dob = personal_dob;
+}
+
+
+
+
 	public String getFundraisers_id() {
 		return fundraisers_id;
 	}
@@ -176,6 +187,63 @@ public FundraisersModel()
 
 
 
+	public String getPersonal_pan_no() {
+		return personal_pan_no;
+	}
+
+
+
+	public void setPersonal_pan_no(String personal_pan_no) {
+		this.personal_pan_no = personal_pan_no;
+	}
+
+
+
+	public String getPersonal_aadhar_no() {
+		return personal_aadhar_no;
+	}
+
+
+
+	public void setPersonal_aadhar_no(String personal_aadhar_no) {
+		this.personal_aadhar_no = personal_aadhar_no;
+	}
+
+
+
+	public String getPersonal_dob() {
+		return personal_dob;
+	}
+
+
+
+	public void setPersonal_dob(String personal_dob) {
+		this.personal_dob = personal_dob;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("FundraisersModel [fundraisers_id=").append(fundraisers_id).append(", category_type=")
+				.append(category_type).append(", personal_name=").append(personal_name).append(", personal_email=")
+				.append(personal_email).append(", personal_number=").append(personal_number).append(", personal_city=")
+				.append(personal_city).append(", fundraisers_title=").append(fundraisers_title)
+				.append(", fundraisers_goal_amount=").append(fundraisers_goal_amount).append(", fundraisers_name=")
+				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
+				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relaion=")
+				.append(fundraisers_beneficiary_relaion).append(", fundraisers_story=").append(fundraisers_story)
+				.append(", personal_pan_no=").append(personal_pan_no).append(", personal_aadhar_no=")
+				.append(personal_aadhar_no).append(", personal_dob=").append(personal_dob).append("]");
+		return builder.toString();
+	}
+
+
+	
+	
+/*
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -191,7 +259,7 @@ public FundraisersModel()
 		return builder.toString();
 	}
 	
-	
+*/	
 
 /*
 	@Override

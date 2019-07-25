@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
 
@@ -24,6 +27,12 @@
 
 
 <title> Destiny World</title>
+
+
+
+
+<c:forEach var="fm" items="${data2}" >
+
 
 <body style="font-family: algerrian sans-serif; background-color: rgba(224, 224, 224, 0.527);">
 
@@ -293,6 +302,7 @@
 
 
 
+
 <div class="user-profile-section">
 <div class="container-fluid"> 
 <div class="col-md-8">
@@ -309,11 +319,11 @@
 <br>
 </div>
 <div class="col-md-4 top-bar-content">
-<span >Email: <br><span class="fatch-data u-o-email">rajan111@gmail.com</span></span><br>
+<span >Email: <br><span class="fatch-data u-o-email">${fm.personal_email}</span></span><br>
 <br>
 </div>
 <div class="col-md-4 top-bar-content">
-<span class="section1-contact">Contact: <br><span class="fatch-data u-o-contact">8447484748</span></span>
+<span class="section1-contact">Contact: <br><span class="fatch-data u-o-contact">${fm.personal_number}</span></span>
 <br>
 <br>
 </div>
@@ -321,15 +331,17 @@
 
 <div class="col-md-12 text-center1 change-details">
 <div class="col-md-4">
-<span >Name: <br> <span class="fatch-data u-o-name">Rajan</span></span><br><br>
-<span >City Of Residence: <br><span class="fatch-data u-o-address">Delhi, India</span></span><br><br>
+<div style="text-overflow: ellipsis; width: 90%; overflow: hidden">
+<span >Name: <br> <span class="fatch-data u-o-name">${fm.personal_name}</span></span><br><br>
+<span >City Of Residence: <br><span class="fatch-data u-o-address">${fm.personal_city}</span></span><br><br>
+</div>
 </div>
 <div class="col-md-4">    
-<span >PAN No. : <br><span class="fatch-data">ACGPM4585T</span></span><br><br>
-<span >Aadhar No. : <br> <span class="fatch-data">3545-2554-7758</span></span><br><br>
+<span >PAN No. : <br><span class="fatch-data pan_data">${fm.personal_pan_no}</span></span><br><br>
+<span >Aadhar No. : <br> <span class="fatch-data aadhar_data">${fm.personal_aadhar_no}</span></span><br><br>
 </div>
 <div class="col-md-4">    
-<span >Date Of Birth: <br><span class="fatch-data u-o-dob">04-05-2018</span></span><br><br>
+<span >Date Of Birth: <br><span class="fatch-data u-o-dob">${fm.personal_dob}</span></span><br><br>
 
 <div class="all-button">
 
@@ -556,20 +568,25 @@ function readURL(input)
 </div>
 
 <div class="col-md-12 text-center1 change-details" style="text-align: center">
+
+<form name="user_update_details" action="user_update_details" modelAttribute="user_update_model">
+
+<input type="text" name="fundraisers_id" value="${fm.fundraisers_id}" hidden>
+
 <div class="col-md-4">
 <span>Name <br> <span class="fatch-data">
-    <input type="text" name="new_user_name" class="new_details u-n-name">
+    <input type="text" name="personal_name" maxlength="30" class="new_details u-n-name">
 </span></span><br><br>
 </div>
 
 <div class="col-md-4">
 <span >City Of Residence: <br><span class="fatch-data">
-        <input type="text" name="new_user_address" class="new_details u-n-address">
+        <input type="text" name="personal_city" maxlength="50" class="new_details u-n-address">
 </span></span><br><br>
 </div>
 <div class="col-md-4">    
 <span >Date Of Birth: <br><span class="fatch-data">
-        <input type="text" onfocus="this.type='date'" name="new_user_dob" class="new_details date-hide u-n-dob">
+        <input type="text" onfocus="this.type='date'" name="personal_dob" class="new_details date-hide u-n-dob">
 </span></span><br><br>
 </div>
 
@@ -579,13 +596,16 @@ function readURL(input)
     <span class="hide-error">Please Fill All Necessary Details</span>
 <div class="hide-button2" style="display: block">
 <button type="button" class="cancel-button1 button1">Cancel</button>
-<button class="save-button1 button1">Save</button>
+<button type="submit" class="save-button1 button1">Save</button>
 </div>
 
 </div>
 
 <br><br><br>
 </div>
+
+</form>
+
 </div>
 
 </form>
@@ -646,30 +666,87 @@ function readURL(input)
 
 <br><br>
 
+<script>
+$(function(){
+	var pan = $(".pan_data").html().length;
+	var aadhar = $(".aadhar_data").html().length;
+	//alert(pan);
+	
+	if (pan > 5)
+		{
+			$(".pan_card_tag").hide();		
+		}
+
+	else
+	{
+		$(".pan_card_tag").show();
+	}
+	
+	if (aadhar > 5)
+		{
+			$(".aadhar_card_tag").hide();
+		}
+	
+	else
+	{
+		$(".aadhar_card_tag").show();
+	}
+		
+	if (pan > 5 && aadhar >5)
+		{
+			$(".pr-section3").hide();
+		}
+	
+	else
+	{
+		$(".pr-section3").show();
+		
+	}
+	
+	
+	
+		
+
+})
+
+</script>
+
+
 <div class="pr-section3">
 <div class="container-fluid">
 <div class="section1-data3">
 <br><br>
 
 <div class="col-md-12 text-center1 change-details">
+
+<div class="pan_card_tag">
+<form name="user-pan-no" action="user_pan_update" modelAttribute="user_update_model">
 <div class="col-md-8"> 
-<input type="text" class="pan-number pan-aadhar-number" name="pan_number" placeholder="PAN CARD NUMBER">   <br> <br>
+<input type="text" name="fundraisers_id" value="${fm.fundraisers_id}" hidden>
+<input type="text" class="pan-number pan-aadhar-number" name="personal_pan_no" placeholder="PAN CARD NUMBER">   <br> <br>
 </div>
 <div class="col-md-4"> 
-    <button class="button2"> Submit</button>
+    <button type="submit" class="button2"> Submit</button>
 </div>
+</form>
+
+</div>
+
 <br><br>
 
-
+<div class="aadhar_card_tag">
+<form name="user-pan-no" action="user_aadhar_update" modelAttribute="user_update_model">
 <div class="col-md-8"> 
-<input type="text" class="aadhar-number pan-aadhar-number" name="aadhar_number" placeholder="AADHAR CARD NUMBER">   <br> <br>
+<input type="text" name="fundraisers_id" value="${fm.fundraisers_id}" hidden>
+<input type="text" class="aadhar-number pan-aadhar-number" name="personal_aadhar_no" placeholder="AADHAR CARD NUMBER">   <br> <br>
 </div>
 <div class="col-md-4"> 
     <button class="button2"> Submit</button>
 
 <br><br><br>
 </div>
-
+</form>
+</div>
 
 </div>
 </div>
@@ -892,7 +969,7 @@ Successfully Update
 </div>
 
 
-<br><br>
+
 <br><br>
 
 
@@ -915,5 +992,9 @@ Successfully Update
 
         
 </body>
+</c:forEach>
+
+serssion id = ${sessionScope.s_id}
+
 
 </html>
