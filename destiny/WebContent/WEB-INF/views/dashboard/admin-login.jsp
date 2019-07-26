@@ -161,16 +161,55 @@
             <p style="font-size:30px; text-align: center">Admin Login</p>
             <hr style="border:solid 0.5px rgb(148, 115, 115);">
  
-        <form name="admin-login" method="GET">
+        <form name="admin-login" method="GET" action="admin_login" modelAttributes="admin_login_model">
     
             <span class="fa fa-eye show_hide_password"></span>
-            <input type="text" name="user-type" value="admin" hidden>
-            <input type="text" name="user_id" class="form-control forgot-all-button" placeholder="ID"><br>
-            <input type="password" name="user_password" class="new_password form-control forgot-all-button" placeholder="New Password"><br>
+            <input type="text" name="admin_id" class="form-control forgot-all-button" placeholder="ID"><br>
+            <input type="password" name="admin_password" class="new_password form-control forgot-all-button" placeholder="New Password"><br>
            
            <br>
             <input type="submit" class="form-control forgot-all-button submit-new-password">
         </form>
+    
+    <div class="error-content">
+    <style>
+    .error-content
+    {
+    	font-size:18px; 
+    	text-align:center; 
+    	text-transform:uppercase;
+    }
+    
+    .hide-error
+    {
+    	display:none;
+    }
+    
+    .show-error
+    {
+    	color:red; 
+    	font-family:bold;
+    	transition:0.3s;
+    	font-size:0px;
+    }
+    
+    </style>
+	    <span class="hide-error">${message}</span>
+		<span class="show-error">invalid id and password</span><br>
+	    <span class="forgot-password"><a href="#" style="text-decoration:auto">Forgot Password Click Here</a></span>
+    </div>
+    
+    <script>
+    $(function(){
+    	var hr = $(".hide-error").html().length;
+    	//alert(hr);
+    	if (hr == 5)
+    		$(".show-error").css({"font-size":"18px"});
+    	else
+    		return true;
+    		
+    })
+    </script>
     
     </div>
     

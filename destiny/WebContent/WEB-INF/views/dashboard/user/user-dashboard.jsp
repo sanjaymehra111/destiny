@@ -995,6 +995,15 @@ Successfully Update
 </c:forEach>
 
 serssion id = ${sessionScope.s_id}
+<br><br>
+
+<c:forEach var="ulm" items="${data}">
+
+f id = ${ulm.fundraisers_id}
+<br><br>
+Data = ${data}
+
+</c:forEach>
 
 
 </html>

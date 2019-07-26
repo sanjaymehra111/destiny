@@ -2,21 +2,14 @@
 package com.destiny.controller;
 
 import java.util.List;
-
-import javax.naming.Binding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.annotation.SessionScope;
-
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
 import com.destiny.dao.UserLoginDaoimpl;
 import com.destiny.model.FundraisersModel;
@@ -35,30 +28,46 @@ public class UserLoginController
 	@RequestMapping("/user_login")
 	public String userlogin(@ModelAttribute ("user_login_model")UserLoginModel ulm, FundraisersModel fm, Model model, HttpSession session, HttpServletRequest req)
 	{
-		checkSession(ulm, fm, model, session, req);
 		
-		String sid = (String) session.getAttribute("s_id");
-		System.out.println(" session id is = " + sid );
 		
-		if(sid != null)
+		List<UserLoginModel> data = uldao.checkLogin(ulm);
+		model.addAttribute("data", data);
+		model.addAttribute("fundraisers_id", ulm.getfundraisers_id());
+		
+		//System.out.println("controller data is string: " + data.set(0, ulm));
+		
+			
+		//System.out.println("data is : " + data.get(0));
+		
+		/*
+		UserLoginModel check = data.get(0);
+		
+		System.out.println("dao data in controller" + data);
+		System.out.println(" session id is = " + check);
+		System.out.println(" id = "+ ulm.getfundraisers_id());
+		
+		
+		//return "dashboard/user/user-dashboard";
+		*/
+	
+		if(data != null)
 		 {
-			
 			return "dashboard/user/user-dashboard";
-			
 		 }
 		   
 		 else  
 		 {
-			 System.out.println("error");
+			 model.addAttribute("message", "invalid id and password");
 			 return "login";
 		 }
 		
 	}
 	
+	/*
 	
 	public void checkSession(@ModelAttribute ("user_login_model")UserLoginModel ulm, FundraisersModel fm, Model model, HttpSession session, HttpServletRequest req)
 	{
-		String f_id = uldao.checkLogin(ulm.getUser_id(), ulm.getUser_password());
+		List<UserLoginModel> f_id = (List<UserLoginModel>) uldao.checkLogin(ulm);
 		session.setAttribute("s_id", f_id);
 		String sid = (String) session.getAttribute("s_id");
 		
@@ -71,7 +80,7 @@ public class UserLoginController
 		
 	}
 	
-	
+	*/
 	
 	@RequestMapping("/user_logout")
 	public String logoutSession(HttpSession session)

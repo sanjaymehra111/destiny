@@ -209,7 +209,7 @@ animation-duration: 0.8s;
 $(function check_validation(){
 	var check = $(".check-error").html().length;
 	//alert(check)
-	if(check == "7")
+	if(check == "25")
 		$(".error-msg").css({"font-size":"15px"})
 	else
 		return true;
@@ -221,7 +221,7 @@ $(function check_validation(){
 .error-msg
 {
 font-size:0px;
-transition:0.3s;
+transition:10.3s;
 }
 .check-error
 {
@@ -230,7 +230,7 @@ display:none;
 </style>
 
 <div class="check-id">
-<div style="text-align:center; font-size:15px; color:red; text-transform:uppercase; displaye:inline"><span class="error-msg" style="display:block">incorrect password </span><span><a href="#"><i>Forgot Password click here</i></span></div>
+<div style="text-align:center; font-size:15px; color:red; text-transform:uppercase; displaye:inline"><span class="error-msg" style="display:block">incorrect Emial and Password </span><span><a href="#"><i>Forgot Password click here</i></span></div>
 
 
 <div class="check-error">

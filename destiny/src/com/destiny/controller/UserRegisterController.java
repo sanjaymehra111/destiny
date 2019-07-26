@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.destiny.dao.BrowseFundraisersDaoimpl;
+import com.destiny.dao.FundraiserDaoimpl;
 import com.destiny.dao.FundraisersDaoimpl;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
 import com.destiny.dao.UserLoginDaoimpl;
+import com.destiny.model.CampaignsModel.CampaignModel;
+import com.destiny.model.FundraiserModel;
 import com.destiny.model.FundraisersModel;
 
 @Controller
@@ -27,10 +30,25 @@ public class UserRegisterController
 	@Autowired
 	SpecificCauseDetailsDaoimpl smdao;
 	
+	@Autowired
+	FundraiserDaoimpl fdmdao;
 	
+	
+	@RequestMapping("/new_fundraisers")
+	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraisersModel fm,  Model model)
+	{
+		System.out.println("data comming");
+		System.out.println("fm data : " + fm.toString());
+		
+		fdmdao.save(fm);
+		//fdmdao.save(cm);
+		
+		return "dashboard/user/user-dashboard";
+		
+	}
 	
 	//Store data in database
-	
+	/*
 	@RequestMapping("/new_fundraisers")
 	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraisersModel fm, Model model)
 	{
@@ -40,7 +58,7 @@ public class UserRegisterController
 		return "dashboard/user/user-dashboard";
 		
 	}
-	
+	*/
 	public void fetchdetails(@ModelAttribute("new_fundraisers_model")FundraisersModel fm, Model model)
 	{
 		String f_id = fmdao.fetchData(fm.getPersonal_name(), fm.getPersonal_email());
