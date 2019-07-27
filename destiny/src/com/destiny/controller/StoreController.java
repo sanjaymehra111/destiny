@@ -2,6 +2,7 @@ package com.destiny.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.destiny.dao.Daoimpl;
+import com.destiny.dao.SpecificCauseDetailsDaoimpl;
+import com.destiny.model.FundraisersModel;
+import com.destiny.model.SessionModel;
 import com.destiny.model.StoreModel;
 
 @Controller
@@ -18,7 +23,11 @@ public class StoreController
 {
 	
 	@Autowired
-	Daoimpl dao = new Daoimpl();
+	Daoimpl dao;
+	
+	@Autowired
+	SpecificCauseDetailsDaoimpl smdao;
+
 	
 	//************************* Controller *************************//
 	
@@ -27,7 +36,7 @@ public class StoreController
 	{
 		System.out.println(sm.toString());
 		
-		//Save data
+		//Save data  
 		dao.save(sm);
 		
 		//Fetch data
@@ -89,9 +98,17 @@ public class StoreController
 	//*************************home menu Mapping*************************//
 	
 	@RequestMapping("/start-a-fundraisers")
-	public String start_a_fundraisers(Model model)
+	public String start_a_fundraisers(Model model, HttpSession session)
 	{
-		return "start-a-fundraisers";
+	/*	SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		//if session is null then redirect to login page
+		//System.out.println("sid is : " + sesModel.toString());
+		
+		if (sesModel == null)
+			return "index";
+		
+		else*/
+			return "start-a-fundraisers";
 		
 	}
 	
@@ -120,11 +137,36 @@ public class StoreController
 		
 	}
 
-	@RequestMapping("/user-dashboard")
-	public String user_dashboard(Model model)
+	@RequestMapping(value="/user-dashboard", method=RequestMethod.GET)
+	public String user_dashboard(HttpSession session,Model model,@ModelAttribute("fundraisers_id")String fid,@ModelAttribute("fundraisersModel")FundraisersModel fm)
 	{
-
-		return "dashboard/user/user-dashboard";
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		//if session is null then redirect to login page
+		//System.out.println("sid is : " + sesModel.toString());
+		
+		System.out.println("fid : " +fid);
+		
+		if(!fid.equals("")){
+			
+			
+			List<FundraisersModel> data2 = smdao.fetch(fid);
+			model.addAttribute("data2", data2);
+			model.addAttribute("fm", fm);
+			return "dashboard/user/user-dashboard";
+		}
+		else {
+			if(sesModel!=null){
+				List<FundraisersModel> data2 = smdao.fetch(sesModel.getUser_id());
+				model.addAttribute("data2", data2);
+				model.addAttribute("fm", fm);
+				return "dashboard/user/user-dashboard";
+				
+			}
+			else{
+				return "redirect:/index";					
+			}
+		}
+		
 		
 	}
 

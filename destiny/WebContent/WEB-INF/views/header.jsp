@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <script>
 
@@ -162,11 +164,30 @@ var currentScrollPos = window.pageYOffset;
                       </li>                  
     
     
-                      <!--  for-testing-only 
+                    
+    <script>
+    $(function chech_session(){
+    	var cs = $(".chech-session").html().length;
+    	//alert(cs);
+    	if(cs == "" || cs == null || cs == 0)
+    		$(".validate-dashboard").hide();
+    	else
+    		$(".validate-dashboard").show();
+    })
+    </script>
+    <style>
+    .chech-session
+    {	
+    	font-size: 0px;
+    }
+    </style>
     
-                      <li class="headerlist"><a href="/destiny/user-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">User </a>
-                      </li>                  
-    
+            <span class="chech-session">${sessionData}</span>
+            
+                    <li class="headerlist validate-dashboard"><a href="/destiny/user-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Dashboard </a>
+                      </li>
+                        
+      				<!--  for-testing-only 
                       <li class="headerlist"><a href="/destiny/admin-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Admin</a>
                       </li>                  
                       

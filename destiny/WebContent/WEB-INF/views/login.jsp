@@ -195,7 +195,7 @@ animation-duration: 0.8s;
 
 <p style="font-weight: bold; text-align: center; font-size: 20px;" >OR</p>
 
-    <form name="user-login" method="get" action="user_login" modelAttribute="user_login_model">
+    <form name="user-login" method="post" modelAttribute="user_login_model">
 
         <span class="fa fa-eye show_hide_password"></span>
         <input type="text" name="user_id" class="form-control forgot-all-button" placeholder="ID"><br>
@@ -221,7 +221,7 @@ $(function check_validation(){
 .error-msg
 {
 font-size:0px;
-transition:10.3s;
+transition:.3s;
 }
 .check-error
 {

@@ -4,16 +4,23 @@ package com.destiny.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.eclipse.jdt.internal.compiler.lookup.MethodScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
 import com.destiny.dao.UserLoginDaoimpl;
 import com.destiny.model.FundraisersModel;
+import com.destiny.model.SessionModel;
 import com.destiny.model.UserLoginModel;
+import com.google.protobuf.Method;
 
 @Controller
 @Scope("session")
@@ -25,18 +32,41 @@ public class UserLoginController
 	@Autowired
 	SpecificCauseDetailsDaoimpl smdao;
 	
-	@RequestMapping("/user_login")
-	public String userlogin(@ModelAttribute ("user_login_model")UserLoginModel ulm, FundraisersModel fm, Model model, HttpSession session, HttpServletRequest req)
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String userlogin(@ModelAttribute ("user_login_model")UserLoginModel ulm, FundraisersModel fm, Model model, HttpSession session, HttpServletRequest req, RedirectAttributes redirectAttributes)
 	{
 		
 		
-		List<UserLoginModel> data = uldao.checkLogin(ulm);
-		model.addAttribute("data", data);
-		model.addAttribute("fundraisers_id", ulm.getfundraisers_id());
-		
-		//System.out.println("controller data is string: " + data.set(0, ulm));
-		
+		UserLoginModel data = uldao.checkLogin(ulm);
+		if(data != null) 	
+		{
+			//model.addAttribute("fundraisers_id", data.getfundraisers_id());
 			
+			SessionModel sessionModel = new SessionModel();
+			sessionModel.setUser_id(data.getfundraisers_id());
+			sessionModel.setSession_id(req.getSession().getId());
+			sessionModel.setTime(session.getCreationTime());
+			session.setAttribute("sessionData", sessionModel);
+			
+			redirectAttributes.addFlashAttribute("fundraisers_id", data.getfundraisers_id());
+			redirectAttributes.addFlashAttribute("fundraisersModel",fm)	;	
+			 
+			//String s_fid = sessionModel.getUser_id();
+			//redirectAttributes.addAttribute("s_fid", s_fid);
+			
+				return "redirect:/user-dashboard";
+			
+		}
+		
+		 
+		   
+		 else  
+		 {
+			 model.addAttribute("message", "invalid id and password");
+			 return "login";
+		 }
+		
+		
 		//System.out.println("data is : " + data.get(0));
 		
 		/*
@@ -50,18 +80,11 @@ public class UserLoginController
 		//return "dashboard/user/user-dashboard";
 		*/
 	
-		if(data != null)
-		 {
-			return "dashboard/user/user-dashboard";
-		 }
-		   
-		 else  
-		 {
-			 model.addAttribute("message", "invalid id and password");
-			 return "login";
-		 }
+	
+	
 		
 	}
+	
 	
 	/*
 	
