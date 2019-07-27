@@ -13,7 +13,7 @@ public class FundraisersModel
 	String fundraisers_name;
 	String fundraisers_contact;
 	String fundraisers_email;
-	String fundraisers_beneficiary_relaion;
+	String fundraisers_beneficiary_relation;
 	String fundraisers_story;
 	String personal_pan_no;
 	String personal_aadhar_no;
@@ -30,7 +30,7 @@ public FundraisersModel()
 	public FundraisersModel(String fundraisers_id, String category_type, String personal_name, String personal_email,
 		String personal_number, String personal_city, String fundraisers_title, String fundraisers_goal_amount,
 		String fundraisers_name, String fundraisers_contact, String fundraisers_email,
-		String fundraisers_beneficiary_relaion, String fundraisers_story, String personal_pan_no,
+		String fundraisers_beneficiary_relation, String fundraisers_story, String personal_pan_no,
 		String personal_aadhar_no, String personal_dob) {
 	super();
 	this.fundraisers_id = fundraisers_id;
@@ -44,7 +44,7 @@ public FundraisersModel()
 	this.fundraisers_name = fundraisers_name;
 	this.fundraisers_contact = fundraisers_contact;
 	this.fundraisers_email = fundraisers_email;
-	this.fundraisers_beneficiary_relaion = fundraisers_beneficiary_relaion;
+	this.fundraisers_beneficiary_relation = fundraisers_beneficiary_relation;
 	this.fundraisers_story = fundraisers_story;
 	this.personal_pan_no = personal_pan_no;
 	this.personal_aadhar_no = personal_aadhar_no;
@@ -166,13 +166,13 @@ public FundraisersModel()
 	}
 
 
-	public String getFundraisers_beneficiary_relaion() {
-		return fundraisers_beneficiary_relaion;
+	public String getFundraisers_beneficiary_relation() {
+		return fundraisers_beneficiary_relation;
 	}
 
 
-	public void setFundraisers_beneficiary_relaion(String fundraisers_beneficiary_relaion) {
-		this.fundraisers_beneficiary_relaion = fundraisers_beneficiary_relaion;
+	public void setFundraisers_beneficiary_relation(String fundraisers_beneficiary_relation) {
+		this.fundraisers_beneficiary_relation = fundraisers_beneficiary_relation;
 	}
 
 
@@ -233,12 +233,17 @@ public FundraisersModel()
 				.append(personal_city).append(", fundraisers_title=").append(fundraisers_title)
 				.append(", fundraisers_goal_amount=").append(fundraisers_goal_amount).append(", fundraisers_name=")
 				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
-				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relaion=")
-				.append(fundraisers_beneficiary_relaion).append(", fundraisers_story=").append(fundraisers_story)
+				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relation=")
+				.append(fundraisers_beneficiary_relation).append(", fundraisers_story=").append(fundraisers_story)
 				.append(", personal_pan_no=").append(personal_pan_no).append(", personal_aadhar_no=")
 				.append(personal_aadhar_no).append(", personal_dob=").append(personal_dob).append("]");
 		return builder.toString();
 	}
+
+
+
+
+
 
 
 	
@@ -253,8 +258,8 @@ public FundraisersModel()
 				.append(personal_city).append(", fundraisers_title=").append(fundraisers_title)
 				.append(", fundraisers_goal_amount=").append(fundraisers_goal_amount).append(", fundraisers_name=")
 				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
-				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relaion=")
-				.append(fundraisers_beneficiary_relaion).append(", fundraisers_story=").append(fundraisers_story)
+				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relation=")
+				.append(fundraisers_beneficiary_relation).append(", fundraisers_story=").append(fundraisers_story)
 				.append("]");
 		return builder.toString();
 	}
@@ -271,7 +276,7 @@ public FundraisersModel()
 				.append(fundraisers_title).append(", fundraisers_goal_amount=").append(fundraisers_goal_amount)
 				.append(", fundraisers_name=").append(fundraisers_name).append(", fundraisers_contact=")
 				.append(fundraisers_contact).append(", fundraisers_email=").append(fundraisers_email)
-				.append(", fundraisers_beneficiary_relaion=").append(fundraisers_beneficiary_relaion)
+				.append(", fundraisers_beneficiary_relation=").append(fundraisers_beneficiary_relation)
 				.append(", fundraisers_story=").append(fundraisers_story).append("]");
 		return builder.toString();
 	}

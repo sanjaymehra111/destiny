@@ -37,11 +37,8 @@ public class UserRegisterController
 	@RequestMapping("/new_fundraisers")
 	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraisersModel fm,  Model model)
 	{
-		System.out.println("data comming");
-		System.out.println("fm data : " + fm.toString());
 		
 		fdmdao.save(fm);
-		//fdmdao.save(cm);
 		
 		return "dashboard/user/user-dashboard";
 		

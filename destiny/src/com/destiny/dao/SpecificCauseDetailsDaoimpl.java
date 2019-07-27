@@ -42,7 +42,7 @@ public class SpecificCauseDetailsDaoimpl
 						fm.setFundraisers_name(rs.getString("fundraisers_name"));
 						fm.setFundraisers_contact(rs.getString("fundraisers_contact"));
 						fm.setFundraisers_email(rs.getString("fundraisers_email"));
-						fm.setFundraisers_beneficiary_relaion(rs.getString("fundraisers_beneficiary_relaion"));
+						fm.setFundraisers_beneficiary_relation(rs.getString("fundraisers_beneficiary_relaion"));
 						fm.setFundraisers_story(rs.getString("fundraisers_story"));
 						fm.setPersonal_aadhar_no(rs.getString("personal_aadhar_no"));
 						fm.setPersonal_pan_no(rs.getString("personal_pan_no"));
