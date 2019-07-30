@@ -603,7 +603,7 @@ $(function(){
 </div>        
 
 <div class="col-md-12">
-        <select name="fundraisers_beneficiary_relaion" class="form-control fund-details6" style="height: 50px; font-size: 18px;  background-color: rgba(42, 124, 145, 0.767); color:white">
+        <select name="fundraisers_beneficiary_relation" class="form-control fund-details6" style="height: 50px; font-size: 18px;  background-color: rgba(42, 124, 145, 0.767); color:white">
             <option value="0" style="text-align: center" hidden selected>Relation With Beneficiary</option>
             <option value="self">SELF</option>
             <option value="parent">PARENT</option>

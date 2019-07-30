@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.destiny.dao.BrowseFundraisersDaoimpl;
+import com.destiny.dao.BrowseFundraiserDaoimpl;
 import com.destiny.dao.FundraiserDaoimpl;
 import com.destiny.dao.FundraisersDaoimpl;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
-import com.destiny.dao.UserLoginDaoimpl;
-import com.destiny.model.CampaignsModel.CampaignModel;
+import com.destiny.model.CampaignsModel;
 import com.destiny.model.FundraiserModel;
-import com.destiny.model.FundraisersModel;
 import com.destiny.model.SessionModel;
 
 @Controller
@@ -29,25 +27,29 @@ public class UserRegisterController
 	FundraisersDaoimpl fmdao;
 	
 	@Autowired
-	BrowseFundraisersDaoimpl fmdao2;
+	BrowseFundraiserDaoimpl fmdao2;
 	
 	@Autowired
 	SpecificCauseDetailsDaoimpl smdao;
 	
 	@Autowired
 	FundraiserDaoimpl fdmdao;
-	
+	 
 	
 	@RequestMapping("/new_fundraisers")
-	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraisersModel fm,  Model model,
+	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraiserModel fm, CampaignsModel cm, Model model,
 			HttpSession session, RedirectAttributes redirectAttributes)
 	{	
-		String f_id = String.valueOf(fdmdao.save(fm));
+		String f_id = String.valueOf(fdmdao.InserIntoFundraiser(fm));
+		fdmdao.InserIntoCampaign(cm, fm);
+		
 		System.out.println("id in controller : " +  f_id);
 		
-		List<FundraisersModel> data2 = smdao.fetch(f_id);
+		List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(f_id);
 		model.addAttribute("data2", data2);
 		model.addAttribute("fm", fm);
+		
+		
 		SessionModel sessionModel = new SessionModel();
 		sessionModel.setUser_id(f_id);
 		sessionModel.setSession_id(session.getId());
@@ -55,7 +57,7 @@ public class UserRegisterController
 		session.setAttribute("sessionData", sessionModel);
 		  
 		redirectAttributes.addFlashAttribute("fundraisers_id",f_id);
-		redirectAttributes.addFlashAttribute("fundraisersModel",fm)	;	
+		redirectAttributes.addFlashAttribute("fundraiserModel",fm)	;	
 		 
 		//String s_fid = sessionModel.getUser_id();
 		//redirectAttributes.addAttribute("s_fid", s_fid);
@@ -67,7 +69,7 @@ public class UserRegisterController
 	//Store data in database
 	/*
 	@RequestMapping("/new_fundraisers")
-	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraisersModel fm, Model model)
+	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraiserModel fm, Model model)
 	{
 		fmdao.save(fm);
 		fetchdetails(fm, model);
@@ -76,59 +78,55 @@ public class UserRegisterController
 		
 	}
 	*/
-	public void fetchdetails(@ModelAttribute("new_fundraisers_model")FundraisersModel fm, Model model)
-	{
-		String f_id = fmdao.fetchData(fm.getPersonal_name(), fm.getPersonal_email());
-		System.out.println("fid data = " + f_id);
-		smdao.fetch(f_id);
-		List<FundraisersModel> data2 = smdao.fetch(f_id);
-		model.addAttribute("data2", data2);
-		model.addAttribute("fm", fm);
-		System.out.println("fetch data of fundraisers details is:" + data2);
-	}
 	
+//	
+//	public void fetchdetails(@ModelAttribute("new_fundraisers_model")FundraiserModel fm, Model model)
+//	{
+//		String f_id = fmdao.fetchData(fm.getPersonal_name(), fm.getPersonal_email());
+//		System.out.println("fid data = " + f_id);
+//		smdao.fetch(f_id);
+//		List<FundraiserModel> data2 = smdao.fetch(f_id);
+//		model.addAttribute("data2", data2);
+//		model.addAttribute("fm", fm);
+//		System.out.println("fetch data of fundraisers details is:" + data2);
+//	}
+//	
 
 	
-	//Fetch Data from database and show all campaign on browse fundraisers page
+	//Fetch campaign and fundraisers details from database and show all campaign on browse fundraisers page
 	
 	@RequestMapping("/browse-a-fundraisers")
-	public String browse_a_fundraisers(FundraisersModel fm, Model model)
+	public String browse_a_fundraisers(FundraiserModel fm, Model model, CampaignsModel cm)
 	{
-		//Fetch Data
-		
-		List<FundraisersModel> data = fmdao2.fetch();
+		List<FundraiserModel> data = fmdao2.fetchFundraisersDetails();
+		List<CampaignsModel> data2 = fmdao2.fetchCampaignsDetails();
+	
 		model.addAttribute("data", data);
-		
-		model.addAttribute("fundraisers_id", fm.getFundraisers_id());
-		model.addAttribute("fundraisers_title", fm.getFundraisers_title());
-		model.addAttribute("fundraisers_goal_amount", fm.getFundraisers_goal_amount());
-		model.addAttribute("fundraisers_story", fm.getFundraisers_story());
-		model.addAttribute("message", "DATA STORED SUUCESSFULLY");
+		model.addAttribute("data2", data2);
+		model.addAttribute("fm", fm);
+		model.addAttribute("cm", cm);
+ 		
 		
 		return "browse-a-fundraisers";
 	}
 	
-	
 	//Fetch Data from database and show specific campaign details
 	
-	@RequestMapping("/cause-details/{camp_id}")
-	public String cause_details(@PathVariable("camp_id") String camp_id, FundraisersModel fm, Model model )
+	@RequestMapping("/specific-cause-details/{fund_id}/{camp_id}")
+	public String cause_details(@PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, FundraiserModel fm, CampaignsModel cm, Model model )
 	{
 		//System.out.println(camp_id);
 		
-		List<FundraisersModel> data2 = smdao.fetch(camp_id);
-		model.addAttribute("data2", data2);
+		List<FundraiserModel> data3 = smdao.fetchFundraisersDetails(fund_id);
+		List<CampaignsModel> data4 = smdao.fetchCampaignsDetails(camp_id);
+	
+		model.addAttribute("data3", data3);
+		model.addAttribute("data4", data4);
+		model.addAttribute("fm", fm);
+		model.addAttribute("cm", cm);
+ 		
 		
-		model.addAttribute("fundraisers_id", fm.getFundraisers_id());
-		model.addAttribute("fundraisers_title", fm.getFundraisers_title());
-		model.addAttribute("fundraisers_goal_amount", fm.getFundraisers_goal_amount());
-		model.addAttribute("fundraisers_story", fm.getFundraisers_story());
-		model.addAttribute("personal_name", fm.getPersonal_name());
-		model.addAttribute("personal_city", fm.getPersonal_city());
-		model.addAttribute("category_type", fm.getCategory_type());
-		model.addAttribute("fundraisers_name", fm.getFundraisers_name());
-		
-		return "cause-details";
+		return "specific-cause-details";	 
 		  
 	}
 	 

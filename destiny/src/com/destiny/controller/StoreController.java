@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.destiny.dao.Daoimpl;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
+import com.destiny.model.FundraiserModel;
 import com.destiny.model.FundraisersModel;
 import com.destiny.model.SessionModel;
 import com.destiny.model.StoreModel;
@@ -138,25 +139,25 @@ public class StoreController
 	}
 
 	@RequestMapping(value="/user-dashboard", method=RequestMethod.GET)
-	public String user_dashboard(HttpSession session,Model model,@ModelAttribute("fundraisers_id")String fid,@ModelAttribute("fundraisersModel")FundraisersModel fm)
+	public String user_dashboard(HttpSession session,Model model,@ModelAttribute("fundraisers_id")String fid,@ModelAttribute("fundraisersModel")FundraiserModel fm)
 	{
 		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
 		//if session is null then redirect to login page
 		//System.out.println("sid is : " + sesModel.toString());
-		
-		System.out.println("fid : " +fid);
+		//System.out.println("fid : " +fid);
 		
 		if(!fid.equals("")){
 			
 			
-			List<FundraisersModel> data2 = smdao.fetch(fid);
+			List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(fid);
 			model.addAttribute("data2", data2);
 			model.addAttribute("fm", fm);
+			
 			return "dashboard/user/user-dashboard";
 		}
 		else {
 			if(sesModel!=null){
-				List<FundraisersModel> data2 = smdao.fetch(sesModel.getUser_id());
+				List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(sesModel.getUser_id());
 				model.addAttribute("data2", data2);
 				model.addAttribute("fm", fm);
 				return "dashboard/user/user-dashboard";
@@ -283,10 +284,26 @@ public class StoreController
 	}
 
  
-	@RequestMapping("/user-change-password")
-	public String user_change_password(Model model)
+	@RequestMapping(value="/user-change-password", method=RequestMethod.GET)
+	public String user_change_password(Model model, HttpSession session, @ModelAttribute("fundraisersModel")FundraiserModel fm)
 	{
-		return "dashboard/user/user-change-password";
+		
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		 
+			if(sesModel!=null)
+			{
+				List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(sesModel.getUser_id());
+				model.addAttribute("data2", data2);
+				model.addAttribute("fm", fm);
+				return "dashboard/user/user-change-password";  
+				
+			}
+			
+			else
+			{
+				return "redirect:/index";					
+			}
+		
 	}
 
 	

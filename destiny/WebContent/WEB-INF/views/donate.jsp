@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+
+<html> 
+
+
 <div class="modal fade" id="myModal" role="dialog" style="padding-right: 0px; z-index: 99999;">
     
         <div class="modal-dialog">
@@ -314,7 +320,7 @@
         <!--Close Button End-->
         
         
-        <form name="donation-form" action="new_donation" modelAttribute="donation_model"  method="get">
+        <form name="donation-form" id="donation_form" action="/destiny/new_donation" modelAttribute="donation_model"  method="post">
         
         <!--Section's Start-->
         
@@ -401,7 +407,7 @@
                 
                 
         <div class="col-md-12">
-                <input type="text" hidden name="campaign_id"  class="cid" value="" style="height:1px:"><br>
+                <input type="text" name="campaign_id"  class="cid" value="" style="height:1px:" hidden><br>
         </div> 
         
         <div class="col-md-6">
@@ -475,3 +481,4 @@
         </div>
         
         </div>
+        </html>

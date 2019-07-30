@@ -1,11 +1,9 @@
 
 package com.destiny.controller;
 
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.eclipse.jdt.internal.compiler.lookup.MethodScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -17,10 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
 import com.destiny.dao.UserLoginDaoimpl;
-import com.destiny.model.FundraisersModel;
+import com.destiny.model.FundraiserModel;
 import com.destiny.model.SessionModel;
 import com.destiny.model.UserLoginModel;
-import com.google.protobuf.Method;
 
 @Controller
 @Scope("session")
@@ -33,7 +30,7 @@ public class UserLoginController
 	SpecificCauseDetailsDaoimpl smdao;
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String userlogin(@ModelAttribute ("user_login_model")UserLoginModel ulm, FundraisersModel fm, Model model, HttpSession session, HttpServletRequest req, RedirectAttributes redirectAttributes)
+	public String userlogin(@ModelAttribute ("user_login_model")UserLoginModel ulm, FundraiserModel fm, Model model, HttpSession session, HttpServletRequest req, RedirectAttributes redirectAttributes)
 	{
 		
 		
@@ -49,7 +46,7 @@ public class UserLoginController
 			session.setAttribute("sessionData", sessionModel);
 			
 			redirectAttributes.addFlashAttribute("fundraisers_id", data.getfundraisers_id());
-			redirectAttributes.addFlashAttribute("fundraisersModel",fm)	;	
+			redirectAttributes.addFlashAttribute("fundraiserModel",fm)	;	
 			 
 			//String s_fid = sessionModel.getUser_id();
 			//redirectAttributes.addAttribute("s_fid", s_fid);

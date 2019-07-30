@@ -130,15 +130,15 @@
 
 <div class="col-md-12 text-center1 change-details">
 
-<form name="change-password">    
+<form name="change-password" action="user_change_password" modelAttribute="user_update_model">    
 <div class="col-md-12"> 
     <p style="text-align: center; font-size: 30px; color:black; ">Change Your Password</p>
     <hr>
     <br>
-<input type="text" class="pan-number pan-aadhar-number" name="user_old_password" placeholder="OLD PASSWORD">   <br> <br>
+<input type="text" class="pan-number pan-aadhar-number" name="old_password" placeholder="OLD PASSWORD">   <br> <br>
 </div>
 <div class="col-md-12"> 
-<input type="text" class="aadhar-number pan-aadhar-number" name="user_new_password" placeholder="NEW PASSWORD">   <br> <br>
+<input type="text" class="aadhar-number pan-aadhar-number" name="new_password" placeholder="NEW PASSWORD">   <br> <br>
 </div>
 <div class="col-md-12"> 
 <br>

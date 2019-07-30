@@ -9,11 +9,11 @@ public class CampaignsModel
 	String fundraisers_name;
 	String fundraisers_contact;
 	String fundraisers_email;
-	String fundraisers_beneficiary_relaion;
+	String fundraisers_beneficiary_relation;
 	String fundraisers_story;
 
 	
-	public class CampaignModel
+	public CampaignsModel()
 	{
 		
 	}
@@ -104,16 +104,16 @@ public class CampaignsModel
 
 
 
-	public String getFundraisers_beneficiary_relaion() {
-		return fundraisers_beneficiary_relaion;
+	public String getFundraisers_beneficiary_relation() {
+		return fundraisers_beneficiary_relation;
 	}
 
 
 
-	public void setFundraisers_beneficiary_relaion(String fundraisers_beneficiary_relaion) {
-		this.fundraisers_beneficiary_relaion = fundraisers_beneficiary_relaion;
+	public void setFundraisers_beneficiary_relation(String fundraisers_beneficiary_relation) {
+		this.fundraisers_beneficiary_relation = fundraisers_beneficiary_relation;
 	}
-
+  
 
 
 	public String getFundraisers_story() {
@@ -130,7 +130,7 @@ public class CampaignsModel
 
 	public CampaignsModel(String campaign_id, String fundraisers_id, String fundraisers_title,
 			String fundraisers_goal_amount, String fundraisers_name, String fundraisers_contact,
-			String fundraisers_email, String fundraisers_beneficiary_relaion, String fundraisers_story) {
+			String fundraisers_email, String fundraisers_beneficiary_relation, String fundraisers_story) {
 		super();
 		this.campaign_id = campaign_id;
 		this.fundraisers_id = fundraisers_id;
@@ -139,7 +139,7 @@ public class CampaignsModel
 		this.fundraisers_name = fundraisers_name;
 		this.fundraisers_contact = fundraisers_contact;
 		this.fundraisers_email = fundraisers_email;
-		this.fundraisers_beneficiary_relaion = fundraisers_beneficiary_relaion;
+		this.fundraisers_beneficiary_relation = fundraisers_beneficiary_relation;
 		this.fundraisers_story = fundraisers_story;
 	}
 
@@ -152,8 +152,8 @@ public class CampaignsModel
 				.append(fundraisers_id).append(", fundraisers_title=").append(fundraisers_title)
 				.append(", fundraisers_goal_amount=").append(fundraisers_goal_amount).append(", fundraisers_name=")
 				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
-				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relaion=")
-				.append(fundraisers_beneficiary_relaion).append(", fundraisers_story=").append(fundraisers_story)
+				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relation=")
+				.append(fundraisers_beneficiary_relation).append(", fundraisers_story=").append(fundraisers_story)
 				.append("]");
 		return builder.toString();
 	}

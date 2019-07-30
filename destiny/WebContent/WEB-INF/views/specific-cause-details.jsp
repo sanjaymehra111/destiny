@@ -34,8 +34,11 @@
     </script>
     -->  
    
+   
 </head>
- <c:forEach var="fm" items="${data2}" >
+
+<c:forEach var="fm" items="${data3}">
+<c:forEach var="cm" items="${data4}" >
  
 <body style="font-family: algerrian sans-serif;  background-color: rgba(182, 184, 184, 0.11);">
 
@@ -44,7 +47,7 @@
 
     <div class="header_import">
     <jsp:include page="header.jsp" />
-     </div>
+     </div> 
     
 <!--Header End-->
 
@@ -177,12 +180,12 @@
 <div class="container-fluid">
     <div class="cause_amount">
     
-        <div class="cause_title">${fm.fundraisers_title}</div>
+        <div class="cause_title">${cm.fundraisers_title}</div>
 
         <br><br>
         <div class="col-md-5">
-        <span class="t-amount amount-text">Goal &#8377; <span class="goal-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${fm.fundraisers_goal_amount}</span> </span>
-        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"> ${fm.fundraisers_goal_amount} </span></span>
+        <span class="t-amount amount-text">Goal &#8377; <span class="goal-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${cm.fundraisers_goal_amount}</span> </span>
+        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"> ${cm.fundraisers_goal_amount} </span></span>
         <br><br><br>
         </div>
 <script>
@@ -203,7 +206,7 @@ $(function()
         <br><br><br>
         </div>
         <div class="col-md-2">
-                <a href="#" style="text-decoration: none"  class=" donate-popup"><span class="d-button amount-text"><button value="${fm.fundraisers_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;">Donate Now</button> </span></a>
+                <a href="#" style="text-decoration: none"  class=" donate-popup"><span class="d-button amount-text"><button value="${cm.campaign_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;">Donate Now</button> </span></a>
            <br><br>
         </div>
         
@@ -377,7 +380,7 @@ $(function(){
 <br><br>
 
 <button class="verified-button">VERIFIED <i class="fa fa-check-circle"></i></button>
-<p class="tips-text"> ${fm.fundraisers_name} </p>
+<p class="tips-text"> ${cm.fundraisers_name} </p>
 <br>
 </div>
 
@@ -633,7 +636,7 @@ $(function hide_show(){
 <div class="col-md-12">
     <p style="font-size: 15px; text-align: justify;">
             
-            ${fm.fundraisers_story}
+            ${cm.fundraisers_story}
             
     </p>
     
@@ -943,7 +946,7 @@ function myFunction() {
 
 
 
-<button class="ourcausebtn1 form-control dn-button donate-popup" value="${fm.fundraisers_id}"><i class="fa fa-thumbs-up"></i> DONATE NOW </span></button>    
+<button class="ourcausebtn1 form-control dn-button donate-popup" value="${cm.campaign_id}"><i class="fa fa-thumbs-up"></i> DONATE NOW </span></button>    
 <br>
 <p style="font-size: 18px;font-weight: bold; text-align: justify; text-align: center; font-style: italic">Funds will be transferred to the hospital</p>
 <br>
@@ -1018,12 +1021,13 @@ $(function transfer_id(){
           
     
     <div class="donate-import">
-    <jsp:include page="donate.jsp" />
-     </div>
+     <jsp:include page="donate.jsp" />
+    </div>
 
 <!--Donate Pop End-->    
 
 
 </body>
 </c:forEach>    
+</c:forEach>
 </html>

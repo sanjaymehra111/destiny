@@ -97,7 +97,7 @@ var currentScrollPos = window.pageYOffset;
 <div class="container-fluid" style="text-align:center">
 
 <div class="col-md-3" style="text-align:center">
-  <a href="index" style="text-decoration: none; color: white"><img src="/destiny/files/images/logo.png" style="width:100px"><span style="font-size:3.9vmin; font-family:algerian">Destiny World</span></a>
+  <a href="/destiny/index" style="text-decoration: none; color: white"><img src="/destiny/files/images/logo.png" style="width:100px"><span style="font-size:3.9vmin; font-family:algerian">Destiny World</span></a>
  </div>
 <div class="col-md-9">
 
@@ -160,31 +160,27 @@ var currentScrollPos = window.pageYOffset;
                       <li class="headerlist"><a href="/destiny/browse-a-fundraisers" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Browse Fundraisers</a>
 
                       </li>
-                      <li class="headerlist"><a href="/destiny/become_a_volunteer" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Become A Volunteer</a>
+                      <li class="headerlist"><a href="/destiny/become_a_volunteer" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Volunteer</a>
                       </li>                  
     
     
                     
-    <script>
-    $(function chech_session(){
-    	var cs = $(".chech-session").html().length;
-    	//alert(cs);
-    	if(cs == "" || cs == null || cs == 0)
-    		$(".validate-dashboard").hide();
-    	else
-    		$(".validate-dashboard").show();
-    })
-    </script>
+
     <style>
     .chech-session
     {	
     	font-size: 0px;
     }
+    .user-dashboard
+    {
+	    cursor: pointer;
+	    font-size:0px;
+    }
     </style>
     
             <span class="chech-session">${sessionData}</span>
             
-                    <li class="headerlist validate-dashboard"><a href="/destiny/user-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Dashboard </a>
+                    <li class="headerlist validate-dashboard"><a href="/destiny/user-dashboard" class="white shop-menu user-dashboard" style="text-decoration:none;">Dashboard </a>
                       </li>
                         
       				<!--  for-testing-only 
@@ -245,15 +241,47 @@ var amount = $(this).html();
 <li class="headerlist"><a class="white user-menu1 contact-menu" style="text-decoration:none; cursor: pointer;"><i class="fa fa-user" style="font-size: 25px;"></i> <i class="fa fa-chevron-down" style="font-size: 15px;"></i></a>
   <ul class="dropdown-content user-menu2 contact-menu2" style="list-style-type:none;">
 
+<div class="guest-user">
       <a class="internalmenu" href="/destiny/login" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-in"></i> Login</li></a>
       <a class="internalmenu" href="/destiny/start-a-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-user-plus"></i> Sign Up</li></a>
+</div>      
+
+<div class="logged-user">
+    <a class="internalmenu" href="user-dashboard" style="text-decoration:none"><li class="padding"><i class="fa fa-user-circle-o"></i> My Profile</li></a>
+    <a class="internalmenu" href="user-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-bars"></i> My Fundraisers</li></a>
+    <a class="internalmenu" href="user-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Change Password</li></a>
+    <a class="internalmenu" href="user_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
+</div>  
+
       
   </ul>
 </li>
 
-
+   
 
                     </ul>
+
+    <script>
+    $(function chech_session(){
+    	var cs = $(".chech-session").html().length;
+    	//alert(cs);
+    	if(cs == "" || cs == null || cs == 0)
+    		{
+	    		$(".validate-dashboard").hide();
+	    		$(".guest-user").show();
+	    		$(".logged-user").hide();
+    		}
+    		
+    	else
+    		{
+	    		$(".guest-user").hide();
+				$(".logged-user").show();
+	    		$(".validate-dashboard").show();
+	    		$(".user-dashboard").css({"font-size":"18px"});
+    		}
+    		
+    })
+    </script>
                     
                   </div>
 </div>

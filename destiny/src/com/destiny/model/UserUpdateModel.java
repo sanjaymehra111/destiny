@@ -1,6 +1,6 @@
 package com.destiny.model;
 
-public class UserUpdateModel 
+public class UserUpdateModel
 {
 	String fundraisers_id;
 	String personal_aadhar_no;
@@ -8,9 +8,16 @@ public class UserUpdateModel
 	String personal_dob;
 	String personal_name;
 	String personal_city;
+	String old_password;
+	String new_password;
 	
 	
-	
+	public UserUpdateModel()
+	{
+		
+	}
+
+
 	public String getFundraisers_id() {
 		return fundraisers_id;
 	}
@@ -59,8 +66,27 @@ public class UserUpdateModel
 		this.personal_city = personal_city;
 	}
 
+	
+	
+	
+	public String getOld_password() {
+		return old_password;
+	}
+
+	public void setOld_password(String old_password) {
+		this.old_password = old_password;
+	}
+
+	public String getNew_password() {
+		return new_password;
+	}
+
+	public void setNew_password(String new_password) {
+		this.new_password = new_password;
+	}
+
 	public UserUpdateModel(String fundraisers_id, String personal_aadhar_no, String personal_pan_no,
-			String personal_dob, String personal_name, String personal_city) {
+			String personal_dob, String personal_name, String personal_city, String old_password, String new_password) {
 		super();
 		this.fundraisers_id = fundraisers_id;
 		this.personal_aadhar_no = personal_aadhar_no;
@@ -68,6 +94,8 @@ public class UserUpdateModel
 		this.personal_dob = personal_dob;
 		this.personal_name = personal_name;
 		this.personal_city = personal_city;
+		this.old_password = old_password;
+		this.new_password = new_password;
 	}
 
 	@Override
@@ -76,10 +104,14 @@ public class UserUpdateModel
 		builder.append("UserUpdateModel [fundraisers_id=").append(fundraisers_id).append(", personal_aadhar_no=")
 				.append(personal_aadhar_no).append(", personal_pan_no=").append(personal_pan_no)
 				.append(", personal_dob=").append(personal_dob).append(", personal_name=").append(personal_name)
-				.append(", personal_city=").append(personal_city).append("]");
+				.append(", personal_city=").append(personal_city).append(", old_password=").append(old_password)
+				.append(", new_password=").append(new_password).append("]");
 		return builder.toString();
 	}
-
+	
+	
+	
+	
 	
 	
 	

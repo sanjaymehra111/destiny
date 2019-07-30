@@ -30,7 +30,7 @@ public class UserLoginDaoimpl
 	
 	public UserLoginModel checkLogin(UserLoginModel ulm)
 	{
-		String sql1="Select fundraisers_id from fundraisers_details where personal_email = '"+ulm.getUser_id()+"' and personal_password = '"+ulm.getUser_password()+"'";
+		String sql1="Select fundraisers_id from fundraisers_detail where personal_email = '"+ulm.getUser_id()+"' and personal_password = '"+ulm.getUser_password()+"'";
 		List<UserLoginModel> users=template.query(sql1, new UserLoginModelMapper());
 		
 		

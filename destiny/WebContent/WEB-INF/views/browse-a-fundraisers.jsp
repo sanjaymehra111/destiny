@@ -128,7 +128,7 @@ var a1=  document.getElementById("mySidenav").style.width;
       $(".rotate").css({"display":"block"});
       $(".rotatenew").css({"display":"none"});
 
-      document.getElementById("mySidenav").style.width = "40";
+      document.getElementById("mySidenav").style.width = "40px";
   //  document.getElementById("main").style.marginLeft= "0";
     $(".causes-start").css({"opacity":"1"});
     $(".filter-items").css({"display":"none"});
@@ -382,20 +382,30 @@ $(function transfer_id(){
 	//alert(id);
 	$(".c_id").html(id);
 	$(".cid").val(id);
-  }); 
-})
+  });
+});
+
+
+$(function progress_bar()
+{
+	var pg= $(".pg").html();
+	var pr= $(".pg").html();
+	var pb = pg*pr/100;
+	//alert(pb);
+	$(".progress-bar-pb").css({"width": pb + "%"});
+	
+});
+
+
 </script> 
 
 
 <span style=" flex-direction: row-reverse;">
 
-<c:forEach var="fm" items="${data}" >
+<c:forEach var="fm" items="${data}">
+<c:forEach var="cm" items="${data2}" >
 
-<!--    
- Title : ${fm.fundraisers_title} <br><br>
- Amount : ${fm.fundraisers_goal_amount} <br><br>
-Story : ${fm.fundraisers_story} <br><br><hr><br><br>
- -->
+<c:if test="${fm.fundraisers_id == cm.fundraisers_id}">
 
 <div class="col-md-4">
   <div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">
@@ -411,24 +421,27 @@ Story : ${fm.fundraisers_story} <br><br><hr><br><br>
   <div class="img-text" style="text-align:left; padding: 20px 20px;">
     <div class="text-balance" style="height:250px;">
   
-    <p style="font-size:25px; color:rgb(126, 131, 131)">${fm.fundraisers_title} id is : ${fm.fundraisers_id} </p>
+    <span style="font-size:25px; color:rgb(126, 131, 131)"> f id is : ${fm.fundraisers_id} </span>
+    <span style="font-size:25px; color:rgb(126, 131, 131); float:right"> c id is : ${cm.campaign_id} </span><p></p>
+    <!-- <p style="font-size:25px; color:rgb(126, 131, 131)"> c fi id is : ${cm.fundraisers_id} </p>
+     -->
 
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : ${fm.fundraisers_goal_amount}  <span style="float:right">Raised : ${fm.fundraisers_goal_amount}  </span></span> <br><br>
+    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> ${cm.fundraisers_goal_amount} </span> <span style="float:right">Raised : <span class="pr"> ${cm.fundraisers_goal_amount} </span> </span></span> <br><br>
     <div class="progress" style="height: 10px;">
-        <div class="progress-bar  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+        <div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
          </div>
     </div>
       
-    <p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify;">${fm.fundraisers_story}</p>
+    <p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify;"> ${cm.fundraisers_story}</p>
    </div>
     <center>
     <div class="col-md-6">  
-        <a href="cause-details/${fm.fundraisers_id}" style="text-decoration: none">
+        <a href="specific-cause-details/${fm.fundraisers_id}/${cm.campaign_id}" style="text-decoration: none">
           <button class="ourcausebtn1 form-control" value="${fm.fundraisers_id}" style="background-color:rgb(26, 145, 135); color:white">Read More</button>
         </a>
     </div> 
     <div class="col-md-6"> 
-      <button class="ourcausebtn1 form-control donate-popup camp_id" value="${fm.fundraisers_id}" style="background-color:rgb(26, 145, 135); color:white">Donate Now</button>
+      <button class="ourcausebtn1 form-control donate-popup camp_id" value="${cm.campaign_id}" style="background-color:rgb(26, 145, 135); color:white">Donate Now</button>
     </div>
     </center>
     <div class="container-fluid"></div>
@@ -437,8 +450,9 @@ Story : ${fm.fundraisers_story} <br><br><hr><br><br>
   </div>
 <br><br> </div>
 
-
+</c:if>
  	
+</c:forEach>
 </c:forEach>
 
 </span>
@@ -446,256 +460,6 @@ Story : ${fm.fundraisers_story} <br><br><hr><br><br>
 
 
 
-
-<!-- 
-
-
-<div class="col-md-4">
-  <div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">
-    
-   <div class="ourcausecontainer" style="position: relative;">
-    <img src="/destiny/files/images/drintwater.jpg" class="ourcauseimage1">
-    <span class="ourcausedonate">
-        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-whatsapp"></i> Share</button>
-        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-facebook"></i> Share</button>
-    </span>
-  </div>
-
-  <div class="img-text" style="text-align:left; padding: 20px 20px;">
-    <div class="text-balance">
-  
-    <p style="font-size:25px; color:rgb(126, 131, 131)">Water For All Children</p>
-
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : $ 25000  <span style="float:right">Raised : $ 18000  </span></span> <br><br>
-    <div class="progress" style="height: 10px;">
-        <div class="progress-bar  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-         </div>
-    </div>
-      
-    <p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify; ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in magna ac tellus fringilla eleifend.</p>
-   </div>
-    <center>
-    <div class="col-md-6">
-        <a href="cause-details" style="text-decoration: none">
-          <button class="ourcausebtn1 form-control" style="background-color:rgb(26, 145, 135); color:white">Read More</button>
-        </a>
-    </div>
-    <div class="col-md-6">
-      <button class="ourcausebtn1 form-control donate-popup" style="background-color:rgb(26, 145, 135); color:white">Donate Now</button>
-    </div>
-    </center>
-    <div class="container-fluid"></div>
-
-  </div>
-  </div>
-<br><br> </div>
-
- -->
-
-<!-- 
-<div class="col-md-4">
-    <div class="ourcausesheet" style="border:solid 1px rgba(175, 171, 171, 0.445);">
-    
-      <div class="ourcausecontainer" style="position: relative;">
-        <img src="/destiny/files/images/type2.jpg" class="ourcauseimage1">
-        <span class="ourcausedonate">
-            <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(204, 94, 131); color:white"><i class="fa fa-whatsapp"></i> Share</button>
-            <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(204, 94, 131); color:white"><i class="fa fa-facebook"></i> Share</button>
-        </span>
-      </div>
-    
-    <div class="img-text" style="text-align:left; padding: 20px 20px;">
-    <div class="text-balance">
-      <p style="font-size:25px; color:rgb(127, 133, 133)">Clean Water For All</p>
-  
-      <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : $ 25000  <span style="float:right">Raised : $ 18000  </span></span> <br><br>
-      <div class="progress" style="height: 10px;">
-          <div class="progress-bar  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-           </div>
-      </div>
-  
-      <p style="font-size:17px; color:rgb(155, 160, 160); text-align: justify; overflow:hidden ">Lorem ipsum dolor sit amet, consectetur adipiscing ipsum dolor sit amet, consectetur elit. Vivamus in magna ac tellus fringilla eleifend.</p>
-      </div>
-     <center>
-    <div class="col-md-6">
-        <a href="cause-details" style="text-decoration: none">
-          <button class="ourcausebtn1 form-control" style="background-color:rgb(204, 94, 131); color:white">Read More</button>
-        </a>
-    </div>
-    <div class="col-md-6">
-      <button class="ourcausebtn1 form-control donate-popup" style="background-color:rgb(204, 94, 131); color:white">Donate Now</button>
-    </div>
-    </center>
-    <div class="container-fluid"></div>
- 
-    </div>
-    </div>
-<br><br> </div>
-
-<div class="col-md-4">
-  <div class="ourcausesheet" style="border:solid 1px rgba(185, 180, 180, 0.445);">
-  
-    <div class="ourcausecontainer" style="position: relative;">
-      <img src="/destiny/files/images/type3.jpg" class="ourcauseimage1">
-      <span class="ourcausedonate">
-          <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(145, 90, 26); color:white"><i class="fa fa-whatsapp"></i> Share</button>
-          <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(145, 90, 26); color:white"><i class="fa fa-facebook"></i> Share</button>
-      </span>
-    </div>
-
-  <div class="img-text" style="text-align:left; padding: 20px 20px;">
-      <div class="text-balance">
-    
-    <p style="font-size:25px; color:rgb(123, 128, 128)">New School Teachers</p>
-
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : $ 25000  <span style="float:right">Raised : $ 18000  </span></span> <br><br>
-    <div class="progress" style="height: 10px;">
-        <div class="progress-bar  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-         </div>
-    </div>
-
-    <p style="font-size:17px; color:rgb(155, 160, 160); text-align: justify; overflow: hidden ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in magna ac tellus fringilla eleifend.</p>
-  </div>    
-  <center>
-      <div class="col-md-6">
-          <a href="cause-details" style="text-decoration: none">
-            <button class="ourcausebtn1 form-control" style="background-color:rgb(145, 90, 26); color:white">Read More</button>
-          </a>
-      </div>
-      <div class="col-md-6">
-        <button class="ourcausebtn1 form-control donate-popup" style="background-color:rgb(145, 90, 26); color:white">Donate Now</button>
-      </div>
-      </center>
-      <div class="container-fluid"></div>
-   
-  </div>
-  </div>
-<br><br> </div>
-
-<div class="col-md-4">
-  <div class="ourcausesheet" style="border:solid 1px rgba(185, 180, 180, 0.445);">
-  
-    <div class="ourcausecontainer" style="position: relative;">
-      <img src="/destiny/files/images/kindergarten.JPG" class="ourcauseimage1">
-      <span class="ourcausedonate">
-          <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(12, 40, 82); color:white"><i class="fa fa-whatsapp"></i> Share</button>
-          <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(12, 40, 82); color:white"><i class="fa fa-facebook"></i> Share</button>
-      </span>
-    </div>
-
-  <div class="img-text" style="text-align:left; padding: 20px 20px;">
-      <div class="text-balance">
-    
-    <p style="font-size:25px; color:rgb(123, 128, 128)">New Kindergarten</p>
-
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : $ 25000  <span style="float:right">Raised : $ 18000  </span></span> <br><br>
-    <div class="progress" style="height: 10px;">
-        <div class="progress-bar  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-         </div>
-    </div>
-
-    <p style="font-size:17px; color:rgb(155, 160, 160); text-align: justify; overflow: hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in magna ac tellus fringilla eleifend.</p>
-  </div>    
-  <center>
-      <div class="col-md-6">
-          <a href="cause-details" style="text-decoration: none">
-            <button class="ourcausebtn1 form-control" style="background-color:rgb(12, 40, 82); color:white">Read More</button>
-          </a>
-      </div>
-      <div class="col-md-6">
-        <button class="ourcausebtn1 form-control donate-popup" style="background-color:rgb(12, 40, 82); color:white">Donate Now</button>
-      </div>
-      </center>
-      <div class="container-fluid"></div>
-    
-  </div>
-  </div>
-<br><br> </div>
-
-<div class="col-md-4">
-  <div class="ourcausesheet" style="border:solid 1px rgba(185, 180, 180, 0.445);">
-  
-    <div class="ourcausecontainer" style="position: relative;">
-      <img src="/destiny/files/images/cloths.jpg" class="ourcauseimage1">
-      <span class="ourcausedonate">
-          <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(199, 90, 40); color:white"><i class="fa fa-whatsapp"></i> Share</button>
-          <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(199, 90, 40); color:white"><i class="fa fa-facebook"></i> Share</button>
-        </span>
-    </div>
-
-  <div class="img-text" style="text-align:left; padding: 20px 20px;">
-      <div class="text-balance">
-    
-    <p style="font-size:25px; color:rgb(123, 128, 128)">Clothes For Everyone</p>
-
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : $ 25000  <span style="float:right">Raised : $ 18000  </span></span> <br><br>
-    <div class="progress" style="height: 10px;">
-        <div class="progress-bar  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-         </div>
-    </div>
-
-    <p style="font-size:17px; color:rgb(155, 160, 160); text-align: justify; overflow: hidden;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in magna ac tellus fringilla eleifend.</p>
-  </div>    
-  <center>
-      <div class="col-md-6">
-          <a href="cause-details" style="text-decoration: none">
-            <button class="ourcausebtn1 form-control" style="background-color:rgb(199, 90, 40); color:white">Read More</button>
-          </a>
-      </div>
-      <div class="col-md-6">
-        <button class="ourcausebtn1 form-control donate-popup" style="background-color:rgb(199, 90, 40); color:white">Donate Now</button>
-      </div>
-      </center>
-      <div class="container-fluid"></div>
-   
-  </div>
-  </div>
-<br><br> 
-</div>
-
-<div class="col-md-4">
-  <div class="ourcausesheet" style="border:solid 1px rgba(185, 180, 180, 0.445);">
-  
-    <div class="ourcausecontainer" style="position: relative;">
-      <img src="/destiny/files/images/water.jpg" class="ourcauseimage1">
-      <span class="ourcausedonate">
-        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(221, 207, 83); color:white"><i class="fa fa-whatsapp"></i> Share</button>
-        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(221, 207, 83); color:white"><i class="fa fa-facebook"></i> Share</button>
-      </span>
-    </div>
-
-  <div class="img-text" style="text-align:left; padding: 20px 20px;">
-      <div class="text-balance">
-    
-    <p style="font-size:25px; color:rgb(123, 128, 128)">Construction of Water Wells</p>
-
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : $ 25000  <span style="float:right">Raised : $ 18000  </span></span> <br><br>
-    <div class="progress" style="height: 10px;">
-        <div class="progress-bar  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-         </div>
-    </div>
-
-    <p style="font-size:17px; color:rgb(155, 160, 160); text-align: justify; overflow: hidden;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in magna ac tellus fringilla eleifend.</p>
-  </div>    
-  <center>
-      <div class="col-md-6">
-          <a href="cause-details" style="text-decoration: none">
-            <button class="ourcausebtn1 form-control" style="background-color:rgb(221, 207, 83); color:white">Read More</button>
-          </a>
-      </div>
-      <div class="col-md-6">
-        <button class="ourcausebtn1 form-control donate-popup" style="background-color:rgb(221, 207, 83); color:white">Donate Now</button>
-      </div>
-      </center>
-      <div class="container-fluid"></div>
-    
-  </div>
-  </div>
-
-
-<br><br> </div>
-
--->
 <br><br>
 
 </div>
@@ -707,7 +471,6 @@ Story : ${fm.fundraisers_story} <br><br><hr><br><br>
 
 
 
-    </div>
 
     <!--Body Part End-->
 
