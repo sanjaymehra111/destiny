@@ -50,7 +50,7 @@
     color:white;
     border-bottom: 2px solid white;
 }
-.user-profile-section
+.user-profile-section-password-exist, .user-profile-section-password-not-exist
 {
     margin-top: 150px;
 }
@@ -64,7 +64,7 @@
 }
 
 
-.pan-aadhar-number
+.new-passwword
 {
     border-radius: 50px;
     width:100%;
@@ -103,10 +103,6 @@
 }
 
 
-
-
-
-
 @media(max-width:975px)
 {
     .button2
@@ -116,9 +112,88 @@
 }
 </style>
 
+<div class="check-password-message" style="font-size:0px; display:none">Message : ${message}</div>
+
+<script>
+$(function check_password_existence(){
+var ch_pwd = $(".check-password-message").html().length;
+
+//alert(ch_pwd);
+
+if(ch_pwd == 24) //24 == password_exist
+	{
+		$(".user-profile-section-password-not-exist").hide();
+		$(".user-profile-section-password-exist").show();
+	}
+else
+	{
+		$(".user-profile-section-password-not-exist").show();
+		$(".user-profile-section-password-exist").hide();
+	}
+});
+
+</script>
+
+<script>
+
+$(function password_validation()
+{
+	
+	$(".passwword").keydown(function (space)
+			{
+				if(space.keyCode == 32)
+					return false;
+			})
+})
+</script>
 
 
-<div class="user-profile-section">
+<!-- Password not Exist -->
+
+<div class="user-profile-section-password-not-exist">
+<div class="container-fluid"> 
+<div class="col-md-3"></div>
+
+<div class="col-md-6">
+<div class="pr-section3">
+<div class="container-fluid">
+<div class="section1-data3">
+<br>
+
+<div class="col-md-12 text-center1 change-details">
+
+<form name="change-password" action="user_create_password" modelAttribute="user_update_model">    
+<div class="col-md-12"> 
+    <p style="text-align: center; font-size: 30px; color:black; ">Create Your Password</p>
+    <hr>
+    <br>
+</div>
+<div class="col-md-12"> 
+<input type="text" class="passwword new-passwword password-validation_pn" name="new_password" placeholder="CREATE PASSWORD" required>   <br> <br>
+</div>
+<div class="col-md-12"> 
+<br>
+<button type="submit" class="button2 check_val_pn"> Create Password</button>
+<br><br><br>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+</div>
+</div>
+
+
+
+
+<!-- Password Exist -->
+
+<div class="user-profile-section-password-exist">
 <div class="container-fluid"> 
 <div class="col-md-3"></div>
 
@@ -135,14 +210,14 @@
     <p style="text-align: center; font-size: 30px; color:black; ">Change Your Password</p>
     <hr>
     <br>
-<input type="text" class="pan-number pan-aadhar-number" name="old_password" placeholder="OLD PASSWORD">   <br> <br>
+<input type="text" class="passwword new-passwword" name="old_password" placeholder="OLD PASSWORD" required>   <br> <br>
 </div>
 <div class="col-md-12"> 
-<input type="text" class="aadhar-number pan-aadhar-number" name="new_password" placeholder="NEW PASSWORD">   <br> <br>
+<input type="text" class="passwword new-passwword password-validation_py" name="new_password" placeholder="NEW PASSWORD" required>   <br> <br>
 </div>
 <div class="col-md-12"> 
 <br>
-<button class="button2"> Change Password</button>
+<button type="submit" class="button2 check_val_py"> Change Password</button>
 <br><br><br>
 </div>
 </form>
@@ -150,12 +225,11 @@
 </div>
 </div>
 </div>
-
 </div>
 
 
 </div>
-
+</div>
 
 <br><br>
 <br><br>

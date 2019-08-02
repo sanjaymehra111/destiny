@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
 
@@ -61,7 +64,7 @@
 }
 .user-fundraisers-section
 {
-    margin-top: 200px;
+    margin-top: 170px;
 }
 
 .button1:active
@@ -153,7 +156,11 @@ width:40px
 <div class="container"> 
 <div class="col-md-12">
 
-<div class="pr-section1">
+
+<c:forEach var="fm" items="${data2}" >
+
+
+<div class="pr-section1" style="margin-top:20px;">
 <div class="container-fluid">
 <div class="section1-data1">
 <br><br>
@@ -165,8 +172,8 @@ width:40px
 <br>
 </div>
 <div class="col-md-4 top-bar-content">
-<span class="title">Help <br></span>
-<span class="fundraisers-name">For Rahul</span><br>
+<span class="title"> ${fm.fundraisers_title} <br></span>
+<span class="fundraisers-name">${fm.fundraisers_name}</span><br>
 <span class="donors">
 <img src="/destiny/files/dashboard-user-images/donorall.png" class="donors-icons">&nbsp;
 Donors: <span>0</span>  <span style="color:rgb(9, 97, 148)">Created</span>, <span style="color:rgb(9, 97, 148)">Unapproved</span>
@@ -190,7 +197,7 @@ Donors: <span>0</span>  <span style="color:rgb(9, 97, 148)">Created</span>, <spa
 <br>
 <div class="col-md-3">
 <span class="fund data1"><i class="fa fa-money"></i> Fund Raised <br> 
-    <span class="fatch-data2 fa fa-inr"> 20000</span></span><br><br>
+    <span class="fatch-data2 fa fa-inr"> ${fm.fundraisers_goal_amount}</span></span><br><br>
 </div>
 <div class="col-md-3">    
 <span class="view data1"><i class="fa fa-eye"></i> View <br>
@@ -211,9 +218,13 @@ Donors: <span>0</span>  <span style="color:rgb(9, 97, 148)">Created</span>, <spa
 </div>
 </div>
 
+
+</c:forEach>
+
+
+
 </div>
-
-
+</div>
 </div>
 
 <br><br>

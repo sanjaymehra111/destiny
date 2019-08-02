@@ -71,5 +71,36 @@ public class SpecificCauseDetailsDaoimpl
 				);
 		return query2;
 	}
+	
+	
+	
+	public List<CampaignsModel> fetchCampaignUsingfid(String f_id)
+	{
+		
+		List<CampaignsModel> query2 = template.query("select * from campaign_details where fundraisers_id = '"+f_id+"'", new RowMapper<CampaignsModel>()
+				{
+
+					@Override
+					public CampaignsModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO Auto-generated method stub
+						
+						CampaignsModel cm = new CampaignsModel();
+						cm.setCampaign_id(rs.getString("campaign_id"));
+						cm.setFundraisers_id(rs.getString("fundraisers_id"));
+						cm.setFundraisers_title(rs.getString("fundraisers_title"));
+						cm.setFundraisers_goal_amount(rs.getString("fundraisers_goal_amount"));
+						cm.setFundraisers_name(rs.getString("fundraisers_name"));
+						cm.setFundraisers_contact(rs.getString("fundraisers_contact"));
+						cm.setFundraisers_email(rs.getString("fundraisers_email"));
+						cm.setFundraisers_beneficiary_relation(rs.getString("fundraisers_beneficiary_relation"));
+						cm.setFundraisers_story(rs.getString("fundraisers_story"));
+					
+						return cm;
+					}
+			
+				}
+				);
+		return query2;
+	}
 
 }

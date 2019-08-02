@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.destiny.dao.UserUpdateDaoimpl;
 import com.destiny.model.SessionModel;
@@ -51,29 +52,40 @@ public class UserUpdateController
 	}
 	
 	@RequestMapping("/user_change_password")
-	public String userChangePasswod(@ModelAttribute("user_update_model") UserUpdateModel uum, Model model, HttpSession session)
+	public String userChangePasswod(@ModelAttribute("user_update_model") UserUpdateModel uum, Model model, HttpSession session, RedirectAttributes redirectAttributes)
 	{
 		SessionModel ses = (SessionModel) session.getAttribute("sessionData");
 		String fid=ses.getUser_id();
 		
-		UserUpdateModel data = uudao.checkUserPassword(uum, fid);
+		UserUpdateModel data = uudao.checkUserPassword(fid);
 			
 		String oldp1 = uum.getOld_password();
 		String oldp2 = data.getOld_password();
 		
-		
-		
 		if (oldp1.equals(oldp2))
 		{
 			uudao.updateUserPassword(uum, fid);
-			model.addAttribute("message", "success");
+			redirectAttributes.addAttribute("pwd_message", "Updated");
 			return "redirect:/user-dashboard";
 		}
 		else
 		{ 
-			model.addAttribute("message", "error");
+			redirectAttributes.addAttribute("pwd_message", "error");
 			return "redirect:/user-dashboard";
 		}
+	}
+	  
+	
+	@RequestMapping("/user_create_password")
+	public String userCcreatePasswod(@ModelAttribute("user_update_model") UserUpdateModel uum, Model model, HttpSession session, RedirectAttributes redirectAttributes)
+	{
+		SessionModel ses = (SessionModel) session.getAttribute("sessionData");
+		String fid=ses.getUser_id();
+		
+			uudao.updateUserPassword(uum, fid);
+			redirectAttributes.addAttribute("pwd_message", "Updated");
+			
+			return "redirect:/user-dashboard";
 	}
 	
 	

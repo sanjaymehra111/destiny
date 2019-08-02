@@ -337,8 +337,8 @@
 </div>
 </div>
 <div class="col-md-4">    
-<span >PAN No. : <br><span class="fatch-data pan_data">${fm.personal_pan_no}</span></span><br><br>
-<span >Aadhar No. : <br> <span class="fatch-data aadhar_data">${fm.personal_aadhar_no}</span></span><br><br>
+<span >PAN No. : <br><span class="fatch-data pan_data" style="text-transform:uppercase">${fm.personal_pan_no}</span></span><br><br>
+<span >Aadhar No. : <br> <span class="fatch-data aadhar_data" style="text-transform:uppercase">${fm.personal_aadhar_no}</span></span><br><br>
 </div>
 <div class="col-md-4">    
 <span >Date Of Birth: <br><span class="fatch-data u-o-dob">${fm.personal_dob}</span></span><br><br>
@@ -716,14 +716,14 @@ $(function(){
 <div class="container-fluid">
 <div class="section1-data3">
 <br><br>
-
+<p style="text-align:center; font-size:22px; color:black; font-weight:bold">IDENTITY PROOF</p>
 <div class="col-md-12 text-center1 change-details">
 
 <div class="pan_card_tag">
 <form name="user-pan-no" action="user_pan_update" modelAttribute="user_update_model">
 <div class="col-md-8"> 
 <input type="text" name="fundraisers_id" value="${fm.fundraisers_id}" hidden>
-<input type="text" class="pan-number pan-aadhar-number" name="personal_pan_no" placeholder="PAN CARD NUMBER">   <br> <br>
+<input type="text" class="pan-number pan-aadhar-number" name="personal_pan_no" style="text-transform:uppercase" placeholder="PAN CARD NUMBER">   <br> <br>
 </div>
 <div class="col-md-4"> 
     <button type="submit" class="button2"> Submit</button>
@@ -940,34 +940,6 @@ th, td {
 
 </div>
 <div class="col-md-12"></div>
-<script>
-
-$(function(){
-
-$(".show-success").click(function(){
-$(".fun-step1").toggleClass('add');
-});
-
-$(".submit-function").click(function(){
-$(".show-success").click();
-
-});
-
-});
-</script>
-
-
-
-
-<button class="show-success" style="display: none">show</button>
-
-<div class="submit-function">
-<div class="fun-step1">
-Successfully Update    
-<span class="fa fa-close success-close"></span>    
-</div>
-</div>
-
 
 
 <br><br>
@@ -994,10 +966,59 @@ Successfully Update
 </body>
 </c:forEach>
 
-<br><br>
+
+<!-- Messages -->
+
+<div class="password-messages" style="display:none">
+${pwd_message}
+</div>
 
 
-Session id is : 
+<script>
+$(function()
+		{
+
+var pm = $(".password-messages").html().length;
+//alert(pm);
+$(".show-success").click();
+if (pm == 9)
+{	
+	alert("success = " + pm);
+	$(".show-success").click();
+}
+
+else if (pm == 7)
+{	
+	alert("error = " +  pm);
+	$(".show-success").click();
+}
+
+else 
+	return true;
+
+});
+</script>
+
+<script>
+$(function(){
+	$(".show-success").click(function()
+		{
+			$(".fun-step1").toggleClass('add');
+		});
+	})
+</script>
+
+
+<button class="show-success" style="display: none">show</button>
+
+<div class="submit-function">
+<div class="fun-step1">
+Successfully Update    
+<span class="fa fa-close success-close"></span>    
+</div>
+</div>
+
+
 
 
 
