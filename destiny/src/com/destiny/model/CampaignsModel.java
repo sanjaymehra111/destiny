@@ -11,6 +11,11 @@ public class CampaignsModel
 	String fundraisers_email;
 	String fundraisers_beneficiary_relation;
 	String fundraisers_story;
+	String fundraisers_start_date;
+	String fundraisers_end_date;
+	String fundraisers_created_date;
+	String fundraisers_status;
+	
 
 	
 	public CampaignsModel()
@@ -19,7 +24,6 @@ public class CampaignsModel
 	}
 
 	
-
 	public String getCampaign_id() {
 		return campaign_id;
 	}
@@ -127,22 +131,56 @@ public class CampaignsModel
 	}
 
 
-
-	public CampaignsModel(String campaign_id, String fundraisers_id, String fundraisers_title,
-			String fundraisers_goal_amount, String fundraisers_name, String fundraisers_contact,
-			String fundraisers_email, String fundraisers_beneficiary_relation, String fundraisers_story) {
-		super();
-		this.campaign_id = campaign_id;
-		this.fundraisers_id = fundraisers_id;
-		this.fundraisers_title = fundraisers_title;
-		this.fundraisers_goal_amount = fundraisers_goal_amount;
-		this.fundraisers_name = fundraisers_name;
-		this.fundraisers_contact = fundraisers_contact;
-		this.fundraisers_email = fundraisers_email;
-		this.fundraisers_beneficiary_relation = fundraisers_beneficiary_relation;
-		this.fundraisers_story = fundraisers_story;
+	public String getfundraisers_start_date() {
+		return fundraisers_start_date;
 	}
 
+
+	public void setfundraisers_start_date(String fundraisers_start_date) {
+		this.fundraisers_start_date = fundraisers_start_date;
+	}
+
+	
+
+	public String getFundraisers_start_date() {
+		return fundraisers_start_date;
+	}
+
+
+	public void setFundraisers_start_date(String fundraisers_start_date) {
+		this.fundraisers_start_date = fundraisers_start_date;
+	}
+
+
+	public String getFundraisers_end_date() {
+		return fundraisers_end_date;
+	}
+
+
+	public void setFundraisers_end_date(String fundraisers_end_date) {
+		this.fundraisers_end_date = fundraisers_end_date;
+	}
+
+	
+
+	public String getFundraisers_created_date() {
+		return fundraisers_created_date;
+	}
+
+
+	public void setFundraisers_created_date(String fundraisers_created_date) {
+		this.fundraisers_created_date = fundraisers_created_date;
+	}
+
+
+	public String getFundraisers_status() {
+		return fundraisers_status;
+	}
+
+
+	public void setFundraisers_status(String fundraisers_status) {
+		this.fundraisers_status = fundraisers_status;
+	}
 
 
 	@Override
@@ -154,10 +192,36 @@ public class CampaignsModel
 				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
 				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relation=")
 				.append(fundraisers_beneficiary_relation).append(", fundraisers_story=").append(fundraisers_story)
-				.append("]");
+				.append(", fundraisers_start_date=").append(fundraisers_start_date).append(", fundraisers_end_date=")
+				.append(fundraisers_end_date).append(", fundraisers_created_date=").append(fundraisers_created_date)
+				.append(", fundraisers_status=").append(fundraisers_status).append("]");
 		return builder.toString();
 	}
 
+
+	public CampaignsModel(String campaign_id, String fundraisers_id, String fundraisers_title,
+			String fundraisers_goal_amount, String fundraisers_name, String fundraisers_contact,
+			String fundraisers_email, String fundraisers_beneficiary_relation, String fundraisers_story,
+			String fundraisers_start_date, String fundraisers_end_date, String fundraisers_created_date,
+			String fundraisers_status) {
+		super();
+		this.campaign_id = campaign_id;
+		this.fundraisers_id = fundraisers_id;
+		this.fundraisers_title = fundraisers_title;
+		this.fundraisers_goal_amount = fundraisers_goal_amount;
+		this.fundraisers_name = fundraisers_name;
+		this.fundraisers_contact = fundraisers_contact;
+		this.fundraisers_email = fundraisers_email;
+		this.fundraisers_beneficiary_relation = fundraisers_beneficiary_relation;
+		this.fundraisers_story = fundraisers_story;
+		this.fundraisers_start_date = fundraisers_start_date;
+		this.fundraisers_end_date = fundraisers_end_date;
+		this.fundraisers_created_date = fundraisers_created_date;
+		this.fundraisers_status = fundraisers_status;
+	}
+
+	
+	
 	
 	
 }

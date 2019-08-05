@@ -50,6 +50,7 @@ public class UserUpdateDaoimpl
 	{
 		String sql4 = "select personal_password from fundraisers_detail where fundraisers_id  = '"+fid+"'";
 		List<UserUpdateModel> pwd= template.query(sql4, new UserUpdateModelMapper());
+		
 		return pwd.get(0);
 	}
 	

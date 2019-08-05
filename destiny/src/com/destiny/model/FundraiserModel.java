@@ -6,6 +6,7 @@ public class FundraiserModel
 	String category_type;
 	String personal_name;
 	String personal_email;
+	String personal_password;
 	String personal_number;
 	String personal_city;
 	String personal_pan_no;
@@ -64,6 +65,18 @@ public String getPersonal_email() {
 
 public void setPersonal_email(String personal_email) {
 	this.personal_email = personal_email;
+}
+
+
+
+public String getPersonal_password() {
+	return personal_password;
+}
+
+
+
+public void setPersonal_password(String personal_password) {
+	this.personal_password = personal_password;
 }
 
 
@@ -128,14 +141,16 @@ public void setPersonal_dob(String personal_dob) {
 
 
 
+
 public FundraiserModel(String fundraisers_id, String category_type, String personal_name, String personal_email,
-		String personal_number, String personal_city, String personal_pan_no, String personal_aadhar_no,
-		String personal_dob) {
+		String personal_password, String personal_number, String personal_city, String personal_pan_no,
+		String personal_aadhar_no, String personal_dob) {
 	super();
 	this.fundraisers_id = fundraisers_id;
 	this.category_type = category_type;
 	this.personal_name = personal_name;
 	this.personal_email = personal_email;
+	this.personal_password = personal_password;
 	this.personal_number = personal_number;
 	this.personal_city = personal_city;
 	this.personal_pan_no = personal_pan_no;
@@ -144,13 +159,15 @@ public FundraiserModel(String fundraisers_id, String category_type, String perso
 }
 
 
+
 @Override
 public String toString() {
 	StringBuilder builder = new StringBuilder();
 	builder.append("FundraiserModel [fundraisers_id=").append(fundraisers_id).append(", category_type=")
 			.append(category_type).append(", personal_name=").append(personal_name).append(", personal_email=")
-			.append(personal_email).append(", personal_number=").append(personal_number).append(", personal_city=")
-			.append(personal_city).append(", personal_pan_no=").append(personal_pan_no).append(", personal_aadhar_no=")
+			.append(personal_email).append(", personal_password=").append(personal_password)
+			.append(", personal_number=").append(personal_number).append(", personal_city=").append(personal_city)
+			.append(", personal_pan_no=").append(personal_pan_no).append(", personal_aadhar_no=")
 			.append(personal_aadhar_no).append(", personal_dob=").append(personal_dob).append("]");
 	return builder.toString();
 }

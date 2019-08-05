@@ -102,6 +102,17 @@
     transform: scale(0.98);
 }
 
+.pwd-length
+{
+text-align:center;
+font-size:0px;
+color:red;
+border-bottom:solid 0px red;
+padding:5px;
+text-transform:capitalize;
+transition:0.3s;
+}
+
 
 @media(max-width:975px)
 {
@@ -169,8 +180,9 @@ $(function password_validation()
     <br>
 </div>
 <div class="col-md-12"> 
-<input type="text" class="passwword new-passwword password-validation_pn" name="new_password" placeholder="CREATE PASSWORD" required>   <br> <br>
+<input type="text" class="passwword new-passwword password-validation_pn" minlength="6" name="new_password" placeholder="CREATE PASSWORD" required>   <br> <br>
 </div>
+<center><span class="pwd-length">Password length must be greater then "6"</span></center>
 <div class="col-md-12"> 
 <br>
 <button type="submit" class="button2 check_val_pn"> Create Password</button>
@@ -213,8 +225,9 @@ $(function password_validation()
 <input type="text" class="passwword new-passwword" name="old_password" placeholder="OLD PASSWORD" required>   <br> <br>
 </div>
 <div class="col-md-12"> 
-<input type="text" class="passwword new-passwword password-validation_py" name="new_password" placeholder="NEW PASSWORD" required>   <br> <br>
+<input type="text" class="passwword new-passwword password-validation_py" minlength="6" name="new_password" placeholder="NEW PASSWORD" required>   <br> <br>
 </div>
+<center><span class="pwd-length">Password length must be greater then "6"</span></center>
 <div class="col-md-12"> 
 <br>
 <button type="submit" class="button2 check_val_py"> Change Password</button>

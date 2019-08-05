@@ -20,8 +20,8 @@ public class FundraiserDaoimpl
 	
 	public int InserIntoFundraiser(FundraiserModel fm)
 	{
-		String sql = "insert into fundraisers_detail (category_type, personal_name, personal_email, personal_number, personal_city)"+ 
-				"values('"+fm.getCategory_type()+"', '"+fm.getPersonal_name()+"', '"+fm.getPersonal_email()+"', '"+fm.getPersonal_number()+"', '"+fm.getPersonal_city()+"')";
+		String sql = "insert into fundraisers_detail (category_type, personal_name, personal_email, personal_password, personal_number, personal_city)"+ 
+				"values('"+fm.getCategory_type()+"', '"+fm.getPersonal_name()+"', '"+fm.getPersonal_email()+"', '"+fm.getPersonal_password()+"', '"+fm.getPersonal_number()+"', '"+fm.getPersonal_city()+"')";
 		KeyHolder key = new GeneratedKeyHolder();
 		
 		
@@ -41,8 +41,8 @@ public class FundraiserDaoimpl
 
 	public void InserIntoCampaign(CampaignsModel cm, FundraiserModel fm)
 	{
-		String sql2 = "insert into campaign_details (fundraisers_id, fundraisers_title, fundraisers_goal_amount, fundraisers_name, fundraisers_contact, fundraisers_email, fundraisers_beneficiary_relation, fundraisers_story)"
-				+ "values('"+fm.getFundraisers_id()+"','"+cm.getFundraisers_title()+"', '"+cm.getFundraisers_goal_amount()+"', '"+cm.getFundraisers_name()+"', '"+cm.getFundraisers_contact()+"', '"+cm.getFundraisers_email()+"', '"+cm.getFundraisers_beneficiary_relation()+"', '"+cm.getFundraisers_story()+"')";
+		String sql2 = "insert into campaign_details (fundraisers_id, fundraisers_title, fundraisers_goal_amount, fundraisers_name, fundraisers_contact, fundraisers_email, fundraisers_beneficiary_relation, fundraisers_story, fundraisers_created_date, fundraisers_start_date,  fundraisers_end_date)"
+				+ "values('"+fm.getFundraisers_id()+"','"+cm.getFundraisers_title()+"', '"+cm.getFundraisers_goal_amount()+"', '"+cm.getFundraisers_name()+"', '"+cm.getFundraisers_contact()+"', '"+cm.getFundraisers_email()+"', '"+cm.getFundraisers_beneficiary_relation()+"', '"+cm.getFundraisers_story()+"', '"+cm.getFundraisers_created_date()+"', '"+cm.getfundraisers_start_date()+"', '"+cm.getFundraisers_end_date()+"')";
 		
 		template.update(sql2);
 	}

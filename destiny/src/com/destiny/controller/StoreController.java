@@ -248,41 +248,37 @@ public class StoreController
 	{
 		
 		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
-		String fid=sesModel.getUser_id();
-		UserUpdateModel data = uudao.checkUserPassword(fid);
-		int pwd = data.getOld_password().length();
-	
-		//System.out.println("id : " + fid + " password length is : "+ pwd);
+		
+		//System.out.println("f id : " + fid + " password length is : "+ pwd);
 		
 		  
-			if(sesModel!=null && pwd > 0)
+			if(sesModel!=null)
 			{
-				List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(sesModel.getUser_id());
-				model.addAttribute("data2", data2);
-				model.addAttribute("fm", fm);
-				model.addAttribute("message", "password_exist");
-				return "dashboard/user/user-change-password";
-			} 
+				String fid=sesModel.getUser_id();
+				UserUpdateModel data = uudao.checkUserPassword(fid);
+				int pwd = data.getOld_password().length();
 			
-			else 
-				{ 
-				if(sesModel!=null && pwd <= 0)
+				if(pwd > 5)
+					{
+						/*List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(sesModel.getUser_id());
+						model.addAttribute("data2", data2);
+						model.addAttribute("fm", fm);
+						*/
+						model.addAttribute("message", "password_exist");
+						return "dashboard/user/user-change-password";
+					}
 				
-				{
-					model.addAttribute("message", "password_not_exist");
-					return "dashboard/user/user-change-password";
-				}
-					
-					
+				else 
+					{			model.addAttribute("message", "password_not_exist");
+								return "dashboard/user/user-change-password";
+					}
+			}
 			
 			else
 			{
 				return "redirect:/index";					
 			}
-				}
-		
 	}
-
 	
 	@RequestMapping("/user-donation")
 	public String user_donation(Model model)

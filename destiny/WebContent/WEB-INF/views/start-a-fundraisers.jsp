@@ -222,7 +222,9 @@ $(function(){
 
     $(".next-button-1").click(function()
     {
-
+    	//Date Validation 
+    	
+    		
             var pd1 = $(".per-details1").val();
             var pd2 = $(".per-details2").val();
             var pd3 = $(".per-details3").val();
@@ -281,6 +283,7 @@ $(function(){
                 return false;
             }
 
+            
             else
             {
                 $(".per-details1").css({"border":"none"});
@@ -288,6 +291,7 @@ $(function(){
                 $(".per-details3").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
                 $(".per-details4").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
                 $(".per-details5").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+              	
                 
                 $(".personal-details").hide();
                 $(".Fundraiser-Details").show();
@@ -333,6 +337,25 @@ $(function(){
 
     $(".next-button-2").click(function()
     {
+    	var sd= $(".start-date").val();
+    	
+		var ed= $(".end-date").val();
+		
+		var start = new Date(sd);
+		var end = new Date(ed);
+		var cdate = new Date();
+		var cd = new Date(Date.now() - 864e5);
+		
+		var cdate2 = cdate.getFullYear()+ '-' + ('0' + (cdate.getMonth()+1)).slice(-2) + '-' + ('0' + cdate.getDate()).slice(-2);
+
+		
+		$(".created_date").val(cdate2);
+		
+		//alert("start : " + start);
+		//alert("end : " + end);
+		//alert("created : " + cd);
+		//alert("created : " + cdate);
+	
         var fd1 = $(".fund-details1").val();
         var fd2 = $(".fund-details2").val();
         var fd3 = $(".fund-details3").val();
@@ -396,6 +419,20 @@ $(function(){
              $(".fund-details6").css({"border":"solid 2px red"});
              return false;
         }
+        
+        else if (start < cd || start == "Invalid Date" )
+        {
+        		$(".start-date").css({"border-bottom":"solid 2px red"});
+            	return false;
+        }
+
+        else if (end <= start || end == "Invalid Date")
+        {
+        		$(".start-date").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+        		$(".end-date").css({"border-bottom":"solid 2px red"});
+                return false;
+        }
+   
 
 
         else
@@ -410,7 +447,9 @@ $(function(){
             $(".fund-details6").css({"border":"none"});
             $(".fund-details7").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
 
-
+            $(".start-date").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+            $(".end-date").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+     
 
         $(".activate-details").show();
         $(".fundraiser-Details").hide();
@@ -473,6 +512,16 @@ $(function(){
 })
 
 </script>
+
+
+
+    <style>
+    .datepicker::-webkit-inner-spin-button
+    {
+    	display:none;
+    }
+    </style>
+    
 
 
 <div class="section1-box1" style="display:block">
@@ -556,7 +605,7 @@ $(function(){
 
 <div class="col-md-12">
         <input type="text" name="personal_city" class="all-button-same per-details5" placeholder="City"><br><br>
-</div>        
+</div>     
 
 
 
@@ -581,9 +630,9 @@ $(function(){
 
 <div class="fundraiser-Details" style="display: none;">
 
-
+      
 <div class="col-md-12">
-        <input type="text" name="fundraisers_title" class="all-button-same fund-details1" placeholder="Title"><br><br>
+		<input type="text" name="fundraisers_title" class="all-button-same fund-details1" placeholder="Title"><br><br>
 </div>        
 
 <div class="col-md-12">
@@ -629,10 +678,30 @@ $(function(){
             Here's how the funds will be utilised (add a quick break up of funds). <br><br>
             We are grateful for your help!
 </p>
-        </textarea> <br>
-<br>
+        </textarea>
+         
     </div>
+    
+    <!-- Dates -->
+    
 
+    
+    	<input type="text" name="fundraisers_created_date" maxlength = "0" class="created_date" hidden><br><br>
+    	
+    	<div class="col-md-6">
+		<br>
+        	<input type="text" onfocus="this.type='date'" name="fundraisers_start_date" class="start-date datepicker all-button-same fund-details4" placeholder="Campaign Start Date"><br><br>
+       </div>
+       
+       <div class="col-md-6">
+       <br>
+			<input type="text" onfocus="this.type='date'" name="fundraisers_end_date" class="end-date datepicker all-button-same fund-details4" placeholder="Campaign End Date"><br><br>
+       </div>
+          
+		
+       
+       <!-- buttons -->
+       
        <div class="col-md-6">
         <button type="button" class="button-1 back-button-2 form-control"><i class="fa fa-chevron-left" style="font-size: 13px;"></i> Previous </button> <br>
        </div>

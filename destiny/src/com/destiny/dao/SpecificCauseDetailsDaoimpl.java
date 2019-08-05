@@ -94,6 +94,7 @@ public class SpecificCauseDetailsDaoimpl
 						cm.setFundraisers_email(rs.getString("fundraisers_email"));
 						cm.setFundraisers_beneficiary_relation(rs.getString("fundraisers_beneficiary_relation"));
 						cm.setFundraisers_story(rs.getString("fundraisers_story"));
+						cm.setfundraisers_start_date(rs.getString("fundraisers_start_date"));
 					
 						return cm;
 					}

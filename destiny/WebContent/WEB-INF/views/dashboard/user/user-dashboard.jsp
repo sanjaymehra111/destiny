@@ -983,13 +983,13 @@ var pm = $(".password-messages").html().length;
 $(".show-success").click();
 if (pm == 9)
 {	
-	alert("success = " + pm);
+	alert("success");
 	$(".show-success").click();
 }
 
 else if (pm == 7)
 {	
-	alert("error = " +  pm);
+	alert("error");
 	$(".show-success").click();
 }
 

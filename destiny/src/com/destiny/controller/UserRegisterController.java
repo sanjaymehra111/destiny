@@ -1,10 +1,13 @@
 package com.destiny.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -39,7 +42,9 @@ public class UserRegisterController
 	@RequestMapping("/new_fundraisers")
 	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraiserModel fm, CampaignsModel cm, Model model,
 			HttpSession session, RedirectAttributes redirectAttributes)
-	{	
+	{
+		//System.out.println("data is :" + cm);
+		
 		String f_id = String.valueOf(fdmdao.InserIntoFundraiser(fm));
 		fdmdao.InserIntoCampaign(cm, fm);
 		

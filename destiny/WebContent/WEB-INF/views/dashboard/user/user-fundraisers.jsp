@@ -150,12 +150,30 @@ width:40px
 }
 </style>
 
+<script>
+$(function last_date(){
+	var cd = new Date();
+	var date = cd.getFullYear()+'/'+(cd.getMonth()+1)+'/'+cd.getDate();
+	var cdate = new Date(date);
+	var sd = $(".start_date").html();
+	var sdate = new Date(sd);
+	
+	var diff = (sdate-cdate) / (1000 * 60 * 60 * 24);
+	var day = 90+diff;
+	$(".end_date").html(day);
+	
+	/* alert("current : " + cdate);
+	alert("start : " + sdate);
+	alert("start : " + day);
+	 */
+	
+})
+</script>
 
 
 <div class="user-fundraisers-section">
 <div class="container"> 
 <div class="col-md-12">
-
 
 <c:forEach var="fm" items="${data2}" >
 
@@ -205,11 +223,11 @@ Donors: <span>0</span>  <span style="color:rgb(9, 97, 148)">Created</span>, <spa
 </div>
 <div class="col-md-3">    
 <span class="start-date data1"><i class="fa fa-calendar"></i> Fundraiser Start Date <br>
-    <span class="fatch-data2">13/05/2019</span></span><br><br>
+    <span class="fatch-data2 start_date">  ${fm.fundraisers_start_date}</span></span><br><br>
 </div>
 <div class="col-md-3">    
 <span class="left-data data1"><i class="fa fa-calendar-minus-o"></i> Date To Go <br>
-    <span class="fatch-data2">89</span></span><br><br>
+    <span class="fatch-data2 end_date"></span></span><br><br>
 </div>
 </div>
 
