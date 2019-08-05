@@ -606,9 +606,6 @@ $(function(){
 <div class="col-md-12">
         <input type="text" name="personal_city" class="all-button-same per-details5" placeholder="City"><br><br>
 </div>     
-
-
-
        <br>
        <!--
        <div class="col-md-6">
