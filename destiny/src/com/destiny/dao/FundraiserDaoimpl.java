@@ -47,6 +47,14 @@ public class FundraiserDaoimpl
 		template.update(sql2);
 	}
 	
+	public void InserIntoLoginCampaign(CampaignsModel cm)
+	{
+		String sql2 = "insert into campaign_details (fundraisers_id, fundraisers_title, fundraisers_goal_amount, fundraisers_name, fundraisers_contact, fundraisers_email, fundraisers_beneficiary_relation, fundraisers_story, fundraisers_created_date, fundraisers_start_date,  fundraisers_end_date)"
+				+ "values('"+cm.getFundraisers_id()+"','"+cm.getFundraisers_title()+"', '"+cm.getFundraisers_goal_amount()+"', '"+cm.getFundraisers_name()+"', '"+cm.getFundraisers_contact()+"', '"+cm.getFundraisers_email()+"', '"+cm.getFundraisers_beneficiary_relation()+"', '"+cm.getFundraisers_story()+"', '"+cm.getFundraisers_created_date()+"', '"+cm.getfundraisers_start_date()+"', '"+cm.getFundraisers_end_date()+"')";
+		
+		template.update(sql2);
+	}
+	
 
 
 
@@ -64,43 +72,3 @@ public class FundraiserDaoimpl
 	
 
 }
-
-
-//String sql = "insert into fundraisers_detail (category_type, personal_name, personal_email, personal_number, personal_city)"
-//		+ "values('"+fm.getCategory_type()+"', '"+fm.getPersonal_name()+"', '"+fm.getPersonal_email()+"', '"+fm.getPersonal_number()+"', '"+fm.getPersonal_city()+"')";
-//
-//String sql1="Select fundraisers_id from fundraisers_detail where personal_email = '"+fm.getPersonal_email()+"'";
-//String f_id=template.queryForObject(sql1, new Object[] {fm.getPersonal_email()}, String.class);
-//
-//System.out.println("sql 1 is : " + f_id);
-//
-//System.out.println("f id: " + fm.getFundraisers_id());
-//
-//
-//String sql2 = "insert into campaign_details (fundraisers_title, fundraisers_goal_amount, fundraisers_name, fundraisers_contact, fundraisers_email, fundraisers_beneficiary_relation, fundraisers_story)"
-//		+ "values('"+fm.getFundraisers_title()+"', '"+fm.getFundraisers_goal_amount()+"', '"+fm.getFundraisers_name()+"', '"+fm.getFundraisers_contact()+"', '"+fm.getFundraisers_email()+"', '"+fm.getFundraisers_beneficiary_relation()+"', '"+fm.getFundraisers_story()+"')";
-//
-//
-//template.update(sql);
-//return template.update(sql2);
-
-
-
-
-
-
-
-
-
-
-
-/*	
-
-public int save(CampaignModel cm)
-{
-	String sql = "insert into campaign_details(fundraisers_title, fundraisers_goal_amount, fundraisers_name, fundraisers_contact, fundraisers_email, fundraisers_beneficiary_relaion, fundraisers_story)"
-			+ "values('"+cm.getFundraisers_title()+"', '"+cm.getFundraisers_goal_amount()+"', '"+cm.getFundraisers_name()+"', '"+cm.getFundraisers_contact()+"', '"+cm.getFundraisers_email()+"', '"+cm.getFundraisers_beneficiary_relaion()+"', '"+cm.getFundraisers_story()+"')";
-
-	return template.update(sql);	
-}
-*/

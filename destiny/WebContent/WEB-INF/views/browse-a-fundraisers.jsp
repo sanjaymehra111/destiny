@@ -424,13 +424,22 @@ $(function progress_bar()
     </span>
   </div>
 
+<style>
+.campaign-title
+{	text-transform: capitalize;
+}
+</style>
   <div class="img-text" style="text-align:left; padding: 20px 20px;">
     <div class="text-balance" style="height:250px;">
   
-    <span style="font-size:25px; color:rgb(126, 131, 131)"> f id is : ${fm.fundraisers_id} </span>
-    <span style="font-size:25px; color:rgb(126, 131, 131); float:right"> c id is : ${cm.campaign_id} </span><p></p>
-    <!-- <p style="font-size:25px; color:rgb(126, 131, 131)"> c fi id is : ${cm.fundraisers_id} </p>
-     -->
+    <%--  <span style="font-size:25px; color:rgb(126, 131, 131)"> f id is : ${fm.fundraisers_id} </span>
+   	 <span style="font-size:25px; color:rgb(126, 131, 131); float:right"> c id is : ${cm.campaign_id} </span><p></p>
+     <p style="font-size:25px; color:rgb(126, 131, 131)"> c fi id is : ${cm.fundraisers_id} </p>
+     --%> 
+<div class="campaign-title" style="font-size:20px; text-align:center; text-transform:uppercase; font-weight:bold">${cm.fundraisers_title}</div>
+<div style="font-size:16px; text-align:center;">by : <span class="personal-name" style="text-transform: capitalize">${fm.personal_name}</span></div>
+<br>
+
 
     <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> ${cm.fundraisers_goal_amount} </span> <span style="float:right">Raised : <span class="pr">${cm.fundraisers_raised_amount}</span> </span></span> <br><br>
     <div class="progress" style="height: 10px;">

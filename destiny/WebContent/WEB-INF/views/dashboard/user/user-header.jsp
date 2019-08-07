@@ -55,38 +55,8 @@ var currentScrollPos = window.pageYOffset;
           
       })
       </script>
-<!--Top Bar Start-->
-
-<div class="top-bar" style="display:none">
-        
-    <div class="container-fluid" style="color:gray; text-align: center">
-
-        <div class="col-md-4">
-        <i class="topbar fa fa-globe"> Language</i>
-        <a class="topbar en-es" href="#" style="text-decoration:none">EN</a> <span style="font-size:18px"> |</span>
-        <a class="topbar en-es" href="#" style="text-decoration:none">ES</a> <span style="font-size:18px"> |</span>
-        <i class="topbar fa fa-share-alt"> Social </i>&nbsp;&nbsp;
-        <i class="topbar fa fa-facebook"></i><span style="font-size:20px"> |</span>&nbsp;
-        <i class="topbar fa fa-twitter"></i><span style="font-size:20px"> |</span>&nbsp;
-        <i class="topbar fa fa-linkedin"></i><span style="font-size:20px"> |</span>&nbsp;
-        <i class="topbar fa fa-pinterest"></i><span style="font-size:20px"> |</span>
-        </div>
-        
-        <div class="col-md-5"></div>
-
-        <div class="col-md-3">
-        <div class="register-login" style="max-width: 100%;">
-            <i class="topbar fa fa-user"> Register</i><span style="font-size:20px"> |</span>&nbsp;
-            <i class="topbar fa fa-sign-in"> Login</i>
-        </div>
-        </div>        
-    </div>
-</div>
-
-<!--Top Bar End-->
-
-
-
+      
+      
 <!--Header Menu Start-->
 
 <div class="main-header" id="navbar">
@@ -95,7 +65,7 @@ var currentScrollPos = window.pageYOffset;
 <div class="container-fluid" style="text-align:center">
 
 <div class="col-md-3" style="text-align:center">
-  <a href="index" style="text-decoration: none; color: white"><img src="/destiny/files/images/logo.png" style="width:100px"><span style="font-size:3.9vmin; font-family:algerian">Destiny World</span></a>
+  <a href="/destiny/index" style="text-decoration: none; color: white"><img src="/destiny/files/images/logo.png" style="width:100px"><span style="font-size:3.9vmin; font-family:algerian">Destiny World</span></a>
  </div>
 <div class="col-md-9">
 
@@ -146,19 +116,19 @@ var currentScrollPos = window.pageYOffset;
                     <ul class="navbar-nav" style="list-style-type:none; font-size: 20px; text-align: left;  margin-left: -40px;">
   
 
-                      <li class="headerlist"><a href="start-a-fundraisers"class="white cause-menu" style="text-decoration:none; cursor: pointer;">Start A Fundraisers</a>                          
+                      <li class="headerlist"><a href="/destiny/start-a-fundraisers"class="white cause-menu" style="text-decoration:none; cursor: pointer;">Start A Fundraisers</a>                          
                       </li>
         
-                      <li class="headerlist"><a href="how-it-works" class="white events-menu" style="text-decoration:none; cursor: pointer;">How It Works </a>
+                      <li class="headerlist"><a href="/destiny/how-it-works" class="white events-menu" style="text-decoration:none; cursor: pointer;">How It Works </a>
                       </li>
                       
-                      <li class="headerlist"><a href="browse-a-fundraisers" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Browse Fundraisers</a>
+                      <li class="headerlist"><a href="/destiny/browse-a-fundraisers" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Browse Fundraisers</a>
                       </li>
 
-                      <li class="headerlist"><a href="contact-us" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Contact Us</a>
+                      <li class="headerlist"><a href="/destiny/contact-us" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Contact Us</a>
                       </li>                  
 
-                      <li class="headerlist"><a href="user-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Dashboard</a>
+                      <li class="headerlist"><a href="/destiny/user-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Dashboard</a>
                       </li> 
 
 
@@ -220,10 +190,10 @@ var amount = $(this).html();
 </div>      
 
 <div class="second" style="display: block">
-    <a class="internalmenu" href="user-dashboard" style="text-decoration:none"><li class="padding"><i class="fa fa-user-circle-o"></i> My Profile</li></a>
-    <a class="internalmenu" href="user-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-bars"></i> My Fundraisers</li></a>
-    <a class="internalmenu" href="user-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Manage Password</li></a>
-    <a class="internalmenu" href="user_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
+    <a class="internalmenu" href="/destiny/user-dashboard" style="text-decoration:none"><li class="padding"><i class="fa fa-user-circle-o"></i> My Profile</li></a>
+    <a class="internalmenu" href="/destiny/user-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-bars"></i> My Fundraisers</li></a>
+    <a class="internalmenu" href="/destiny/user-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Manage Password</li></a>
+    <a class="internalmenu" href="/destiny/user_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
 </div>  
 
   </ul>
@@ -294,9 +264,9 @@ var amount = $(this).html();
 <div class="dashboard-header">
 
 
-<a href="user-dashboard" style="text-decoration: none;"><span class="dashboard-profile dh">PROFILE</span></a>
-<a href="user-fundraisers" style="text-decoration: none;"> <span class="dashboard-fundraisers dh">FUNDRAISERS</span></a>  
-<a href="user-donation" style="text-decoration: none;"> <span class="dashboard-donation dh">DONATION</span>  </a>
+<a href="/destiny/user-dashboard" style="text-decoration: none;"><span class="dashboard-profile dh">PROFILE</span></a>
+<a href="/destiny/user-fundraisers" style="text-decoration: none;"> <span class="dashboard-fundraisers dh">FUNDRAISERS</span></a>  
+<a href="/destiny/user-donation" style="text-decoration: none;"> <span class="dashboard-donation dh">DONATION</span>  </a>
 </div>
 
 

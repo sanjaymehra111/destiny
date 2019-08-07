@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -259,10 +260,6 @@ public class StoreController
 			
 				if(pwd > 5)
 					{
-						/*List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(sesModel.getUser_id());
-						model.addAttribute("data2", data2);
-						model.addAttribute("fm", fm);
-						*/
 						model.addAttribute("message", "password_exist");
 						return "dashboard/user/user-change-password";
 					}
@@ -298,10 +295,27 @@ public class StoreController
 		return "dashboard/user/manage-overview";
 	}
 
-	@RequestMapping("/edit-cause-details")
-	public String edit_cause_details(Model model)
+	@RequestMapping("/edit-cause-details/{fund_id}/{camp_id}")
+	public String edit_cause_details(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, CampaignsModel cm, FundraiserModel fm, HttpSession session)
 	{
-		return "dashboard/user/edit-cause-details";
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		
+		if (sesModel!= null)
+		{
+			List<FundraiserModel> data1 = smdao.fetchFundraisersDetails(fund_id);
+			List<CampaignsModel> data2 = smdao.fetchCampaignsDetails(camp_id);
+			
+			model.addAttribute("data1", data1);
+			model.addAttribute("data2", data2);
+			model.addAttribute("fm", fm);
+			model.addAttribute("cm", cm);
+			
+			return "dashboard/user/edit-cause-details";
+		}
+		else
+		{
+					return "redirect:/index";
+		} 
 	}
 
 	@RequestMapping("/manage-header")

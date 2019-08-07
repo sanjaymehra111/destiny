@@ -16,6 +16,8 @@ public class CampaignsModel
 	String fundraisers_end_date;
 	String fundraisers_created_date;
 	String fundraisers_status;
+	String fundraisers_upi_image;
+	String fundraisers_upi_number;
 	
 
 	
@@ -194,6 +196,27 @@ public class CampaignsModel
 		this.fundraisers_status = fundraisers_status;
 	}
 
+	
+
+	public String getFundraisers_upi_image() {
+		return fundraisers_upi_image;
+	}
+
+
+	public void setFundraisers_upi_image(String fundraisers_upi_image) {
+		this.fundraisers_upi_image = fundraisers_upi_image;
+	}
+
+
+	public String getFundraisers_upi_number() {
+		return fundraisers_upi_number;
+	}
+
+
+	public void setFundraisers_upi_number(String fundraisers_upi_number) {
+		this.fundraisers_upi_number = fundraisers_upi_number;
+	}
+
 
 	@Override
 	public String toString() {
@@ -204,7 +227,8 @@ public class CampaignsModel
 				+ ", fundraisers_beneficiary_relation=" + fundraisers_beneficiary_relation + ", fundraisers_story="
 				+ fundraisers_story + ", fundraisers_start_date=" + fundraisers_start_date + ", fundraisers_end_date="
 				+ fundraisers_end_date + ", fundraisers_created_date=" + fundraisers_created_date
-				+ ", fundraisers_status=" + fundraisers_status + "]";
+				+ ", fundraisers_status=" + fundraisers_status + ", fundraisers_upi_image=" + fundraisers_upi_image
+				+ ", fundraisers_upi_number=" + fundraisers_upi_number + "]";
 	}
 
 
@@ -212,7 +236,8 @@ public class CampaignsModel
 			String fundraisers_goal_amount, String fundraisers_raised_amount, String fundraisers_name,
 			String fundraisers_contact, String fundraisers_email, String fundraisers_beneficiary_relation,
 			String fundraisers_story, String fundraisers_start_date, String fundraisers_end_date,
-			String fundraisers_created_date, String fundraisers_status) {
+			String fundraisers_created_date, String fundraisers_status, String fundraisers_upi_image,
+			String fundraisers_upi_number) {
 		super();
 		this.campaign_id = campaign_id;
 		this.fundraisers_id = fundraisers_id;
@@ -228,7 +253,10 @@ public class CampaignsModel
 		this.fundraisers_end_date = fundraisers_end_date;
 		this.fundraisers_created_date = fundraisers_created_date;
 		this.fundraisers_status = fundraisers_status;
+		this.fundraisers_upi_image = fundraisers_upi_image;
+		this.fundraisers_upi_number = fundraisers_upi_number;
 	}
+
 
 
 	

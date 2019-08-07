@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <!--For Responsive-->
@@ -21,21 +24,20 @@
 
     <!--Textarea-->
     <script src="https://cdn.ckeditor.com/4.11.1/basic/ckeditor.js"></script>
-
-    
    
 </head>
+
+<c:forEach var="fm" items="${data1}">
+<c:forEach var="cm" items="${data2}" >
+ 
 <body style="font-family: algerrian sans-serif;  background-color: rgba(182, 184, 184, 0.11);">
 
+<form name="edit_campaign" action="/destiny/edit_campaign" method="get" modelAttributes="EditCampaignModel">
        
 <!--Header Start-->
 
     <div class="header_import">
-    <script>
-    $(function(){
-    $(".header_import").load("user-header");  
-    })
-    </script>
+    <jsp:include page="user-header.jsp" />
     </div>
     
 <!--Header End-->
@@ -46,8 +48,8 @@
 .amount-text
 {
     padding: 20px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 28px;
+    padding-right: 28px;
     background-color: rgb(9, 127, 173);
     color: white;
     outline: none;
@@ -204,7 +206,7 @@
     
         <div class="cause_title">
             
-          <div class="edit-heading-main1"  style="display: block"> <span class="edit-heading-main2">  Help My Friend Rahul </span>
+          <div class="edit-heading-main1"  style="display: block"> <span class="edit-heading-main2">${cm.fundraisers_title}</span>
             <span class="edit-pen1 edit-pencil fa fa-pencil-square-o"></span>
         </div>
 
@@ -251,7 +253,7 @@ $(function(){
             <center>
               
                 <input class="edit-heading" maxlength="60" name="new_heading"pe="text">
-                <button type="submit" class="edit-submit1 edit-submit1-btn  fa fa-check-circle"></button>
+                <button type="button" class="edit-submit1 edit-submit1-btn  fa fa-check-circle"></button>
                 <button type="button" class="edit-cancel1 edit-cancel1-btn fa fa-times-circle"></button>
 
             
@@ -283,11 +285,11 @@ $(function(){
             <span style="border-bottom: solid 2px rgb(255, 255, 255); font-weight: bold">
 
             <span class="goal-percent goal-amount-old">
-                1258745
+                ${cm.fundraisers_goal_amount}
             </span> 
 
             <span class="goal-amount-new">
-             <input class="new-goal1" type="text" maxlength="9">   
+             <input class="new-goal1" type="text" maxlength="8">   
             </span> 
 
             </span>
@@ -295,7 +297,7 @@ $(function(){
         <span style="font-size: 20px; margin-left: 20px;" class="edit-pen2 edit-pencil fa fa-pencil-square-o"></span> 
 
         <span class="submit-2-btn">
-                <button type="submit" style="font-size: 20px;" class="edit-submit2 edit-submit1-btn  fa fa-check-circle"></button>
+                <button type="button" style="font-size: 20px;" class="edit-submit2 edit-submit1-btn  fa fa-check-circle"></button>
                 <button type="button" style="font-size: 20px;" class="edit-cancel2 edit-cancel1-btn fa fa-times-circle"></button>
         &nbsp;
         </span>
@@ -358,7 +360,7 @@ $('.new-goal1').keyup(function () {
           <!--Editing Goal Amount  End-->
 
           <div class="col-md-6">
-            <span class="r-amount amount-text">Raised  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); font-weight: bold">589455</span></span>
+            <span class="r-amount amount-text">Raised  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); font-weight: bold">${cm.fundraisers_raised_amount}</span></span>
           </div>
         <br><br><br>
         </div>
@@ -724,11 +726,20 @@ $(function(){
 <p class="cb-details"> Campaigner Details 
 <img class="img-icon" src="/destiny/files/images/voulnteer-d.jpg"></p>
 <br><br>
-<button class="verified-button">VERIFIED <i class="fa fa-check-circle"></i></button>
-<p class="tips-text"> Mandar Avhad </p>
-<p class="tips-text"> Self </p>
+<span>
+
+<c:if test="${fm.personal_status eq 1}">
+	<button class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
+</c:if>	
+<c:if test="${fm.personal_status eq 0}">
+	<button class="verified-button unvarified">UNVERIFIED <i class="fa fa-times-circle"></i></button>
+</c:if>
+	
+</span>
+<p class="tips-text"><i class="fa fa-user"style="width:15px;" ></i> &nbsp; ${fm.personal_name}</p>
+<p class="tips-text"><i class="fa fa-vcard" style="font-size:15px; width:15px;"></i> &nbsp; ${fm.category_type}</p>
 <p class="tips-text">
-<i class="fa fa-map-marker"></i> &nbsp; Delhi 
+<i class="fa fa-map-marker" style="width:15px;"></i> &nbsp; ${fm.personal_city} 
 </p>
 <span style="margin-top: -25px; display: none" class="edit-pencil edit-pen5 fa fa-pencil-square-o"></span>
 
@@ -905,10 +916,15 @@ $(function(){
 
 <br><br>
 
-<button class="verified-button">VERIFIED <i class="fa fa-check-circle"></i></button>
+<c:if test="${fm.personal_status eq 1}">
+	<button class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
+</c:if>	
+<c:if test="${fm.personal_status eq 0}">
+	<button class="verified-button unvarified">UNVERIFIED <i class="fa fa-times-circle"></i></button>
+</c:if>
  
 <div class="old-data6">
-<p class="tips-text b-old"> Vikas Bharadwaj</p>
+<p style="text-align:left"><i class="fa fa-user tips-text" style="width:5px;"></i> &nbsp; <span class="tips-text b-old">${cm.fundraisers_name}</span></p>
 </div>
 
 <div class="new-data6" style="text-align: left">
@@ -920,7 +936,7 @@ $(function(){
 
 
 <span class="new-data6-1">
-<button type="submit" style="font-size: 30px;" class="edit-submit6 edit-submit1-btn  fa fa-check-circle"></button>
+<button type="button" style="font-size: 30px;" class="edit-submit6 edit-submit1-btn  fa fa-check-circle"></button>
 <button type="button" style="font-size: 30px;" class="edit-cancel6 edit-cancel1-btn fa fa-times-circle"></button>
 <input type="file" name="bn_new_image" onchange="readURL(this);" class="bn_new_image">
 </span>
@@ -1184,7 +1200,7 @@ $(function(){
 
 
 /*For textarea Details*/
-CKEDITOR.replace( 'description_edit' );
+CKEDITOR.replace( 'story_edit' );
 
 
 /*show edit description */
@@ -1207,10 +1223,9 @@ $(".edit-mode1").css({"font-size":"0px"});
 
 $(".dec-sub").click(function(){
 
-var dec_new=$(".dec-new1").html();    
+var dec_new = CKEDITOR.instances['story_edit'].getData();
 //alert(dec_new);
-
-//$(".dec-fix").html(dec_new);    
+$(".dec-fix").html(dec_new);
 
 $(".edit-pen3").css({"color":"rgb(143, 142, 142)", "transform":"scale(1)"});
 $(".edit-mode1").css({"font-size":"0px"});
@@ -1228,45 +1243,17 @@ $(".dec-new1").hide();
 <br>
 
 <div class="col-md-12 dec-fix">
-    <p style="font-size: 15px; text-align: justify;">
-            Struggling to pen down a fundraiser story on your own? No worries, just use the template below:
-
-<br><br>
-
-            Hi,
-            <br><br>
-            
-            My name is (your name) and I am raising money for (your cause/problem). This is important to me because (write why you want to do this and how will it benefit). I am unable to fund this myself due to (explain your situation and the need for donations). I want to request for your help to achieve this. Please help by donating or sharing the fundraiser with your friends and family.
-            
-            <br><br>
-            
-            
-            We are grateful for your helps!
-            
-            
-    </p>
-    
-   <br><br>
+    ${cm.fundraisers_story}
+    <br><br>
 </div>
 
     
 <div class="col-md-12  dec-new1">
 
-<textarea name="description_edit" class="dec-new" rows="8" style="width:100%; background-color: transparent; font-size: 18px; color:black;" placeholder="Fundraiser Story">
+<textarea name="description_edit" id="story_edit" class="dec-new" rows="8" style="width:100%; background-color: transparent; font-size: 18px; color:black;" placeholder="Fundraiser Story">
 
-        Struggling to pen down a fundraiser story on your own? No worries, just use the template below:
-
-
-
-        Hi,
-        
-        My name is (your name) and I am raising money for (your cause/problem). This is important to me because (write why you want to do this and how will it benefit). I am unable to fund this myself due to (explain your situation and the need for donations). I want to request for your help to achieve this. Please help by donating or sharing the fundraiser with your friends and family.
-        
-        
-        
-        We are grateful for your helps!
-        
-    
+        ${cm.fundraisers_story}
+    <br><br>
 
 </textarea>
 <br><br>
@@ -1385,7 +1372,7 @@ animation-duration: 1.50s;
 
 .zoom-image.cursor
 {
-    cursor: url("/destiny/files/-images/delete2.png"), default;
+    cursor: url("/destiny/files/dashboard-user-images/delete2.png"), default;
 }
 
 .edit-pen4.color
@@ -1499,7 +1486,7 @@ $(function zoom_image(){
 </span>
 
 <span class="new-document">     
-    <img src="/destiny/files/-images/upload-document.png" style="border:none;" class="document-details upload-doc">
+    <img src="/destiny/files/dashboard-user-images/upload-document.png" style="border:none;" class="document-details upload-doc">
     <input type="file" name="new_file" class="upload-hide">
 </span>
 
@@ -1689,7 +1676,7 @@ For UPI Transaction:
 
 <span class="new-data7">
     <button type="button" style="font-size: 30px;" class="edit-cancel7 fa fa-times-circle"></button>
-    <button type="submit" style="font-size: 30px;" class="edit-submit7 fa fa-check-circle"></button>
+    <button type="button" style="font-size: 30px;" class="edit-submit7 fa fa-check-circle"></button>
 </span>
 </center>
 <br>
@@ -1941,7 +1928,7 @@ $(function get_img_file(){
 
             <span class="new-data8">
                     <button type="button" class="edit-cancel8 fa fa-times-circle"></button>
-                    <button type="submit" class="edit-submit8 fa fa-check-circle"></button>
+                    <button type="button" class="edit-submit8 fa fa-check-circle"></button>
             </span>
             
         </p>
@@ -1950,11 +1937,11 @@ $(function get_img_file(){
             <div class="col-md-6">
 
                 <span class="edit-upi-image">
-                    <img src="/destiny/files/-images/camera1.png" class="upi-image">
+                    <img src="/destiny/files/dashboard-user-images/camera1.png" class="upi-image">
                     <input type="file"  onchange="readURL1(this);" name="upi-image-file" class="upi-image-file">
                 </span>
                 <span class="fix-upi-image">
-                <img src="/destiny/files/images/qr-code.png" class="upi-main-file" style="width:100px; height: 150px;">   
+                <img src="${cm.fundraisers_upi_image}" class="upi-main-file" style="width:100px; height: 150px;">   
                 </span>
 
                 <br><br>
@@ -1962,7 +1949,7 @@ $(function get_img_file(){
             </div>
             <div class="col-md-6 upi-text-main">
                 <img src="/destiny/files/images/upi.png" style="width:100px; height: 40px;"><br><br>
-                <textarea readonly id="myInput" class="upi-text">9999991111@ybl</textarea>
+                <textarea readonly id="myInput" class="upi-text">${cm.fundraisers_upi_number}</textarea>
                 <br>
                 <center><button onclick="myFunction()" class="form-control copy-code" style="width:100px; border-radius: 50px;">COPY</button></center>
                 <br>
@@ -1982,18 +1969,17 @@ $(function get_img_file(){
 
 <br><br>
 
+<button type="submit">Submit All Details</button>
+
+</form>
 
 
 <!--Footer Start-->
 
     <div class="footer_import">
-    <script>
-    $(function(){
-    $(".footer_import").load("user-footer");  
-    })
-    </script>
+    <jsp:include page="user-footer.jsp" />
     </div>
-  
+    
 
 <!--Footer End-->
 
@@ -2014,15 +2000,15 @@ $(function get_img_file(){
           
     
     <div class="donate-import">
-    <script>
-    $(function(){
-    $(".donate-import").load("donate");  
-    })
-    </script>
+    <jsp:include page="../../donate.jsp" />
     </div>
 
 <!--Donate Pop End-->    
 
 
 </body>    
+
+</c:forEach>
+</c:forEach>
+
 </html>

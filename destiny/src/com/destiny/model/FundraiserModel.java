@@ -13,6 +13,7 @@ public class FundraiserModel
 	String personal_aadhar_no;
 	String personal_dob;
 	String personal_profile_image;
+	String personal_status;
 
 	
 public FundraiserModel()
@@ -156,9 +157,22 @@ public void setPersonal_profile_image(String personal_profile_image) {
 
 
 
+public String getPersonal_status() {
+	return personal_status;
+}
+
+
+
+public void setPersonal_status(String personal_status) {
+	this.personal_status = personal_status;
+}
+
+
+
+
 public FundraiserModel(String fundraisers_id, String category_type, String personal_name, String personal_email,
 		String personal_password, String personal_number, String personal_city, String personal_pan_no,
-		String personal_aadhar_no, String personal_dob, String personal_profile_image) {
+		String personal_aadhar_no, String personal_dob, String personal_profile_image, String personal_status) {
 	super();
 	this.fundraisers_id = fundraisers_id;
 	this.category_type = category_type;
@@ -171,21 +185,18 @@ public FundraiserModel(String fundraisers_id, String category_type, String perso
 	this.personal_aadhar_no = personal_aadhar_no;
 	this.personal_dob = personal_dob;
 	this.personal_profile_image = personal_profile_image;
+	this.personal_status = personal_status;
 }
 
 
 
 @Override
 public String toString() {
-	StringBuilder builder = new StringBuilder();
-	builder.append("FundraiserModel [fundraisers_id=").append(fundraisers_id).append(", category_type=")
-			.append(category_type).append(", personal_name=").append(personal_name).append(", personal_email=")
-			.append(personal_email).append(", personal_password=").append(personal_password)
-			.append(", personal_number=").append(personal_number).append(", personal_city=").append(personal_city)
-			.append(", personal_pan_no=").append(personal_pan_no).append(", personal_aadhar_no=")
-			.append(personal_aadhar_no).append(", personal_dob=").append(personal_dob)
-			.append(", personal_profile_image=").append(personal_profile_image).append("]");
-	return builder.toString();
+	return "FundraiserModel [fundraisers_id=" + fundraisers_id + ", category_type=" + category_type + ", personal_name="
+			+ personal_name + ", personal_email=" + personal_email + ", personal_password=" + personal_password
+			+ ", personal_number=" + personal_number + ", personal_city=" + personal_city + ", personal_pan_no="
+			+ personal_pan_no + ", personal_aadhar_no=" + personal_aadhar_no + ", personal_dob=" + personal_dob
+			+ ", personal_profile_image=" + personal_profile_image + ", personal_status=" + personal_status + "]";
 }
 
 

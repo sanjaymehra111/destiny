@@ -22,19 +22,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.5/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
 
-<!-- 
-	 <script>  
-        $(window).on("load", function()
-		{
-        	alert("thanks");
-        		$(".footer_import").load("footer");
-                $(".header_import").load("header");
-                $(".donate-import").load("donate");
-        });
-    </script>
-    -->  
-   
-   
 </head>
 
 <c:forEach var="fm" items="${data3}">
@@ -185,7 +172,7 @@
         <br><br>
         <div class="col-md-5">
         <span class="t-amount amount-text">Goal &#8377; <span class="goal-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${cm.fundraisers_goal_amount}</span> </span>
-        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"> ${cm.fundraisers_goal_amount} </span></span>
+        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${cm.fundraisers_raised_amount}</span></span>
         <br><br><br>
         </div>
 <script>

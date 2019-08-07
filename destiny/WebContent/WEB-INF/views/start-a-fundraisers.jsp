@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <!--For Responsive-->
@@ -179,6 +182,45 @@ transform: scale(0.98);
 
 </style>
 
+
+<style>
+    .datepicker::-webkit-inner-spin-button
+    {
+    	display:none;
+    }
+    </style>
+    
+
+<script>
+$(function check_login_status(){
+	var cs = $(".check_login_status").html().length;
+	//alert(cs);
+	
+	if(cs == "" || cs == null || cs == 0)
+    		{
+				$(".section1-box1").show();
+	    		$(".section1-box2").hide();
+	    	}
+    		
+    	else
+    		{
+				$(".section1-box2").show();
+	    		$(".section1-box1").hide();
+			}
+	
+	
+});
+</script>
+
+<span class="check_login_status" style="display:none">${sessionData}</span>
+
+
+<!-- fundraiser Details without login -->
+
+
+<div class="section1-box1" style="display:block">
+
+
 <script>
 $(function(){
 
@@ -201,7 +243,8 @@ $(function(){
             var email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
  
 /*For textarea Details*/
-    CKEDITOR.replace( 'fundraisers_story' );
+    CKEDITOR.replace('fund-details7');
+
 
 
     $(window).resize(function(){
@@ -422,14 +465,28 @@ $(function(){
         
         else if (start < cd || start == "Invalid Date" )
         {
+        	 $(".fund-details1").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+             $(".fund-details2").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+             $(".fund-details3").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+             $(".fund-details4").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+             $(".fund-details5").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+             $(".fund-details6").css({"border":"none"});
+             
         		$(".start-date").css({"border-bottom":"solid 2px red"});
             	return false;
         }
 
         else if (end <= start || end == "Invalid Date")
         {
-        		$(".start-date").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
-        		$(".end-date").css({"border-bottom":"solid 2px red"});
+	        	$(".fund-details1").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	            $(".fund-details2").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	            $(".fund-details3").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	            $(".fund-details4").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	            $(".fund-details5").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	            $(".fund-details6").css({"border":"none"});
+	            $(".start-date").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+        		
+	            $(".end-date").css({"border-bottom":"solid 2px red"});
                 return false;
         }
    
@@ -515,16 +572,6 @@ $(function(){
 
 
 
-    <style>
-    .datepicker::-webkit-inner-spin-button
-    {
-    	display:none;
-    }
-    </style>
-    
-
-
-<div class="section1-box1" style="display:block">
 <div class="col-md-3"></div>
 
 <div class="col-md-6">
@@ -622,6 +669,8 @@ $(function(){
 </div>
 
 <!--Personal Details End-->
+
+
 <!--Fundraiser Details start-->
 
 <div class="fundraiser-Details" style="display: none;">
@@ -661,13 +710,13 @@ $(function(){
 
 
 <div class="col-md-12">
-        <textarea name="fundraisers_story" class="form-control fund-details7" rows="4" style="max-width: 100%; max-height: 50%; min-width: 100%; min-height: 10%; background-color: transparent; font-size: 18px; color:black;" placeholder="Fundraiser Story">
+        <textarea name="fundraisers_story" id="fund-details7" class="form-control fund-details7" rows="4" style="max-width: 100%; max-height: 50%; min-width: 100%; min-height: 10%; background-color: transparent; font-size: 18px; color:black;" placeholder="Fundraiser Story">
 <p style="text-align: justify">
 
             Struggling to pen down a fundraiser story on your own? No worries, just use the template below: <br>
             <br>
             Hi, 
-            <br>
+            <br><br>
             <p style="text-align: justify">
                     My name is (your name) and I am raising funds for (Non profit name) which is working towards the rehabilitation and education of street children (elaborate about your cause/ program). We are at present taking care of 50 street children (show your reach/impact) and need xxxx amount to send them to school (explain why you need the funds). Kindly support our cause by donating and sharing our fundraiser. <br><br>
             </p>
@@ -740,6 +789,297 @@ $(function(){
 </div>
 
 <!--Activate process End-->
+
+
+</form>
+
+<!--Form End-->
+
+
+
+</div> 
+</div>
+<div class="col-md-12"></div>
+
+
+</div>
+
+    
+
+</div>
+
+
+<!-- fundraiser Details after login -->
+
+<div class="section1-box2" style="display:block">
+
+<script>
+
+ $(function(){
+	 
+	    $(".fund-details42, .fund-details22").keypress(function(e){
+
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) 
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        })
+        var name= /[^a-zA-Z\s]/g;
+        var email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+        /*For textarea Details 2 */
+        //CKEDITOR.replace('fundraisers_story');
+        CKEDITOR.replace('fund-details72');
+        
+	 $(".next-button-22").click(function(){
+		 
+			var sd2= $(".start-date2").val();
+	    	var ed2= $(".end-date2").val();
+	    	
+			var start2 = new Date(sd2);
+			var end2 = new Date(ed2);
+			var cdate2 = new Date();
+			var cd2 = new Date(Date.now() - 864e5);
+			var cdate22 = cdate2.getFullYear()+ '-' + ('0' + (cdate2.getMonth()+1)).slice(-2) + '-' + ('0' + cdate2.getDate()).slice(-2);
+			$(".created_date2").val(cdate22);
+
+			var fd12 = $(".fund-details12").val();
+	        var fd22 = $(".fund-details22").val();
+	        var fd32 = $(".fund-details32").val();
+	        var fd42 = $(".fund-details42").val();
+	        var fd42l = $(".fund-details42").val().length;
+
+	        var fd52 = $(".fund-details52").val();
+	        var fd62 = $(".fund-details62").val();
+	        var fd72 = $(".fund-details72").val();
+
+	        //alert(fd62);
+
+	        if(fd12 == "")
+	        {
+	             $(".fund-details12").css({"border-bottom":"solid 2px red"});
+	             return false;
+	        }
+
+	        else if (fd22 == "")
+	        {
+	             $(".fund-details12").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+
+	             $(".fund-details22").css({"border-bottom":"solid 2px red"});
+	             return false;
+	        }
+	        else if (fd32 == "" || fd32.match(name))
+	        {
+	             $(".fund-details12").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details22").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	    
+	             $(".fund-details32").css({"border-bottom":"solid 2px red"});
+	             return false;
+	        }
+	        else if (fd42 == "" || fd42l != 10)
+	        {
+	             $(".fund-details12").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details22").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details32").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	            
+	             $(".fund-details42").css({"border-bottom":"solid 2px red"});
+	             return false;
+	        }
+	        else if (fd52 == "" || !fd52.match(email))
+	        {
+	             $(".fund-details12").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details22").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details32").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details42").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             
+	             $(".fund-details52").css({"border-bottom":"solid 2px red"});
+	             return false;
+	        }
+	        else if (fd62 == 0)
+	        {
+	             $(".fund-details12").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details22").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details32").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details42").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details52").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	            
+	             $(".fund-details62").css({"border":"solid 2px red"});
+	             return false;
+	        }
+	        
+	        else if (start2 < cd2 || start2 == "Invalid Date" )
+	        {
+		        	 $(".fund-details12").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+		             $(".fund-details22").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+		             $(".fund-details32").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+		             $(".fund-details42").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+		             $(".fund-details52").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+		             $(".fund-details62").css({"border":"none"});
+	        		
+	        		$(".start-date2").css({"border-bottom":"solid 2px red"});
+	            	return false;
+	        }
+
+	        else if (end2 <= start2 || end2 == "Invalid Date")
+	        {
+	        	 $(".fund-details12").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details22").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details32").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details42").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details52").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details62").css({"border":"none"});
+       			 $(".start-date2").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	        		
+	        		$(".end-date2").css({"border-bottom":"solid 2px red"});
+	                return false;
+	        }
+	   
+
+
+	        else
+	        {
+	        	 $(".fund-details12").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details22").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details32").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details42").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details52").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	             $(".fund-details62").css({"border":"none"});
+       			 $(".start-date2").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+	        	 $(".end-date2").css({"border-bottom":"solid 1px rgb(0, 0, 0)"});
+        		
+	        	return true;
+	        }
+		 
+		 
+		 
+	 })
+ })
+ 
+ 
+ 
+    </script>
+
+<div class="col-md-3"></div>
+
+<div class="col-md-6">
+
+<div class="tag-first" style="background-color:rgba(255, 255, 255, 0.92); box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.438); border-radius: 10px;">
+<br>
+
+<div class="container-fluid" style="margin-top:20px; margin-bottom: 50px;">
+
+<!--Fix Item Start-->
+
+<div class="fix-item-1">
+
+        <p style="font-size:30px; text-align: center; font-weight: bold;">START A FUNDRAISERS</p>
+
+<br>
+<p style=" font-size:15px; text-align: center; color: rgb(126, 13, 60);">"FUNDRAISERS DETAILS"</p>
+
+
+<hr style="border:solid 0.5px rgb(148, 115, 115);">
+
+<br>        
+</div>
+
+<!--Fix Item End-->
+
+<!--Form Start-->
+
+<form name="fundraisers_details2" action="login_new_fundraisers" modelAttribute="new_fundraisers_model" method="post">
+
+
+<!--Fundraiser Details start-->
+
+<div class="fundraiser-Details">
+
+<div class="col-md-12">
+
+		<input type="text" name="fundraisers_title" class="all-button-same fund-details12" placeholder="Title"><br><br>
+</div>        
+
+<div class="col-md-12">
+        <input type="text" maxlength="8" name="fundraisers_goal_amount" class="all-button-same fund-details22" placeholder="Goal Amount"><br><br>
+</div>        
+
+<div class="col-md-12">
+        <input type="text" name="fundraisers_name" class="all-button-same fund-details32" placeholder="Beneficiary Name"><br><br>
+</div>        
+
+<div class="col-md-12">
+    <input type="text" maxlength="10" name="fundraisers_contact" class="all-button-same fund-details42" placeholder="Beneficiary Contact"><br><br>
+</div>        
+
+<div class="col-md-12">
+    <input type="text" name="fundraisers_email" class="all-button-same fund-details52" placeholder="Beneficiary Email"><br><br>
+</div>        
+
+<div class="col-md-12">
+        <select name="fundraisers_beneficiary_relation" class="form-control fund-details62" style="height: 50px; font-size: 18px;  background-color: rgba(42, 124, 145, 0.767); color:white">
+            <option value="0" style="text-align: center" hidden selected>Relation With Beneficiary</option>
+            <option value="self">SELF</option>
+            <option value="parent">PARENT</option>
+            <option value="spouse">SPOUSE</option>
+            <option value="child">CHILD</option>
+            <option value="other">OTHER</option>
+</select>
+<br>
+</div>
+
+
+<div class="col-md-12">
+        <textarea name="fundraisers_story" id="fund-details72" class="form-control fund-details72" rows="4" style="max-width: 100%; max-height: 50%; min-width: 100%; min-height: 10%; background-color: transparent; font-size: 18px; color:black;" placeholder="Fundraiser Story">
+<p style="text-align: justify">
+
+            Struggling to pen down a fundraiser story on your own? No worries, just use the template below: <br>
+            <br>
+            Hi, 
+            <br><br>
+            <p style="text-align: justify">
+                    My name is (your name) and I am raising funds for (Non profit name) which is working towards the rehabilitation and education of street children (elaborate about your cause/ program). We are at present taking care of 50 street children (show your reach/impact) and need xxxx amount to send them to school (explain why you need the funds). Kindly support our cause by donating and sharing our fundraiser. <br><br>
+            </p>
+            Here's how the funds will be utilised (add a quick break up of funds). <br><br>
+            We are grateful for your help!
+</p>
+        </textarea>
+         
+    </div>
+    
+    <!-- Dates -->
+    
+
+    
+    	<input type="text" name="fundraisers_created_date" maxlength = "0" class="created_date2" hidden><br><br>
+    	
+    	<div class="col-md-6">
+		<br>
+        	<input type="text" onfocus="this.type='date'" name="fundraisers_start_date" class="start-date2 datepicker all-button-same" placeholder="Campaign Start Date"><br><br>
+       </div>
+       
+       <div class="col-md-6">
+       <br>
+			<input type="text" onfocus="this.type='date'" name="fundraisers_end_date" class="end-date2 datepicker all-button-same" placeholder="Campaign End Date"><br><br>
+       </div>
+          
+		<input type="text" name="fundraisers_id" value="${sessionData.user_id}" hidden><br><br>
+		
+       
+       <!-- buttons -->
+       
+       <div class="col-md-12">
+        <button type="submit" class="button-1 next-button-22 form-control"> Create <i class="fa fa-chevron-right" style="font-size: 13px;"></i>  </button>
+        <br><br>
+    </div>
+
+</div>
+
+<!--Fundraiser Details End-->
+
 
 
 </form>

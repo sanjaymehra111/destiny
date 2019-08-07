@@ -23,7 +23,7 @@ public class BrowseFundraiserDaoimpl
 
 	public List<FundraiserModel> fetchFundraisersDetails()
 	{
-		List<FundraiserModel> query1 = template.query("select * from fundraisers_detail order by fundraisers_id desc", new RowMapper<FundraiserModel>()
+		List<FundraiserModel> query1 = template.query("select * from fundraisers_detail where personal_status = 1 order by fundraisers_id desc", new RowMapper<FundraiserModel>()
 				
 				{
 
@@ -54,7 +54,7 @@ public class BrowseFundraiserDaoimpl
 	
 	public List<CampaignsModel> fetchCampaignsDetails()
 	{
-		List<CampaignsModel> query2 = template.query("select * from campaign_details order by fundraisers_id desc", new RowMapper<CampaignsModel>()
+		List<CampaignsModel> query2 = template.query("select * from campaign_details where fundraisers_status = 1 order by fundraisers_id desc", new RowMapper<CampaignsModel>()
 				{
 
 					@Override

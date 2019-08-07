@@ -200,9 +200,8 @@ Donors: <span>0</span>  <span style="color:rgb(9, 97, 148)">Created</span>, <spa
 </div>
 <div class="col-md-6">
 <center>    
-
 <a href="manage-overview"><button class="button-manage button-all">Manage</button></a>
-<a href="edit-cause-details"><button class="button-edit button-all">Edit</button></a>
+<a href="edit-cause-details/${fm.fundraisers_id}/${fm.campaign_id}"><button class="button-edit button-all">Edit</button></a>
 <a href="manage-withdrawl"><button class="button-withdraw button-all">Withdraw</button></a>
 
 </center>

@@ -64,44 +64,13 @@ public class UserLoginController
 			 return "login";
 		 }
 		
-		
-		//System.out.println("data is : " + data.get(0));
-		
-		/*
-		UserLoginModel check = data.get(0);
-		
-		System.out.println("dao data in controller" + data);
-		System.out.println(" session id is = " + check);
-		System.out.println(" id = "+ ulm.getfundraisers_id());
-		
-		
-		//return "dashboard/user/user-dashboard";
-		*/
-	
 	
 	
 		
 	}
 	
 	
-	/*
 	
-	public void checkSession(@ModelAttribute ("user_login_model")UserLoginModel ulm, FundraisersModel fm, Model model, HttpSession session, HttpServletRequest req)
-	{
-		List<UserLoginModel> f_id = (List<UserLoginModel>) uldao.checkLogin(ulm);
-		session.setAttribute("s_id", f_id);
-		String sid = (String) session.getAttribute("s_id");
-		
-		List<FundraisersModel> data2 = smdao.fetch(sid);
-		model.addAttribute("data2", data2);
-		model.addAttribute("fm", fm);
-		System.out.println("form data in controller:" +  sid);
-		
-		
-		
-	}
-	
-	*/
 	
 	@RequestMapping("/user_logout")
 	public String logoutSession(HttpSession session)

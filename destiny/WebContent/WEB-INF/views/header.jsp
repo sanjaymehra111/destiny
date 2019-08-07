@@ -167,7 +167,7 @@ var currentScrollPos = window.pageYOffset;
                     
 
     <style>
-    .chech-session
+    .check-session
     {	
     	font-size: 0px;
     }
@@ -178,7 +178,7 @@ var currentScrollPos = window.pageYOffset;
     }
     </style>
     
-            <span class="chech-session">${sessionData}</span>
+            <span class="check-session">${sessionData}</span>
             
                     <li class="headerlist validate-dashboard"><a href="/destiny/user-dashboard" class="white shop-menu user-dashboard" style="text-decoration:none;">Dashboard </a>
                       </li>
@@ -262,8 +262,8 @@ var amount = $(this).html();
                     </ul>
 
     <script>
-    $(function chech_session(){
-    	var cs = $(".chech-session").html().length;
+    $(function check_session(){
+    	var cs = $(".check-session").html().length;
     	//alert(cs);
     	if(cs == "" || cs == null || cs == 0)
     		{

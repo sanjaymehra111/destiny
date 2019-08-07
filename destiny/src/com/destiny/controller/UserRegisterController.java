@@ -68,32 +68,20 @@ public class UserRegisterController
 		
 	}
 	
-	//Store data in database
-	/*
-	@RequestMapping("/new_fundraisers")
-	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraiserModel fm, Model model)
+	
+	//store campaign details after login
+	
+	@RequestMapping("/login_new_fundraisers")
+	public String login_new_fundraisers(@ModelAttribute("new_fundraisers_model")CampaignsModel cm, Model model)
 	{
-		fmdao.save(fm);
-		fetchdetails(fm, model);
+		System.out.println("data is :" + cm.toString());
 		
-		return "dashboard/user/user-dashboard";
+		fdmdao.InserIntoLoginCampaign(cm);
+		
+		return "redirect:/user-dashboard";
 		
 	}
-	*/
 	
-//	
-//	public void fetchdetails(@ModelAttribute("new_fundraisers_model")FundraiserModel fm, Model model)
-//	{
-//		String f_id = fmdao.fetchData(fm.getPersonal_name(), fm.getPersonal_email());
-//		System.out.println("fid data = " + f_id);
-//		smdao.fetch(f_id);
-//		List<FundraiserModel> data2 = smdao.fetch(f_id);
-//		model.addAttribute("data2", data2);
-//		model.addAttribute("fm", fm);
-//		System.out.println("fetch data of fundraisers details is:" + data2);
-//	}
-//	
-
 	
 	//Fetch campaign and fundraisers details from database and show all campaign on browse fundraisers page
 	
@@ -115,6 +103,10 @@ public class UserRegisterController
 		
 		return "browse-a-fundraisers";
 	}
+	
+	
+	
+	
 	
 	//Fetch Data from database and show specific campaign details
 	
