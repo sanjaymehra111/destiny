@@ -622,8 +622,6 @@ $(function(){
 </div>
 
 <!--Personal Details End-->
-
-
 <!--Fundraiser Details start-->
 
 <div class="fundraiser-Details" style="display: none;">
