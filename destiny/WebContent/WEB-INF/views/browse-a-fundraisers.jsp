@@ -389,9 +389,15 @@ $(function transfer_id(){
 $(function progress_bar()
 {
 	var pg= $(".pg").html();
-	var pr= $(".pg").html();
-	var pb = pg*pr/100;
-	//alert(pb);
+	var pr= $(".pr").html();
+	var pb = pr/pg*100;
+	
+	/* 
+	alert(pg);
+	alert(pr);
+	alert(pb);
+	*/
+	
 	$(".progress-bar-pb").css({"width": pb + "%"});
 	
 });
@@ -426,7 +432,7 @@ $(function progress_bar()
     <!-- <p style="font-size:25px; color:rgb(126, 131, 131)"> c fi id is : ${cm.fundraisers_id} </p>
      -->
 
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> ${cm.fundraisers_goal_amount} </span> <span style="float:right">Raised : <span class="pr"> ${cm.fundraisers_goal_amount} </span> </span></span> <br><br>
+    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> ${cm.fundraisers_goal_amount} </span> <span style="float:right">Raised : <span class="pr">${cm.fundraisers_raised_amount}</span> </span></span> <br><br>
     <div class="progress" style="height: 10px;">
         <div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
          </div>

@@ -13,7 +13,12 @@ public class DonationModel
 	String donor_city;
 	String donor_country;
 	String donor_message;
+
 	
+	public DonationModel()
+	{
+		
+	}
 	
 	public DonationModel(String donor_id, String amount_type, String amount, String campaign_id, String donor_name,
 			String donor_contact, String donor_email, String donor_address, String donor_city, String donor_country,

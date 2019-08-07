@@ -37,9 +37,9 @@ public class UserUpdateDaoimpl
 	
 	//Update user Details  (Name, City, DOB)
 	
-	public int UpdateuserDetails(UserUpdateModel uum)
+	public int UpdateuserDetails(UserUpdateModel uum, String filename)
 	{
-		String sql3 = "UPDATE fundraisers_detail SET personal_name='"+uum.getPersonal_name()+"', personal_city='"+uum.getPersonal_city()+"', personal_dob='"+uum.getPersonal_dob()+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
+		String sql3 = "UPDATE fundraisers_detail SET personal_name='"+uum.getPersonal_name()+"', personal_city='"+uum.getPersonal_city()+"', personal_dob='"+uum.getPersonal_dob()+"', personal_profile_image='"+"/destiny/files/profile-images/"+filename+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
 		return template.update(sql3);
 	}
 	

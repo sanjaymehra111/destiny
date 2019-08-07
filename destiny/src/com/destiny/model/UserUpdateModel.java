@@ -10,6 +10,7 @@ public class UserUpdateModel
 	String personal_city;
 	String old_password;
 	String new_password;
+	String personal_profile_image;
 	
 	
 	public UserUpdateModel()
@@ -84,9 +85,25 @@ public class UserUpdateModel
 	public void setNew_password(String new_password) {
 		this.new_password = new_password;
 	}
+	
+	
+	
+
+	public String getPersonal_profile_image() {
+		return personal_profile_image;
+	}
+
+
+	public void setPersonal_profile_image(String personal_profile_image) {
+		this.personal_profile_image = personal_profile_image;
+	}
+
+
+	
 
 	public UserUpdateModel(String fundraisers_id, String personal_aadhar_no, String personal_pan_no,
-			String personal_dob, String personal_name, String personal_city, String old_password, String new_password) {
+			String personal_dob, String personal_name, String personal_city, String old_password, String new_password,
+			String personal_profile_image) {
 		super();
 		this.fundraisers_id = fundraisers_id;
 		this.personal_aadhar_no = personal_aadhar_no;
@@ -96,7 +113,9 @@ public class UserUpdateModel
 		this.personal_city = personal_city;
 		this.old_password = old_password;
 		this.new_password = new_password;
+		this.personal_profile_image = personal_profile_image;
 	}
+
 
 	@Override
 	public String toString() {
@@ -105,7 +124,8 @@ public class UserUpdateModel
 				.append(personal_aadhar_no).append(", personal_pan_no=").append(personal_pan_no)
 				.append(", personal_dob=").append(personal_dob).append(", personal_name=").append(personal_name)
 				.append(", personal_city=").append(personal_city).append(", old_password=").append(old_password)
-				.append(", new_password=").append(new_password).append("]");
+				.append(", new_password=").append(new_password).append(", personal_profile_image=")
+				.append(personal_profile_image).append("]");
 		return builder.toString();
 	}
 	

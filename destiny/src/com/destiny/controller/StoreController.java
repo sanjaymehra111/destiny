@@ -161,7 +161,6 @@ public class StoreController
 			List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(fid);
 			model.addAttribute("data2", data2);
 			model.addAttribute("fm", fm);
-			
 			return "dashboard/user/user-dashboard";
 		}
 		else {

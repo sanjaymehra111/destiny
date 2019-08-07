@@ -315,7 +315,7 @@
 
 <div class="col-md-12 text-center1 fix-details">
 <div class="col-md-4">
-<span class="section1-image"><img class="u-o-image" src="/destiny/files/dashboard-user-images/donorall.png" style="width:150px; height: 150px; border-radius: 100px; overflow: hidden;"></span><br>
+<span class="section1-image"><img class="u-o-image" src="${fm.personal_profile_image}" style="width:150px; height: 150px; border-radius: 100px; overflow: hidden;"></span><br>
 <br>
 </div>
 <div class="col-md-4 top-bar-content">
@@ -415,6 +415,7 @@ if(n_name == "" || n_address == "" || n_dob == "")
 
 else
 {
+	  
     $(".section1-data1-edit-mode").hide();
     $(".section1-data1").show();
     $(".hide-error").css({"font-size":"0px"});
@@ -550,7 +551,6 @@ function readURL(input)
 <span class="section1-image"><img class="u-n-image" src="" style="width:150px; height: 150px; border-radius: 100px; overflow: hidden;"></span><br>
 
 <span class="edit-icon1"><img src="/destiny/files/dashboard-user-images/camera1.png" class="edit-icon2">
-<input type="file" name="new_user_image" onchange="readURL(this);" class="file-type-1">
 
 </span>
 
@@ -569,9 +569,18 @@ function readURL(input)
 
 <div class="col-md-12 text-center1 change-details" style="text-align: center">
 
-<form name="user_update_details" action="user_update_details" modelAttribute="user_update_model">
+<!-- 
+<form class="form1" method="post" action="savefile" enctype="multipart/form-data">  
+<input type="file" name="file" onchange="readURL(this);" class="file-type-1">
+<input type="submit" class="file-submit" value="Upload">  
+</form>
+-->
+
+<form class="form2" name="user_update_details" action="user_update_details" modelAttribute="user_update_model" method="post" enctype="multipart/form-data">
 
 <input type="text" name="fundraisers_id" value="${fm.fundraisers_id}" hidden>
+
+<input type="file" name="file" onchange="readURL(this);" class="file-type-1">
 
 <div class="col-md-4">
 <span>Name <br> <span class="fatch-data">

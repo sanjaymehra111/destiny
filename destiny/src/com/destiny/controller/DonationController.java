@@ -18,7 +18,7 @@ public class DonationController
 	@RequestMapping("/new_donation") 
 	public String donation(@ModelAttribute("donation_model")DonationModel dm, Model model)
 	{
-		System.out.println("donation id :" +dm.toString());
+		//System.out.println("donation id :" +dm.toString());
 		//System.out.println(dm.toString());
 		dmdao.save(dm);
 		 

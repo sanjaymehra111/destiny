@@ -183,7 +183,7 @@ transform: scale(0.98);
 $(function(){
 
 
-            $(".per-details4, .fund-details4").keypress(function(e){
+            $(".per-details4, .fund-details4, .fund-details2").keypress(function(e){
 
                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) 
                 {
@@ -591,6 +591,7 @@ $(function(){
 <br>
 </div>
 
+
 <div class="col-md-12">
         <input type="text" name="personal_name" class="all-button-same per-details2" placeholder="Name"><br><br>
 </div>        
@@ -633,7 +634,7 @@ $(function(){
 </div>        
 
 <div class="col-md-12">
-        <input type="number" name="fundraisers_goal_amount" class="all-button-same fund-details2" placeholder="Goal Amount"><br><br>
+        <input type="text" maxlength="8" name="fundraisers_goal_amount" class="all-button-same fund-details2" placeholder="Goal Amount"><br><br>
 </div>        
 
 <div class="col-md-12">

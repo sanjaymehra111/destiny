@@ -226,8 +226,6 @@ $(function()
 {
     var x = localStorage.getItem("x"); 
     $(".vol-email").val(x);
-
-
 });
 */
 

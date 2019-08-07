@@ -6,6 +6,7 @@ public class CampaignsModel
 	String fundraisers_id;
 	String fundraisers_title;
 	String fundraisers_goal_amount;
+	String fundraisers_raised_amount;
 	String fundraisers_name;
 	String fundraisers_contact;
 	String fundraisers_email;
@@ -70,6 +71,17 @@ public class CampaignsModel
 		this.fundraisers_goal_amount = fundraisers_goal_amount;
 	}
 
+	
+
+
+	public String getFundraisers_raised_amount() {
+		return fundraisers_raised_amount;
+	}
+
+
+	public void setFundraisers_raised_amount(String fundraisers_raised_amount) {
+		this.fundraisers_raised_amount = fundraisers_raised_amount;
+	}
 
 
 	public String getFundraisers_name() {
@@ -185,30 +197,28 @@ public class CampaignsModel
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("CampaignsModel [campaign_id=").append(campaign_id).append(", fundraisers_id=")
-				.append(fundraisers_id).append(", fundraisers_title=").append(fundraisers_title)
-				.append(", fundraisers_goal_amount=").append(fundraisers_goal_amount).append(", fundraisers_name=")
-				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
-				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relation=")
-				.append(fundraisers_beneficiary_relation).append(", fundraisers_story=").append(fundraisers_story)
-				.append(", fundraisers_start_date=").append(fundraisers_start_date).append(", fundraisers_end_date=")
-				.append(fundraisers_end_date).append(", fundraisers_created_date=").append(fundraisers_created_date)
-				.append(", fundraisers_status=").append(fundraisers_status).append("]");
-		return builder.toString();
+		return "CampaignsModel [campaign_id=" + campaign_id + ", fundraisers_id=" + fundraisers_id
+				+ ", fundraisers_title=" + fundraisers_title + ", fundraisers_goal_amount=" + fundraisers_goal_amount
+				+ ", fundraisers_raised_amount=" + fundraisers_raised_amount + ", fundraisers_name=" + fundraisers_name
+				+ ", fundraisers_contact=" + fundraisers_contact + ", fundraisers_email=" + fundraisers_email
+				+ ", fundraisers_beneficiary_relation=" + fundraisers_beneficiary_relation + ", fundraisers_story="
+				+ fundraisers_story + ", fundraisers_start_date=" + fundraisers_start_date + ", fundraisers_end_date="
+				+ fundraisers_end_date + ", fundraisers_created_date=" + fundraisers_created_date
+				+ ", fundraisers_status=" + fundraisers_status + "]";
 	}
 
 
 	public CampaignsModel(String campaign_id, String fundraisers_id, String fundraisers_title,
-			String fundraisers_goal_amount, String fundraisers_name, String fundraisers_contact,
-			String fundraisers_email, String fundraisers_beneficiary_relation, String fundraisers_story,
-			String fundraisers_start_date, String fundraisers_end_date, String fundraisers_created_date,
-			String fundraisers_status) {
+			String fundraisers_goal_amount, String fundraisers_raised_amount, String fundraisers_name,
+			String fundraisers_contact, String fundraisers_email, String fundraisers_beneficiary_relation,
+			String fundraisers_story, String fundraisers_start_date, String fundraisers_end_date,
+			String fundraisers_created_date, String fundraisers_status) {
 		super();
 		this.campaign_id = campaign_id;
 		this.fundraisers_id = fundraisers_id;
 		this.fundraisers_title = fundraisers_title;
 		this.fundraisers_goal_amount = fundraisers_goal_amount;
+		this.fundraisers_raised_amount = fundraisers_raised_amount;
 		this.fundraisers_name = fundraisers_name;
 		this.fundraisers_contact = fundraisers_contact;
 		this.fundraisers_email = fundraisers_email;
@@ -220,8 +230,7 @@ public class CampaignsModel
 		this.fundraisers_status = fundraisers_status;
 	}
 
-	
-	
+
 	
 	
 }

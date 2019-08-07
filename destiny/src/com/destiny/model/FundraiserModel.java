@@ -12,6 +12,7 @@ public class FundraiserModel
 	String personal_pan_no;
 	String personal_aadhar_no;
 	String personal_dob;
+	String personal_profile_image;
 
 	
 public FundraiserModel()
@@ -142,9 +143,22 @@ public void setPersonal_dob(String personal_dob) {
 
 
 
+public String getPersonal_profile_image() {
+	return personal_profile_image;
+}
+
+
+
+public void setPersonal_profile_image(String personal_profile_image) {
+	this.personal_profile_image = personal_profile_image;
+}
+
+
+
+
 public FundraiserModel(String fundraisers_id, String category_type, String personal_name, String personal_email,
 		String personal_password, String personal_number, String personal_city, String personal_pan_no,
-		String personal_aadhar_no, String personal_dob) {
+		String personal_aadhar_no, String personal_dob, String personal_profile_image) {
 	super();
 	this.fundraisers_id = fundraisers_id;
 	this.category_type = category_type;
@@ -156,6 +170,7 @@ public FundraiserModel(String fundraisers_id, String category_type, String perso
 	this.personal_pan_no = personal_pan_no;
 	this.personal_aadhar_no = personal_aadhar_no;
 	this.personal_dob = personal_dob;
+	this.personal_profile_image = personal_profile_image;
 }
 
 
@@ -168,7 +183,8 @@ public String toString() {
 			.append(personal_email).append(", personal_password=").append(personal_password)
 			.append(", personal_number=").append(personal_number).append(", personal_city=").append(personal_city)
 			.append(", personal_pan_no=").append(personal_pan_no).append(", personal_aadhar_no=")
-			.append(personal_aadhar_no).append(", personal_dob=").append(personal_dob).append("]");
+			.append(personal_aadhar_no).append(", personal_dob=").append(personal_dob)
+			.append(", personal_profile_image=").append(personal_profile_image).append("]");
 	return builder.toString();
 }
 

@@ -48,6 +48,7 @@ public class UserLoginController
 			redirectAttributes.addFlashAttribute("fundraisers_id", data.getfundraisers_id());
 			redirectAttributes.addFlashAttribute("fundraiserModel",fm)	;	
 			 
+			
 			//String s_fid = sessionModel.getUser_id();
 			//redirectAttributes.addAttribute("s_fid", s_fid);
 			

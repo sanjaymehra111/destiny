@@ -37,6 +37,7 @@ public class SpecificCauseDetailsDaoimpl
 						fm.setPersonal_city(rs.getString("personal_city"));
 						fm.setPersonal_pan_no(rs.getString("personal_pan_no"));
 						fm.setPersonal_aadhar_no(rs.getString("personal_aadhar_no"));
+						fm.setPersonal_profile_image(rs.getString("personal_profile_image"));
 						return fm;
 					}
 			});

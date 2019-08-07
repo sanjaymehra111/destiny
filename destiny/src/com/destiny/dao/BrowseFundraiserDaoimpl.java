@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.destiny.model.CampaignsModel;
+import com.destiny.model.DonationModel;
 import com.destiny.model.FundraiserModel;
 
 @Repository
@@ -66,6 +67,7 @@ public class BrowseFundraiserDaoimpl
 						cm.setFundraisers_id(rs.getString("fundraisers_id"));
 						cm.setFundraisers_title(rs.getString("fundraisers_title"));
 						cm.setFundraisers_goal_amount(rs.getString("fundraisers_goal_amount"));
+						cm.setFundraisers_raised_amount(rs.getString("fundraisers_raised_amount"));
 						cm.setFundraisers_name(rs.getString("fundraisers_name"));
 						cm.setFundraisers_contact(rs.getString("fundraisers_contact"));
 						cm.setFundraisers_email(rs.getString("fundraisers_email"));
@@ -81,5 +83,35 @@ public class BrowseFundraiserDaoimpl
 		return query2;
 		
 	}
+	
+	public List<DonationModel> fetchDonationDetails()
+	{
+		List<DonationModel> query2 = template.query("select campaign_id, sum(amount) from donation_details group by campaign_id ", new RowMapper<DonationModel>()
+				{
+
+					@Override
+					public DonationModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO Auto-generated method stub
+						
+						DonationModel dm = new DonationModel();
+						dm.setCampaign_id(rs.getString("campaign_id"));
+						dm.setAmount(rs.getString("sum(amount)"));
+						
+						String query3 = "UPDATE campaign_details SET fundraisers_raised_amount='"+dm.getAmount()+"' WHERE campaign_id ='"+dm.getCampaign_id()+"'";
+								
+								template.update(query3);
+						
+								
+						
+						return dm;
+					}
+			
+				});
+		
+		return query2;
+		
+	}
+
+
 	
 }

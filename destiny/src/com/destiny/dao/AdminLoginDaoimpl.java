@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.destiny.model.AdminLoginModel;
-import com.destiny.model.UserLoginModel;
 
 
 @Repository

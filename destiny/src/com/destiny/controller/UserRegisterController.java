@@ -1,13 +1,10 @@
 package com.destiny.controller;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +17,7 @@ import com.destiny.dao.FundraiserDaoimpl;
 import com.destiny.dao.FundraisersDaoimpl;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
 import com.destiny.model.CampaignsModel;
+import com.destiny.model.DonationModel;
 import com.destiny.model.FundraiserModel;
 import com.destiny.model.SessionModel;
 
@@ -37,8 +35,7 @@ public class UserRegisterController
 	
 	@Autowired
 	FundraiserDaoimpl fdmdao;
-	 
-	
+
 	@RequestMapping("/new_fundraisers")
 	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraiserModel fm, CampaignsModel cm, Model model,
 			HttpSession session, RedirectAttributes redirectAttributes)
@@ -101,16 +98,20 @@ public class UserRegisterController
 	//Fetch campaign and fundraisers details from database and show all campaign on browse fundraisers page
 	
 	@RequestMapping("/browse-a-fundraisers")
-	public String browse_a_fundraisers(FundraiserModel fm, Model model, CampaignsModel cm)
+	public String browse_a_fundraisers(FundraiserModel fm, Model model, CampaignsModel cm, DonationModel dm)
 	{
 		List<FundraiserModel> data = fmdao2.fetchFundraisersDetails();
 		List<CampaignsModel> data2 = fmdao2.fetchCampaignsDetails();
+		
+		//update sum of donation amount details in campaign.fundraisers_raised_amount
+		fmdao2.fetchDonationDetails();
 	
+		//System.out.println("campaign id is : " +dm.getCampaign_id()+  " AND  " + "amount is : " +dm.getAmount() );
+		
 		model.addAttribute("data", data);
 		model.addAttribute("data2", data2);
 		model.addAttribute("fm", fm);
 		model.addAttribute("cm", cm);
- 		
 		
 		return "browse-a-fundraisers";
 	}

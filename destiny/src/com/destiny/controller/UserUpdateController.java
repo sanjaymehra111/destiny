@@ -1,7 +1,10 @@
 package com.destiny.controller;
 
-import java.util.List;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.destiny.dao.UserUpdateDaoimpl;
@@ -42,14 +47,53 @@ public class UserUpdateController
 	}
 	
 	
-	//Update user Details (Name, City, DOB)
+	//Update user Details (Name, City, DOB, profile image)
 
 	@RequestMapping("/user_update_details")
-	public String userUpdateDetails(@ModelAttribute("user_update_model")UserUpdateModel uum, Model model)
+	public String userUpdateDetails(@ModelAttribute("user_update_model")UserUpdateModel uum, Model model, HttpSession session, @RequestParam CommonsMultipartFile file)throws Exception
 	{
-		uudao.UpdateuserDetails(uum);
+		//System.out.println("file is : " + file);
+		ServletContext context= session.getServletContext();
+		
+		String path = context.getRealPath("/resources/profile-images/");
+		String filename= file.getOriginalFilename();
+		//String profile_path = path  + filename;
+		
+		byte[] bytes = file.getBytes();  
+		    BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(new File(path + File.separator + filename)));  
+		    stream.write(bytes);  
+		    stream.flush();  
+		    stream.close(); 
+		
+		uudao.UpdateuserDetails(uum, filename);
 		return "redirect:/user-dashboard"; 
 	}
+	  
+	
+
+	
+	@RequestMapping("/savefile")
+	public String savefiles(@RequestParam CommonsMultipartFile file, HttpSession session) throws Exception
+	{
+		
+		ServletContext context= session.getServletContext();
+		
+		String path = context.getRealPath("/resources/profile-images/");
+		String filename= file.getOriginalFilename();
+		String full_path = path  + filename;
+		System.out.println("full path is : " + full_path);  
+		
+		byte[] bytes = file.getBytes();  
+		    BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(new File(path + File.separator + filename)));  
+		    stream.write(bytes);  
+		    stream.flush();  
+		    stream.close(); 
+		    
+		return "redirect:/user-dashboard"; 
+	}
+	
+	
+	//Update Change password
 	
 	@RequestMapping("/user_change_password")
 	public String userChangePasswod(@ModelAttribute("user_update_model") UserUpdateModel uum, Model model, HttpSession session, RedirectAttributes redirectAttributes)
