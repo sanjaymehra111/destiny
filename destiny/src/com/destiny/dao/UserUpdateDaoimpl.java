@@ -35,7 +35,7 @@ public class UserUpdateDaoimpl
 		return template.update(sql2);
 	}
 	
-	//Update user Details  (Name, City, DOB)
+	//Update user Details  (Name, City, DOB, Image)
 	
 	public int UpdateuserDetails(UserUpdateModel uum, String filename)
 	{

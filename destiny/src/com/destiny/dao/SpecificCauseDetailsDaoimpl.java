@@ -70,6 +70,7 @@ public class SpecificCauseDetailsDaoimpl
 						cm.setFundraisers_end_date(rs.getString("fundraisers_end_date"));
 						cm.setFundraisers_created_date(rs.getString("fundraisers_created_date"));
 						cm.setFundraisers_status(rs.getString("fundraisers_status"));
+						cm.setFundraisers_profile_image(rs.getString("fundraisers_profile_image"));
 						cm.setFundraisers_upi_image(rs.getString("fundraisers_upi_image"));
 						cm.setFundraisers_upi_number(rs.getString("fundraisers_upi_number"));
 						

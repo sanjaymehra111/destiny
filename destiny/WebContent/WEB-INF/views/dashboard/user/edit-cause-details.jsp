@@ -25,6 +25,114 @@
     <!--Textarea-->
     <script src="https://cdn.ckeditor.com/4.11.1/basic/ckeditor.js"></script>
    
+
+<script>
+$(function ajax_form_data(){
+$(".submit_all_details").click(function(){
+
+	var campaign_id = $(".campaign_id").html();
+	var fundraisers_id = $(".fundraisers_id").html();
+	var fundraisers_title = $(".edit-heading-main2").html();
+	var fundraisers_goal_amount  = $(".goal-amount-old").html();
+	var fundraisers_story = $(".dec-fix").html();
+	var fundraisers_name = $(".fn-old").html();
+	var fundraisers_contact = $(".fc-old").html();
+	var fundraisers_email = $(".fe-old").html();
+	var fundraisers_upi_number = $(".upi-text").val();
+	
+	var profile_image = $(".fundraisers_profile")[0].files[0];
+	var upi_image = $(".upi-image-file")[0].files[0];
+	
+	var imgl = $(".new_icon2").attr('src').length;
+	var upi_imgl = $(".upi-main-file").attr('src').length;
+	
+	
+	var url1 = "/destiny/edit_campaign_noimg";
+	var url2 = "/destiny/edit_campaign_img";
+	
+	var data = new FormData();
+
+ 	data.append("campaign_id", campaign_id);
+    data.append("fundraisers_id", fundraisers_id);
+    data.append("fundraisers_title", fundraisers_title);
+    data.append("fundraisers_goal_amount", fundraisers_goal_amount);
+    data.append("fundraisers_story", fundraisers_story);
+    data.append("fundraisers_name", fundraisers_name);
+    data.append("fundraisers_contact", fundraisers_contact);
+    data.append("fundraisers_email", fundraisers_email);
+    data.append("fundraisers_upi_number", fundraisers_upi_number);
+    data.append( "profile_image", profile_image);
+    data.append( "upi_image", upi_image);
+    
+    alert("imgl : "+ imgl);
+    alert("upi_imgl : "+ upi_imgl);
+    
+    
+    if(imgl < 100 && upi_imgl < 100)
+	{
+		var img = "yes";
+	}
+	else 
+	{
+	var img = "no";
+	}
+
+
+ alert(img);
+ 
+//ajax start
+
+	 	$.ajax({
+
+	 	url: (img == "yes") ? url1 : url2,
+	 	data: data,
+		enctype: 'multipart/form-data',
+	 	processData: false,
+	 	contentType: false,
+	  	type: 'Post',    
+	 	cache: false,
+	 	success : function(){alert("Update Success")},
+	 	error : function(){alert("Error Found")}
+	 	
+ 	
+		
+/* 		{
+			'fundraisers_id' : fundraisers_id,
+	 		'campaign_id' : campaign_id,
+	 		'fundraisers_title' : fundraisers_title,
+	 		'fundraisers_goal_amount' : fundraisers_goal_amount,
+	 		'fundraisers_story' : fundraisers_story,
+	 		'fundraisers_name' : fundraisers_name,
+	 		'fundraisers_contact' : fundraisers_contact,
+	 		'fundraisers_email' : fundraisers_email,
+	 		'fundraisers_upi_number' : fundraisers_upi_number,
+	 	}, 
+ */	 	
+	  	
+
+});//ajax close 
+
+}); // button closed
+		
+}); //ajax_form_data close
+
+
+
+$(function transfer_id(){
+	$(".ourcausebtn1").click(function(){
+    var id = (this).value;
+	//alert(id);
+	$(".c_id").html(id);
+	$(".cid").val(id);
+  });
+})
+
+
+</script>
+
+
+
+
 </head>
 
 <c:forEach var="fm" items="${data1}">
@@ -32,7 +140,11 @@
  
 <body style="font-family: algerrian sans-serif;  background-color: rgba(182, 184, 184, 0.11);">
 
-<form name="edit_campaign" action="/destiny/edit_campaign" method="get" modelAttributes="EditCampaignModel">
+<div class="id's hidden">
+<div class="campaign_id">${cm.campaign_id}</div>
+<div class="fundraisers_id">${fm.fundraisers_id}</div>
+</div>
+<form name="edit_campaign">
        
 <!--Header Start-->
 
@@ -284,9 +396,7 @@ $(function(){
         <span class="t-amount amount-text">Goal &#8377; 
             <span style="border-bottom: solid 2px rgb(255, 255, 255); font-weight: bold">
 
-            <span class="goal-percent goal-amount-old">
-                ${cm.fundraisers_goal_amount}
-            </span> 
+            <span class="goal-percent goal-amount-old">${cm.fundraisers_goal_amount}</span> 
 
             <span class="goal-amount-new">
              <input class="new-goal1" type="text" maxlength="8">   
@@ -384,7 +494,7 @@ $(function()
         <br><br><br>
         </div>
         <div class="col-md-2">
-                <a href="#" style="text-decoration: none" class="donate-popup"><span class="d-button amount-text"><span style="font-weight: bold">Donate Now</span> </span></a>
+                <a href="#" style="text-decoration: none"  class=" donate-popup"><span class="d-button amount-text"><button type="button" value="${cm.campaign_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;">Donate Now</button> </span></a>
            <br><br>
         </div>
         
@@ -724,23 +834,22 @@ $(function(){
 
 
 <p class="cb-details"> Campaigner Details 
-<img class="img-icon" src="/destiny/files/images/voulnteer-d.jpg"></p>
+<img class="img-icon" src="${fm.personal_profile_image}"></p>
 <br><br>
 <span>
 
 <c:if test="${fm.personal_status eq 1}">
-	<button class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
+	<button type="button" class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
 </c:if>	
 <c:if test="${fm.personal_status eq 0}">
-	<button class="verified-button unvarified">UNVERIFIED <i class="fa fa-times-circle"></i></button>
+	<button type="button" class="verified-button unvarified">UNVERIFIED <i class="fa fa-times-circle"></i></button>
 </c:if>
 	
 </span>
 <p class="tips-text"><i class="fa fa-user"style="width:15px;" ></i> &nbsp; ${fm.personal_name}</p>
 <p class="tips-text"><i class="fa fa-vcard" style="font-size:15px; width:15px;"></i> &nbsp; ${fm.category_type}</p>
 <p class="tips-text">
-<i class="fa fa-map-marker" style="width:15px;"></i> &nbsp; ${fm.personal_city} 
-</p>
+<i class="fa fa-map-marker" style="width:15px;"></i> &nbsp; ${fm.personal_city}</p>
 <span style="margin-top: -25px; display: none" class="edit-pencil edit-pen5 fa fa-pencil-square-o"></span>
 
 </div>
@@ -754,11 +863,10 @@ $(function(){
 {
     display:block;
 }
-.b-new
+.fn-new, .fc-new, .fe-new
 {
-    margin-top: -20px;
-    padding:5px;
-    padding-left: 10px;
+	margin-top:8px;
+	padding-left: 10px;
     padding-right: 10px;
     border:none;
     outline: none;
@@ -767,6 +875,7 @@ $(function(){
     text-align: left;
     border-bottom: 2px solid white;
     font-size: 18px;
+    transition:0.3s;
 }
 .new-data6
 {
@@ -818,13 +927,37 @@ $(function(){
 <script>
 $(function(){
     
+	  	 var name= /[^a-zA-Z\s]/g;
+	     var email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	   
+	 $(".fc-new").keypress(function(e){
+
+         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) 
+         {
+        	 $(".fc-new").css({"border-bottom":"solid 2px red"});
+        	 
+             return false;
+         }
+         else
+         {
+        	 $(".fc-new").css({"border-bottom":"solid 2px white"});
+             return true;
+         }
+     });
+	 
+	 
     /*Show Edit Text*/
 
     $(".edit-pen6").click(function(){
         
         $(".cam-img1").css({"cursor":"pointer", "transform":"scale(1)"});
-        var b_name=$(".b-old").html();
-        $(".b-new").val(b_name);
+        var fn_old=$(".fn-old").html();
+        var fc_old=$(".fc-old").html();
+        var fe_old=$(".fe-old").html();
+        
+        $(".fn-new").val(fn_old);
+        $(".fc-new").val(fc_old);
+        $(".fe-new").val(fe_old);
 
         $(".old-data6").hide();
         $(".edit-pen6").hide();
@@ -840,6 +973,10 @@ $(function(){
         $(".edit-pen6").show();
         $(".new-data6").hide();
         $(".new-data6-1").hide();
+        $(".fn-new").css({"border-bottom":"solid 2px white"});
+		$(".fc-new").css({"border-bottom":"solid 2px white"});
+		$(".fe-new").css({"border-bottom":"solid 2px white"});
+		
         //$(".old-bn-image").load(".old-bn-image");
         $(".old-bn-image").load(location.href + " .old-bn-image>*", "");
         //$(".old-bn-image").load(".old-bn-image");
@@ -848,15 +985,60 @@ $(function(){
     /*Submit Edit Text*/
 
     $(".edit-submit6").click(function(){
-        $(".cam-img1").css({"cursor":"default",  "transform":"scale(0)"});
+    	
+    	 var fn_new=$(".fn-new").val();
+         var fc_new=$(".fc-new").val();
+         var fc_newl=$(".fc-new").val().length;
+         var fe_new=$(".fe-new").val();
+        
+           
+    	if (fn_new == "" || fn_new.match(name))
+    	{
+    		$(".fn-new").css({"border-bottom":"solid 2px red"});
+            return false;
+        }
+    	
+   		else if (fc_newl != 10)
+        {
+    		$(".fn-new").css({"border-bottom":"solid 2px white"});
+    		
+    		$(".fc-new").css({"border-bottom":"solid 2px red"});
+    		
+            return false;
+        }
+    	
+   		else if (fe_new== "" || !fe_new.match(email))
+        {
+   			$(".fn-new").css({"border-bottom":"solid 2px white"});
+   			$(".fc-new").css({"border-bottom":"solid 2px white"});
+   			
+    		$(".fe-new").css({"border-bottom":"solid 2px red"});
+            return false;
+        }
+    	
+    	
+    	else
+    	{
+    		$(".fn-new").css({"border-bottom":"solid 2px white"});
+    		$(".fc-new").css({"border-bottom":"solid 2px white"});
+    		$(".fe-new").css({"border-bottom":"solid 2px white"});
+    		
+    		$(".cam-img1").css({"cursor":"default",  "transform":"scale(0)"});
 
-        var b_name_new=$(".b-new").val();
-        $(".b-old").html(b_name_new);
+            
+            $(".fn-old").html(fn_new);
+            $(".fc-old").html(fc_new);
+            $(".fe-old").html(fe_new);
 
-        $(".old-data6").show();
-        $(".edit-pen6").show();
-        $(".new-data6").hide();
-        $(".new-data6-1").hide();
+            $(".old-data6").show();
+            $(".edit-pen6").show();
+            $(".new-data6").hide();
+            $(".new-data6-1").hide();
+            
+            return true;
+    	}
+    	
+    	
     });
 
 
@@ -911,34 +1093,38 @@ $(function(){
     <img src="/destiny/files/dashboard-user-images/camera1.png" class="cam-img1">
 </span>
 <span class="old-bn-image">
-<img class="img-icon bn-img new_icon2" src="/destiny/files/images/voulnteer-a.jpg"></p>
+<img class="img-icon bn-img new_icon2" src="${cm.fundraisers_profile_image}"></p>
 </span>
 
 <br><br>
 
 <c:if test="${fm.personal_status eq 1}">
-	<button class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
+	<button type="button" class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
 </c:if>	
 <c:if test="${fm.personal_status eq 0}">
-	<button class="verified-button unvarified">UNVERIFIED <i class="fa fa-times-circle"></i></button>
+	<button type="button" class="verified-button unvarified">UNVERIFIED <i class="fa fa-times-circle"></i></button>
 </c:if>
  
 <div class="old-data6">
-<p style="text-align:left"><i class="fa fa-user tips-text" style="width:5px;"></i> &nbsp; <span class="tips-text b-old">${cm.fundraisers_name}</span></p>
+<p style="text-align:left"><i class="fa fa-user tips-text" style="width:5px;"></i> &nbsp; <span class="tips-text fn-old">${cm.fundraisers_name}</span></p>
+<p style="text-align:left"><i class="fa fa-phone tips-text" style="width:5px;"></i> &nbsp; <span class="tips-text fc-old">${cm.fundraisers_contact}</span></p>
+<p style="text-align:left"><i class="fa fa-envelope tips-text" style="width:5px;"></i> &nbsp; <span class="tips-text fe-old">${cm.fundraisers_email}</span></p>
 </div>
 
-<div class="new-data6" style="text-align: left">
-<input type="text" maxlength="50"class="b-new" name="b_new_name">
+<div class="new-data6" style="text-align: left; margin-top:-30px;">
+<i class="fa fa-user" style="font-size:15px;"></i><input type="text" maxlength="50" class="fn-new"><br>
+<i class="fa fa-phone" style="font-size:15px;"></i><input type="text" maxlength="10" class="fc-new"><br>
+<i class="fa fa-envelope" style="font-size:15px;"></i><input type="text" maxlength="50" class="fe-new">
 </div>
 
-<br><br>
 <span  class="edit-pencil edit-pen6 fa fa-pencil-square-o"></span>
 
 
 <span class="new-data6-1">
+<br>
 <button type="button" style="font-size: 30px;" class="edit-submit6 edit-submit1-btn  fa fa-check-circle"></button>
 <button type="button" style="font-size: 30px;" class="edit-cancel6 edit-cancel1-btn fa fa-times-circle"></button>
-<input type="file" name="bn_new_image" onchange="readURL(this);" class="bn_new_image">
+<input type="file" name="profile_image" onchange="readURL(this);" class="bn_new_image fundraisers_profile">
 </span>
 
 
@@ -1067,12 +1253,12 @@ $(function hide_show(){
 </style>
 <br>
 <center>
-<button class="details-button speed-image" style="border-bottom:solid 2px rgb(150, 150, 150)">DESCRIPTION 
+<button type="button" class="details-button speed-image" style="border-bottom:solid 2px rgb(150, 150, 150)">DESCRIPTION 
         
 <span class="dc edit-pencil edit-pen3 fa fa-pencil-square-o"></span>
 
 </button>
-<button class="details-button eligibility-image">DOCUMENTS
+<button type="button" class="details-button eligibility-image">DOCUMENTS
 
     <span class="dc edit-pencil edit-pen4 fa fa-pencil-square-o"></span> 
 
@@ -1242,24 +1428,16 @@ $(".dec-new1").hide();
 <div class="edit-mode1">Edit Mode</div>
 <br>
 
-<div class="col-md-12 dec-fix">
-    ${cm.fundraisers_story}
-    <br><br>
-</div>
+<div class="col-md-12 dec-fix">${cm.fundraisers_story}</div>
 
     
 <div class="col-md-12  dec-new1">
 
-<textarea name="description_edit" id="story_edit" class="dec-new" rows="8" style="width:100%; background-color: transparent; font-size: 18px; color:black;" placeholder="Fundraiser Story">
-
-        ${cm.fundraisers_story}
-    <br><br>
-
-</textarea>
+<textarea name="description_edit" id="story_edit" class="dec-new" rows="8" style="width:100%; background-color: transparent; font-size: 18px; color:black;" placeholder="Fundraiser Story">${cm.fundraisers_story}</textarea>
 <br><br>
 <div style="text-align: center">
-<button class="dec-btn dec-can">Cancel</button> &nbsp; &nbsp;
-<button class="dec-btn dec-sub">Submit</button> 
+<button type="button" class="dec-btn dec-can">Cancel</button> &nbsp; &nbsp;
+<button type="button" class="dec-btn dec-sub">Submit</button> 
 </div>
 <br><br>
 </div>        
@@ -1605,6 +1783,7 @@ $(".edit-cancel7").click(function(){
 });
 
 $(".edit-submit7").click(function(){
+	
 
     var ano1=$(".edit-ac-no").val();
     var aname1=$(".edit-ac-name").val();
@@ -1676,7 +1855,7 @@ For UPI Transaction:
 
 <span class="new-data7">
     <button type="button" style="font-size: 30px;" class="edit-cancel7 fa fa-times-circle"></button>
-    <button type="button" style="font-size: 30px;" class="edit-submit7 fa fa-check-circle"></button>
+    <button type="button" style="font-size: 30px;" class="edit-submit7  fa fa-check-circle"></button>
 </span>
 </center>
 <br>
@@ -1801,7 +1980,7 @@ function myFunction() {
 
 
 
-<button class="form-control dn-button donate-popup"><i class="fa fa-thumbs-up"></i> DONATE NOW </span></button>    
+<button type="button" class="form-control dn-button donate-popup ourcausebtn1" value="${cm.campaign_id}"><i class="fa fa-thumbs-up"></i> DONATE NOW </span></button>    
 <br>
 <p style="font-size: 18px;font-weight: bold; text-align: justify; text-align: center; font-style: italic">Funds will be transferred to the hospital</p>
 <br>
@@ -1940,8 +2119,7 @@ $(function get_img_file(){
                     <img src="/destiny/files/dashboard-user-images/camera1.png" class="upi-image">
                     <input type="file"  onchange="readURL1(this);" name="upi-image-file" class="upi-image-file">
                 </span>
-                <span class="fix-upi-image">
-                <img src="${cm.fundraisers_upi_image}" class="upi-main-file" style="width:100px; height: 150px;">   
+                <span class="fix-upi-image"><img class="upi-main-file" src="${cm.fundraisers_upi_image}" style="width:100px; height: 150px;">   
                 </span>
 
                 <br><br>
@@ -1951,7 +2129,7 @@ $(function get_img_file(){
                 <img src="/destiny/files/images/upi.png" style="width:100px; height: 40px;"><br><br>
                 <textarea readonly id="myInput" class="upi-text">${cm.fundraisers_upi_number}</textarea>
                 <br>
-                <center><button onclick="myFunction()" class="form-control copy-code" style="width:100px; border-radius: 50px;">COPY</button></center>
+                <center><button type="button" onclick="myFunction()" class="form-control copy-code" style="width:100px; border-radius: 50px;">COPY</button></center>
                 <br>
             </div>
 
@@ -1959,7 +2137,7 @@ $(function get_img_file(){
 </div>
 
 <br><br> 
-<button class="form-control fb-button"><i class="fa fa-facebook-official"></i> SHARE ON FACEBOOK</span></button>    
+<button type="button" class="form-control fb-button"><i class="fa fa-facebook-official"></i> SHARE ON FACEBOOK</span></button>    
 <br>
 <p style="font-size: 18px;font-weight: bold; text-align: justify; text-align: center; font-style: italic">Every social media share can bring &#8377;5,000 </p>
 
@@ -1968,10 +2146,55 @@ $(function get_img_file(){
 <div class="container-fluid"></div>
 
 <br><br>
+<script>
 
-<button type="submit">Submit All Details</button>
+$(function show_update_button(){
+$(".edit-submit1-btn, .edit-submit7, .edit-submit8").click(function(){
+$(".submit_all_details").show();
+})
+})
+</script>
+
+<style>
+.submit_all_details
+{
+display:none;
+position:fixed;
+right:0px;
+bottom:0px;
+z-index:999;
+font-weight:bold;
+background-color:rgb(11, 108, 133);
+color:white;
+font-size:20px;
+border:none;
+outline:none;
+text-transform:uppercase;
+width:100%;
+height:50px;
+opacity:0.4;
+transition:0.3s;
+}
+
+.submit_all_details:hover
+{
+opacity:2;
+}
+@media(max-width:975px)
+{
+.submit_all_details
+{
+width:100%;
+bottom:0px;
+right:0px;
+}
+}
+</style>
+
+<button type="button" class="submit_all_details">update campaign now</button>
 
 </form>
+
 
 
 <!--Footer Start-->

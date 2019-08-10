@@ -16,6 +16,7 @@ public class CampaignsModel
 	String fundraisers_end_date;
 	String fundraisers_created_date;
 	String fundraisers_status;
+	String fundraisers_profile_image;
 	String fundraisers_upi_image;
 	String fundraisers_upi_number;
 	
@@ -198,6 +199,16 @@ public class CampaignsModel
 
 	
 
+	public String getFundraisers_profile_image() {
+		return fundraisers_profile_image;
+	}
+
+
+	public void setFundraisers_profile_image(String fundraisers_profile_image) {
+		this.fundraisers_profile_image = fundraisers_profile_image;
+	}
+
+
 	public String getFundraisers_upi_image() {
 		return fundraisers_upi_image;
 	}
@@ -220,15 +231,20 @@ public class CampaignsModel
 
 	@Override
 	public String toString() {
-		return "CampaignsModel [campaign_id=" + campaign_id + ", fundraisers_id=" + fundraisers_id
-				+ ", fundraisers_title=" + fundraisers_title + ", fundraisers_goal_amount=" + fundraisers_goal_amount
-				+ ", fundraisers_raised_amount=" + fundraisers_raised_amount + ", fundraisers_name=" + fundraisers_name
-				+ ", fundraisers_contact=" + fundraisers_contact + ", fundraisers_email=" + fundraisers_email
-				+ ", fundraisers_beneficiary_relation=" + fundraisers_beneficiary_relation + ", fundraisers_story="
-				+ fundraisers_story + ", fundraisers_start_date=" + fundraisers_start_date + ", fundraisers_end_date="
-				+ fundraisers_end_date + ", fundraisers_created_date=" + fundraisers_created_date
-				+ ", fundraisers_status=" + fundraisers_status + ", fundraisers_upi_image=" + fundraisers_upi_image
-				+ ", fundraisers_upi_number=" + fundraisers_upi_number + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("CampaignsModel [campaign_id=").append(campaign_id).append(", fundraisers_id=")
+				.append(fundraisers_id).append(", fundraisers_title=").append(fundraisers_title)
+				.append(", fundraisers_goal_amount=").append(fundraisers_goal_amount)
+				.append(", fundraisers_raised_amount=").append(fundraisers_raised_amount).append(", fundraisers_name=")
+				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
+				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relation=")
+				.append(fundraisers_beneficiary_relation).append(", fundraisers_story=").append(fundraisers_story)
+				.append(", fundraisers_start_date=").append(fundraisers_start_date).append(", fundraisers_end_date=")
+				.append(fundraisers_end_date).append(", fundraisers_created_date=").append(fundraisers_created_date)
+				.append(", fundraisers_status=").append(fundraisers_status).append(", fundraisers_profile_image=")
+				.append(fundraisers_profile_image).append(", fundraisers_upi_image=").append(fundraisers_upi_image)
+				.append(", fundraisers_upi_number=").append(fundraisers_upi_number).append("]");
+		return builder.toString();
 	}
 
 
@@ -236,8 +252,8 @@ public class CampaignsModel
 			String fundraisers_goal_amount, String fundraisers_raised_amount, String fundraisers_name,
 			String fundraisers_contact, String fundraisers_email, String fundraisers_beneficiary_relation,
 			String fundraisers_story, String fundraisers_start_date, String fundraisers_end_date,
-			String fundraisers_created_date, String fundraisers_status, String fundraisers_upi_image,
-			String fundraisers_upi_number) {
+			String fundraisers_created_date, String fundraisers_status, String fundraisers_profile_image,
+			String fundraisers_upi_image, String fundraisers_upi_number) {
 		super();
 		this.campaign_id = campaign_id;
 		this.fundraisers_id = fundraisers_id;
@@ -253,9 +269,12 @@ public class CampaignsModel
 		this.fundraisers_end_date = fundraisers_end_date;
 		this.fundraisers_created_date = fundraisers_created_date;
 		this.fundraisers_status = fundraisers_status;
+		this.fundraisers_profile_image = fundraisers_profile_image;
 		this.fundraisers_upi_image = fundraisers_upi_image;
 		this.fundraisers_upi_number = fundraisers_upi_number;
 	}
+
+
 
 
 
