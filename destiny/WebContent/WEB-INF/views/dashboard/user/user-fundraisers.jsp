@@ -150,32 +150,30 @@ width:40px
 }
 </style>
 
-<script>
-$(function last_date(){
-	var cd = new Date();
-	var date = cd.getFullYear()+'/'+(cd.getMonth()+1)+'/'+cd.getDate();
-	var cdate = new Date(date);
-	var sd = $(".start_date").html();
-	var sdate = new Date(sd);
-	
-	var diff = (sdate-cdate) / (1000 * 60 * 60 * 24);
-	var day = 90+diff;
-	$(".end_date").html(day);
-	
-	/* alert("current : " + cdate);
-	alert("start : " + sdate);
-	alert("start : " + day);
-	 */
-	
-})
-</script>
 
 
 <div class="user-fundraisers-section">
 <div class="container"> 
 <div class="col-md-12">
 
-<c:forEach var="fm" items="${data2}" >
+<c:forEach var="cm" items="${data2}" >
+
+<script>
+$(function last_date(){
+	var cd = new Date();
+	var date = cd.getFullYear()+'/'+(cd.getMonth()+1)+'/'+cd.getDate();
+	var cdate = new Date(date);
+	var sd = $(".start_date").html();
+	var ed = $(".start_end_date").html();
+	
+	var sdate = new Date(sd);
+	var edate = new Date(ed);
+	
+	var diff = (edate-cdate) / (1000 * 60 * 60 * 24);
+	$(".end_date").html(diff);
+	
+})
+</script>
 
 
 <div class="pr-section1" style="margin-top:20px;">
@@ -186,22 +184,32 @@ $(function last_date(){
 <div class="col-md-12 text-center1 fix-details" style="text-align: center; border-bottom: 2px solid rgba(0, 0, 0, 0.171);">
 
 <div class="col-md-2">
-<span class="section1-image"><img src="/destiny/files/dashboard-user-images/donor3.svg" style="width:100px; height: 100px; border-radius: 10px; overflow: hidden;"></span><br>
+<span class="section1-image"><img src="${cm.fundraisers_profile_image}" style="width:100px; height: 100px; border-radius: 10px; overflow: hidden;"></span><br>
 <br>
 </div>
 <div class="col-md-4 top-bar-content">
-<span class="title"> ${fm.fundraisers_title} <br></span>
-<span class="fundraisers-name">${fm.fundraisers_name}</span><br>
+<span class="title"> ${cm.fundraisers_title} <br></span>
+<span class="fundraisers-name">${cm.fundraisers_name}</span><br>
 <span class="donors">
 <img src="/destiny/files/dashboard-user-images/donorall.png" class="donors-icons">&nbsp;
-Donors: <span>0</span>  <span style="color:rgb(9, 97, 148)">Created</span>, <span style="color:rgb(9, 97, 148)">Unapproved</span>
+Donors: <span>0</span>  <span style="color:rgb(9, 97, 148)">Created</span>, 
+<span style="color:rgb(9, 97, 148)">
+
+
+<c:if test="${cm.fundraisers_status eq 1}">
+Approved
+</c:if>
+<c:if test="${cm.fundraisers_status eq 0 || cm.fundraisers_status eq null}">
+Unapproved
+</c:if>
+</span>
 </span><br>
 <br>
 </div>
 <div class="col-md-6">
 <center>    
 <a href="manage-overview"><button class="button-manage button-all">Manage</button></a>
-<a href="edit-cause-details/${fm.fundraisers_id}/${fm.campaign_id}"><button class="button-edit button-all">Edit</button></a>
+<a href="edit-cause-details/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-edit button-all">Edit</button></a>
 <a href="manage-withdrawl"><button class="button-withdraw button-all">Withdraw</button></a>
 
 </center>
@@ -214,15 +222,17 @@ Donors: <span>0</span>  <span style="color:rgb(9, 97, 148)">Created</span>, <spa
 <br>
 <div class="col-md-3">
 <span class="fund data1"><i class="fa fa-money"></i> Fund Raised <br> 
-    <span class="fatch-data2 fa fa-inr"> ${fm.fundraisers_goal_amount}</span></span><br><br>
+    <span class="fatch-data2 fa fa-inr"> ${cm.fundraisers_goal_amount}</span></span><br><br>
 </div>
 <div class="col-md-3">    
 <span class="view data1"><i class="fa fa-eye"></i> View <br>
     <span class="fatch-data2">2</span></span><br><br>
 </div>
-<div class="col-md-3">    
+<div class="col-md-3">   
 <span class="start-date data1"><i class="fa fa-calendar"></i> Fundraiser Start Date <br>
-    <span class="fatch-data2 start_date">  ${fm.fundraisers_start_date}</span></span><br><br>
+    <span class="fatch-data2 start_date">  ${cm.fundraisers_start_date}</span>
+    <span class="fatch-data2 start_end_date hidden">  ${cm.fundraisers_end_date}</span>
+</span><br><br>
 </div>
 <div class="col-md-3">    
 <span class="left-data data1"><i class="fa fa-calendar-minus-o"></i> Date To Go <br>

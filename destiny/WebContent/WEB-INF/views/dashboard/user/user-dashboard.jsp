@@ -21,6 +21,42 @@
     
     
   
+<script>
+$(function(){
+	
+
+$(".ajax-submit-user-details").click(function()
+		{
+			var data3 = new FormData();
+			var u_imgl = $(".u-n-image").attr('src').length;
+			alert(u_imgl)
+			if(u_imgl  > 1000)
+				var url3 = "/destiny/user_update_details_img";
+			else
+				var url3 = "/destiny/user_update_details";
+			
+			data3.append("fundraisers_id", $(".personal-id").val());
+			data3.append("personal_name", $(".personal-name").val());
+			data3.append("personal_city", $(".personal-address").val());
+			data3.append("personal_dob", $(".personal-dob").val());
+			data3.append("file", $(".personal-profile")[0].files[0]);
+		 
+		    $.ajax({
+				 	url:url3,
+				 	data: data3,
+			 		enctype: 'multipart/form-data',
+				 	processData: false,
+				 	contentType: false,
+			 	  	type: 'Post',    
+				 	cache: false,
+				 	success : function(){alert("Update Success")},
+				 	error : function(){alert("Error Found")}
+
+		});//ajax close 
+	}); // button closed
+})	
+
+</script>
       
 
 </head>
@@ -28,7 +64,7 @@
 
 <title> Destiny World</title>
 
-
+<button class="ajax-submit-user-details hidden"></button>
 
 
 <c:forEach var="fm" items="${data2}" >
@@ -415,7 +451,8 @@ if(n_name == "" || n_address == "" || n_dob == "")
 
 else
 {
-	  
+	$(".ajax-submit-user-details").click();
+	     
     $(".section1-data1-edit-mode").hide();
     $(".section1-data1").show();
     $(".hide-error").css({"font-size":"0px"});
@@ -424,7 +461,6 @@ else
     $(".u-o-address").html(n_address);
     $(".u-o-dob").html(n_dob);
 
-    $(".show-success").click();
     
     return ture;
 
@@ -578,24 +614,24 @@ function readURL(input)
 
 <form class="form2" name="user_update_details" action="user_update_details" modelAttribute="user_update_model" method="post" enctype="multipart/form-data">
 
-<input type="text" name="fundraisers_id" value="${fm.fundraisers_id}" hidden>
+<input type="text" class="personal-id" name="fundraisers_id" value="${fm.fundraisers_id}" hidden>
 
-<input type="file" name="file" onchange="readURL(this);" class="file-type-1">
+<input type="file" name="file" onchange="readURL(this);" class="file-type-1 personal-profile">
 
 <div class="col-md-4">
 <span>Name <br> <span class="fatch-data">
-    <input type="text" name="personal_name" maxlength="30" class="new_details u-n-name">
+    <input type="text" name="personal_name" maxlength="30" class="new_details u-n-name personal-name">
 </span></span><br><br>
 </div>
 
 <div class="col-md-4">
 <span >City Of Residence: <br><span class="fatch-data">
-        <input type="text" name="personal_city" maxlength="50" class="new_details u-n-address">
+        <input type="text" name="personal_city" maxlength="50" class="new_details u-n-address personal-address">
 </span></span><br><br>
 </div>
 <div class="col-md-4">    
 <span >Date Of Birth: <br><span class="fatch-data">
-        <input type="text" onfocus="this.type='date'" name="personal_dob" class="new_details date-hide u-n-dob">
+        <input type="text" onfocus="this.type='date'" name="personal_dob" class="new_details date-hide u-n-dob personal-dob">
 </span></span><br><br>
 </div>
 
@@ -605,7 +641,7 @@ function readURL(input)
     <span class="hide-error">Please Fill All Necessary Details</span>
 <div class="hide-button2" style="display: block">
 <button type="button" class="cancel-button1 button1">Cancel</button>
-<button type="submit" class="save-button1 button1">Save</button>
+<button type="button" class="save-button1 button1">Save</button>
 </div>
 
 </div>
@@ -732,7 +768,7 @@ $(function(){
 <form name="user-pan-no" action="user_pan_update" modelAttribute="user_update_model">
 <div class="col-md-8"> 
 <input type="text" name="fundraisers_id" value="${fm.fundraisers_id}" hidden>
-<input type="text" class="pan-number pan-aadhar-number" name="personal_pan_no" style="text-transform:uppercase" placeholder="PAN CARD NUMBER">   <br> <br>
+<input type="text" class="pan-number pan-aadhar-number" maxlength="15" name="personal_pan_no" style="text-transform:uppercase" placeholder="PAN CARD NUMBER">   <br> <br>
 </div>
 <div class="col-md-4"> 
     <button type="submit" class="button2"> Submit</button>
@@ -747,7 +783,7 @@ $(function(){
 <form name="user-pan-no" action="user_aadhar_update" modelAttribute="user_update_model">
 <div class="col-md-8"> 
 <input type="text" name="fundraisers_id" value="${fm.fundraisers_id}" hidden>
-<input type="text" class="aadhar-number pan-aadhar-number" name="personal_aadhar_no" placeholder="AADHAR CARD NUMBER">   <br> <br>
+<input type="text" class="aadhar-number pan-aadhar-number" maxlength="15" name="personal_aadhar_no" placeholder="AADHAR CARD NUMBER">   <br> <br>
 </div>
 <div class="col-md-4"> 
     <button class="button2"> Submit</button>

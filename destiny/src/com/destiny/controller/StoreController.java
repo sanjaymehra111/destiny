@@ -231,7 +231,7 @@ public class StoreController
 			{
 				List<CampaignsModel> data2 = smdao.fetchCampaignUsingfid(sesModel.getUser_id());
 				model.addAttribute("data2", data2);
-				model.addAttribute("fm", cm); 
+				model.addAttribute("cm", cm); 
 				//System.out.println("campaign : " + data2);
 				return "dashboard/user/user-fundraisers";
 			} 

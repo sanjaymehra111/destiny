@@ -80,7 +80,7 @@
     })
 </script>
 
-<form name="sub_email" action="become_a_volunteer#next-form">
+<form name="sub_email" action="/destiny/become_a_volunteer#next-form">
 
         <div class="col-md-8">
         <input type="email" placeholder="Email Address" id="sub-mail" name="sub_email" class="form-control email-address" style="width:100%; height: 40px; color:rgba(255, 255, 255, 0.712); border-radius: 25px; background-color: rgba(49, 42, 42, 0.329);"> <br>
@@ -102,7 +102,7 @@
         <div class="container-fluid">
         
         <div class="col-md-3">    
-            <a href="index" style="text-decoration: none; color:white"><p class="topbar" style="cursor: pointer;">&copy; Copyright 2019 Destiny World</p></a>
+            <a href="/destiny/index" style="text-decoration: none; color:white"><p class="topbar" style="cursor: pointer;">&copy; Copyright 2019 Destiny World</p></a>
         </div>
         
         <div class="col-md-4"></div>

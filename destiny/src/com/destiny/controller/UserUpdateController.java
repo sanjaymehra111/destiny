@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,12 +48,23 @@ public class UserUpdateController
 	}
 	
 	
+	//Update user Details (Name, City, DOB)
+
+	@RequestMapping(value="/user_update_details", method=RequestMethod.POST)
+		public String user_update_details(@ModelAttribute("user_update_model")UserUpdateModel uum, Model model)
+		{
+			System.out.println("data : " +uum);
+			uudao.UpdateuserDetails(uum);
+			return "redirect:/user-dashboard"; 
+		}
+		 
 	//Update user Details (Name, City, DOB, profile image)
 
-	@RequestMapping("/user_update_details")
-	public String userUpdateDetails(@ModelAttribute("user_update_model")UserUpdateModel uum, Model model, HttpSession session, @RequestParam CommonsMultipartFile file)throws Exception
+	@RequestMapping(value="/user_update_details_img", method=RequestMethod.POST)
+	public String user_update_details_img(@ModelAttribute("user_update_model")UserUpdateModel uum, Model model, HttpSession session, @RequestParam CommonsMultipartFile file)throws Exception
 	{
-		//System.out.println("file is : " + file);
+		System.out.println("data : " +uum);
+		System.out.println("file is : " + file);
 		ServletContext context= session.getServletContext();
 		
 		String path = context.getRealPath("/resources/profile-images/");
@@ -65,7 +77,7 @@ public class UserUpdateController
 		    stream.flush();  
 		    stream.close(); 
 		
-		uudao.UpdateuserDetails(uum, filename);
+		uudao.UpdateuserDetailsImg(uum, filename);
 		return "redirect:/user-dashboard"; 
 	}
 	  

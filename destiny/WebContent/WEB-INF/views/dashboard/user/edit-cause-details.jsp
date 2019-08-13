@@ -24,95 +24,106 @@
 
     <!--Textarea-->
     <script src="https://cdn.ckeditor.com/4.11.1/basic/ckeditor.js"></script>
-   
-
+ 
 <script>
 $(function ajax_form_data(){
-$(".submit_all_details").click(function(){
 
-	var campaign_id = $(".campaign_id").html();
-	var fundraisers_id = $(".fundraisers_id").html();
-	var fundraisers_title = $(".edit-heading-main2").html();
-	var fundraisers_goal_amount  = $(".goal-amount-old").html();
-	var fundraisers_story = $(".dec-fix").html();
-	var fundraisers_name = $(".fn-old").html();
-	var fundraisers_contact = $(".fc-old").html();
-	var fundraisers_email = $(".fe-old").html();
-	var fundraisers_upi_number = $(".upi-text").val();
-	
-	var profile_image = $(".fundraisers_profile")[0].files[0];
-	var upi_image = $(".upi-image-file")[0].files[0];
-	
-	var imgl = $(".new_icon2").attr('src').length;
-	var upi_imgl = $(".upi-main-file").attr('src').length;
-	
-	
-	var url1 = "/destiny/edit_campaign_noimg";
-	var url2 = "/destiny/edit_campaign_img";
-	
+$(".ajax-submit-campaign-details").click(function()
+{
+
+	var url1 = "/destiny/edit_campaign_details";
 	var data = new FormData();
 
- 	data.append("campaign_id", campaign_id);
-    data.append("fundraisers_id", fundraisers_id);
-    data.append("fundraisers_title", fundraisers_title);
-    data.append("fundraisers_goal_amount", fundraisers_goal_amount);
-    data.append("fundraisers_story", fundraisers_story);
-    data.append("fundraisers_name", fundraisers_name);
-    data.append("fundraisers_contact", fundraisers_contact);
-    data.append("fundraisers_email", fundraisers_email);
-    data.append("fundraisers_upi_number", fundraisers_upi_number);
-    data.append( "profile_image", profile_image);
-    data.append( "upi_image", upi_image);
-    
-    alert("imgl : "+ imgl);
-    alert("upi_imgl : "+ upi_imgl);
-    
-    
-    if(imgl < 100 && upi_imgl < 100)
-	{
-		var img = "yes";
-	}
-	else 
-	{
-	var img = "no";
-	}
-
-
- alert(img);
- 
-//ajax start
-
+ 	data.append("campaign_id", $(".campaign_id").html());
+    data.append("fundraisers_id", $(".fundraisers_id").html());
+    data.append("fundraisers_title", $(".edit-heading-main2").val());
+    data.append("fundraisers_goal_amount", $(".goal-amount-old").val());
+    data.append("fundraisers_story", CKEDITOR.instances['story_edit'].getData());
+    /* data.append("fundraisers_name", $(".fn-old").val());
+    data.append("fundraisers_contact", $(".fc-old").val());
+    data.append("fundraisers_email", $(".fe-old").val());
+    data.append("fundraisers_upi_number", $(".upi-text").val());
+ */
 	 	$.ajax({
 
-	 	url: (img == "yes") ? url1 : url2,
-	 	data: data,
-		enctype: 'multipart/form-data',
-	 	processData: false,
-	 	contentType: false,
-	  	type: 'Post',    
-	 	cache: false,
-	 	success : function(){alert("Update Success")},
-	 	error : function(){alert("Error Found")}
-	 	
- 	
-		
-/* 		{
-			'fundraisers_id' : fundraisers_id,
-	 		'campaign_id' : campaign_id,
-	 		'fundraisers_title' : fundraisers_title,
-	 		'fundraisers_goal_amount' : fundraisers_goal_amount,
-	 		'fundraisers_story' : fundraisers_story,
-	 		'fundraisers_name' : fundraisers_name,
-	 		'fundraisers_contact' : fundraisers_contact,
-	 		'fundraisers_email' : fundraisers_email,
-	 		'fundraisers_upi_number' : fundraisers_upi_number,
-	 	}, 
- */	 	
-	  	
+		 	url:url1,
+		 	data: data,
+	 		enctype: 'multipart/form-data',
+		 	processData: false,
+		 	contentType: false,
+	 	  	type: 'Post',    
+		 	cache: false,
+		 	success : function(){alert("Update Success")},
+		 	error : function(){alert("Error Found")}
 
 });//ajax close 
-
 }); // button closed
+
+
+//beneficiary details
+$(".ajax-submit-beneficiary-details").click(function()
+		{
+			var data2 = new FormData();
+			var fpl = $(".new_icon2").attr('src').length;
+			if(fpl > 1000)
+				var url2 = "/destiny/edit_campaign_fundraisers_profile";
+			else
+				var url2 = "/destiny/edit_campaign_fundraisers";
+			
+			data2.append("campaign_id", $(".campaign_id").html());
+		    data2.append("fundraisers_id", $(".fundraisers_id").html());
+		   	data2.append("fundraisers_name", $(".fn-old").val());
+		    data2.append("fundraisers_contact", $(".fc-old").val());
+		    data2.append("fundraisers_email", $(".fe-old").val());
+		    data2.append("profile_image", $(".fundraisers_profile")[0].files[0]);
+		 
+		    $.ajax({
+				 	url:url2,
+				 	data: data2,
+			 		enctype: 'multipart/form-data',
+				 	processData: false,
+				 	contentType: false,
+			 	  	type: 'Post',    
+				 	cache: false,
+				 	success : function(){alert("Update Success")},
+				 	error : function(){alert("Error Found")}
+
+		});//ajax close 
+		}); // button closed
+
+		
+		
+//upi details
+
+$(".ajax-submit-upi-details").click(function()
+		{
+
+			var data3 = new FormData();
+			var upi_imgl = $(".upi-main-file").attr('src').length;
+			if(upi_imgl  > 1000)
+				var url3 = "/destiny/edit_campaign_upi_image";
+			else
+				var url3 = "/destiny/edit_campaign_upi_no";
+			
+			data3.append("campaign_id", $(".campaign_id").html());
+		    data3.append("fundraisers_id", $(".fundraisers_id").html());
+		    data3.append("fundraisers_upi_number", $(".upi-text").val());
+		    data3.append("upi_image", $(".upi-image-file")[0].files[0]);
+		 
+		    $.ajax({
+				 	url:url3,
+				 	data: data3,
+			 		enctype: 'multipart/form-data',
+				 	processData: false,
+				 	contentType: false,
+			 	  	type: 'Post',    
+				 	cache: false,
+				 	success : function(){alert("Update Success")},
+				 	error : function(){alert("Error Found")}
+
+		});//ajax close 
+		}); // button closed
+
 		
 }); //ajax_form_data close
 
@@ -132,8 +143,11 @@ $(function transfer_id(){
 
 
 
-
 </head>
+
+<button class="ajax-submit-campaign-details hidden"></button>
+<button class="ajax-submit-beneficiary-details hidden"></button>
+<button class="ajax-submit-upi-details hidden"></button>
 
 <c:forEach var="fm" items="${data1}">
 <c:forEach var="cm" items="${data2}" >
@@ -156,7 +170,13 @@ $(function transfer_id(){
 
 <style>
   
-
+.textfield-bg
+{
+border:none;
+outline:none;
+background-color:transparent;
+text-align:center;
+}
 .amount-text
 {
     padding: 20px;
@@ -318,8 +338,12 @@ $(function transfer_id(){
     
         <div class="cause_title">
             
-          <div class="edit-heading-main1"  style="display: block"> <span class="edit-heading-main2">${cm.fundraisers_title}</span>
+          <div class="edit-heading-main1"  style="display: block; width:100%"> <input readonly type="text" style="width:100%; text-transform:uppercase" maxlength="60" class="edit-heading-main2 textfield-bg" value="${cm.fundraisers_title}">
             <span class="edit-pen1 edit-pencil fa fa-pencil-square-o"></span>
+            
+             <button type="button" class="edit-submit1 edit-submit1-btn  fa fa-check-circle" style="display:none"></button>
+             <button type="button" class="edit-cancel1 edit-cancel1-btn fa fa-times-circle" style="display:none"></button>
+            
         </div>
 
         
@@ -328,31 +352,37 @@ $(function transfer_id(){
 <script>
 $(function(){
     $(".edit-pen1").click(function(){
-        var head=$(".edit-heading-main2").html();
-        $(".edit-heading-main1").hide();
-        $(".edit1").show();
-        $(".edit-heading").val(head);
-        $(".edit-heading").css({"border":"solid 2px white"});
+        var head=$(".edit-heading-main2").removeAttr('readonly');
+        $(".edit-pen1").hide();
+        $(".edit-submit1").show();
+        $(".edit-cancel1").show();
+        $(".edit-heading-main2").css({"border":"solid 2px white"});
     });
 
     $(".edit-cancel1").click(function(){
-        $(".edit1").hide();
-        $(".edit-heading-main1").show();
+    	$(".edit-pen1").show();
+        $(".edit-submit1").hide();
+        $(".edit-cancel1").hide();
+        $(".edit-heading-main2").attr('readonly', 'true');
+        $(".edit-heading-main2").css({"border":"none"});
+
     });
 
     $(".edit-submit1").click(function(){
-        var n_head=$(".edit-heading").val();
+        var n_head=$(".edit-heading-main2").val();
         if(n_head == "")
         {
-            $(".edit-heading").css({"border":"solid 2px red"});
+            $(".edit-heading-main2").css({"border":"solid 2px red"});
             return false;
         }
         else
         {
-            $(".edit-heading-main2").html(n_head);
-            $(".edit1").hide();
-            $(".edit-heading-main1").show();
-            $(".edit-heading").css({"border":"solid 2px white"});
+        	$(".edit-heading-main2").attr('readonly', 'true');
+        	$(".edit-pen1").show();
+            $(".edit-submit1").hide();
+            $(".edit-cancel1").hide();
+            $(".edit-heading-main2").css({"border":"none"});
+            $(".ajax-submit-campaign-details").click();
             return true;
         }
     });
@@ -360,17 +390,6 @@ $(function(){
 
 })
 </script>
-
-        <div class="edit1" style="display: none;">
-            <center>
-              
-                <input class="edit-heading" maxlength="60" name="new_heading"pe="text">
-                <button type="button" class="edit-submit1 edit-submit1-btn  fa fa-check-circle"></button>
-                <button type="button" class="edit-cancel1 edit-cancel1-btn fa fa-times-circle"></button>
-
-            
-            </center>
-        </div>
 
           <!--Editing Heading End-->
 
@@ -395,25 +414,15 @@ $(function(){
         <div class="col-md-6">
         <span class="t-amount amount-text">Goal &#8377; 
             <span style="border-bottom: solid 2px rgb(255, 255, 255); font-weight: bold">
-
-            <span class="goal-percent goal-amount-old">${cm.fundraisers_goal_amount}</span> 
-
-            <span class="goal-amount-new">
-             <input class="new-goal1" type="text" maxlength="8">   
+	            <input type="text" readonly class="goal-percent goal-amount-old textfield-bg" maxlength="8" style="width:100px; text-align:center" value="${cm.fundraisers_goal_amount}">
             </span> 
 
+	        <span style="font-size: 20px; margin-left: 20px;" class="edit-pen2 edit-pencil fa fa-pencil-square-o"></span>
+		    <button type="button" style="font-size: 20px; display:none" class="edit-submit2 edit-submit1-btn  fa fa-check-circle"></button>
+	        <button type="button" style="font-size: 20px; display:none" class="edit-cancel2 edit-cancel1-btn fa fa-times-circle"></button>
+             
             </span>
-            
-        <span style="font-size: 20px; margin-left: 20px;" class="edit-pen2 edit-pencil fa fa-pencil-square-o"></span> 
-
-        <span class="submit-2-btn">
-                <button type="button" style="font-size: 20px;" class="edit-submit2 edit-submit1-btn  fa fa-check-circle"></button>
-                <button type="button" style="font-size: 20px;" class="edit-cancel2 edit-cancel1-btn fa fa-times-circle"></button>
-        &nbsp;
-        </span>
-
-        </span>
-        <br><br><br><br>
+           <br><br><br><br>
         </div>
 
 
@@ -421,30 +430,39 @@ $(function(){
 <script>
 $(function(){
 
-$('.new-goal1').keyup(function () {     
-  this.value = this.value.replace(/[^1-9\.]/g,'');
+$('.goal-amount-old').keypress(function (e) {     
+  //this.value = this.value.replace(/[^1-9\.]/g,'');
+  
+//  $(".fc-old").keypress(function(e){
+
+      if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) 
+      {
+          return false;
+      }
+      else
+      {
+          return true;
+      }
 });
 /*Show new Goal*/
     $(".edit-pen2").click(function(){
         $(".edit-pen2").hide();
-        $(".goal-amount-old").hide();
-
-        $(".goal-amount-new").show();
-        $(".submit-2-btn").show();
+        $(".edit-submit2").show();
+        $(".edit-cancel2").show();
+        $(".goal-amount-old").removeAttr('readonly');
     })
 
 /*hide new Goal*/
     $(".edit-cancel2").click(function(){
         $(".edit-pen2").show();
-        $(".goal-amount-old").show();
-
-        $(".goal-amount-new").hide();
-        $(".submit-2-btn").hide();
+        $(".edit-submit2").hide();
+        $(".edit-cancel2").hide();
+        $(".goal-amount-old").attr('readonly', 'true');
     })
 
 /*display new Goal*/
     $(".edit-submit2").click(function(){
-       var n_goal=$(".new-goal1").val();
+       var n_goal=$(".goal-amount-old").val();
        //alert(n_goal);
 
        if(n_goal == "" )
@@ -453,14 +471,12 @@ $('.new-goal1').keyup(function () {
         }
         else
         {
-        $(".goal-amount-old").html(n_goal);
-
-        $(".edit-pen2").show();
-        $(".goal-amount-old").show();
-
-        $(".goal-amount-new").hide();
-        $(".submit-2-btn").hide();
-         return true;
+            $(".edit-pen2").show();
+            $(".edit-submit2").hide();
+            $(".edit-cancel2").hide();
+            $(".goal-amount-old").attr('readonly', 'true');
+            $(".ajax-submit-campaign-details").click();
+			return true;
         }
     })
 
@@ -478,7 +494,7 @@ $('.new-goal1').keyup(function () {
 $(function()
 {
 
-    var gl= $(".goal-percent").html();
+    var gl= $(".goal-percent").val();
     var ac= $(".achieved-percent").html();
     var tp=ac/gl*100;
     var tp2=Math.round(tp);
@@ -861,20 +877,13 @@ $(function(){
 <style>
 .old-data6
 {
+	margin-top:-20px;
     display:block;
 }
-.fn-new, .fc-new, .fe-new
+.fn-old, .fc-old, .fe-old
 {
-	margin-top:8px;
-	padding-left: 10px;
-    padding-right: 10px;
-    border:none;
-    outline: none;
-    background-color: transparent;
-    width:50%;
-    text-align: left;
-    border-bottom: 2px solid white;
-    font-size: 18px;
+	padding-bottom:5px;
+	font-size: 18px;
     transition:0.3s;
 }
 .new-data6
@@ -930,17 +939,17 @@ $(function(){
 	  	 var name= /[^a-zA-Z\s]/g;
 	     var email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	   
-	 $(".fc-new").keypress(function(e){
+	 $(".fc-old").keypress(function(e){
 
          if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) 
          {
-        	 $(".fc-new").css({"border-bottom":"solid 2px red"});
+        	 $(".fc-old").css({"border-bottom":"solid 2px red"});
         	 
              return false;
          }
          else
          {
-        	 $(".fc-new").css({"border-bottom":"solid 2px white"});
+        	 $(".fc-old").css({"border-bottom":"solid 2px white"});
              return true;
          }
      });
@@ -949,33 +958,28 @@ $(function(){
     /*Show Edit Text*/
 
     $(".edit-pen6").click(function(){
-        
+    	
         $(".cam-img1").css({"cursor":"pointer", "transform":"scale(1)"});
-        var fn_old=$(".fn-old").html();
-        var fc_old=$(".fc-old").html();
-        var fe_old=$(".fe-old").html();
-        
-        $(".fn-new").val(fn_old);
-        $(".fc-new").val(fc_old);
-        $(".fe-new").val(fe_old);
-
-        $(".old-data6").hide();
+        $(".old-all").removeAttr('readonly');
         $(".edit-pen6").hide();
-        $(".new-data6").show();
         $(".new-data6-1").show();
+        $(".fn-old").css({"border-bottom":"solid 2px white"});
+		$(".fc-old").css({"border-bottom":"solid 2px white"});
+		$(".fe-old").css({"border-bottom":"solid 2px white"});
+		
     });
 
     /*Cancel Edit Text*/
     
     $(".edit-cancel6").click(function(){
         $(".cam-img1").css({"cursor":"default", "transform":"scale(0)"});
-        $(".old-data6").show();
-        $(".edit-pen6").show();
-        $(".new-data6").hide();
-        $(".new-data6-1").hide();
-        $(".fn-new").css({"border-bottom":"solid 2px white"});
-		$(".fc-new").css({"border-bottom":"solid 2px white"});
-		$(".fe-new").css({"border-bottom":"solid 2px white"});
+        $(".fn-old").css({"border-bottom":"none"});
+		$(".fc-old").css({"border-bottom":"none"});
+		$(".fe-old").css({"border-bottom":"none"});
+		$(".old-all").attr('readonly', 'true');
+		$(".edit-pen6").show();
+	    $(".new-data6-1").hide();
+	       
 		
         //$(".old-bn-image").load(".old-bn-image");
         $(".old-bn-image").load(location.href + " .old-bn-image>*", "");
@@ -986,55 +990,53 @@ $(function(){
 
     $(".edit-submit6").click(function(){
     	
-    	 var fn_new=$(".fn-new").val();
-         var fc_new=$(".fc-new").val();
-         var fc_newl=$(".fc-new").val().length;
-         var fe_new=$(".fe-new").val();
+    	 var fn_new=$(".fn-old").val();
+         var fc_new=$(".fc-old").val();
+         var fc_newl=$(".fc-old").val().length;
+         var fe_new=$(".fe-old").val();
         
            
     	if (fn_new == "" || fn_new.match(name))
     	{
-    		$(".fn-new").css({"border-bottom":"solid 2px red"});
+    		$(".fn-old").css({"border-bottom":"solid 2px red"});
             return false;
         }
     	
    		else if (fc_newl != 10)
         {
-    		$(".fn-new").css({"border-bottom":"solid 2px white"});
-    		
-    		$(".fc-new").css({"border-bottom":"solid 2px red"});
+    		$(".fn-old").css({"border-bottom":"solid 2px white"});
+    		$(".fc-old").css({"border-bottom":"solid 2px red"});
     		
             return false;
         }
     	
    		else if (fe_new== "" || !fe_new.match(email))
         {
-   			$(".fn-new").css({"border-bottom":"solid 2px white"});
-   			$(".fc-new").css({"border-bottom":"solid 2px white"});
-   			
-    		$(".fe-new").css({"border-bottom":"solid 2px red"});
+   			$(".fn-old").css({"border-bottom":"solid 2px white"});
+   			$(".fc-old").css({"border-bottom":"solid 2px white"});
+   			$(".fe-old").css({"border-bottom":"solid 2px red"});
             return false;
         }
     	
     	
     	else
     	{
-    		$(".fn-new").css({"border-bottom":"solid 2px white"});
-    		$(".fc-new").css({"border-bottom":"solid 2px white"});
-    		$(".fe-new").css({"border-bottom":"solid 2px white"});
+    		$(".fn-old").css({"border-bottom":"solid 2px white"});
+    		$(".fc-old").css({"border-bottom":"solid 2px white"});
+    		$(".fe-old").css({"border-bottom":"solid 2px white"});
     		
     		$(".cam-img1").css({"cursor":"default",  "transform":"scale(0)"});
 
             
-            $(".fn-old").html(fn_new);
-            $(".fc-old").html(fc_new);
-            $(".fe-old").html(fe_new);
-
-            $(".old-data6").show();
-            $(".edit-pen6").show();
-            $(".new-data6").hide();
-            $(".new-data6-1").hide();
-            
+    		 $(".cam-img1").css({"cursor":"default", "transform":"scale(0)"});
+    	     $(".fn-old").css({"border-bottom":"none"});
+    		 $(".fc-old").css({"border-bottom":"none"});
+    		 $(".fe-old").css({"border-bottom":"none"});
+    		 $(".old-all").attr('readonly', 'true');
+    		 $(".edit-pen6").show();
+    		 $(".new-data6-1").hide();
+    		   
+    		 $(".ajax-submit-beneficiary-details").click();
             return true;
     	}
     	
@@ -1106,19 +1108,12 @@ $(function(){
 </c:if>
  
 <div class="old-data6">
-<p style="text-align:left"><i class="fa fa-user tips-text" style="width:5px;"></i> &nbsp; <span class="tips-text fn-old">${cm.fundraisers_name}</span></p>
-<p style="text-align:left"><i class="fa fa-phone tips-text" style="width:5px;"></i> &nbsp; <span class="tips-text fc-old">${cm.fundraisers_contact}</span></p>
-<p style="text-align:left"><i class="fa fa-envelope tips-text" style="width:5px;"></i> &nbsp; <span class="tips-text fe-old">${cm.fundraisers_email}</span></p>
+<p style="text-align:left"><i class="fa fa-user tips-text" style="width:5px;"></i> &nbsp; <input type="text" readonly class="tips-text fn-old old-all textfield-bg" maxlength="30" value="${cm.fundraisers_name}"></p>
+<p style="text-align:left"><i class="fa fa-phone tips-text" style="width:5px;"></i> &nbsp; <input type="text" readonly class="tips-text fc-old old-all textfield-bg" maxlength="10" value="${cm.fundraisers_contact}"></p>
+<p style="text-align:left"><i class="fa fa-envelope tips-text" style="width:5px;"></i> &nbsp; <input type="text" readonly class="tips-text fe-old old-all textfield-bg" maxlength="30" value="${cm.fundraisers_email}"></p>
+
+<span class="edit-pencil edit-pen6 fa fa-pencil-square-o" style="margin-top:-20px;"></span>
 </div>
-
-<div class="new-data6" style="text-align: left; margin-top:-30px;">
-<i class="fa fa-user" style="font-size:15px;"></i><input type="text" maxlength="50" class="fn-new"><br>
-<i class="fa fa-phone" style="font-size:15px;"></i><input type="text" maxlength="10" class="fc-new"><br>
-<i class="fa fa-envelope" style="font-size:15px;"></i><input type="text" maxlength="50" class="fe-new">
-</div>
-
-<span  class="edit-pencil edit-pen6 fa fa-pencil-square-o"></span>
-
 
 <span class="new-data6-1">
 <br>
@@ -1127,8 +1122,6 @@ $(function(){
 <input type="file" name="profile_image" onchange="readURL(this);" class="bn_new_image fundraisers_profile">
 </span>
 
-
-<br><br>
 </div>
 
 
@@ -1410,13 +1403,17 @@ $(".edit-mode1").css({"font-size":"0px"});
 $(".dec-sub").click(function(){
 
 var dec_new = CKEDITOR.instances['story_edit'].getData();
-//alert(dec_new);
-$(".dec-fix").html(dec_new);
+//alert(dec_new.length);
 
+if(dec_new == "" || dec_new == null)
+	return false;
+else
+$(".dec-fix").html(dec_new);
 $(".edit-pen3").css({"color":"rgb(143, 142, 142)", "transform":"scale(1)"});
 $(".edit-mode1").css({"font-size":"0px"});
 $(".dec-fix").show();
 $(".dec-new1").hide();
+$(".ajax-submit-campaign-details").click();
 
 });
 
@@ -1428,7 +1425,7 @@ $(".dec-new1").hide();
 <div class="edit-mode1">Edit Mode</div>
 <br>
 
-<div class="col-md-12 dec-fix">${cm.fundraisers_story}</div>
+<div class="col-md-12 dec-fix" style="maxlength:1000">${cm.fundraisers_story}</div>
 
     
 <div class="col-md-12  dec-new1">
@@ -1437,7 +1434,7 @@ $(".dec-new1").hide();
 <br><br>
 <div style="text-align: center">
 <button type="button" class="dec-btn dec-can">Cancel</button> &nbsp; &nbsp;
-<button type="button" class="dec-btn dec-sub">Submit</button> 
+<button type="button" class="edit-submit5 dec-btn dec-sub">Submit</button> 
 </div>
 <br><br>
 </div>        
@@ -2082,7 +2079,6 @@ $(function get_img_file(){
         $(".edit-pen8").show();
         $(".edit-cancel8, .edit-submit8").hide();
         $(".upi-text").attr('readonly', 'true');
-
         $(".fix-upi-image").load(location.href + " .fix-upi-image>*", "");
         $(".upi-text-main").load(location.href + " .upi-text-main>*", "");
         
@@ -2094,6 +2090,7 @@ $(function get_img_file(){
         $(".edit-pen8").show();
         $(".edit-cancel8, .edit-submit8").hide();
         $(".upi-text").attr('readonly', 'true');
+        $(".ajax-submit-upi-details").click();
 
     });
 })
@@ -2127,7 +2124,7 @@ $(function get_img_file(){
             </div>
             <div class="col-md-6 upi-text-main">
                 <img src="/destiny/files/images/upi.png" style="width:100px; height: 40px;"><br><br>
-                <textarea readonly id="myInput" class="upi-text">${cm.fundraisers_upi_number}</textarea>
+                <textarea readonly id="myInput" maxlength="20" class="upi-text">${cm.fundraisers_upi_number}</textarea>
                 <br>
                 <center><button type="button" onclick="myFunction()" class="form-control copy-code" style="width:100px; border-radius: 50px;">COPY</button></center>
                 <br>
@@ -2146,7 +2143,9 @@ $(function get_img_file(){
 <div class="container-fluid"></div>
 
 <br><br>
-<script>
+
+
+<!-- <script>
 
 $(function show_update_button(){
 $(".edit-submit1-btn, .edit-submit7, .edit-submit8").click(function(){
@@ -2192,7 +2191,7 @@ right:0px;
 </style>
 
 <button type="button" class="submit_all_details">update campaign now</button>
-
+ -->
 </form>
 
 
