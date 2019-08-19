@@ -304,11 +304,16 @@ public class StoreController
 		{
 			List<FundraiserModel> data1 = smdao.fetchFundraisersDetails(fund_id);
 			List<CampaignsModel> data2 = smdao.fetchCampaignsDetails(camp_id);
+			CampaignsModel data3 = smdao.fetchCampaignsImages(camp_id);
 			
+			String images = data3.getFundraisers_campaign_images();
+			
+			model.addAttribute("allimages", images);
 			model.addAttribute("data1", data1);
 			model.addAttribute("data2", data2);
 			model.addAttribute("fm", fm);
 			model.addAttribute("cm", cm);
+			
 			
 			return "dashboard/user/edit-cause-details";
 		}

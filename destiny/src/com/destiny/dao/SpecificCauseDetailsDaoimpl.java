@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.destiny.model.CampaignsModel;
 import com.destiny.model.FundraiserModel;
+import com.destiny.model.UserUpdateModel;
 
 @Repository
 public class SpecificCauseDetailsDaoimpl 
@@ -73,7 +74,8 @@ public class SpecificCauseDetailsDaoimpl
 						cm.setFundraisers_profile_image(rs.getString("fundraisers_profile_image"));
 						cm.setFundraisers_upi_image(rs.getString("fundraisers_upi_image"));
 						cm.setFundraisers_upi_number(rs.getString("fundraisers_upi_number"));
-						
+						cm.setFundraisers_campaign_images(rs.getString("fundraisers_campaign_images"));
+						cm.setFundraisers_campaign_documents(rs.getString("fundraisers_campaign_documents"));
 						
 						return cm;
 					}
@@ -119,4 +121,28 @@ public class SpecificCauseDetailsDaoimpl
 		return query2;
 	}
 
+	//check user Password
+	
+	public CampaignsModel fetchCampaignsImages(String camp_id)
+	{
+		String sql4 = "select fundraisers_campaign_images from campaign_details where campaign_id = '"+camp_id+"'";
+		List<CampaignsModel> data3= template.query(sql4, new CampaignsModelMapper());
+		
+		
+		return data3.get(0);
+	}
+	
+	
+class CampaignsModelMapper implements RowMapper<CampaignsModel>
+{
+
+	@Override
+	public CampaignsModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+		// TODO Auto-generated method stub
+		CampaignsModel cm = new CampaignsModel();
+		cm.setFundraisers_campaign_images(rs.getString("fundraisers_campaign_images"));
+		return cm;
+	}
+	
+}
 }

@@ -17,6 +17,8 @@ public class EditCampaignModel
 	String fundraisers_profile_image;
 	String fundraisers_upi_image;
 	String fundraisers_upi_number;
+	String fundraisers_campaign_images;
+	String fundraisers_campaign_documents;
 
 public EditCampaignModel(){}
 
@@ -156,6 +158,39 @@ public void setFundraisers_upi_number(String fundraisers_upi_number) {
 
 
 
+
+public String getFundraisers_campaign_images() {
+	return fundraisers_campaign_images;
+}
+
+
+
+
+
+public void setFundraisers_campaign_images(String fundraisers_campaign_images) {
+	this.fundraisers_campaign_images = fundraisers_campaign_images;
+}
+
+
+
+
+
+public String getFundraisers_campaign_documents() {
+	return fundraisers_campaign_documents;
+}
+
+
+
+
+
+public void setFundraisers_campaign_documents(String fundraisers_campaign_documents) {
+	this.fundraisers_campaign_documents = fundraisers_campaign_documents;
+}
+
+
+
+
+
 @Override
 public String toString() {
 	StringBuilder builder = new StringBuilder();
@@ -166,16 +201,19 @@ public String toString() {
 			.append(", fundraisers_contact=").append(fundraisers_contact).append(", fundraisers_email=")
 			.append(fundraisers_email).append(", fundraisers_profile_image=").append(fundraisers_profile_image)
 			.append(", fundraisers_upi_image=").append(fundraisers_upi_image).append(", fundraisers_upi_number=")
-			.append(fundraisers_upi_number).append("]");
+			.append(fundraisers_upi_number).append(", fundraisers_campaign_images=").append(fundraisers_campaign_images)
+			.append(", fundraisers_campaign_documents=").append(fundraisers_campaign_documents).append("]");
 	return builder.toString();
 }
+
+
 
 
 
 public EditCampaignModel(String campaign_id, String fundraisers_id, String fundraisers_title,
 		String fundraisers_goal_amount, String fundraisers_story, String fundraisers_name, String fundraisers_contact,
 		String fundraisers_email, String fundraisers_profile_image, String fundraisers_upi_image,
-		String fundraisers_upi_number) {
+		String fundraisers_upi_number, String fundraisers_campaign_images, String fundraisers_campaign_documents) {
 	super();
 	this.campaign_id = campaign_id;
 	this.fundraisers_id = fundraisers_id;
@@ -188,7 +226,10 @@ public EditCampaignModel(String campaign_id, String fundraisers_id, String fundr
 	this.fundraisers_profile_image = fundraisers_profile_image;
 	this.fundraisers_upi_image = fundraisers_upi_image;
 	this.fundraisers_upi_number = fundraisers_upi_number;
+	this.fundraisers_campaign_images = fundraisers_campaign_images;
+	this.fundraisers_campaign_documents = fundraisers_campaign_documents;
 }
+
 
 
 

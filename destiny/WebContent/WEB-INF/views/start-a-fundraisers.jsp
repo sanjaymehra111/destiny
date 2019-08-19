@@ -728,19 +728,26 @@ $(function(){
     </div>
     
     <!-- Dates -->
-    
+   <script>
+   $(function(){
+
+	   $("#txtDate1").val($.format.date(new Date(), 'dd M yy'));
+	   $("#txtDate2").val($.format.date(new Date(), 'dd M yy'));
+	   
+   })
+   </script> 
 
     
     	<input type="text" name="fundraisers_created_date" maxlength = "0" class="created_date" hidden><br><br>
     	
     	<div class="col-md-6">
 		<br>
-        	<input type="text" onfocus="this.type='date'" name="fundraisers_start_date" class="start-date datepicker all-button-same fund-details4" placeholder="Campaign Start Date"><br><br>
+        	<input type="text" id="txtDate1" onfocus="this.type='date'" name="fundraisers_start_date" class="start-date datepicker all-button-same fund-details4" placeholder="Campaign Start Date"><br><br>
        </div>
        
        <div class="col-md-6">
        <br>
-			<input type="text" onfocus="this.type='date'" name="fundraisers_end_date" class="end-date datepicker all-button-same fund-details4" placeholder="Campaign End Date"><br><br>
+			<input type="text" id="txtDate2" onfocus="this.type='date'" name="fundraisers_end_date" class="end-date datepicker all-button-same fund-details4" placeholder="Campaign End Date"><br><br>
        </div>
           
 		

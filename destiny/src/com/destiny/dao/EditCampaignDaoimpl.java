@@ -1,6 +1,8 @@
 package com.destiny.dao;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -52,5 +54,28 @@ public class EditCampaignDaoimpl
 			String sql1 = "UPDATE campaign_details SET fundraisers_upi_number='"+ecm.getFundraisers_upi_number()+"', fundraisers_upi_image='"+"/destiny/files/upi-images/"+filename2+"' where campaign_id = '"+ecm.getCampaign_id()+"'";
 			return template.update(sql1);
 		}
+		
+		//update Campaign images
+		
+			public int EditCampaignImages(EditCampaignModel ecm, String filename3)
+			{
+					//System.out.println("files dao is : " + filename3);
+					String sql1 = "update campaign_details SET fundraisers_campaign_images='"+filename3+"' where campaign_id = '"+ecm.getCampaign_id()+"'";
+					return template.update(sql1);
+				
+			}
+
+		
+			//update Campaign Documents
+			
+			public int EditCampaignDocuments(EditCampaignModel ecm, String filename4)
+			{
+					//System.out.println("files dao is : " + filename3);
+					String sql1 = "update campaign_details SET fundraisers_campaign_documents='"+filename4+"' where campaign_id = '"+ecm.getCampaign_id()+"'";
+					return template.update(sql1);
+				
+			}
+
+		
 
 }

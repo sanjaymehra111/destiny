@@ -235,8 +235,9 @@ Unapproved
 </span><br><br>
 </div>
 <div class="col-md-3">    
-<span class="left-data data1"><i class="fa fa-calendar-minus-o"></i> Date To Go <br>
-    <span class="fatch-data2 end_date"></span></span><br><br>
+<span class="left-data data1"><i class="fa fa-calendar-minus-o"></i> Fundraiser End Date <br>
+    <span class="fatch-data2"> ${cm.fundraisers_end_date}</span>
+    <!-- <span class="fatch-data2 end_date"></span> --></span><br><br>
 </div>
 </div>
 

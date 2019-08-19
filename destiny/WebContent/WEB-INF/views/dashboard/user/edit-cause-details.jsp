@@ -125,9 +125,69 @@ $(".ajax-submit-upi-details").click(function()
 		}); // button closed
 
 		
+//campaign images
+$(".ajax-submit-multiple-images").click(function()
+		{
+			var url4 = "/destiny/edit_campaign_images";
+			var data4 = new FormData();
+			var files = $("#gallery-photo-add").prop('files');
+			
+			//alert("files length : " + files.length );
+			
+			data4.append("campaign_id", $(".campaign_id").html());
+    		data4.append("fundraisers_id", $(".fundraisers_id").html());
+    
+			 for(var i = 0; i<6; i++)
+				 {
+				 	data4.append('files', files[i]);
+				 }
+			 
+		    $.ajax({
+				 	url:url4,
+				 	data: data4,
+			 		enctype: 'multipart/form-data',
+				 	processData: false,
+				 	contentType: false,
+			 	  	type: 'Post',    
+				 	cache: false,
+				 	success : function(){alert("Update Success")},
+				 	error : function(){alert("Error Found")}
+
+		});//ajax close 
+		}); // button closed
+		
+$(".ajax-submit-multiple-documents").click(function()
+	{
+	 
+		var url5 = "/destiny/edit_campaign_documents";
+		var data5 = new FormData();
+		var files = $("#campaign-documents").prop('files');
+		
+		data5.append("campaign_id", $(".campaign_id").html());
+		data5.append("fundraisers_id", $(".fundraisers_id").html());
+	
+		for(i=0; i<6; i++)
+			{
+			data5.append('docfiles', files[i]);
+			}
+		
+		
+		$.ajax({
+			
+			url:url5,
+			data:data5,
+			enctype: 'multipart/form-data',
+		 	processData: false,
+		 	contentType: false,
+	 	  	type: 'Post',    
+		 	cache: false,
+		 	success : function(){alert("Update Success")},
+		 	error : function(){alert("Error Found")}
+			
+	});
+});
+		
 }); //ajax_form_data close
-
-
 
 $(function transfer_id(){
 	$(".ourcausebtn1").click(function(){
@@ -150,7 +210,8 @@ $(function transfer_id(){
 <button class="ajax-submit-upi-details hidden"></button>
 
 <c:forEach var="fm" items="${data1}">
-<c:forEach var="cm" items="${data2}" >
+<c:forEach var="cm" items="${data2}">
+ 
  
 <body style="font-family: algerrian sans-serif;  background-color: rgba(182, 184, 184, 0.11);">
 
@@ -522,6 +583,8 @@ $(function()
 <br><br>
 
 
+
+
 <style>
 .add-image-icon2
 {
@@ -536,7 +599,7 @@ $(function()
     color:rgba(0, 0, 0, 0.541);
     position: relative;
     left:30%;
-    top: 160px;
+    top: 200px;
     z-index: 999;
     transition: 0.3s;
 
@@ -551,7 +614,7 @@ $(function()
     .add-image-icon
 {
     left:38%;
-    top: 160px;
+    top: 200px;
  
 
 }   
@@ -563,8 +626,9 @@ $(function()
 
 <div class="cd-section3" style="margin-top: -120px;">
 <div class="container-fluid">    
+   <br>
+   <br>
    
-
     <style>
         .user-images1
 {
@@ -613,11 +677,29 @@ $(function()
                 background-color: rgb(248, 232, 201);
                 text-align: center;
                 width:100%;
-                overflow: hidden;
+                overflow: scroll;
                 transition: 0.2s;
-                height: 0;
+                height:0px;
                 opacity:0;
             }
+            
+.edit-image1::-webkit-scrollbar {
+    width: 10px;
+    height:0px;
+}
+
+.edit-image1::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+
+.edit-image1::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+​
+
+				
             .edit-img2
             {
                 border-radius: 100px;
@@ -630,6 +712,7 @@ $(function()
             {
                 width:110px; 
                 height: 110px;
+                transition: 0.3s ease-in-out;
             }
         
         
@@ -638,16 +721,51 @@ $(function()
                 cursor: pointer;
                 border-radius: 100px;
                 transform: rotate(45deg);
-                transition: 0.3s ease-in-out;        
             }
         
-            .file-upload
+            #gallery-photo-add
             {
                 display: none;
-                font-size: 0.0px;
+                 font-size: 0.0px;
                 width:0;
-                height: 0;
+                height: 0; 
             }
+            .gallery img
+{
+width:100px;
+height:100px;
+border-radius:100px;
+padding:5px;
+}
+.campaign-image
+{
+width:100px;
+height:100px;
+border-radius:100px;
+padding:5px;
+}
+
+.ajax-submit-multiple-images
+{
+display:none;
+height:110px;
+width:110px;
+padding:20px;
+border-radius:50px;
+background-image:url("/destiny/files/dashboard-user-images/upload-document.png");
+background-size:100% 100%;
+color:white;
+outline:none;
+border:none;
+transition:0.3s;
+}
+
+.ajax-submit-multiple-images:hover
+{
+transform: rotate(45deg);
+}
+            
+            
         </style>    
         
 <script>
@@ -662,7 +780,7 @@ $(".add-image-icon1").click(function(){
     $(".add-image-icon1").hide();
     $(".add-image-icon2").show();
     $(".user-images1").css({"height":"650"});
-    $(".edit-image1").css({"height":"auto"});
+    $(".edit-image1").css({"height":"160px"});
     $(".edit-image1").css({"padding":"20px"});
     $(".edit-image1").css({"opacity":"1"});
     
@@ -709,14 +827,8 @@ $(function(){
 
 $(function(){
     $(".add-images2").click(function(){
-    $(".file-upload").click()
+    $("#gallery-photo-add").click()
    });
-
-    $(".file-upload").change(function()
-    {
-       var file_name = $(".file-upload").val();
-       // alert(file_name);
-    });
 })
 
 $(function(){
@@ -735,32 +847,71 @@ $(function(){
     
 <div class="col-md-8 container-fluid user-images1">
 <div class="user-images">
-    
-    <img class="img-path1" src="/destiny/files/images/drintwater.jpg" style="width:100%; height: 400px;">
-    <img class="img-path1" src="/destiny/files/images/parallax-1.jpg" style="width:100%; height: 400px;">
-    <img class="img-path1" src="/destiny/files/images/volunteer.jpg" style="width:100%; height: 400px;">
-    <img class="img-path1" src="/destiny/files/images/water.jpg" style="width:100%; height: 400px;">
-    <img class="img-path1" src="/destiny/files/images/causes.jpg" style="width:100%; height: 400px;">
-    <img class="img-path1" src="/destiny/files/images/voulnteer-d.jpg" style="width:100%; height: 400px;">
 
+<c:forTokens items = "${allimages}" delims = "," var = "name">
+         	<img class="img-path1" src="<c:out value = "${name}"/>" style="width:100%; height: 400px;">
+</c:forTokens>
+   
 </div>
 <br><br>
 <div class="edit-image1">
-    <span class="uploaded-iamges">
-            <img src="/destiny/files/dashboard-user-images/donor3.svg" class="edit-img2">
-            <img src="/destiny/files/dashboard-user-images/donor2.svg" class="edit-img2">
-            <img src="/destiny/files/dashboard-user-images/donor1.svg" class="edit-img2">
-            <img src="/destiny/files/dashboard-user-images/donorall.png" class="edit-img2">
-    </span>
+
+
+<script>
+$(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var fm= input.files.length;
+           //alert(fm);
+
+            for (i = 0; i < 6; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                    
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+
+    $('#gallery-photo-add').on('change', function() {
+    	$(".gallery").html("");
+    	$(".ajax-submit-multiple-images").show();
+        imagesPreview(this, 'span.gallery');
+    });
+});
+</script>
+
+
+    <span class="gallery" style="overflow:scroll">
+    
+	    <c:forTokens items = "${allimages}" delims = "," var = "name">
+	         	<a target="_blank" href="<c:out value = "${name}"/>"><img class="img-path1 campaign-image" src="<c:out value="${name}"/>"></a> 
+		</c:forTokens>
+	
+	
+	</span>
 <span class="upload-iamges">
         <img src="/destiny/files/dashboard-user-images/media2.png" class="add-images2">
-        <input type="file" class="file-upload" name="new_file">
-</span>        
+        <input type="file" id="gallery-photo-add" name="new_file" multiple>
+        <span><button class="ajax-submit-multiple-images" type="button">'</button></span>
+</span>
+<br>
+    
+        
 </div>
 <br><br>
 
 
 </div>
+<br>
+
     <div class="col-md-4 side-text1">
         <div class="side-text">
 
@@ -1454,7 +1605,7 @@ $(".ajax-submit-campaign-details").click();
 <div class="document-section" style="display: none">
 
 <style>
-.document-details
+.document-details img
 {
     width:200px; 
     height: 200px;
@@ -1466,7 +1617,7 @@ $(".ajax-submit-campaign-details").click();
     opacity: 0.6;
 }
 
-.document-details:hover
+.document-details img:hover
 {
     cursor: pointer;
     transform: scale(1.05);
@@ -1536,18 +1687,24 @@ animation-duration: 1.50s;
     width:0px;
     height:0px;
     transition: 0.3s;
-
+    opacity:0.7;
+    cursor:pointer
+}
+.upload-doc:hover
+{
+transform:scale(1.05);
+opacity:1.0;
 }
 
 .upload-doc.edit 
 {
-    width:200px;
-    height: 200px;
+    width:110px;
+    height: 110px;
 }
 
 .zoom-image.cursor
 {
-    cursor: url("/destiny/files/dashboard-user-images/delete2.png"), default;
+    /* cursor: url("/destiny/files/dashboard-user-images/delete2.png"), default; */
 }
 
 .edit-pen4.color
@@ -1576,6 +1733,39 @@ animation-duration: 1.50s;
     font-size: 17px;
 }
 
+.ajax-submit-multiple-documents
+{
+display:none;
+outline:none;
+border:none;
+font-size:0px;
+background-color: transparent;
+cursor:auto;
+}
+
+.ajax-submit-multiple-documents.edit
+{
+display:none;
+height:110px;
+width:110px;
+padding:20px;
+border-radius:50px;
+background-image:url("/destiny/files/dashboard-user-images/upload-document.png");
+background-size:100% 100%;
+color:white;
+outline:none;
+border:none;
+opacity:0.7;
+cursor:pointer;
+}
+
+.ajax-submit-multiple-documents:hover
+{
+opacity:1.0;
+transform:scale(1.05);
+}
+        
+        
 @media (max-width:975px)
 {
     .close-button
@@ -1593,6 +1783,7 @@ $(function zoom_image(){
         $(".display-image").show();
         $(".close-button").show();
         var a1=$(this).attr('src');
+        //alert(a1);
         $(".display-image img").attr('src', a1);
     });
 
@@ -1609,6 +1800,7 @@ $(function zoom_image(){
     $(".edit-pen4").click(function(){
         //alert("asdasd");
         $(".upload-doc").toggleClass('edit');
+        $(".ajax-submit-multiple-documents").toggleClass('edit');
         $(".zoom-image").toggleClass('cursor');
         $(".edit-pen4").toggleClass('color');
         $(".edit-mode2").toggleClass('editmode');
@@ -1649,21 +1841,55 @@ $(function zoom_image(){
 })
 </script>
 
+
+<script>
+$(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var fm= input.files.length;
+           //alert(fm);
+
+            for (i = 0; i < 6; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                    
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+
+    $('#campaign-documents').on('change', function() {
+    	$(".old-document").html("");
+    	$(".ajax-submit-multiple-documents").show();
+        imagesPreview(this, 'span.old-document');
+    });
+});
+</script>
+
+
 <div class="edit-mode2">Edit Mode</div>
 <br>
  <center>
-<span class="old-document">   
-
-    <img src="/destiny/files/images/document1.JPG" class="document-details zoom-image">
-    <img src="/destiny/files/images/document2.JPG" class="document-details zoom-image">
-    <img src="/destiny/files/images/document3.JPG" class="document-details zoom-image">
-
+<span class="old-document document-details"> 
+<c:forTokens items = "${cm.fundraisers_campaign_documents}" delims = "," var = "doc">
+         	<img class="zoom-image" src="<c:out value="${doc}"/>">
+</c:forTokens>
 </span>
 
-<span class="new-document">     
-    <img src="/destiny/files/dashboard-user-images/upload-document.png" style="border:none;" class="document-details upload-doc">
-    <input type="file" name="new_file" class="upload-hide">
-</span>
+<div class="new-document">  
+<br>   
+    <img src="/destiny/files/dashboard-user-images/media2.png" style="border:none;" class="upload-doc">
+    <span><button class="ajax-submit-multiple-documents" type="button">'</button></span>
+    <input type="file" name="new_file" multiple class="upload-hide" id="campaign-documents">
+    
+</div>
 
     
 <br>

@@ -29,7 +29,7 @@ $(".ajax-submit-user-details").click(function()
 		{
 			var data3 = new FormData();
 			var u_imgl = $(".u-n-image").attr('src').length;
-			alert(u_imgl)
+			//alert(u_imgl)
 			if(u_imgl  > 1000)
 				var url3 = "/destiny/user_update_details_img";
 			else
