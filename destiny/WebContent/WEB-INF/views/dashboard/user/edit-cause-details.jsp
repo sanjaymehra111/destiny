@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <!--For Responsive-->
@@ -184,8 +184,38 @@ $(".ajax-submit-multiple-documents").click(function()
 		 	success : function(){alert("Update Success")},
 		 	error : function(){alert("Error Found")}
 			
-	});
-});
+	});//ajax close
+	});//multi document close
+		
+		
+$(".ajax-submit-account-details").click(function edit_campaign_account()
+{
+	var url6 = "/destiny/edit_campaign_account";
+	var data6 = new FormData();
+		
+	data6.append("campaign_id", $(".campaign_id").html());
+	data6.append("fundraisers_id", $(".fundraisers_id").html());
+	data6.append("account_number", $(".account-number").val());
+	data6.append("account_holder_name", $(".account-holder-name").val());
+	data6.append("account_ifsc", $(".account-ifsc").val());
+	data6.append("account_swift", $(".account-swift").val());
+	data6.append("account_bank_name", $(".account-bank-name").val());
+	
+ 	$.ajax
+		({
+		 	url : url6,
+			data : data6,
+			processData : false,
+			contentType : false,
+ 			type : 'post',
+			cache : false,
+			success : function(){alert("success")},
+			error : function(){alert("error")}
+		
+		});	//ajax Close 
+		});	// campaign account details close
+
+		
 		
 }); //ajax_form_data close
 
@@ -230,6 +260,31 @@ $(function transfer_id(){
 <!--Header End-->
 
 <style>
+
+.button-all
+{
+    background-color: rgb(11, 101, 161);
+    color:white;
+    border:none;
+    height: 45px;
+    border-radius: 50px;
+    outline: none;
+    transition: 0.43s;
+    text-transform: uppercase;
+    margin-top:10px;
+}
+
+.button-all:hover
+{
+    background-color: rgb(5, 53, 85);
+}
+
+.button-all:active
+{
+    transition: 0.0s;
+    transform: scale(0.98);
+}
+ 
   
 .textfield-bg
 {
@@ -547,7 +602,10 @@ $('.goal-amount-old').keypress(function (e) {
           <!--Editing Goal Amount  End-->
 
           <div class="col-md-6">
-            <span class="r-amount amount-text">Raised  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); font-weight: bold">${cm.fundraisers_raised_amount}</span></span>
+            <span class="r-amount amount-text">Raised  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); font-weight: bold">
+            <c:set var="ramount" value="${fn:substringBefore(cm.fundraisers_raised_amount, '.')}"/>
+			${ramount}
+            </span></span>
           </div>
         <br><br><br>
         </div>
@@ -907,10 +965,7 @@ $(function() {
         
 </div>
 <br><br>
-
-
 </div>
-<br>
 
     <div class="col-md-4 side-text1">
         <div class="side-text">
@@ -949,6 +1004,7 @@ $(function() {
 
 .img-icon
 {
+	background:rgb(21, 160, 214);
     width:60px;
     height:60px;
     border-radius: 50px;
@@ -1004,7 +1060,7 @@ $(function() {
 <img class="img-icon" src="${fm.personal_profile_image}"></p>
 <br><br>
 <span>
-
+	
 <c:if test="${fm.personal_status eq 1}">
 	<button type="button" class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
 </c:if>	
@@ -1250,11 +1306,11 @@ $(function(){
 </span>
 
 <br><br>
-
-<c:if test="${fm.personal_status eq 1}">
+				 
+<c:if test="${cm.fundraisers_status eq 1}">
 	<button type="button" class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
 </c:if>	
-<c:if test="${fm.personal_status eq 0}">
+<c:if test="${cm.fundraisers_status eq 0}">
 	<button type="button" class="verified-button unvarified">UNVERIFIED <i class="fa fa-times-circle"></i></button>
 </c:if>
  
@@ -1612,12 +1668,36 @@ $(".ajax-submit-campaign-details").click();
     transition: 0.2s ease-in-out;
     border-radius: 5px;
     border:solid 2px rgba(0, 0, 0, 0.616);
-    margin-right: 10px;
-    margin-top: 10px;
+    margin-right:10px;
     opacity: 0.6;
 }
 
 .document-details img:hover
+{
+    cursor: pointer;
+    transform: scale(1.05);
+    opacity: 8;
+
+}
+
+.document-button
+{
+	background-image:url('/destiny/files/images/documents.png');
+	background-size:100% 100%;
+	background-color:white;
+	color:white;
+    width:200px; 
+    height: 200px;
+    transition: 0.2s ease-in-out;
+    border-radius: 5px;
+    border:solid 2px rgba(0, 0, 0, 0.616);
+    outline:none;
+    margin-top:10px;
+    margin-right:10px;
+    opacity: 0.6;
+}
+
+.document-button:hover
 {
     cursor: pointer;
     transform: scale(1.05);
@@ -1877,12 +1957,26 @@ $(function() {
 <div class="edit-mode2">Edit Mode</div>
 <br>
  <center>
-<span class="old-document document-details"> 
-<c:forTokens items = "${cm.fundraisers_campaign_documents}" delims = "," var = "doc">
-         	<img class="zoom-image" src="<c:out value="${doc}"/>">
-</c:forTokens>
-</span>
 
+<span class="old-document document-details">
+<c:forTokens items = "${cm.fundraisers_campaign_documents}" delims = "," var = "doc">
+
+<c:set var="name" value="${doc}"/>
+<c:set var="docf" value="${fn:substringAfter(name, '.')}"/>
+
+<c:if test="${docf == 'jpg' || docf == 'JPG' || docf == 'jpeg' || docf == 'JPEG' || docf == 'png' || docf == 'PNG' || docf == 'svg' || docf == 'SVG'}">
+	<img class="zoom-image" src="${doc}">
+</c:if>	
+
+<c:if test="${docf != 'jpg' && docf != 'JPG' && docf != 'jpeg' && docf != 'JPEG' && docf != 'png' && docf != 'PNG' && docf != 'svg' && docf != 'SVG'}">
+	<a target="_blank" href="${doc}"><button type="button" class="document-button">'</button></a>
+</c:if>
+         
+</c:forTokens>
+</span> 
+ 
+ 
+<%-- <img class="zoom-image" src="${doc}">--%>
 <div class="new-document">  
 <br>   
     <img src="/destiny/files/dashboard-user-images/media2.png" style="border:none;" class="upload-doc">
@@ -1891,7 +1985,7 @@ $(function() {
     
 </div>
 
-    
+     
 <br>
 <br>
 <span class="deleted-doc">Recently Deleted Document <i class="fa fa-chevron-down"></i></span>
@@ -1922,6 +2016,7 @@ $(function() {
 <div class="cd-section5" style="background-color: white; border-radius: 10px; font-size: 18px; padding: 10px; overflow: hidden;">
 <div class="container-fluid">
 
+<!-- 
 <style>
 .account-details-fix
 {
@@ -2030,7 +2125,10 @@ $(".edit-submit7").click(function(){
 })
 
 </script>
+ -->
 
+
+<c:if test="${fn:length(data4) == 0}">
 <div class="account-data">
 
 <br>
@@ -2038,47 +2136,205 @@ $(".edit-submit7").click(function(){
 <br>
 <br>
 Account number : 
-<span class="u-bank-ac-no account-details-fix">123456789</span>
-<span class="account-details-edit">
-    <input type="text" maxlength="30" class="edit-ac-no account-details-edit-1">
-</span>
+<span class="account-details-fix">123456789</span>
 <br>
 
 Account name : 
-<span class="u-bank-ac-name account-details-fix">Rahul</span>
-<span class="account-details-edit">
-    <input type="text" maxlength="30" class="edit-ac-name account-details-edit-1">
-</span>
+<span class="account-details-fix">Rahul</span>
 <br>
 
 IFSC code : 
-<span class="u-bank-ac-ifsc account-details-fix">sbi115822ok</span>
-<span class="account-details-edit">
-    <input type="text" maxlength="30" class="edit-ac-ifsc account-details-edit-1">
-</span>
-<br>
-<b style="margin-left: 10px;">OR</b>
-<br>
-
-For UPI Transaction: 
-<span class="u-upi-no account-details-fix">supportvikas67@yesbankltd</span>
-<span class="account-details-edit">
-    <input type="text" maxlength="30" class="edit-upi-no account-details-edit-1">
-</span>
+<span class="account-details-fix">sbi115822ok</span>
 <br><br>
-
 <a href="#" style="text-decoration: none;">Click here to read this before you donate via the above options</a>
+<br><br>  
+<center><a href="/destiny/manage-withdrawl/${cm.fundraisers_id}/${cm.campaign_id}"><span style="font-size:30px;" class="fa fa-pencil-square-o"></span></a></center>
+</div>
+</c:if>
 
+
+<c:if test="${fn:length(data4) != 0}">
+<c:forEach var="cam" items="${data4}">
+<div class="account-data">
+
+<style>
+.account-details-fix
+{
+    font-weight: bold;
+}
+
+.account-text
+{
+	border:none;
+	outline:none;
+	background:transparent;
+}
+.account-edit, .account-submit 
+{
+	font-size: 20px; 
+	border:none; 
+	padding:10px; 
+	width:150px; 
+	outline:none; 
+	background-color:rgb(21, 160, 214);
+	color:white;	
+	transition:0.3s;
+}
+.account-submit 
+{	
+	background-color:rgb(20, 92, 20);
+}
+.account-delete, .account-cancel 
+{
+	font-size: 20px; 
+	border:none; 
+	padding:10px; 
+	width:150px; 
+	outline:none; 
+	background-color:#cc2c2c; 
+	color:white;
+	transition:0.3s;
+}
+
+.account-edit:hover, .account-delete:hover, .account-cancel:hover, .account-submit:hover 
+{
+	transform:scale(1.1);
+}
+.button-delete-no
+{
+background-color:green; 
+width:200px
+}
+.button-delete-no:hover
+{
+background-color:#06c14f;
+}
+.button-delete
+{
+	background-color:#ce2a32;
+	width:200px
+}
+
+.button-delete:hover
+{
+	background-color:#f92c2c;
+}
+
+@media(max-width:975px)
+{
+.account-delete, .account-edit, .account-cancel, .account-submit
+{
+width:100px;
+}
+}
+</style>
+
+<script>
+
+$(function EditAccountDetails(){
+
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();   
+});
+	
+$(".account-edit").click(function(){
+	$(".account-part2").css({"font-size":"18px"});
+	$(".account-buttons").hide();
+	$(".new-button").show();
+	$(".account-number, .account-holder-name, .account-ifsc, .account-swift, .account-bank-name").removeAttr('readonly');
+	$(".account-number, .account-holder-name, .account-ifsc, .account-swift, .account-bank-name").css({"border-bottom":"solid 2px black"});
+});
+
+$(".account-cancel").click(function(){
+	$(".account-part2").css({"font-size":"0px"});
+	$(".account-buttons").show();
+	$(".new-button").hide();
+	$(".account-number, .account-holder-name, .account-ifsc, .account-swift, .account-bank-name").attr('readonly', 'true');
+	$(".account-number, .account-holder-name, .account-ifsc, .account-swift, .account-bank-name").css({"border-bottom":"none"});
+})
+
+$(".account-submit").click(function(){
+var ano=$(".account-number").val();
+var ahna=$(".account-holder-name").val();
+var aifsc=$(".account-ifsc").val();
+var aswift=$(".account-swift").val();
+var abna=$(".account-bank-name").val();
+
+if(ano == "" || ano == null || ahna == "" || ahna == null ||  aifsc == "" || aifsc == null ||  aswift == "" || aswift == null ||  abna == "" || abna == null)
+	{
+	$(".account-error").css({"font-size":"18px"});
+	return false;
+	}
+else
+	{
+	$(".ajax-submit-account-details").click();
+	$(".account-error").css({"font-size":"0px"});
+	$(".account-part2").css({"font-size":"0px"});
+	$(".account-buttons").show();
+	$(".new-button").hide();
+	$(".account-number, .account-holder-name, .account-ifsc, .account-swift, .account-bank-name").attr('readonly', 'true');
+	$(".account-number, .account-holder-name, .account-ifsc, .account-swift, .account-bank-name").css({"border-bottom":"none"});
+	return true;
+	}
+})
+
+});
+
+</script>
+
+<div class="ac-details">
+<br>Use the information below to make a direct bank transfer through NEFT/RTGS/IMPS.<br><br>
+<span class="account-part1">
+Account Number : <span class="account-details-fix"><input maxlength="50" class="account-number account-text" type="text" value="${cam.account_number}" readonly></span><br>
+Account Holder Name : <span class=" account-details-fix"><input maxlength="50" class="account-holder-name account-text" type="text" value="${cam.account_holder_name}" readonly></span><br>
+IFSC Code : <span class=" account-details-fix"><input maxlength="20" class="account-ifsc account-text" type="text" value="${cam.account_ifsc}" readonly></span><br>
+</span>
+<span class="account-part2" style="font-size:0px; transition:0.3s;">
+Swift Code : <span class=" account-details-fix"><input maxlength="20" class="account-swift account-text" type="text" value="${cam.account_swift}" readonly></span><br>
+Account Bank Name : <span class=" account-details-fix"><input maxlength="50" class="account-bank-name account-text" type="text" value="${cam.account_bank_name}" readonly></span><br>
+<br>
+Account Type: <span class=" account-details-fix"><input class="account-type account-text" style="width:100px; text-transform: capitalize;" type="text" value="${cam.account_type}" readonly></span> <i class="fa fa-info-circle" style="cursor:pointer;" data-toggle="tooltip" title="If You Want To Change 'Account Type Or Any Other Details' Please Make A New Account And Delete This Thanku..!"></i><br>
+
+</span>
+<br><div class="account-error" style="font-size:0px; text-align:center; transition:0.3s; color:red">Something Missing .....! </div><br>
 </div>
 
-<br>
+<div class="account-buttons" style="text-align:center">
+<button class="account-edit fa fa-pencil-square-o" type="button" > Edit</button> &nbsp;&nbsp;&nbsp;&nbsp;  
+<button class="account-delete fa fa-times-circle" type="button" data-toggle="modal" data-target="#myModal-${cm.campaign_id}"> Delete</button>
+
+<button class="ajax-submit-account-details hidden" type="button"></button>
+</div>
+
+<!--Delete Campaign Start-->
+  <div class="modal fade" id="myModal-${cm.campaign_id}" role="dialog" style="z-index:9999; margin-top:10%;">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" style="padding:20px;">&times;</button>
+        <div class="modal-header"  style="padding:50px;">
+        <div style="color:red; text-align:center;">Are You Sure You Want To Delete This Account <br> <span style="font-weight:bold; color:black; font-style: italic; text-transform: uppercase;">' ${cam.account_bank_name} : ${cam.account_number} '</span></div>
+          <br>
+          	<center><a href="/destiny/delete_campaign_account/${cm.fundraisers_id}/${cm.campaign_id}">
+          	<button type="button" class="button-delete button-all">Yes</button></a>
+			<button type="button" data-dismiss="modal" class="button-delete-no button-all">No</button>
+			</center>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Delete Campaign End-->
+
+</div>
+</c:forEach>
+</c:if>
+
 <center>
 
-<span  class="edit-pen7 fa fa-pencil-square-o"></span>
 
-<span class="new-data7">
-    <button type="button" style="font-size: 30px;" class="edit-cancel7 fa fa-times-circle"></button>
-    <button type="button" style="font-size: 30px;" class="edit-submit7  fa fa-check-circle"></button>
+<span class="new-button" style="display:none">
+<button class="account-cancel fa fa-times-circle" type="button"> Cancel</button> &nbsp;&nbsp;&nbsp;&nbsp;
+<button class="account-submit fa fa-check-circle" type="button" > Submit</button>   
 </span>
 </center>
 <br>
@@ -2342,7 +2598,7 @@ $(function get_img_file(){
                     <img src="/destiny/files/dashboard-user-images/camera1.png" class="upi-image">
                     <input type="file"  onchange="readURL1(this);" name="upi-image-file" class="upi-image-file">
                 </span>
-                <span class="fix-upi-image"><img class="upi-main-file" src="${cm.fundraisers_upi_image}" style="width:100px; height: 150px;">   
+                <span class="fix-upi-image"><img class="upi-main-file" src="${cm.fundraisers_upi_image}" style="width:150px; height: 150px;">   
                 </span>
 
                 <br><br>

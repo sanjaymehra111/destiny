@@ -65,9 +65,9 @@ public class UserUpdateDaoimpl
  
 	//Update user password
 
-		public int updateUserPassword(UserUpdateModel uum, String fid)
+		public int updateUserPassword(UserUpdateModel uum, String fid, String epwd)
 		{
-			String sql5 = "UPDATE fundraisers_detail SET personal_password='"+uum.getNew_password()+"' where fundraisers_id  = '"+fid+"'";
+			String sql5 = "UPDATE fundraisers_detail SET personal_password='"+epwd+"' where fundraisers_id  = '"+fid+"'";
 			return template.update(sql5);
 		}
 

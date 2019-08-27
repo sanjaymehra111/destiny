@@ -28,15 +28,10 @@ public class UserLoginDaoimpl
 	}
 	*/
 	
-	public UserLoginModel checkLogin(UserLoginModel ulm)
+	public UserLoginModel checkLogin(UserLoginModel ulm, String epwd)
 	{
-		String sql1="Select fundraisers_id from fundraisers_detail where personal_email = '"+ulm.getUser_id()+"' and personal_password = '"+ulm.getUser_password()+"'";
+		String sql1="Select fundraisers_id from fundraisers_detail where personal_email = '"+ulm.getUser_id()+"' and personal_password = '"+epwd+"'";
 		List<UserLoginModel> users=template.query(sql1, new UserLoginModelMapper());
-		
-		
-		//String f_id=template.queryForObject(sql1, String.class);
-		//System.out.println("size of String is : " + users.size());
-		//System.out.println("size of String is : " + f_id);
 		
 		if (users.size() > 0)
 		{
@@ -56,12 +51,8 @@ class UserLoginModelMapper implements RowMapper<UserLoginModel>
 
 	@Override
 	public UserLoginModel mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		
 		UserLoginModel ulm = new UserLoginModel();
 		ulm.setfundraisers_id(rs.getString("fundraisers_id"));
-		//System.out.println("getting fid in dao is = " + ulm.getfundraisers_id());
-		
 		return ulm;
 	}
 	

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.destiny.model.CampaignAccountModel;
 import com.destiny.model.EditCampaignModel;
 
 @Repository
@@ -76,6 +77,13 @@ public class EditCampaignDaoimpl
 				
 			}
 
+			//update Campaign account details
+			
+			public int EditCampaignAccount(CampaignAccountModel cam)
+			{
+				String sql1 = "UPDATE campaign_account_details SET account_holder_name='"+cam.getAccount_holder_name()+"', account_number='"+cam.getAccount_number()+"', account_ifsc='"+cam.getAccount_ifsc()+"', account_swift='"+cam.getAccount_swift()+"', account_bank_name='"+cam.getAccount_bank_name()+"'  where campaign_id = '"+cam.getCampaign_id()+"'";
+				return template.update(sql1);
+			}
 		
 
 }

@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
 
@@ -24,6 +28,8 @@
 
 
 <title> Destiny World</title>
+
+<c:forEach var="ad" items="${data1}">
 
 <body style="font-family: algerrian sans-serif; background-color: rgba(224, 224, 224, 0.527);">
 
@@ -320,6 +326,9 @@
 
 <div class="col-md-12 text-center1 change-details">
 <div class="col-md-4">
+<span >ID: <br> <span class="fatch-data u-o-name">${ad.a_id}</span></span><br><br>
+<span >Email: <br> <span class="fatch-data u-o-name">${ad.admin_id}</span></span><br><br>
+
 <span >Name: <br> <span class="fatch-data u-o-name">Rajan</span></span><br><br>
 <span >City Of Residence: <br><span class="fatch-data u-o-address">Delhi, India</span></span><br><br>
 </div>
@@ -1362,5 +1371,5 @@ Successfully Update
 
         
 </body>
-
+</c:forEach>
 </html>

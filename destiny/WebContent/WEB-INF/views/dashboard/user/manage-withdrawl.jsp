@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
 
@@ -23,32 +27,136 @@
     <!--Textarea-->
     <script src="https://cdn.ckeditor.com/4.11.1/basic/ckeditor.js"></script>
 
-    
 
-    
-      
+<script>
+$(function(){
+
+	$(".submit-personal-ajax-button").click(function(){
+
+	var url = "/destiny/campaign_acount_details";
+	var data = new FormData();
+	 
+	data.append("campaign_id", $(".campaign_id").html());
+	data.append("fundraisers_id", $(".fundraisers_id").html());
+	data.append("account_type", 'personal');
+	data.append("account_holder_name", $(".account_holder_name").val());
+	data.append("account_number", $(".account_number").val());
+	data.append("account_ifsc", $(".account_ifsc").val());
+	data.append("account_swift", $(".account_swift").val());
+	data.append("account_bank_name", $(".account_bank_name").val());
+	data.append("pan_images", $(".upload-pan-h")[0].files[0]);
+	data.append("docs_files", $(".upload-aadhar-h")[0].files[0]);
+	data.append("cancel_cheque_images", $(".upload-cheque-h")[0].files[0]);
+
+
+	$.ajax({
+		
+		url:url,
+		data:data,
+		contentType:false,
+		processData:false,
+		type:'post',
+		cache:false,
+		enctype: 'multipart/form-data',
+		success : function(){alert("Update Success")},
+	 	error : function(){alert("Error Found")}
+		
+	});//Ajax Close
+
+	});//submit-personal-ajax-button  Close
+
+	
+	
+	$(".submit-company-ajax-button").click(function(){
+
+		var url = "/destiny/campaign_acount_details";
+		var data = new FormData();
+		 
+		data.append("campaign_id", $(".campaign_id").html());
+		data.append("fundraisers_id", $(".fundraisers_id").html());
+		data.append("account_type", 'company');
+		data.append("account_holder_name", $(".company_account_holder_name").val());
+		data.append("account_number", $(".company_account_number").val());
+		data.append("account_ifsc", $(".company_account_ifsc").val());
+		data.append("account_swift", $(".company_account_swift").val());
+		data.append("account_bank_name", $(".company_account_bank_name").val());
+		data.append("pan_images", $(".upload-pan-hc")[0].files[0]);
+		data.append("docs_files", $(".upload-doc-hc")[0].files[0]);
+		data.append("cancel_cheque_images", $(".upload-cheque-hc")[0].files[0]);
+
+	$.ajax({
+			
+			url:url,
+			data:data,
+			contentType:false,
+			processData:false,
+			type:'post',
+			cache:false,
+			enctype: 'multipart/form-data',
+			success : function(){alert("Update Success")},
+		 	error : function(){alert("Error Found")}
+			
+			
+		});//Ajax Close
+
+		});//submit-personal-ajax-button  Close
+
+	
+})// main function close
+
+</script>
 
 </head>
 
 
 <title> Destiny World</title>
 
-<body style="font-family: algerrian sans-serif; background-color: rgba(224, 224, 224, 0.527);">
+<c:forEach var="fm" items="${data1}">
+<c:forEach var="cm" items="${data2}">
 
+<body style="font-family: algerrian sans-serif; background-color: rgba(224, 224, 224, 0.527);">
 
 <!--Header Start-->
 
     <div class="header_import">
-    <script>
-    $(function(){
-    $(".header_import").load("user-header");  
-    })
-    </script>
+    <jsp:include page="user-header.jsp" />
     </div>
     
 <!--Header End-->
 
+
 <style>
+
+
+.verified-button, .un-verified-button
+{
+    height: 30px;
+    font-size: 12px;
+    background-color: #30846b;
+    border:none;
+    outline:none;
+    border-radius: 50px;
+    text-align:center;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: 0.3s;
+    color:white;
+    width:120px;
+    
+}
+.verified-button:ACTIVE 
+{
+    transform:scaleX(-1);
+}
+
+.un-verified-button
+{
+    background-color: #b32121;
+}
+.un-verified-button:ACTIVE
+{
+     transform:scaleX(-1);
+}  
 
 th, td {
   padding: 15px;
@@ -304,13 +412,11 @@ font-size: 15px;
 
 <!--manage Header Start-->
 
-<div class="manage_header_import">
-    <script>
-    $(function(){
-    $(".manage_header_import").load("manage-header");  
-    })
-    </script>
-</div>
+<!--Manage Header Start-->
+
+    <div class="manage_header_import">
+    <jsp:include page="manage-header.jsp" />
+    </div>
     
 <!--manage Header End-->
 
@@ -323,6 +429,8 @@ font-size: 15px;
 <div class="section1-data2">
 <br>
 
+<div class="campaign_id hidden">${cm.campaign_id}</div>
+<div class="fundraisers_id hidden">${fm.fundraisers_id}</div>
 
 <div class="col-md-12">
 <span style="font-size: 25px;">Account Overview</span>
@@ -337,9 +445,12 @@ Need help? Contact your campaign manager at 1234567890  or send e-mail at destin
 <div class="col-md-12" style="background-color: rgba(235, 235, 235, 0.329);">
 <br>
     <span style="font-size: 30px; font-weight: bold; color: rgb(9, 84, 128)">TOTAL RAISED</span><br>
-    <span style="font-size: 30px; font-weight: bold; color: rgb(9, 84, 128)">&#8377; 7500 </span><br><br>
+    <span style="font-size: 30px; font-weight: bold; color: rgb(9, 84, 128)">&#8377; 
+     <c:set var="ramount" value="${fn:substringBefore(cm.fundraisers_raised_amount, '.')}"/>
+			${ramount}
+</span><br><br>
 </div>
-
+<!-- 
 <div class="col-md-6" style="text-align: center">
     <br>
     <span style="font-size: 20px; font-weight: bold; text-transform: uppercase;  color: rgb(0, 0, 0) ">Raised In INR</span><br>
@@ -351,7 +462,7 @@ Need help? Contact your campaign manager at 1234567890  or send e-mail at destin
     <span style="font-size: 20px; font-weight: bold; text-transform: uppercase;  color: rgb(0, 0, 0) ">Raised In USD</span><br>
     <span style="font-size: 25px; font-weight: bold;">$ 31 </span><br><br>
 </div>
-
+ -->
 <br>
 <br>
 </div>
@@ -362,9 +473,9 @@ Need help? Contact your campaign manager at 1234567890  or send e-mail at destin
 <br>
 
     <span style="font-size: 30px; font-weight: bold; color: rgb(9, 84, 128)">Available For Withdrawal</span><br>
-    <span style="font-size: 30px; font-weight: bold; color: rgb(9, 84, 128)">&#8377; 7500 </span><br><br>
+    <span style="font-size: 30px; font-weight: bold; color: rgb(9, 84, 128)">&#8377; ${ramount}</span><br><br>
 </div>
-
+<!-- 
 <div class="col-md-6" style="text-align: center">
 <br>    <span style="font-size: 20px; font-weight: bold; text-transform: uppercase;  color: rgb(0, 0, 0) ">In INR</span><br>
     <span style="font-size: 25px; font-weight: bold;">&#8377; 5300 </span><br><br>
@@ -374,10 +485,179 @@ Need help? Contact your campaign manager at 1234567890  or send e-mail at destin
 <br>    <span style="font-size: 20px; font-weight: bold; text-transform: uppercase;  color: rgb(0, 0, 0) "> In USD</span><br>
     <span style="font-size: 25px; font-weight: bold;">$ 31 </span><br><br>
 </div>
+ -->
+</div>
+
+<div class="container-fluid"></div><br>
+
+<div class="withdraw" style="text-align:center">
+
+<script type="text/javascript">
+$(function(){
+	
+	var cdate= new Date();
+	var cdate2 = ('0' + cdate.getDate()).slice(-2)+ '-' + ('0' + (cdate.getMonth()+1)).slice(-2) + '-' +cdate.getFullYear();
+
+	$(".request_date").val(cdate2);
+	
+
+	
+	
+	$(".withdraw-button").click(function(){
+		$(".withdraw-button").hide();
+		$(".request-form").show();
+	});
+	
+	$(".request-cancel").click(function(){
+		$(".withdraw-button").show();
+		$(".request-form").hide();
+		$(".withdraw-amount-error").css({"font-size":"0px"});
+	});
+	
+	
+	$(".request-submit").click(function(){
+		
+		var av = new Number($(".available-amount").val());
+		var am = new Number($(".withdraw-amount").val());
+		
+		if(am == null || am == "" || am > av)
+		{
+			$(".withdraw-amount-error").css({"font-size":"18px"});
+			return false;
+		}
+		else
+		{
+			$(".withdraw-amount-error").css({"font-size":"0px"});
+			$(".withdraw-button").show();
+			$(".request-form").hide();
+			return true;
+		}
+		
+	})
+		
+	$(".withdraw-amount").keydown(function(){
+		
+		var av = new Number($(".available-amount").val());
+		var am = new Number($(".withdraw-amount").val());
+	
+		
+		
+		if(am > av)
+			{
+				$(".withdraw-amount-error").css({"font-size":"18px"});
+				$(".withdraw-amount").val(av);
+				return false;
+			}
+			
+		else
+			{
+			  	$(".withdraw-amount-error").css({"font-size":"0px"});
+				return true;
+			}
+	});
+	
+	
+	
+})
+</script>
+
+
+<style>
+.withdraw-button 
+{	
+	background-color: rgb(7, 98, 121);
+	color:white;
+	outline:none;
+	border:none;
+	width:350px;
+	height:60px;
+	font-size:20px;
+	border-radius:5px;
+	transition:0.3s;
+}
+.withdraw-button:hover
+{
+	background-color:#109cbf;
+}
+
+.request-cancel, .request-submit
+{	
+	background-color: rgb(7, 98, 121);
+	color:white;
+	outline:none;
+	border:none;
+	width:250px;
+	height:40px;
+	font-size:20px;
+	border-radius:5px;
+	margin-top:20px;
+	transition:0.3s;
+}
+
+.request-cancel:hover
+{
+background-color:#109cbf;
+}
+.request-submit:hover
+{
+	background-color:#109cbf;
+}
+
+.withdraw-amount
+{
+	text-align:center;
+	border:none;
+	outline:none;
+	border-bottom:solid 2px black;
+	font-size:20px;
+}
+
+.withdraw-amount::-webkit-inner-spin-button, 
+.withdraw-amount::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+@media(max-width:975px)
+{
+.withdraw-button 
+{	
+	width:250px;
+}
+	
+}
+</style>
+
 
 <br>
-<br>
+<button class="withdraw-button" type="text">Withdraw Amount Request</button><br>
+
+<span class="request-form" style="display:none">
+<input class="available-amount hidden" value="${ramount}">
+
+<form name="campaign_withdraw_amount" action="/destiny/campaign_withdraw_amount_request" model="CampaignWithdrawAmountModel">
+
+	<input class="hidden" name="campaign_id" value="${cm.campaign_id}">
+	<input class="hidden" name="fundraisers_id" value="${cm.fundraisers_id}">
+	<input class="request_date hidden" name="request_date" type="text">
+	<input name="withdraw_amount" type="number" class="withdraw-amount" placeholder="Withdraw Amount" min="0" max="${amount}"><br><br>
+
+	<div class="withdraw-amount-error" style="font-size:0px; color:red; transition:0.3s;">Withdraw Amount Should Be Less Or Equal Than Available Amount</div>
+
+	<button class="request-cancel" type="button">Cancel</button> 
+	<button class="request-submit" >Submit</button><br><br>
+
+</form>	
+
+</span>
+
+
+
 </div>
+
+
+
 
 
 <hr style="border:solid 0.5px grey">
@@ -394,7 +674,6 @@ This fee will be automatically deducted from the money raised on your fundraiser
 </div>
 
 <br><br>
-
 
 <div class="col-md-6">
 
@@ -478,6 +757,7 @@ $(function hide_show(){
 
 </script>
 
+<c:if test="${fn:length(data4) == 0}">
 
 <div class="ov-section3">
 <div class="container-fluid" style="text-align: center">
@@ -518,11 +798,11 @@ $(function hide_show(){
 </p>
 <div class="ac-form">
 
-<input class="text-field1" type="text" name="ac_holder_name" placeholder="Account Holder Name*" required><br>
-<input class="text-field1" type="text" name="ac_number" placeholder="Account Number*" required><br>
-<input class="text-field1" type="text" name="ac_ifsc" placeholder="IFSC Code*" required><br>
-<input class="text-field1" type="text" name="ac_swift" placeholder="SWIFT Code"><br>
-<input class="text-field1" type="text" name="ac_bank_name" placeholder="Bank Name*" required><br>
+<input class="text-field1 account_holder_name" type="text" name="account_holder_name" placeholder="Account Holder Name*" required><br>
+<input class="text-field1 account_number" type="text" name="account_number" placeholder="Account Number*" required><br>
+<input class="text-field1 account_ifsc" type="text" name="account_ifsc" placeholder="IFSC Code*" required><br>
+<input class="text-field1 account_swift" type="text" name="account_swift" placeholder="SWIFT Code"><br>
+<input class="text-field1 account_bank_name" type="text" name="account_bank_name" placeholder="Bank Name*" required><br>
 
 <div class="upload-button">
 
@@ -589,13 +869,13 @@ return false;
 else
 {
 $(".alert-message").html("");
+$(".submit-personal-ajax-button").click();
 return true;
 }
 
 });
 
-
-})
+});
 
 </script>
 
@@ -638,7 +918,8 @@ return true;
 </div>
 
 </div>
-<button class="button2 submit-personal">Next</button><br><br>
+<button class="submit-personal-ajax-button hidden" type="button"></button>
+<button class="button2 submit-personal" type="button">Next</button><br><br>
 <button class="button2 cancel-personal" type="button">Cancel</button>
 </form>
 
@@ -659,18 +940,18 @@ return true;
 
 <div class="ac-form">
 
-<input class="text-field1" type="text" name="ac_holder_name" placeholder="Account Holder Name*" required><br>
-<input class="text-field1" type="text" name="ac_number" placeholder="Account Number*" required><br>
-<input class="text-field1" type="text" name="ac_ifsc" placeholder="IFSC Code*" required><br>
-<input class="text-field1" type="text" name="ac_swift" placeholder="SWIFT Code"><br>
-<input class="text-field1" type="text" name="ac_bank_name" placeholder="Bank Name*" required><br>
+<input class="text-field1 company_account_holder_name" type="text" name="company_account_holder_name" placeholder="Account Holder Name*" required><br>
+<input class="text-field1 company_account_number" type="text" name="company_account_number" placeholder="Account Number*" required><br>
+<input class="text-field1 company_account_ifsc" type="text" name="company_account_ifsc" placeholder="IFSC Code*" required><br>
+<input class="text-field1 company_account_swift" type="text" name="company_account_swift" placeholder="SWIFT Code"><br>
+<input class="text-field1 company_account_bank_name" type="text" name="company_account_bank_name" placeholder="Bank Name*" required><br>
 
 <div class="upload-button">
 
 <script>
 $(function upload(){
 
-
+	
 //pan card
 
 $(".upload-pan-sc").click(function(){
@@ -678,8 +959,8 @@ $(".upload-pan-sc").click(function(){
 });
 
 $(".upload-pan-hc").change(function(){
-    var panc=$(".upload-pan-hc").val(); 
-    var panc_no = panc.replace(/^.*\\/, "");
+	var panc=$(".upload-pan-hc").val(); 
+	var panc_no = panc.replace(/^.*\\/, "");
     $(".pan-detailsc").html(panc_no);
 });
 
@@ -715,8 +996,7 @@ $(".upload-cheque-hc").change(function(){
 //submit company form
 
 $(".submit-company").click(function(){
-
-    var ca=$(".upload-doc-hc").val(); 
+	var ca=$(".upload-doc-hc").val(); 
     var cb=$(".upload-pan-hc").val(); 
     var cc=$(".upload-cheque-hc").val(); 
 
@@ -729,6 +1009,7 @@ if(ca =="" || cb =="" || cc =="")
 else
 {
     $(".alert-message").html("");
+    $(".submit-company-ajax-button").click();
     return true;
 }
 
@@ -739,7 +1020,6 @@ else
 })
 
 </script>
-
 
 
 <div class="hide-button"  style="display: none">
@@ -781,7 +1061,8 @@ else
 
 
 </div>
-<button class="button2 submit-company">Next</button><br><br>
+<button class="submit-company-ajax-button hidden" type="button"></button>
+<button class="button2 submit-company" type="button">Next</button><br><br>
 <button class="button2 cancel-company" type="button">Cancel</button>
 </form>
 
@@ -795,32 +1076,116 @@ else
 </div>
 </div>
 
+</c:if>
+
+
+
+
+
+<c:if test="${fn:length(data4) != 0}">
+<c:forEach var="cam" items="${data4}">
+
+
+<div class="cd-section5" style="background-color: white; border-radius: 10px; font-size: 18px; padding: 10px;">
+<div class="container-fluid" style="text-transform: capitalize;">
+<br>
+        <div><p  style="font-size: 25px; color:rgb(41, 41, 41)">Bank Account Details</p></div>
+        <hr>
+
+Account Number : <b> ${cam.account_number}</b>
+<br>
+Account Holder Name : <b> ${cam.account_holder_name}</b>
+<br>
+Account Type : <b> ${cam.account_type}</b>
+<br>
+IFSC Code : <b> ${cam.account_ifsc}</b>
+<br>
+SWIFT Code : <b> ${cam.account_swift}</b>
+<br>
+Bank Name: <b> ${cam.account_bank_name}</b>
+<br><br>
+PAN IMAGE: <br><img style="width:100%; height:300px" src="${cam.pan_image}">
+<br><br>
+CANCEL CHEQUE IMAGE: <br> <img style="width:100%; height:300px" src="${cam.cancel_cheque_image}">
+<br><br>
+EXTRA DOC IMAGE : <br> <img style="width:100%; height:300px" src="${cam.doc_files}">
+<br>
+
+<br><br>
+
+
+
+</div>
+</div>
+
+</c:forEach>
+</c:if>
+
+
+
 <br><br>
 
 </div>
 
 
 <div class="col-md-6">
-
 <div class="ov-section3">
-<div class="container-fluid" style="text-align: center">
-<br>
-<p  style="font-size: 20px; color:rgb(41, 41, 41)">Past Withdrawal Requests</p>
-<hr>
-<p style="font-size: 25px">You haven't made any withdrawal requests yet</p>
-<br>
 
+<c:if test="${fn:length(data5) == 0}">
+	<div class="container-fluid" style="text-align: center">
+	<br>
+	<p  style="font-size: 20px; color:rgb(41, 41, 41)">Past Withdrawal Requests</p>
+	<hr>
+	<p style="font-size: 25px">You haven't made any withdrawal requests yet</p>
+	<br>
+	</div>
+</c:if>
 
+<c:if test="${fn:length(data5) != 0}">
+	<div class="container-fluid" style="text-align: center">
+	<br>
+	<p  style="font-size: 20px; color:rgb(41, 41, 41)">Past Withdrawal Requests</p>
+	<hr>
+	<style>
+	@media(max-width:975px)
+	{
+	.withdraw-table
+	{overflow:scroll}
+	}
+	</style>
+	<div class="withdraw-table" style="width:100%;">
+	<table style="width:100%"> 
+		<th style="width:30%">DATE</th>
+		<th style="width:30%">AMOUNT</th>
+		<th style="width:40%;">STATUS</th>
+		  
+		<c:forEach var="cwa" items="${data5}"> 
+	
+			<tr>
+				<td>${cwa.request_date}</td>
+				<td>&#8377; ${cwa.withdraw_amount}</td>
+				<td>
+					<c:if test="${cwa.withdraw_status == 0}">
+						<button type="button" class="un-verified-button">UNAPPROVED <i class="fa fa-times-circle"></i></button>
+					</c:if>
+					<c:if test="${cwa.withdraw_status == 1}">
+						<button type="button" class="verified-button">APPROVED <i class="fa fa-check-circle"></i></button>
+					</c:if>
+				</td>
+			</tr>
+				
+		</c:forEach>
+	</table>
+		
+		
+	</div>
+	
+	</div>
+</c:if>
 
 </div>
 </div>
-
-
 </div>
-
-</div>
-
-
 </div>
 
 <br><br>
@@ -830,13 +1195,9 @@ else
 <!--Footer Start-->
 
     <div class="footer_import">
-    <script>
-    $(function(){
-    $(".footer_import").load("user-footer");  
-    })
-    </script>
+    <jsp:include page="user-footer.jsp" />
     </div>
-  
+    
 
 <!--Footer End-->
 
@@ -846,4 +1207,6 @@ else
         
 </body>
 
+</c:forEach>
+</c:forEach>
 </html>

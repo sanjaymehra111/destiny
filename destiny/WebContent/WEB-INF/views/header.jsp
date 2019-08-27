@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <script>
 
   
@@ -178,18 +178,54 @@ var currentScrollPos = window.pageYOffset;
     }
     </style>
     
-            <span class="check-session">${sessionData}</span>
+            <%-- <span class="check-session">${sessionData}</span> --%>
             
-                    <li class="headerlist validate-dashboard"><a href="/destiny/user-dashboard" class="white shop-menu user-dashboard" style="text-decoration:none;">Dashboard </a>
-                      </li>
-                        
-      				<!--  for-testing-only 
-                      <li class="headerlist"><a href="/destiny/admin-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Admin</a>
-                      </li>                  
-                      
-                        for-testing-only -->
+            
+            		<c:if test="${fn:length(sessionData.session_id) != 0}">
+                     	<li class="headerlist validate-dashboard"><a href="/destiny/user-dashboard" class="white shop-menu" style="text-decoration:none;">Dashboard </a></li>
+                    </c:if>     
+ 					
+ 					<c:if test="${fn:length(AsessionData .session_id) != 0}">
+					  	<li class="headerlist"><a href="/destiny/admin-dashboard" class="white shop-menu" style="text-decoration:none; cursor: pointer;">Admin</a></li>
+					</c:if>                      
 
-<script>
+<li class="headerlist"><a class="white user-menu1 contact-menu" style="text-decoration:none; cursor: pointer;"><i class="fa fa-user" style="font-size: 25px;"></i> <i class="fa fa-chevron-down" style="font-size: 15px;"></i></a>
+  <ul class="dropdown-content user-menu2 contact-menu2" style="list-style-type:none;">
+
+
+<!-- For user -->
+
+<c:if test="${fn:length(sessionData.session_id) == 0 && fn:length(AsessionData.session_id) == 0}">
+<div class="guest-user">
+      <a class="internalmenu" href="/destiny/login" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-in"></i> Login</li></a>
+      <a class="internalmenu" href="/destiny/start-a-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-user-plus"></i> Sign Up</li></a>
+</div>      
+</c:if>
+<c:if test="${fn:length(sessionData.session_id) != 0}">
+<div class="logged-user">
+    <a class="internalmenu" href="/destiny/user-dashboard" style="text-decoration:none"><li class="padding"><i class="fa fa-user-circle-o"></i> My Profile</li></a>
+    <a class="internalmenu" href="/destiny/user-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-bars"></i> My Fundraisers</li></a>
+    <a class="internalmenu" href="/destiny/user-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Change Password</li></a>
+    <a class="internalmenu" href="/destiny/user_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
+</div>  
+</c:if>
+
+<!-- For Admin -->
+
+<c:if test="${fn:length(AsessionData.session_id) != 0}">
+<div class="guest-user">
+    <a class="internalmenu" href="/destiny/admin-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Change Password</li></a>
+    <a class="internalmenu" href="/destiny/admin_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
+</div>      
+</c:if>      
+  </ul>
+</li>
+
+   
+
+                    </ul>
+
+ <script>
 
 $(function load_js(){
 
@@ -238,30 +274,7 @@ var amount = $(this).html();
 })
 </script>
 
-<li class="headerlist"><a class="white user-menu1 contact-menu" style="text-decoration:none; cursor: pointer;"><i class="fa fa-user" style="font-size: 25px;"></i> <i class="fa fa-chevron-down" style="font-size: 15px;"></i></a>
-  <ul class="dropdown-content user-menu2 contact-menu2" style="list-style-type:none;">
-
-<div class="guest-user">
-      <a class="internalmenu" href="/destiny/login" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-in"></i> Login</li></a>
-      <a class="internalmenu" href="/destiny/start-a-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-user-plus"></i> Sign Up</li></a>
-</div>      
-
-<div class="logged-user">
-    <a class="internalmenu" href="user-dashboard" style="text-decoration:none"><li class="padding"><i class="fa fa-user-circle-o"></i> My Profile</li></a>
-    <a class="internalmenu" href="user-fundraisers" style="text-decoration:none"><li class="padding"><i class="fa fa-bars"></i> My Fundraisers</li></a>
-    <a class="internalmenu" href="user-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Change Password</li></a>
-    <a class="internalmenu" href="user_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
-</div>  
-
-      
-  </ul>
-</li>
-
-   
-
-                    </ul>
-
-    <script>
+   <!--  <script>
     $(function check_session(){
     	var cs = $(".check-session").html().length;
     	//alert(cs);
@@ -281,7 +294,7 @@ var amount = $(this).html();
     		}
     		
     })
-    </script>
+    </script> -->
                     
                   </div>
 </div>

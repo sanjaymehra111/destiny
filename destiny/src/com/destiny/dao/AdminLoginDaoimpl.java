@@ -17,14 +17,14 @@ public class AdminLoginDaoimpl
 	@Autowired
 	JdbcTemplate template;
 	
-	public List<AdminLoginModel> checkAdminLogin(AdminLoginModel alm)
+	public AdminLoginModel checkAdminLogin(AdminLoginModel alm)
 	{
 		String sql1= "select * from admin_details where admin_id = '"+alm.getAdmin_id()+"' and admin_password = '"+alm.getAdmin_password()+"'";
 		List<AdminLoginModel> datas = template.query(sql1, new AdminLoginModelMapper());
-		
 		if (datas.size() > 0)
 		{
-			return datas;
+			System.out.println("data " + datas.get(0));
+			return datas.get(0);
 		}
 		else 
 		{
@@ -40,9 +40,7 @@ public class AdminLoginDaoimpl
  {
 	 @Override
 		public AdminLoginModel mapRow(ResultSet rs, int rowNum) throws SQLException {
-			// TODO Auto-generated method stub
-			
-		 	AdminLoginModel alm = new AdminLoginModel();
+			AdminLoginModel alm = new AdminLoginModel();
 			alm.setA_id(rs.getString("a_id"));
 			return alm;
 		}

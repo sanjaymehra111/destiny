@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -657,55 +658,6 @@ function readURL(input)
 
 </div>
 
-</div>
-</div>
-
-<br><br>
-
-<div class="pr-section2">
-<div class="container-fluid">
-<div class="section1-data2">
-<br><br>
-
-<div class="col-md-12 text-center1 change-details">
-
-<div class="col-md-4">
-<div class="d-made">
-<div class="col-md-4">    
-<i class="fa fa-credit-card cards" style="color:rgb(255, 255, 255); background-color: rgb(17, 184, 196);"></i>
-</div>
-<div class="col-md-8">    
-<span class="d-made" style="font-size: 25px; color:black">0</span><br> Donation Made
-</div>
-</div><br>
-</div>
-
-<div class="col-md-4">
-<div class="d-made">
-<div class="col-md-4">    
-<i class="fa fa-money cards" style="color:rgb(255, 255, 255); background-color: rgb(202, 46, 26);"></i>
-</div>
-<div class="col-md-8">    
-<span class="d-amount" style="font-size: 25px; color:black">1200</span><br> Donation Amount
-</div>
-</div><br>
-</div>
-
-<div class="col-md-4">
-<div class="d-made">
-<div class="col-md-4">    
-<i class="fa fa-calendar cards" style="color:rgb(255, 255, 255); background-color: rgb(119, 196, 17);"></i>
-</div>
-<div class="col-md-8">    
-<span class="d-date" style="font-size: 25px; color:black">02-05-2019</span><br> Donation Date
-<br><br><br>
-</div>
-</div>
-</div>
-
-
-</div>
-</div>
 </div>
 </div>
 

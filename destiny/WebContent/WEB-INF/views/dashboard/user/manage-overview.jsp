@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
 
@@ -32,18 +36,18 @@
 
 
 <title> Destiny World</title>
+<c:forEach var="fm" items="${data1}">
+<c:forEach var="cm" items="${data2}">
+
 
 <body style="font-family: algerrian sans-serif; background-color: rgba(224, 224, 224, 0.527);">
+
 
 
 <!--Header Start-->
 
     <div class="header_import">
-    <script>
-    $(function(){
-    $(".header_import").load("user-header");  
-    })
-    </script>
+    <jsp:include page="user-header.jsp" />
     </div>
     
 <!--Header End-->
@@ -286,18 +290,14 @@ font-size: 15px;
 
 <div class="user-profile-section">
 
+<!--Manage Header Start-->
 
-<!--manage Header Start-->
-
-<div class="manage_header_import">
-    <script>
-    $(function(){
-    $(".manage_header_import").load("manage-header");  
-    })
-    </script>
-</div>
+    <div class="manage_header_import">
+    <jsp:include page="manage-header.jsp" />
+    </div>
     
 <!--manage Header End-->
+
 
 
 <div class="container-fluid"> 
@@ -313,10 +313,10 @@ font-size: 15px;
 <div class="col-md-3">
 <div class="d-made">
 <div class="col-md-4">    
-<i class="fa fa-credit-card cards" style="color:rgb(255, 255, 255); background-color: rgb(17, 184, 196);"></i>
+<i class="fa fa-bullseye cards" style="color:rgb(255, 255, 255); background-color: rgb(17, 184, 196); height: 60px; width:60px; padding: 12px; font-size: 40px;"></i>
 </div>
 <div class="col-md-8">    
-<span class="d-made" style="font-size: 25px; color:black">0</span><br> Donation Made
+<span class="d-made" style="font-size: 25px; color:black">${cm.fundraisers_goal_amount}</span><br> Donation Goal
 </div>
 </div><br>
 </div>
@@ -327,7 +327,10 @@ font-size: 15px;
 <i class="fa fa-money cards" style="color:rgb(255, 255, 255); background-color: rgb(202, 46, 26);"></i>
 </div>
 <div class="col-md-8">    
-<span class="d-amount" style="font-size: 25px; color:black">1200</span><br> Donation Amount
+<span class="d-amount" style="font-size: 25px; color:black">
+<c:set var="ramount" value="${fn:substringBefore(cm.fundraisers_raised_amount, '.')}"/>
+${ramount}
+</span><br> Donation Raised
 </div>
 </div><br>
 </div>
@@ -335,10 +338,10 @@ font-size: 15px;
 <div class="col-md-3">
 <div class="d-made">
 <div class="col-md-4">    
-<i class="fa fa-calendar cards" style="color:rgb(255, 255, 255); background-color: rgb(119, 196, 17);"></i>
+<i class="fa fa-users cards" style="color:rgb(255, 255, 255); background-color: rgb(119, 196, 17);"></i>  
 </div>
 <div class="col-md-8">    
-<span class="d-date" style="font-size: 25px; color:black">02-05-2019</span><br> Donation Date
+<span class="d-date" style="font-size: 25px; color:black">${cm.fundraisers_donor_list}</span><br> Total Donors
 <br><br><br>
 </div>
 </div>
@@ -550,8 +553,6 @@ CKEDITOR.replace( 'fundraisers_story' );
 </div>
 
 
-</div>
-
 <br><br>
 <br><br>
 
@@ -559,20 +560,17 @@ CKEDITOR.replace( 'fundraisers_story' );
 <!--Footer Start-->
 
     <div class="footer_import">
-    <script>
-    $(function(){
-    $(".footer_import").load("user-footer");  
-    })
-    </script>
+    <jsp:include page="user-footer.jsp" />
     </div>
-  
+    
 
 <!--Footer End-->
 
 
-
-
         
 </body>
+</c:forEach>
+</c:forEach>
+
 
 </html>

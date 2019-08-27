@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.descriptor.tld.TldRuleSet.Variable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +12,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.destiny.dao.AdminDetailsDaoimpl;
+import com.destiny.dao.AdminLoginDaoimpl;
+import com.destiny.dao.BrowseFundraiserDaoimpl;
+import com.destiny.dao.CampaignAccountDaoimpl;
+import com.destiny.dao.CampaignWithdrawAmountDaoimpl;
 import com.destiny.dao.Daoimpl;
+import com.destiny.dao.DonationDaoimpl;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
 import com.destiny.dao.UserUpdateDaoimpl;
+import com.destiny.model.AdminLoginModel;
+import com.destiny.model.CampaignAccountModel;
+import com.destiny.model.CampaignWithdrawAmountModel;
 import com.destiny.model.CampaignsModel;
 import com.destiny.model.FundraiserModel;
 import com.destiny.model.SessionModel;
@@ -33,7 +44,18 @@ public class StoreController
 
 	@Autowired
 	UserUpdateDaoimpl uudao;
+	
+	@Autowired
+	BrowseFundraiserDaoimpl bfdao;
+	
+	@Autowired
+	CampaignAccountDaoimpl camdao;
 
+	@Autowired
+	CampaignWithdrawAmountDaoimpl cwadao;
+	
+	@Autowired
+	AdminDetailsDaoimpl admdao;
 	
 	//************************* Controller *************************//
 	
@@ -148,43 +170,58 @@ public class StoreController
 	@RequestMapping(value="/user-dashboard", method=RequestMethod.GET)
 	public String user_dashboard(HttpSession session, Model model, @ModelAttribute("fundraisers_id")String fid, @ModelAttribute("pwd_message")String pwd_mwssage, @ModelAttribute("fundraisersModel")FundraiserModel fm)
 	{
+		bfdao.fetchDonorList();
 		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
-		
 		model.addAttribute("pwd_message", pwd_mwssage);
 		
-		//if session is null then redirect to login page
-		//System.out.println("sid is : " + sesModel.toString());
-		//System.out.println("fid : " +fid); 
-		
 		if(!fid.equals("")){
-			
-			
 			List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(fid);
 			model.addAttribute("data2", data2);
-			model.addAttribute("fm", fm);
 			return "dashboard/user/user-dashboard";
 		}
-		else {
-			if(sesModel!=null){
+		
+		else 
+		{
+			if(sesModel!=null)
+			{
 				List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(sesModel.getUser_id());
 				model.addAttribute("data2", data2);
-				model.addAttribute("fm", fm);
 				return "dashboard/user/user-dashboard";
-				
 			}
-			else{
+			else
+			{
 				return "redirect:/index";					
-			}
+			}		
+		}	
+	}
+	
+	
+	@RequestMapping("/admin-dashboard")
+	public String admin_dashboard(HttpSession session, @ModelAttribute("admin_id") String aid, /*@ModelAttribute("adminModel") String alm,*/ Model model)
+	{
+		SessionModel AsesModel = (SessionModel) session.getAttribute("AsessionData");
+		
+		if(!aid.equals(""))
+		{
+			List<AdminLoginModel> data1 = admdao.FetchAdminDetails(AsesModel.getUser_id());
+			model.addAttribute("data1", data1);
+			return "dashboard/admin/admin-dashboard";
 		}
 		
-		
-	}
-
-	@RequestMapping("/admin-dashboard")
-	public String admin_dashboard(Model model)
-	{
-		return "dashboard/admin/admin-dashboard";
-		
+		else
+		{
+			if(AsesModel!=null)
+			{
+				List<AdminLoginModel> data1 = admdao.FetchAdminDetails(AsesModel.getUser_id());
+				model.addAttribute("data1", data1);
+				return "dashboard/admin/admin-dashboard";				
+			}
+			else
+				{
+					return "redirect:/admin_login";
+					
+				}
+		}
 	}
 	
 	@RequestMapping("/login")
@@ -289,14 +326,74 @@ public class StoreController
 	
 	
 	
-	@RequestMapping("/manage-overview")
-	public String manage_overview(Model model)
+	@RequestMapping("/manage-overview/{fund_id}/{camp_id}")
+	public String manage_overview(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, CampaignsModel cm, CampaignAccountModel cam, FundraiserModel fm, HttpSession session)
 	{
-		return "dashboard/user/manage-overview";
+		bfdao.fetchDonorList();
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		
+		
+		if (sesModel!= null)
+		{
+			List<FundraiserModel> data1 = smdao.fetchFundraisersDetails(fund_id);
+			List<CampaignsModel> data2 = smdao.fetchCampaignsDetails(camp_id);
+			CampaignsModel data3 = smdao.fetchCampaignsImages(camp_id);
+			List<CampaignAccountModel> data4 = camdao.FetchCampaignAccount(camp_id);
+			
+			String images = data3.getFundraisers_campaign_images();
+			
+			model.addAttribute("allimages", images);
+			model.addAttribute("data1", data1);
+			model.addAttribute("data2", data2);
+			model.addAttribute("data4", data4);
+			return "dashboard/user/manage-overview";
+		}
+		else
+		{
+					return "redirect:/index";
+		} 
 	}
+	
+	
 
 	@RequestMapping("/edit-cause-details/{fund_id}/{camp_id}")
 	public String edit_cause_details(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, CampaignsModel cm, FundraiserModel fm, HttpSession session)
+	{
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		
+		if (sesModel!= null)
+		{
+			List<FundraiserModel> data1 = smdao.fetchFundraisersDetails(fund_id);
+			List<CampaignsModel> data2 = smdao.fetchCampaignsDetails(camp_id);
+			CampaignsModel data3 = smdao.fetchCampaignsImages(camp_id);
+			List<CampaignAccountModel> data4 = camdao.FetchCampaignAccount(camp_id);
+			
+			
+			String images = data3.getFundraisers_campaign_images();
+			
+			model.addAttribute("allimages", images);
+			model.addAttribute("data1", data1);
+			model.addAttribute("data2", data2);
+			model.addAttribute("data4", data4);
+			
+			
+			return "dashboard/user/edit-cause-details";
+		}
+		else
+		{
+					return "redirect:/index";
+		} 
+	}
+
+	@RequestMapping("/manage-header")
+	public String manage_header(Model model)
+	{
+		return "dashboard/user/manage-header";
+	}
+  
+	@RequestMapping("/manage-promote/{fund_id}/{camp_id}")
+	public String manage_promote(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, CampaignsModel cm, FundraiserModel fm, HttpSession session)
+	
 	{
 		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
 		
@@ -314,8 +411,37 @@ public class StoreController
 			model.addAttribute("fm", fm);
 			model.addAttribute("cm", cm);
 			
+			return "dashboard/user/manage-promote";
+		}
+		else
+		{
+					return "redirect:/index";
+		} 
+	}
+	
+	@RequestMapping("/manage-withdrawl/{fund_id}/{camp_id}")
+	public String manage_withdrawl(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, CampaignsModel cm, FundraiserModel fm, HttpSession session)
+	
+	{
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		
+		if (sesModel!= null)
+		{
+			List<FundraiserModel> data1 = smdao.fetchFundraisersDetails(fund_id);
+			List<CampaignsModel> data2 = smdao.fetchCampaignsDetails(camp_id);
+			CampaignsModel data3 = smdao.fetchCampaignsImages(camp_id);
+			List<CampaignAccountModel> data4 = camdao.FetchCampaignAccount(camp_id);
+			List<CampaignWithdrawAmountModel> data5 = cwadao.FetchWithdrawRequest(camp_id);
 			
-			return "dashboard/user/edit-cause-details";
+			
+			String images = data3.getFundraisers_campaign_images();
+			
+			model.addAttribute("allimages", images);
+			model.addAttribute("data1", data1);
+			model.addAttribute("data2", data2);
+			model.addAttribute("data4", data4);
+			model.addAttribute("data5", data5);
+			return "dashboard/user/manage-withdrawl";
 		}
 		else
 		{
@@ -323,36 +449,77 @@ public class StoreController
 		} 
 	}
 
-	@RequestMapping("/manage-header")
-	public String manage_header(Model model)
+	@RequestMapping("/manage-analytics/{fund_id}/{camp_id}")
+	public String manage_analytics(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, CampaignsModel cm, FundraiserModel fm, HttpSession session)
+	
 	{
-		return "dashboard/user/manage-header";
-	}
-  
-	@RequestMapping("/manage-promote")
-	public String manage_promote(Model model)
-	{
-		return "dashboard/user/manage-promote";
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		
+		if (sesModel!= null)
+		{
+			List<FundraiserModel> data1 = smdao.fetchFundraisersDetails(fund_id);
+			List<CampaignsModel> data2 = smdao.fetchCampaignsDetails(camp_id);
+			CampaignsModel data3 = smdao.fetchCampaignsImages(camp_id);
+			
+			String images = data3.getFundraisers_campaign_images();
+			
+			model.addAttribute("allimages", images);
+			model.addAttribute("data1", data1);
+			model.addAttribute("data2", data2);
+			model.addAttribute("fm", fm);
+			model.addAttribute("cm", cm);
+			
+			return "dashboard/user/manage-analytics";
+		}
+		else
+		{
+					return "redirect:/index";
+		} 
 	}
 	
-	@RequestMapping("/manage-withdrawl")
-	public String manage_withdrawl(Model model)
-	{
-		return "dashboard/user/manage-withdrawl";
-	}
-
-	@RequestMapping("/manage-analytics")
-	public String manage_analytics(Model model)
-	{
-		return "dashboard/user/manage-analytics";
-	}
+	@RequestMapping("/manage-tools-and-tips/{fund_id}/{camp_id}")
+	public String manage_tools_and_tips(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, CampaignsModel cm, FundraiserModel fm, HttpSession session)
 	
-	@RequestMapping("/manage-tools-and-tips")
-	public String manage_tools_and_tips(Model model)
 	{
-		return "dashboard/user/manage-tools-and-tips";
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		
+		if (sesModel!= null)
+		{
+			List<FundraiserModel> data1 = smdao.fetchFundraisersDetails(fund_id);
+			List<CampaignsModel> data2 = smdao.fetchCampaignsDetails(camp_id);
+			CampaignsModel data3 = smdao.fetchCampaignsImages(camp_id);
+			
+			String images = data3.getFundraisers_campaign_images();
+			
+			model.addAttribute("allimages", images);
+			model.addAttribute("data1", data1);
+			model.addAttribute("data2", data2);
+			model.addAttribute("fm", fm);
+			model.addAttribute("cm", cm);
+			
+			return "dashboard/user/manage-tools-and-tips";
+		}
+		else
+		{
+					return "redirect:/index";
+		} 
 	}
 
+	@RequestMapping("/delete-campaign/{fund_id}/{camp_id}")
+	public String delete_campaign(Model model, CampaignsModel cm, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, HttpSession session)
+	{
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		
+		if (sesModel!= null)
+		{
+			smdao.deleteCampaign(camp_id, fund_id);
+			return "redirect:/user-dashboard";
+		}
+		else
+		{
+			return "redirect:/index";
+		} 
+	}
 	
 	
 

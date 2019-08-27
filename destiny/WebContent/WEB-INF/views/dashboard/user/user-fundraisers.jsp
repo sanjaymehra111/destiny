@@ -106,17 +106,27 @@ width:40px
     transform: scale(0.98);
 }
 
+.button-delete
+{
+	background-color:#ce2a32;
+}
+
+.button-delete:hover
+{
+	background-color:#f92c2c;
+}
 
 .button-edit, .button-manage
 {
     width:40%;
+    margin-top:10px;
 }
 
-.button-withdraw
+ .button-withdraw, .button-manage-approved
 {
     width:81%;
     margin-top: 10px;
-}
+} 
 
 
 .fatch-data2
@@ -137,12 +147,12 @@ width:40px
 }
 
 
-    .button-edit, .button-manage
+ .button-edit, .button-manage
 {
     width:48%;
 }
 
-.button-withdraw
+ .button-withdraw, .button-manage-approved
 {
     width:97%;
 }
@@ -207,10 +217,19 @@ Unapproved
 <br>
 </div>
 <div class="col-md-6">
+
 <center>    
-<a href="manage-overview"><button class="button-manage button-all">Manage</button></a>
-<a href="edit-cause-details/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-edit button-all">Edit</button></a>
-<a href="manage-withdrawl"><button class="button-withdraw button-all">Withdraw</button></a>
+
+<c:if test="${cm.fundraisers_status eq 1}">
+	<a href="/destiny/manage-overview/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-manage-approved button-all">Manage</button></a>
+	<a href="/destiny/manage-withdrawl/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-withdraw button-all">Withdraw</button></a>
+</c:if>
+<c:if test="${cm.fundraisers_status eq 0 || cm.fundraisers_status eq null}">
+	<a href="/destiny/manage-overview/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-manage button-all">Manage</button></a>
+	<a href="/destiny/edit-cause-details/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-edit button-all">Edit</button></a>
+	<a href="/destiny/manage-withdrawl/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-withdraw button-all">Withdraw</button></a>
+</c:if>
+
 
 </center>
 <br>
@@ -273,6 +292,25 @@ Unapproved
 <!--Footer End-->
 
 
+
+<%-- 
+<button class="button-delete delete-request button-all" value="${cm.campaign_id}" data-toggle="modal" data-target="#myModal-${cm.campaign_id}" type="button">Delete</button>
+<!--Delete Campaign Start-->
+  <div class="modal fade" id="myModal-${cm.campaign_id}" role="dialog" style="z-index:9999; margin-top:10%;">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" style="padding:20px;">&times;</button>
+        <div class="modal-header"  style="padding:50px;">
+        <span style="color:red; text-align:center;">Are You Sure You Want To Delete This Campaign <span style="font-weight:bold; color:black; font-style: italic; text-transform: uppercase;">"${cm.fundraisers_title}"</span></span>
+          	<a href="/destiny/delete-campaign/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-delete delete-confirm button-all">Yes</button></a>
+			<button data-dismiss="modal" class="button-delete button-all" style="background-color:green">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Delete Campaign End-->
+ --%>
 
 
         

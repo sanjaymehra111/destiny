@@ -1,11 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:forEach var="fm" items="${data1}">
+<c:forEach var="cm" items="${data2}">
 
 <style>
 
-
-  
-  
-  
-  .title
+ .title
   {
       color:black;
       font-size: 25px;
@@ -164,14 +166,14 @@
         <div class="col-md-12" style="margin-top:150px;">
         
         <div class="col-md-2 head-section1" style="text-align: center">
-        <span class="section1-image"><img src="/destiny/files/dashboard-user-images/donor3.svg" style="width:100px; height: 100px; border-radius: 10px; overflow: hidden;"></span><br><br>
+        <span class="section1-image"><img src="${cm.fundraisers_profile_image}" style="width:100px; height: 100px; border-radius: 10px; overflow: hidden;"></span><br><br>
         </div>
         
         <div class="col-md-4 head-section2">
         
-        <span class="title" style="font-size: 35px;">Help <br></span>
-        <span class="start-date" style="font-size: 20px;"><i class="fa fa-calendar"></i> 3 May 2019</span> &nbsp;
-        <span class="left-date" style="font-size: 20px;"><i class="fa fa-calendar-minus-o"></i> 85 Dayes Left</span>
+        <span class="title" style="font-size: 35px; text-transform: uppercase;">${cm.fundraisers_title}<br></span>
+       	<span class="start-date" style="font-size: 20px;"><i class="fa fa-calendar"></i> ${cm.fundraisers_start_date}</span> &nbsp; To &nbsp;
+       	<span class="left-date" style="font-size: 20px;"><i class="fa fa-calendar-minus-o"></i> ${cm.fundraisers_end_date}</span>
         <br>
         <br>
         </div>
@@ -241,11 +243,11 @@
         
         <div class="manage-header">
         
-            <span class="fa"><a href="manage-overview" style="text-decoration: none;"><span class="dashboard-overview mdh">OVERVIEW</span></a></span>
-            <span class="fa fab"> <a href="manage-promote" style="text-decoration: none;"> <span class="dashboard-promote mdh">PROMOTE</span></a>  </span>
-            <span class="fa"> <a href="manage-withdrawl" style="text-decoration: none;"><span class="dashboard-withdrawl mdh">WITHDRAWL</span></a></span>
-            <span class="fa"> <a href="manage-analytics" style="text-decoration: none;"><span class="dashboard-analytics mdh">ANALYTICS</span></a></span>
-            <span class="fa"> <a href="manage-tools-and-tips" style="text-decoration: none;"> <span class="dashboard-tools-and-tips mdh">TOOLS & TIPS</span></a>  </span>
+            <span class="fa"><a href="/destiny/manage-overview/${cm.fundraisers_id}/${cm.campaign_id}" style="text-decoration: none;"><span class="dashboard-overview mdh">OVERVIEW</span></a></span>
+            <span class="fa fab"> <a href="/destiny/manage-promote/${cm.fundraisers_id}/${cm.campaign_id}" style="text-decoration: none;"> <span class="dashboard-promote mdh">PROMOTE</span></a>  </span>
+            <span class="fa"> <a href="/destiny/manage-withdrawl/${cm.fundraisers_id}/${cm.campaign_id}" style="text-decoration: none;"><span class="dashboard-withdrawl mdh">WITHDRAWL</span></a></span>
+            <span class="fa"> <a href="/destiny/manage-analytics/${cm.fundraisers_id}/${cm.campaign_id}" style="text-decoration: none;"><span class="dashboard-analytics mdh">ANALYTICS</span></a></span>
+            <span class="fa"> <a href="/destiny/manage-tools-and-tips/${cm.fundraisers_id}/${cm.campaign_id}" style="text-decoration: none;"> <span class="dashboard-tools-and-tips mdh">TOOLS & TIPS</span></a>  </span>
           
         </div>
         </div>
@@ -253,3 +255,6 @@
         </div>
         
         <br><br>
+        
+        </c:forEach>
+        </c:forEach>

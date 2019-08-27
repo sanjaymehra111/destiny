@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
 
@@ -33,20 +37,22 @@
 
 <title> Destiny World</title>
 
+<c:forEach var="fm" items="${data1}">
+<c:forEach var="cm" items="${data2}">
+
+
 <body style="font-family: algerrian sans-serif; background-color: rgba(224, 224, 224, 0.527);">
 
 
 <!--Header Start-->
 
     <div class="header_import">
-    <script>
-    $(function(){
-    $(".header_import").load("user-header");  
-    })
-    </script>
+    <jsp:include page="user-header.jsp" />
     </div>
     
 <!--Header End-->
+
+
 <style>
 
 th, td {
@@ -329,23 +335,37 @@ font-size: 15px;
 <div class="user-profile-section">
 
 
-<!--manage Header Start-->
+<!--Manage Header Start-->
 
-<div class="manage_header_import">
-    <script>
-    $(function(){
-    $(".manage_header_import").load("manage-header");  
-    })
-    </script>
-</div>
+    <div class="manage_header_import">
+    <jsp:include page="manage-header.jsp" />
+    </div>
     
 <!--manage Header End-->
 
 
+
 <div class="container-fluid"> 
 
+<script>
+function CopyFunction() {
+  var uid1 = document.getElementById("myInput2");
+  uid1.select();
+  document.execCommand("copy");
+  alert("Text Copied");
+}
+</script>
 
 
+ <div class="col-md-12" style="text-align: center">
+            <textarea readonly id="myInput2" style="font-size:0px; outline:none; border:none; background-color:transparent; resize: none">Hi,
+
+I have started a fundraiser and need your help urgently. It would be great if you could consider contributing to my fundraiser *How to enroll you for a bright future ?*. It would also be great if you could share it with your friends, family and network through Facebook, Whatsapp and other channels. Thank you for your support in our time of need!
+
+Here's the link: http://localhost:8080/destiny/specific-cause-details/${cm.fundraisers_id}/${cm.campaign_id}</textarea>
+</div>
+
+ 
 <div class="col-md-6">
 
 <div class="ov-section1">
@@ -358,7 +378,7 @@ font-size: 15px;
     Create a group & gather key supporters <br>
     Paste the sample message in your group <br>
 <br>
-<button class="button2" style="width:220px; background-color: rgb(241, 90, 31);"><i class="fa fa-file-text-o"></i> | Sample Text</button>
+<button class="button2" onclick="CopyFunction()" type="button" style="width:220px; background-color: rgb(241, 90, 31);"><i class="fa fa-file-text-o"></i> | Sample Text</button>
 </p>
 <br>
 <p class="wf-main-head">Change Profile Picture</p>
@@ -583,7 +603,7 @@ function myFunction() {
 <hr>
 
     <div class="col-md-12" style="text-align: center">
-            <textarea readonly id="myInput" class="upi-text">http://led-lcd-repair.com/destiny.world/cause-details.jsp</textarea>
+            <textarea readonly id="myInput" class="upi-text">http://localhost:8080/destiny/specific-cause-details/${cm.fundraisers_id}/${cm.campaign_id}</textarea>
             <br>
             <center><button onclick="myFunction()" class="form-control copy-code" style="width:200px; border-radius: 50px;">COPY</button></center>
             <br>
@@ -594,30 +614,30 @@ function myFunction() {
 </div>
 
 </div>
-
-
 </div>
 
+
+
 <br><br>
 <br><br>
+
+
 
 
 <!--Footer Start-->
 
     <div class="footer_import">
-    <script>
-    $(function(){
-    $(".footer_import").load("user-footer");  
-    })
-    </script>
+    <jsp:include page="user-footer.jsp" />
     </div>
-  
+    
 
 <!--Footer End-->
 
 
-
-        
 </body>
+
+</c:forEach>
+</c:forEach>
+
 
 </html>

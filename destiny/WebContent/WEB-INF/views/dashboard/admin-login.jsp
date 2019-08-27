@@ -182,7 +182,7 @@
     
     .hide-error
     {
-    	display:none;
+    	display:block;
     }
     
     .show-error

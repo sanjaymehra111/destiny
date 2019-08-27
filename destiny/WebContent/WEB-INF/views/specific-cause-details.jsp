@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -172,7 +173,10 @@
         <br><br>
         <div class="col-md-5">
         <span class="t-amount amount-text">Goal &#8377; <span class="goal-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${cm.fundraisers_goal_amount}</span> </span>
-        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${cm.fundraisers_raised_amount}</span></span>
+        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">
+        <c:set var="ramount" value="${fn:substringBefore(cm.fundraisers_raised_amount, '.')}"/>
+			${ramount}
+        </span></span>
         <br><br><br>
         </div>
 <script>
@@ -261,11 +265,9 @@ $(function(){
 <div class="col-md-8 container-fluid user-images1">
 <div class="user-images">
 
-    <div><img src="/destiny/files/images/drintwater.jpg" style="width:100%; height: 400px;"></div>
-    <div><img src="/destiny/files/images/parallax-1.jpg" style="width:100%; height: 400px;"></div>
-    <div><img src="/destiny/files/images/volunteer.jpg" style="width:100%; height: 400px;"></div>
-    <div><img src="/destiny/files/images/water.jpg" style="width:100%; height: 400px;"></div>
-    <div><img src="/destiny/files/images/causes.jpg" style="width:100%; height: 400px;"></div>
+<c:forTokens items = "${cm.fundraisers_campaign_images}" delims = "," var = "name">
+         	<img class="img-path1" src="<c:out value = "${name}"/>" style="width:100%; height: 400px;">
+</c:forTokens>
 
 </div>
 <br><br>
@@ -282,7 +284,6 @@ $(function(){
     color:rgb(255, 255, 255); 
     text-align: left;
     font-size: 18px;
-
 }
 
 
@@ -310,6 +311,7 @@ $(function(){
 
 .img-icon
 {
+	background:rgb(21, 160, 214);
     width:60px;
     height:60px;
     border-radius: 50px;
@@ -347,14 +349,19 @@ $(function(){
 <div class="camp-details" style="line-height: 15px; background-color: rgb(21, 160, 214); padding: 15px; border-radius: 5px">
 <br>
 <p class="cb-details"> Campaigner Details 
-<img class="img-icon" src="/destiny/files/images/voulnteer-d.jpg"></p>
+<img class="img-icon" src="${fm.personal_profile_image}"></p>
 <br><br>
-<button class="verified-button">VERIFIED <i class="fa fa-check-circle"></i></button>
-<p class="tips-text"> ${fm.personal_name} </p>
-<p class="tips-text"> ${fm.category_type} </p>
+<c:if test="${fm.personal_status eq 1}">
+	<button type="button" class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
+</c:if>	
+<c:if test="${fm.personal_status eq 0}">
+	<button type="button" class="verified-button unvarified">UNVERIFIED <i class="fa fa-times-circle"></i></button>
+</c:if>
+
+<p class="tips-text" style="text-transform: capitalize;"><i class="fa fa-user"style="width:15px;" ></i> &nbsp; ${fm.personal_name}</p>
+<p class="tips-text" style="text-transform: capitalize;"><i class="fa fa-vcard" style="font-size:15px; width:15px;"></i> &nbsp; ${fm.category_type}</p>
 <p class="tips-text">
-<i class="fa fa-map-marker"></i> &nbsp; ${fm.personal_city} 
-&nbsp;<span style="cursor:pointer"> <i class="fa fa-envelope"></i> &nbsp; Message </p></span>
+<i class="fa fa-map-marker" style="width:15px; text-transform: capitalize;"></i> &nbsp; ${fm.personal_city}</p>
 </div>
 
 <br>
@@ -362,12 +369,20 @@ $(function(){
 <div class="camp-details" style="line-height: 15px; background-color: rgb(21, 160, 214); padding: 15px; border-radius: 5px">
 <br>
 <p class="cb-details">Beneficiary Details
-<img class="img-icon" src="/destiny/files/images/voulnteer-a.jpg"></p>
-
+<img class="img-icon" src="${cm.fundraisers_profile_image}"></p>
 <br><br>
 
-<button class="verified-button">VERIFIED <i class="fa fa-check-circle"></i></button>
-<p class="tips-text"> ${cm.fundraisers_name} </p>
+<c:if test="${cm.fundraisers_status eq 1}">
+	<button type="button" class="verified-button varifies-personal">VERIFIED <i class="fa fa-check-circle"></i></button>
+</c:if>	
+<c:if test="${cm.fundraisers_status eq 0}">
+	<button type="button" class="verified-button unvarified">UNVERIFIED <i class="fa fa-times-circle"></i></button>
+</c:if>
+
+<p class="tips-text" style="text-transform: capitalize;"> <i class="fa fa-user" style="width:30px;"></i> ${cm.fundraisers_name} </p>
+<p class="tips-text" style="text-transform: capitalize;"> <i class="fa fa-phone" style="width:30px;"></i> ${cm.fundraisers_contact} </p>
+<p class="tips-text"> <i class="fa fa-envelope" style="width:30px;"></i> ${cm.fundraisers_email} </p>
+
 <br>
 </div>
 
@@ -645,7 +660,7 @@ $(function hide_show(){
 -->
 
 <style>
-.document-details
+.document-details img
 {
     width:200px; 
     height: 200px;
@@ -653,17 +668,42 @@ $(function hide_show(){
     border-radius: 5px;
     border:solid 2px rgba(0, 0, 0, 0.616);
     margin-right: 10px;
-    margin-top: 10px;
     opacity: 0.6;
 }
 
-.document-details:hover
+.document-details img:hover
 {
     cursor: pointer;
     transform: scale(1.05);
     opacity: 8;
 
 }
+
+.document-button
+{
+	background-image:url('/destiny/files/images/documents.png');
+	background-size:100% 100%;
+	background-color:white;
+	color:white;
+    width:200px; 
+    height: 200px;
+    transition: 0.2s ease-in-out;
+    border-radius: 5px;
+    border:solid 2px rgba(0, 0, 0, 0.616);
+    outline:none;
+    margin-top:10px;
+    margin-right:10px;
+    opacity: 0.6;
+}
+
+.document-button:hover
+{
+    cursor: pointer;
+    transform: scale(1.05);
+    opacity: 8;
+
+}
+
 
 .images-effct
 {
@@ -748,10 +788,24 @@ $(function zoom_image(){
 </script>
 
  <center>
-    <img src="/destiny/files/images/document1.JPG" class="document-details zoom-image">
-    <img src="/destiny/files/images/document2.JPG" class="document-details zoom-image">
-    <img src="/destiny/files/images/document3.JPG" class="document-details zoom-image">
-    <img src="/destiny/files/images/document4.JPG" class="document-details zoom-image">
+
+<span class="old-document document-details">
+<c:forTokens items = "${cm.fundraisers_campaign_documents}" delims = "," var = "doc">
+
+<c:set var="name" value="${doc}"/>
+<c:set var="docf" value="${fn:substringAfter(name, '.')}"/>
+
+<c:if test="${docf == 'jpg' || docf == 'JPG' || docf == 'jpeg' || docf == 'JPEG' || docf == 'png' || docf == 'PNG' || docf == 'svg' || docf == 'SVG'}">
+	<img class="zoom-image" src="${doc}">
+</c:if>	
+
+<c:if test="${docf != 'jpg' && docf != 'JPG' && docf != 'jpeg' && docf != 'JPEG' && docf != 'png' && docf != 'PNG' && docf != 'svg' && docf != 'SVG'}">
+	<a target="_blank" href="${doc}"><button type="button" class="document-button">'</button></a>
+</c:if>
+         
+</c:forTokens>
+</span> 
+ 
 
 
     
@@ -779,31 +833,56 @@ $(function zoom_image(){
 <div class="container-fluid"></div>
 <br><br>
 
+
+
+<c:if test="${fn:length(data5) != 0}">
+<c:forEach var="cam" items="${data5}">
+
+<div class="cd-section5" style="background-color: white; border-radius: 10px; font-size: 18px; padding: 10px;">
+<div class="container-fluid" style="text-transform: capitalize;">
+<br>
+        <div><p  style="font-size: 25px; color:rgb(41, 41, 41)">Bank Account Details</p></div>
+        <hr>
+
+Account Number : <b> ${cam.account_number}</b>
+<br>
+Account Holder Name : <b> ${cam.account_holder_name}</b>
+<br>
+Bank Name: <b> ${cam.account_bank_name}</b>
+<br>
+IFSC Code : <b> ${cam.account_ifsc}</b>
+<br><br>
+<a href="#" style="text-decoration: none;">Click here to read this before you donate via the above options</a>
+<br>
+</div>
+</div>
+
+</c:forEach>
+</c:if>
+
+
+
+<c:if test="${fn:length(data5) == 0}">
+
 <div class="cd-section5" style="background-color: white; border-radius: 10px; font-size: 18px; padding: 10px;">
 <div class="container-fluid">
 <br>
         Use the information below to make a direct bank transfer through NEFT/RTGS/IMPS.
 <br>
 <br>
-
 - Account number : <b> 123456789</b>
 <br>
 - Account name : <b> Rahul</b>
 <br>
 - IFSC code : <b> sbi115822ok</b>
 <br>
-<b> OR</b>
 <br>
-For UPI Transaction: <b> supportvikas67@yesbankltd</b>
-<br><br>
 <a href="#" style="text-decoration: none;">Click here to read this before you donate via the above options</a>
 <br>
-<br>
-
-
 
 </div>
 </div>
+</c:if>
 
 <br><br>
 
@@ -944,11 +1023,11 @@ function myFunction() {
         </p>
         <hr style="border: solid 0.5px black; margin-top: -2px;">
             <div class="col-md-6">
-                <img src="/destiny/files/images/qr-code.png" style="width:100px; height: 150px;">    
+                <img src="${cm.fundraisers_upi_image}" style="width:150px; height: 150px;">    
             </div>
             <div class="col-md-6">
                 <img src="/destiny/files/images/upi.png" style="width:100px; height: 40px;"><br><br>
-                <textarea readonly id="myInput" class="upi-text">9999991111@ybl</textarea>
+                <textarea readonly id="myInput" class="upi-text">${cm.fundraisers_upi_number}</textarea>
                 <br>
                 <center><button onclick="myFunction()" class="form-control copy-code" style="width:100px; border-radius: 50px;">COPY</button></center>
                 <br>

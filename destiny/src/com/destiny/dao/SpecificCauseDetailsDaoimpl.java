@@ -4,8 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.xml.crypto.Data;
 
-
+import org.apache.tomcat.util.descriptor.tld.TldRuleSet.Variable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -57,11 +58,13 @@ public class SpecificCauseDetailsDaoimpl
 						// TODO Auto-generated method stub
 						
 						CampaignsModel cm = new CampaignsModel();
+						
 						cm.setCampaign_id(rs.getString("campaign_id"));
 						cm.setFundraisers_id(rs.getString("fundraisers_id"));
 						cm.setFundraisers_title(rs.getString("fundraisers_title"));
 						cm.setFundraisers_goal_amount(rs.getString("fundraisers_goal_amount"));
 						cm.setFundraisers_raised_amount(rs.getString("fundraisers_raised_amount"));
+						cm.setFundraisers_donor_list(rs.getString("fundraisers_donor_list"));
 						cm.setFundraisers_name(rs.getString("fundraisers_name"));
 						cm.setFundraisers_contact(rs.getString("fundraisers_contact"));
 						cm.setFundraisers_email(rs.getString("fundraisers_email"));
@@ -132,6 +135,12 @@ public class SpecificCauseDetailsDaoimpl
 		return data3.get(0);
 	}
 	
+	public int deleteCampaign(String camp_id, String fund_id)
+	{
+		String sql5 = "Delete from campaign_details where campaign_id = '"+camp_id+"' and fundraisers_id = '"+fund_id+"'";
+		return template.update(sql5);
+	}
+	
 	
 class CampaignsModelMapper implements RowMapper<CampaignsModel>
 {
@@ -145,4 +154,5 @@ class CampaignsModelMapper implements RowMapper<CampaignsModel>
 	}
 	
 }
+
 }

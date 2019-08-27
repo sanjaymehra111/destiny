@@ -13,6 +13,8 @@ public class DonationModel
 	String donor_city;
 	String donor_country;
 	String donor_message;
+	String donation_date;
+	String donor_list;
 
 	
 	public DonationModel()
@@ -20,23 +22,8 @@ public class DonationModel
 		
 	}
 	
-	public DonationModel(String donor_id, String amount_type, String amount, String campaign_id, String donor_name,
-			String donor_contact, String donor_email, String donor_address, String donor_city, String donor_country,
-			String donor_message) {
-		super();
-		this.donor_id = donor_id;
-		this.amount_type = amount_type;
-		this.amount = amount;
-		this.campaign_id = campaign_id;
-		this.donor_name = donor_name;
-		this.donor_contact = donor_contact;
-		this.donor_email = donor_email;
-		this.donor_address = donor_address;
-		this.donor_city = donor_city;
-		this.donor_country = donor_country;
-		this.donor_message = donor_message;
-	}
-
+	
+	
 
 	public String getDonor_id() {
 		return donor_id;
@@ -148,6 +135,31 @@ public class DonationModel
 	}
 
 
+	public String getDonation_date() {
+		return donation_date;
+	}
+
+	public void setDonation_date(String donation_date) {
+		this.donation_date = donation_date;
+	}
+	
+	
+	
+
+	public String getDonor_list() {
+		return donor_list;
+	}
+
+
+
+
+	public void setDonor_list(String donor_list) {
+		this.donor_list = donor_list;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -156,12 +168,35 @@ public class DonationModel
 				.append(donor_name).append(", donor_contact=").append(donor_contact).append(", donor_email=")
 				.append(donor_email).append(", donor_address=").append(donor_address).append(", donor_city=")
 				.append(donor_city).append(", donor_country=").append(donor_country).append(", donor_message=")
-				.append(donor_message).append("]");
+				.append(donor_message).append(", donation_date=").append(donation_date).append(", donor_list=")
+				.append(donor_list).append("]");
 		return builder.toString();
 	}
-	
-	
-	
+
+
+
+
+	public DonationModel(String donor_id, String amount_type, String amount, String campaign_id, String donor_name,
+			String donor_contact, String donor_email, String donor_address, String donor_city, String donor_country,
+			String donor_message, String donation_date, String donor_list) {
+		super();
+		this.donor_id = donor_id;
+		this.amount_type = amount_type;
+		this.amount = amount;
+		this.campaign_id = campaign_id;
+		this.donor_name = donor_name;
+		this.donor_contact = donor_contact;
+		this.donor_email = donor_email;
+		this.donor_address = donor_address;
+		this.donor_city = donor_city;
+		this.donor_country = donor_country;
+		this.donor_message = donor_message;
+		this.donation_date = donation_date;
+		this.donor_list = donor_list;
+	}
+
+
+
 	
 
 }

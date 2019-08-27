@@ -13,14 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.destiny.dao.CampaignAccountDaoimpl;
 import com.destiny.dao.EditCampaignDaoimpl;
+import com.destiny.dao.UniqueCodeGeneratorDaoimpl;
+import com.destiny.model.CampaignAccountModel;
+import com.destiny.model.CampaignsModel;
 import com.destiny.model.EditCampaignModel;
+import com.destiny.model.SessionModel;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 @Controller
@@ -33,6 +39,13 @@ public class EditCampaignController
 	
 	@Autowired
 	EditCampaignDaoimpl ecmdao;
+	
+	@Autowired
+	CampaignAccountDaoimpl cadao;
+	
+	@Autowired
+	UniqueCodeGeneratorDaoimpl ucgdao;
+	
 	
 	//Campaign Details
 	
@@ -63,7 +76,7 @@ public class EditCampaignController
 		
 		ServletContext context = session.getServletContext();
 		String path = context.getRealPath("/resources/profile-images/");
-		String filename=profile_image.getOriginalFilename();
+		String filename=ucgdao.GetUniqueCode()+profile_image.getOriginalFilename();
 		
 		byte[] bytes = profile_image.getBytes();  
 	    BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(new File(path + File.separator + filename)));  
@@ -93,7 +106,7 @@ public class EditCampaignController
 		//For upi image
 		ServletContext context2 = session.getServletContext();
 		String path2 = context2.getRealPath("/resources/upi-images/");
-		String filename2=upi_image.getOriginalFilename();
+		String filename2=ucgdao.GetUniqueCode()+upi_image.getOriginalFilename();
 		
 		byte[] bytes2 = upi_image.getBytes();  
 	    BufferedOutputStream stream2 =new BufferedOutputStream(new FileOutputStream(new File(path2 + File.separator + filename2)));  
@@ -119,7 +132,7 @@ public class EditCampaignController
 				ServletContext context3 = session.getServletContext();
 				String path3 = context3.getRealPath("/resources/campaign-images/");
 				String[] filename3 = new String[fs];
-				filename3[i] = files.get(i).getOriginalFilename();
+				filename3[i] = ucgdao.GetUniqueCode()+files.get(i).getOriginalFilename();
 				
 				images+="/destiny/files/campaign-images/" + filename3[i] + ",";
 				
@@ -144,7 +157,7 @@ public class EditCampaignController
 				ServletContext context4= session.getServletContext();
 				String path4 = context4.getRealPath("/resources/campaign-documents/");
 				String[] filename4 = new String[dfs];
-				filename4[i] = docfiles.get(i).getOriginalFilename();
+				filename4[i] = ucgdao.GetUniqueCode()+docfiles.get(i).getOriginalFilename();
 				documents+="/destiny/files/campaign-documents/"+filename4[i]+","; 
 				
 				byte[] bytes4 = docfiles.get(i).getBytes();
@@ -159,4 +172,27 @@ public class EditCampaignController
 		}
 		
 
+		//update User Campaign Account Details Updates
+		@RequestMapping(value="edit_campaign_account", method=RequestMethod.POST)
+		public String edit_campaign_account(CampaignAccountModel cam, HttpSession session)
+		{
+			ecmdao.EditCampaignAccount(cam);
+			return "redirect:/user-dashboard";
+		}
+		
+		@RequestMapping("/delete_campaign_account/{fund_id}/{camp_id}")
+		public String delete_campaign(CampaignAccountModel cam, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, HttpSession session)
+		{
+			SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+			
+			if (sesModel!= null)
+			{
+				cadao.DeleteCampaignAccount(camp_id, fund_id);
+				return "redirect:/user-dashboard";
+			}
+			else
+			{
+				return "redirect:/index";
+			} 
+		}
 }

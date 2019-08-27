@@ -39,15 +39,10 @@
 <!--Header Start-->
 
     <div class="header_import">
-    <script>
-    $(function(){
-    $(".header_import").load("user-header");  
-    })
-    </script>
+    <jsp:include page="user-header.jsp" />
     </div>
     
 <!--Header End-->
-
 <style>
 
 th, td {
@@ -293,15 +288,11 @@ font-size: 15px;
 <div class="user-profile-section">
 
 
-<!--manage Header Start-->
+<!--Manage Header Start-->
 
-<div class="manage_header_import">
-    <script>
-    $(function(){
-    $(".manage_header_import").load("manage-header");  
-    })
-    </script>
-</div>
+    <div class="manage_header_import">
+    <jsp:include page="manage-header.jsp" />
+    </div>
     
 <!--manage Header End-->
 
@@ -652,16 +643,11 @@ else
 <!--Footer Start-->
 
     <div class="footer_import">
-    <script>
-    $(function(){
-    $(".footer_import").load("user-footer");  
-    })
-    </script>
+    <jsp:include page="user-footer.jsp" />
     </div>
-  
+    
 
 <!--Footer End-->
-
 
 
 

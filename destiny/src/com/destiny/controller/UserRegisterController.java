@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.destiny.dao.BrowseFundraiserDaoimpl;
+import com.destiny.dao.CampaignAccountDaoimpl;
 import com.destiny.dao.FundraiserDaoimpl;
 import com.destiny.dao.FundraisersDaoimpl;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
+import com.destiny.model.CampaignAccountModel;
 import com.destiny.model.CampaignsModel;
 import com.destiny.model.DonationModel;
 import com.destiny.model.FundraiserModel;
@@ -36,6 +38,9 @@ public class UserRegisterController
 	@Autowired
 	FundraiserDaoimpl fdmdao;
 
+	@Autowired
+	CampaignAccountDaoimpl camdao;
+
 	@RequestMapping("/new_fundraisers")
 	public String new_fundraisers(@ModelAttribute("new_fundraisers_model")FundraiserModel fm, CampaignsModel cm, Model model,
 			HttpSession session, RedirectAttributes redirectAttributes)
@@ -45,7 +50,7 @@ public class UserRegisterController
 		String f_id = String.valueOf(fdmdao.InserIntoFundraiser(fm));
 		fdmdao.InserIntoCampaign(cm, fm);
 		
-		System.out.println("id in controller : " +  f_id);
+		//System.out.println("id in controller : " +  f_id);
 		
 		List<FundraiserModel> data2 = smdao.fetchFundraisersDetails(f_id);
 		model.addAttribute("data2", data2);
@@ -74,7 +79,7 @@ public class UserRegisterController
 	@RequestMapping("/login_new_fundraisers")
 	public String login_new_fundraisers(@ModelAttribute("new_fundraisers_model")CampaignsModel cm, Model model)
 	{
-		System.out.println("data is :" + cm.toString());
+		//System.out.println("data is :" + cm.toString());
 		
 		fdmdao.InserIntoLoginCampaign(cm);
 		
@@ -117,12 +122,12 @@ public class UserRegisterController
 		
 		List<FundraiserModel> data3 = smdao.fetchFundraisersDetails(fund_id);
 		List<CampaignsModel> data4 = smdao.fetchCampaignsDetails(camp_id);
+		List<CampaignAccountModel> data5 = camdao.FetchCampaignAccount(camp_id);
 	
 		model.addAttribute("data3", data3);
 		model.addAttribute("data4", data4);
-		model.addAttribute("fm", fm);
-		model.addAttribute("cm", cm);
- 		
+		model.addAttribute("data5", data5);
+		
 		
 		return "specific-cause-details";	 
 		  

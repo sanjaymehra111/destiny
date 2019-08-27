@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -235,7 +237,7 @@ var a1=  document.getElementById("mySidenav").style.width;
                       </div>
 
                       <div class="col-md-2" style="text-align: center; ">
-                          <p style="font-size: 30; color:white;">60 +</p>
+                          <p style="font-size: 30px; color:white;">60 +</p>
                           <p style="font-size: 18px; color:white;line-height: 20px;">Total countries funds raised from</p><br>
                       </div>
 
@@ -352,12 +354,10 @@ $(function search_submit(){
 })
 </script>
 
-<form name="search-items">
     <input type="search" name="search-item" class="form-control search-text" placeholder="Search For Fundraisers">
     <i class="fa fa-search search-button"></i>
-    <button class="search-submit" type="submit" style="display: none"></button>
+    <button class="search-submit" type="button" style="display: none"></button>
     <br>
-</form>
 
 </div>
 
@@ -384,24 +384,18 @@ $(function transfer_id(){
 	$(".cid").val(id);
   });
 });
+</script>
 
-
-$(function progress_bar()
-{
-	var pg= $(".pg").html();
-	var pr= $(".pr").html();
-	var pb = pr/pg*100;
-	
-	/* 
-	alert(pg);
-	alert(pr);
-	alert(pb);
-	*/
-	
-	$(".progress-bar-pb").css({"width": pb + "%"});
-	
+<script>
+ 
+$(function searching(){
+//alert("asd");
+	$(".search-text").keyup(function(){
+		var text = $(this).val();	
+		$(".content").hide();
+		 $('.content:contains("'+text+'")').show();
+	});
 });
-
 
 </script> 
 
@@ -413,12 +407,19 @@ $(function progress_bar()
 
 <c:if test="${fm.fundraisers_id == cm.fundraisers_id}">
 
-<div class="col-md-4">
+<div class="col-md-4 content">
   <div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">
     
    <div class="ourcausecontainer" style="position: relative;">
-    <img src="/destiny/files/images/drintwater.jpg" class="ourcauseimage1">
-    <span class="ourcausedonate">
+   
+   	<%-- <img src="${cm.fundraisers_profile_image}" class="ourcauseimage1"> --%>
+    <%-- <img class="img-path1" src="<c:out value = "${name}"/>" style="width:100%; height: 400px;"> --%>
+	
+   	<c:forTokens items = "${cm.fundraisers_campaign_images}" delims = ","  var = "name" step="10">
+         	<img src="${name}" style="width:100%; height: 200px;">
+    </c:forTokens>
+    
+	<span class="ourcausedonate">
         <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-whatsapp"></i> Share</button>
         <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-facebook"></i> Share</button>
     </span>
@@ -428,26 +429,33 @@ $(function progress_bar()
 .campaign-title
 {	text-transform: capitalize;
 }
+
 </style>
   <div class="img-text" style="text-align:left; padding: 20px 20px;">
-    <div class="text-balance" style="height:250px;">
+    <div class="text-balance" style="height:200px;">
   
     <%--  <span style="font-size:25px; color:rgb(126, 131, 131)"> f id is : ${fm.fundraisers_id} </span>
    	 <span style="font-size:25px; color:rgb(126, 131, 131); float:right"> c id is : ${cm.campaign_id} </span><p></p>
      <p style="font-size:25px; color:rgb(126, 131, 131)"> c fi id is : ${cm.fundraisers_id} </p>
      --%> 
 <div class="campaign-title" style="font-size:20px; text-align:center; text-transform:uppercase; font-weight:bold">${cm.fundraisers_title}</div>
-<div style="font-size:16px; text-align:center;">by : <span class="personal-name" style="text-transform: capitalize">${fm.personal_name}</span></div>
-<br>
-
-
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> ${cm.fundraisers_goal_amount} </span> <span style="float:right">Raised : <span class="pr">${cm.fundraisers_raised_amount}</span> </span></span> <br><br>
+<div class="p-name" style="text-align:center; padding:10px; font-size:16px;">By : <span class="personal-name" style="text-transform: capitalize">${fm.personal_name}</span></div>
+<span class="p-type hidden">Type : <span class="personal-name" style="text-transform: capitalize">${fm.category_type}</span></span>
+    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> ${cm.fundraisers_goal_amount} </span> 
+    <span style="float:right">Raised : <span class="pr">
+    <c:set var="ramount" value="${fn:substringBefore(cm.fundraisers_raised_amount, '.')}"/>
+	${ramount}
+    </span> </span></span> <br><br>
+    
+    <c:set var="a" value="${cm.fundraisers_goal_amount}"/>
+    <c:set var="b" value="${cm.fundraisers_raised_amount}"/>
+    <c:set var="c" value="${(cm.fundraisers_raised_amount / cm.fundraisers_goal_amount) * 100}"/>
+    
     <div class="progress" style="height: 10px;">
-        <div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-         </div>
+        <div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" style="width:${c}%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
       
-    <p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify;"> ${cm.fundraisers_story}</p>
+    <p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify; margin-top:-15px;"> ${cm.fundraisers_story}</p>
    </div>
     <center>
     <div class="col-md-6">  
@@ -463,7 +471,8 @@ $(function progress_bar()
 
   </div>
   </div>
-<br><br> </div>
+<br><br> 
+</div>
 
 </c:if>
  	

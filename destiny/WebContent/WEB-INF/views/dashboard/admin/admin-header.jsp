@@ -286,7 +286,7 @@ var amount = $(this).html();
 
 <div class="second" style="display: block">
     <a class="internalmenu" href="admin-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Change Password</li></a>
-    <a class="internalmenu" href="admin-dashboard" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
+    <a class="internalmenu" href="admin_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
 </div>  
 
   </ul>

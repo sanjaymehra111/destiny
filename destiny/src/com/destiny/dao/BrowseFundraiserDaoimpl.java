@@ -73,6 +73,15 @@ public class BrowseFundraiserDaoimpl
 						cm.setFundraisers_email(rs.getString("fundraisers_email"));
 						cm.setFundraisers_beneficiary_relation(rs.getString("fundraisers_beneficiary_relation"));
 						cm.setFundraisers_story(rs.getString("fundraisers_story"));
+						cm.setfundraisers_start_date(rs.getString("fundraisers_start_date"));
+						cm.setFundraisers_end_date(rs.getString("fundraisers_end_date"));
+						cm.setFundraisers_created_date(rs.getString("fundraisers_created_date"));
+						cm.setFundraisers_status(rs.getString("fundraisers_status"));
+						cm.setFundraisers_profile_image(rs.getString("fundraisers_profile_image"));
+						cm.setFundraisers_upi_image(rs.getString("fundraisers_upi_image"));
+						cm.setFundraisers_upi_number(rs.getString("fundraisers_upi_number"));
+						cm.setFundraisers_campaign_images(rs.getString("fundraisers_campaign_images"));
+						cm.setFundraisers_campaign_documents(rs.getString("fundraisers_campaign_documents"));
 					
 						//System.out.println("cm details is : " +cm);
 						return cm;
@@ -87,7 +96,8 @@ public class BrowseFundraiserDaoimpl
 	public List<DonationModel> fetchDonationDetails()
 	{
 		List<DonationModel> query2 = template.query("select campaign_id, sum(amount) from donation_details group by campaign_id ", new RowMapper<DonationModel>()
-				{
+				
+			{
 
 					@Override
 					public DonationModel mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -96,7 +106,7 @@ public class BrowseFundraiserDaoimpl
 						DonationModel dm = new DonationModel();
 						dm.setCampaign_id(rs.getString("campaign_id"));
 						dm.setAmount(rs.getString("sum(amount)"));
-						
+						System.out.println("bdao camp id 1 : " +dm.getCampaign_id());
 						String query3 = "UPDATE campaign_details SET fundraisers_raised_amount='"+dm.getAmount()+"' WHERE campaign_id ='"+dm.getCampaign_id()+"'";
 								
 								template.update(query3);
@@ -109,6 +119,33 @@ public class BrowseFundraiserDaoimpl
 				});
 		
 		return query2;
+		
+	}
+	
+	public List<DonationModel> fetchDonorList()
+	{
+		List<DonationModel> query3 = template.query("SELECT campaign_id, COUNT(*) FROM donation_details GROUP BY campaign_id", new RowMapper<DonationModel>()
+				
+			{
+			
+					@Override
+					public DonationModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO Auto-generated method stub
+						
+						DonationModel dm = new DonationModel();
+						dm.setCampaign_id(rs.getString("campaign_id"));
+						dm.setDonor_list(rs.getString("count(*)"));
+						
+						String query3 = "UPDATE campaign_details SET fundraisers_donor_list='"+dm.getDonor_list()+"' WHERE campaign_id ='"+dm.getCampaign_id()+"'";
+								
+						template.update(query3);
+						
+						return dm;
+					}
+			
+				});
+		
+		return query3;
 		
 	}
 

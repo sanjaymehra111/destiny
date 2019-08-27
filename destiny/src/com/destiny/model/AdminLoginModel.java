@@ -6,40 +6,55 @@ public class AdminLoginModel
 	String admin_id;
 	String admin_password;
 	
-	public AdminLoginModel(String a_id, String admin_id, String admin_password) {
-		super();
-		this.a_id = a_id;
-		this.admin_id = admin_id;
-		this.admin_password = admin_password;
-	}
+
 
 	public AdminLoginModel() {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
+
 	public String getA_id() {
 		return a_id;
 	}
+
+
+
 
 	public void setA_id(String a_id) {
 		this.a_id = a_id;
 	}
 
+
+
+
 	public String getAdmin_id() {
 		return admin_id;
 	}
+
+
+
 
 	public void setAdmin_id(String admin_id) {
 		this.admin_id = admin_id;
 	}
 
+
+
+
 	public String getAdmin_password() {
 		return admin_password;
 	}
 
+
+
+
 	public void setAdmin_password(String admin_password) {
 		this.admin_password = admin_password;
 	}
+
+
 
 	@Override
 	public String toString() {
@@ -49,7 +64,14 @@ public class AdminLoginModel
 		return builder.toString();
 	}
 
-	
-	
+
+
+	public AdminLoginModel(String a_id, String admin_id, String admin_password) {
+		super();
+		this.a_id = a_id;
+		this.admin_id = admin_id;
+		this.admin_password = admin_password;
+	}
+
 	
 }

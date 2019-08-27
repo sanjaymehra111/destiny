@@ -305,8 +305,14 @@
                 //alert("asd");
                 $(".close-button-main").click();
             })
-        })
+        });
         
+        $(function Donation_date(){
+        	var todate = new Date();
+        	var date = ('0' + todate.getDate()).slice(-2) + '-' + ('0' + (todate.getMonth()+1)).slice(-2) + '-' + todate.getFullYear();
+        	$(".donation_date").val(date);
+        	
+        });
          </script>   
         
         <br>
@@ -436,6 +442,10 @@
         
         <div class="col-md-12">
                 <textarea name="donor_message"  class="form-control second-button forgot-all-button" style="border-radius: 0px; resize: none; text-align: left; max-width: 20%; max-height: 20%; min-width: 100%; min-height: 10%;" rows="2" placeholder="Message"></textarea>
+                    <br>
+        </div> 
+        <div class="col-md-12">
+                <input type ="text" name="donation_date" class="hidden donation_date">
                     <br>
         </div>        
         
