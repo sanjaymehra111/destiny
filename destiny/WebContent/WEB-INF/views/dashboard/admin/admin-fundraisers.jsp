@@ -478,7 +478,7 @@ cursor:pointer;
             <option value="PERSONAL">Personal</option>
     </select>    
     </span>
-    FUNDRAISERS  data:${data2} 
+    FUNDRAISERS  
     <span class="br-tag"><br></span>
     <!-- <span class="search-bar">
         <input id="myInput" class="myinput" placeholder="Search.." type="text"> &nbsp; <i class="fa fa-search search-icon"></i>
@@ -732,11 +732,14 @@ th, td {
 			data:{edit_user_id : edit_user_id},
 			type : 'GET',
 			contentType : "application/json; charset=utf-8",
-			dataType: 'text',
+			dataType: 'json',
  			success : function(data)
  			 	{
-	 				 $(".ajax-data").html(data); 
- 				 },
+ 					$(".ajax-user-id").val(data.fundraisers_id);
+ 					$(".ajax-user-email").val(data.personal_email);
+ 					$(".ajax-user-pan_no").val(data.personal_pan_no);
+ 					$(".ajax-user-aadhar_no").val(data.personal_aadhar_no);
+ 				},
  			error : function(){alert("error")}
 			
 		}); //ajax-close
@@ -748,11 +751,6 @@ th, td {
 		});
 		
 </script>
-
-ajax data is :
-
-<div class="ajax-data">
-</div>
 
 <div class="fundraisers-details">
 <table id="example" class="fundraisers-table">
@@ -856,19 +854,16 @@ ajax data is :
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" style="text-align: center">Modification Mode On</h4>
+          <h4 class="modal-title" style="text-align: center">Update Details</h4>
         </div>
-        
-        <c:forEach var="fm" items="${data2}">
-        
+         
         <div class="modal-body" style="text-align:center;">
-          <p><input class="edit-mode-text" type="text" value="${fm.fundraisers_id}"></p>
-          <p><input class="edit-mode-text" type="email" maxlength="50" value="${fm.personal_email}" placeholder="User Email"></p>
-          <p><input class="edit-mode-text" type="text" maxlength="20" value="${fm.personal_pan_no}" placeholder="User PAN Number"></p>
-          <p><input class="edit-mode-text" type="text" maxlength="20" value="${fm.personal_aadhar_no}" placeholder="User Aadhar Number"></p>
+          <p><input class="edit-mode-text ajax-user-id" type="text" value="${fm.fundraisers_id}"></p>
+          <p><input class="edit-mode-text ajax-user-email" type="email" maxlength="50" value="${fm.personal_email}" placeholder="User Email"></p>
+          <p><input class="edit-mode-text ajax-user-pan_no" type="text" maxlength="20" value="${fm.personal_pan_no}" placeholder="User PAN Number"></p>
+          <p><input class="edit-mode-text ajax-user-aadhar_no" type="text" maxlength="20" value="${fm.personal_aadhar_no}" placeholder="User Aadhar Number"></p>
         </div>
         
-        </c:forEach>
         
         <div class="modal-footer">
           <button type="button" class="btn btn-success update-user-details">Update</button>

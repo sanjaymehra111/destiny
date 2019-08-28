@@ -43,33 +43,10 @@ public class AdminFunctionController
 	public String edit_user(FundraiserModel fm, @RequestParam String edit_user_id, Model model)
 	{
 		Gson gson = new Gson();
-		
 		FundraiserModel data2 = audao.FetchUserDetails(edit_user_id);
-		
 		String details = gson.toJson(data2);
-		System.out.println("gson data:" + details);
-				
-				
-		/*String id = data2.getFundraisers_id();
-		String email = data2.getPersonal_email();
-		String pan = data2.getPersonal_pan_no();
-		String aadhar = data2.getPersonal_aadhar_no();
-		
-		String details = id +","+email +","+pan+","+aadhar;
-				
-		System.out.println("ID : " + id);
-		System.out.println("Email : " + email);
-		System.out.println("pan : " + pan);
-		System.out.println("aadhar: " + aadhar);
-		
-		System.out.println("data 2 " +details);
-		model.addAttribute("data2", data2);
-		*/
-		
-		
 		return details;
 		
-		/*return "redirect:/admin-fundraisers";*/
 		
 	}
 
