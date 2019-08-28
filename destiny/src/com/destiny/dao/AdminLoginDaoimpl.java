@@ -23,7 +23,6 @@ public class AdminLoginDaoimpl
 		List<AdminLoginModel> datas = template.query(sql1, new AdminLoginModelMapper());
 		if (datas.size() > 0)
 		{
-			System.out.println("data " + datas.get(0));
 			return datas.get(0);
 		}
 		else 

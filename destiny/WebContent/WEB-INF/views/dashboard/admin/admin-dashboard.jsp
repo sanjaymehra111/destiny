@@ -109,7 +109,7 @@
 
 .top-bar-content
 {
-    margin-top: 50px;
+    margin-top: 2px;
 }
 
 .cards
@@ -301,29 +301,30 @@
 
 <div class="user-profile-section">
 <div class="container-fluid"> 
-<div class="col-md-8">
+<div class="col-md-4">
 <div class="pr-section1">
 <div class="container-fluid">
 
-<div class="section1-data1" style="display: block">
+<div class="section1-data1" style="display: block; text-align:center">
 <br><br>
 
-<div class="col-md-12 text-center1 fix-details">
-<div class="col-md-4">
-<span class="section1-image"><img class="u-o-image" src="/destiny/files/dashboard-admin-images/donorall.png" style="width:150px; height: 150px; border-radius: 100px; overflow: hidden;"></span><br>
+<div class="col-md-12 text-center1 fix-details" style="display: block; text-align:center">
+<div class="col-md-12">
+<span class="section1-image"><img class="u-o-image" src="/destiny/files/dashboard-admin-images/admin.png" style="width:150px; height: 150px; border-radius: 100px; overflow: hidden;"></span><br>
 <br>
 </div>
-<div class="col-md-4 top-bar-content">
-<span >Email: <br><span class="fatch-data u-o-email">rajan111@gmail.com</span></span><br>
+<div class="col-md-12 top-bar-content">
+<span >Name: <br><span class="fatch-data u-o-email">${ad.admin_name}</span></span><br>
 <br>
 </div>
-<div class="col-md-4 top-bar-content">
-<span class="section1-contact">Contact: <br><span class="fatch-data u-o-contact">8447484748</span></span>
+<div class="col-md-12 top-bar-content">
+<span class="section1-contact">Email: <br><span class="fatch-data u-o-contact">${ad.admin_id}</span></span>
 <br>
 <br>
 </div>
 </div>
 
+<%--
 <div class="col-md-12 text-center1 change-details">
 <div class="col-md-4">
 <span >ID: <br> <span class="fatch-data u-o-name">${ad.a_id}</span></span><br><br>
@@ -348,8 +349,7 @@
 
 <br><br><br>
 </div>
-</div>
-
+</div> --%>
 
 </div>
 
@@ -605,7 +605,7 @@ function readURL(input)
 <br><br>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-8">
 <div class="pr-section2">
     
 <div class="container-fluid">
@@ -714,13 +714,13 @@ th, td {
 
   <tr>
     <td class="fund">Fundraisers</td>
-    <td class="batch">8</td>
+    <td class="batch">${fundraisers_qty}</td>
     <td class="link"><a href="admin-fundraisers"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
   </tr>
 
   <tr>
     <td class="fund">Campaign</td>
-    <td class="batch">5</td>
+    <td class="batch">${campaigns_qty}</td>
     <td class="link"><a href="admin-campaign"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
   </tr>
 
@@ -737,13 +737,14 @@ th, td {
 <br>
 </div>
 
+</div>
 
-</div>
-</div>
 </div>
 
 <br><br>
+</div>
 
+<br><br>
 <div class="col-md-12">
 <div class="pr-section3">
     
@@ -1291,7 +1292,7 @@ $(function show_hide_details(){
 
 </div>
 </div>
-
+</div>
 
 <div class="col-md-12"></div>
 

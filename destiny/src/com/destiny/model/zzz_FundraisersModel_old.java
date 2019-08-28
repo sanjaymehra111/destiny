@@ -1,6 +1,6 @@
 package com.destiny.model;
 
-public class FundraisersModel 
+public class zzz_FundraisersModel_old 
 {
 	String fundraisers_id;
 	String category_type;
@@ -21,7 +21,7 @@ public class FundraisersModel
 	String personal_dob;
 	
 
-public FundraisersModel()
+public zzz_FundraisersModel_old()
 {
 	
 }
@@ -30,7 +30,7 @@ public FundraisersModel()
 
 
 
-	public FundraisersModel(String fundraisers_id, String category_type, String personal_name, String personal_email,
+	public zzz_FundraisersModel_old(String fundraisers_id, String category_type, String personal_name, String personal_email,
 		String personal_password, String personal_number, String personal_city, String fundraisers_title,
 		String fundraisers_goal_amount, String fundraisers_name, String fundraisers_contact, String fundraisers_email,
 		String fundraisers_beneficiary_relation, String fundraisers_story, String personal_pan_no,

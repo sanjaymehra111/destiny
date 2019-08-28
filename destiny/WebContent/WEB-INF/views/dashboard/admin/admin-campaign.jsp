@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
 
@@ -20,10 +24,115 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.5/slick.min.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.5/slick.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
-  
       <script type='text/javascript' src='/js/jquery.mousewheel.min.js'></script>
       
+      <!--Table-->
+  	  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+   
       
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+
+<style>
+
+input[type=search]
+{
+    width: 60%;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius:10px;
+    margin-left:10px;
+    outline:none;
+    border:none;
+    border-bottom:solid 2px #0e84b3;
+}
+#example_wrapper
+{
+	text-align: center;
+}
+
+#example_filter
+{
+	text-align:left;
+	width:60%;
+	float:right;
+}
+
+#example_length
+{
+	text-align:left;
+	width:40%;
+	float:left;
+}
+
+#example_paginate, #example_info
+{
+	padding: 10px;
+}
+
+
+.paginate_button
+{
+ 	padding:10px;
+	background-color:#e4e4e4;
+	color:black;
+	border:none;
+	transition:0.3s;
+	margin-left:5px;
+	margin-right:5px;
+	border-radius:1000px;
+	cursor:pointer;
+	outline:none;
+}
+
+.paginate_button:focus 
+{
+	text-decoration:none;
+	outline:0;
+}
+.paginate_button:hover
+{
+	text-decoration:none;
+	background-color:#0e84b3;
+	color:white;
+	outline:none;
+}
+
+.current
+{
+	background-color:#0e84b3;
+	color:white;
+}
+.previous, .next
+{
+	cursor:pointer;
+	text-decoration:none;
+	padding:10px;
+	background-color:#e4e4e4;
+	color:black;
+	border:none;
+	transition:0.3s;
+	border-radius:0px;
+	width:100px;
+	
+}
+
+.previous:hover, .next:hover
+{
+cursor:pointer;
+	text-decoration:none;
+	padding:10px;
+	background-color:#0e84b3;
+	color:white;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -321,9 +430,9 @@
     </span>
     CAMPAINGS 
     <span class="br-tag"><br></span>
-    <span class="search-bar">
+    <!-- <span class="search-bar">
         <input id="myInput" class="myinput" placeholder="Search.." type="text"> &nbsp; <i class="fa fa-search search-icon"></i>
-    </span>
+    </span> -->
 </p>
 </div>
 
@@ -444,7 +553,7 @@ th, td {
 
 }
 
-.block-user, .unblock-user
+.block-campaign, .unblock-campaign
 {
     color:white;
     border-radius: 50px;
@@ -456,22 +565,22 @@ th, td {
     font-size: 15px;
     transition: 0.3s;
 }
-.block-user
+.block-campaign
 {
     background: rgb(236, 26, 26);
 }
-.unblock-user
+.unblock-campaign
 {
     display: none;
     background: rgb(50, 177, 11);
 }
 
 
-.block-user:hover
+.block-campaign:hover
 {
     background: rgb(131, 9, 9);
 }
-.unblock-user:hover
+.unblock-campaign:hover
 {
     background: rgb(27, 100, 5);
 }
@@ -568,6 +677,42 @@ font-size: 16px;
     min-width: 150px;
 }
 
+
+
+.block-campaign, .unblock-campaign
+{
+	width:100px;
+    color:white;
+    border-radius: 50px;
+    outline: none;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border:none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+.block-campaign
+{
+    background: rgb(236, 26, 26);
+}
+.unblock-campaign
+{
+    display: block;
+    background: rgb(50, 177, 11);
+}
+
+
+.block-campaign:hover
+{
+    background: rgb(131, 9, 9);
+}
+.unblock-campaign:hover
+{
+    background: rgb(27, 100, 5);
+}
+
+
 @media(max-width:975px)
 
 {
@@ -638,25 +783,25 @@ font-size: 16px;
 
 
 <div class="fundraisers-details">
-<table class="fundraisers-table">
+<table id="example" class="fundraisers-table">
     <thead>
     <tr>
-        <th class="th">ID</th>
-        <th>TYPE</th>
+    	<th>NAME</th>
+    	<th>CONTACT</th>
         <th>TITLE</th>
-        <th>CATEGORY</th>
-        <th>LOCATION</th>
+        <th>CREATED</th>
         <th>START DATE</th>
         <th>END DATE</th>
         <th>GOAL</th>
-        <th>ACHIEVED</th>
+        <th>RAISED</th>
+        <th>DONORS</th>
         <th>STATUS</th>
         <th>ACTION
                 <span class="status-text">
                         <span class="text1 ap">Approve</span>
                         <span class="text1 dp">Disapprove</span>
                         <span class="text1 sc">Success</span>
-                        <span class="text1 dl">Delete</span>
+                        <!-- <span class="text1 dl">Delete</span> -->
                         <br>
                 </span>
         </th>
@@ -668,94 +813,43 @@ font-size: 16px;
 
 <tbody id="myTable">
 
+<c:forEach var="cm" items="${data1}">
+
         <tr>
-          <td class="u_id">12312456</td>
-          <td class="u_type">NGO</td>
-          <td class="u_title">help for my school</td>
-          <td class="u_category">school</td>
-          <td class="u_location">delhi</td>
-          <td class="u_start_date">2-5-2019</td>
-          <td class="u_end_date">1-4-2020</td>
-          <td class="u_gole">250000</td>
-          <td class="u_ach_gole">20000</td>
-          <td class="u_status">Approve</td>
+          <td>${cm.fundraisers_name}</td>
+          <td>${cm.fundraisers_contact}</td>
+          <td>${cm.fundraisers_title}</td>
+          <td>${cm.fundraisers_created_date}</td>
+          <td>${cm.fundraisers_start_date}</td>
+          <td>${cm.fundraisers_end_date}</td>
+          <td>${cm.fundraisers_goal_amount}</td>
+          <td>${cm.fundraisers_raised_amount}</td>
+          <td>${cm.fundraisers_donor_list}</td>
+          <td>
+          <span class="user-status">
+	              <c:if test="${cm.fundraisers_status == 0}">
+	              	<button value="${cm.campaign_id}" type="button" class="unblock-campaign ajax-unblock-campaign-button">Un-Block</button>
+	              </c:if>
+	
+	              <c:if test="${cm.fundraisers_status == 1}">
+	              	<button value="${cm.campaign_id}" type="button" class="block-campaign ajax-block-campaign-button">Block</button>
+	              </c:if>
+              </span>
+          </td>
+          
           <td class="u_action">
               <span class="user-status">
-                    <img class="img-for-all approve-logo" src="/destiny/files/dashboard-admin-images/app.jpg">
-                    <img class="img-for-all disapprove-logo" src="/destiny/files/dashboard-admin-images/dis.jpg">
-                    <img class="img-for-all success-logo" src="/destiny/files/dashboard-admin-images/suc.jpg">
-                    <img class="img-for-all delete-logo" src="/destiny/files/dashboard-admin-images/del.jpg">
+                    <img value="${cm.campaign_id}" class="img-for-all approve-logo" src="/destiny/files/dashboard-admin-images/app.jpg">
+                    <img value="${cm.campaign_id}" class="img-for-all disapprove-logo" src="/destiny/files/dashboard-admin-images/dis.jpg">
+                    <img value="${cm.campaign_id}" class="img-for-all success-logo" src="/destiny/files/dashboard-admin-images/suc.jpg">
+                    <!-- <img class="img-for-all delete-logo" src="/destiny/files/dashboard-admin-images/del.jpg"> -->
                 </span>
           </td>
-          <td class="u_view"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view1.jpg"></td>
+          
+          <td class="u_view"><img value="${cm.campaign_id}" class="img-for-all view-logo" data-toggle="modal" data-target="#myModal" src="/destiny/files/dashboard-admin-images/view1.jpg"></td>
         </tr>
-    
-        <tr>
-          <td class="u_id">12312456</td>
-          <td class="u_type">NGO</td>
-          <td class="u_title">help for my school</td>
-          <td class="u_category">school</td>
-          <td class="u_location">delhi</td>
-          <td class="u_start_date">2-5-2019</td>
-          <td class="u_end_date">1-4-2020</td>
-          <td class="u_gole">250000</td>
-          <td class="u_ach_gole">20000</td>
-          <td class="u_status">Approve</td>
-          <td class="u_action">
-              <span class="user-status">
-                    <img class="img-for-all approve-logo" src="/destiny/files/dashboard-admin-images/app.jpg">
-                    <img class="img-for-all disapprove-logo" src="/destiny/files/dashboard-admin-images/dis.jpg">
-                    <img class="img-for-all success-logo" src="/destiny/files/dashboard-admin-images/suc.jpg">
-                    <img class="img-for-all delete-logo" src="/destiny/files/dashboard-admin-images/del.jpg">
-                </span>
-          </td>
-          <td class="u_view"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view1.jpg"></td>
-        </tr>
-    
-        <tr>
-          <td class="u_id">12312456</td>
-          <td class="u_type">NGO</td>
-          <td class="u_title">help for my school</td>
-          <td class="u_category">school</td>
-          <td class="u_location">delhi</td>
-          <td class="u_start_date">2-5-2019</td>
-          <td class="u_end_date">1-4-2020</td>
-          <td class="u_gole">250000</td>
-          <td class="u_ach_gole">20000</td>
-          <td class="u_status">Approve</td>
-          <td class="u_action">
-              <span class="user-status">
-                    <img class="img-for-all approve-logo" src="/destiny/files/dashboard-admin-images/app.jpg">
-                    <img class="img-for-all disapprove-logo" src="/destiny/files/dashboard-admin-images/dis.jpg">
-                    <img class="img-for-all success-logo" src="/destiny/files/dashboard-admin-images/suc.jpg">
-                    <img class="img-for-all delete-logo" src="/destiny/files/dashboard-admin-images/del.jpg">
-                </span>
-          </td>
-          <td class="u_view"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view1.jpg"></td>
-        </tr>
-    
-        <tr>
-          <td class="u_id">12312456</td>
-          <td class="u_type">NGO</td>
-          <td class="u_title">help for my school</td>
-          <td class="u_category">school</td>
-          <td class="u_location">delhi</td>
-          <td class="u_start_date">2-5-2019</td>
-          <td class="u_end_date">1-4-2020</td>
-          <td class="u_gole">250000</td>
-          <td class="u_ach_gole">20000</td>
-          <td class="u_status">Approve</td>
-          <td class="u_action">
-              <span class="user-status">
-                    <img class="img-for-all approve-logo" src="/destiny/files/dashboard-admin-images/app.jpg">
-                    <img class="img-for-all disapprove-logo" src="/destiny/files/dashboard-admin-images/dis.jpg">
-                    <img class="img-for-all success-logo" src="/destiny/files/dashboard-admin-images/suc.jpg">
-                    <img class="img-for-all delete-logo" src="/destiny/files/dashboard-admin-images/del.jpg">
-                </span>
-          </td>
-          <td class="u_view"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view1.jpg"></td>
-        </tr>
-    
+        
+</c:forEach>
   
     </tbody>
       
@@ -816,7 +910,7 @@ $(function(){
 
 <div class="container">
   <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg view-logo-btn" data-toggle="modal" data-target="#myModal">Open Modal</button>
+  <!-- <button type="button" class="btn btn-info btn-lg view-logo-btn" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">

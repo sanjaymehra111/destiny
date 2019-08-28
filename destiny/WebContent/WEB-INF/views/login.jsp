@@ -220,7 +220,7 @@ $(function check_validation(){
 <style>
 .error-msg
 {
-font-size:0px;
+font-size:15px;
 transition:.3s;
 }
 .check-error
@@ -230,8 +230,10 @@ display:none;
 </style>
 
 <div class="check-id">
-<div style="text-align:center; font-size:15px; color:red; text-transform:uppercase; displaye:inline"><span class="error-msg" style="display:block">incorrect Emial and Password </span><span><a href="#"><i>Forgot Password click here</i></span></div>
-
+	<div style="text-align:center; font-size:15px; color:red; text-transform:uppercase; displaye:inline">
+		<span class="error-msg" style="display:block">${message}</span>
+		<span><a href="#"><i>Forgot Password click here</i></span>
+	</div>
 
 <div class="check-error">
 ${message}

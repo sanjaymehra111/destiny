@@ -4,7 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -24,10 +26,8 @@ import com.destiny.dao.CampaignAccountDaoimpl;
 import com.destiny.dao.EditCampaignDaoimpl;
 import com.destiny.dao.UniqueCodeGeneratorDaoimpl;
 import com.destiny.model.CampaignAccountModel;
-import com.destiny.model.CampaignsModel;
 import com.destiny.model.EditCampaignModel;
 import com.destiny.model.SessionModel;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 @Controller
 public class EditCampaignController 
@@ -46,6 +46,7 @@ public class EditCampaignController
 	@Autowired
 	UniqueCodeGeneratorDaoimpl ucgdao;
 	
+	String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
 	
 	//Campaign Details
 	

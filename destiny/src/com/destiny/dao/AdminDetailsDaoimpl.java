@@ -29,6 +29,7 @@ public class AdminDetailsDaoimpl
 						alm.setA_id(rs.getString("a_id"));
 						alm.setAdmin_id(rs.getString("admin_id"));
 						alm.setAdmin_password(rs.getString("admin_password"));
+						alm.setAdmin_name(rs.getString("admin_name"));
 						
 						return alm;
 					}

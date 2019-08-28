@@ -42,22 +42,42 @@ public class UserLoginDaoimpl
 			return null;
 		}
 	}
+	
+	public UserLoginModel UserStatus(String fid)
+	{
+		List<UserLoginModel> sql2 = template.query("Select personal_status from fundraisers_detail where fundraisers_id = '"+fid+"'", new RowMapper<UserLoginModel>()
+				{
+
+					@Override
+					public UserLoginModel mapRow(ResultSet rs, int arg1) throws SQLException {
+						UserLoginModel ulm = new UserLoginModel();
+						ulm.setPersonal_status(rs.getString("personal_status"));
+						return ulm;
+					}
+			
+				}
+		);
+		return sql2.get(0);
+		
+	}
+
+	
+	
 
 
 }
 
 class UserLoginModelMapper implements RowMapper<UserLoginModel>
 {
-
 	@Override
 	public UserLoginModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 		UserLoginModel ulm = new UserLoginModel();
 		ulm.setfundraisers_id(rs.getString("fundraisers_id"));
 		return ulm;
 	}
-	
-	
 }
+
+
 
 /*
 	

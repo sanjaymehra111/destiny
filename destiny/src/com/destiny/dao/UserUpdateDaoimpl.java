@@ -2,6 +2,8 @@ package com.destiny.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,13 @@ public class UserUpdateDaoimpl
 	@Autowired
 	JdbcTemplate template = new JdbcTemplate();
 
+	String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+
 	//Update pan card number
 	
 	public int UpdatePan(UserUpdateModel uum)
 	{
-		String sql1 = "UPDATE fundraisers_detail SET personal_pan_no='"+uum.getPersonal_pan_no()+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
+		String sql1 = "UPDATE fundraisers_detail SET personal_pan_no='"+uum.getPersonal_pan_no()+"', personal_updated_date='"+date+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
 		return template.update(sql1);
 	}
 
@@ -31,7 +35,7 @@ public class UserUpdateDaoimpl
 	
 	public int UpdateAadhar(UserUpdateModel uum)
 	{
-		String sql2 = "UPDATE fundraisers_detail SET personal_aadhar_no='"+uum.getPersonal_aadhar_no()+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
+		String sql2 = "UPDATE fundraisers_detail SET personal_aadhar_no='"+uum.getPersonal_aadhar_no()+"', personal_updated_date='"+date+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
 		return template.update(sql2);
 	}
 	
@@ -39,7 +43,7 @@ public class UserUpdateDaoimpl
 	
 	public int UpdateuserDetails(UserUpdateModel uum)
 	{
-		String sql3 = "UPDATE fundraisers_detail SET personal_name='"+uum.getPersonal_name()+"', personal_city='"+uum.getPersonal_city()+"', personal_dob='"+uum.getPersonal_dob()+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
+		String sql3 = "UPDATE fundraisers_detail SET personal_name='"+uum.getPersonal_name()+"', personal_city='"+uum.getPersonal_city()+"', personal_dob='"+uum.getPersonal_dob()+"', personal_updated_date='"+date+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
 		return template.update(sql3);
 	}
 	
@@ -47,7 +51,7 @@ public class UserUpdateDaoimpl
 	
 		public int UpdateuserDetailsImg(UserUpdateModel uum, String filename)
 		{
-			String sql3 = "UPDATE fundraisers_detail SET personal_name='"+uum.getPersonal_name()+"', personal_city='"+uum.getPersonal_city()+"', personal_dob='"+uum.getPersonal_dob()+"', personal_profile_image='"+"/destiny/files/profile-images/"+filename+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
+			String sql3 = "UPDATE fundraisers_detail SET personal_name='"+uum.getPersonal_name()+"', personal_city='"+uum.getPersonal_city()+"', personal_dob='"+uum.getPersonal_dob()+"', personal_profile_image='"+"/destiny/files/profile-images/"+filename+"', personal_updated_date='"+date+"' WHERE fundraisers_id='"+uum.getFundraisers_id()+"'";
 			return template.update(sql3);
 		}
 	
@@ -67,7 +71,7 @@ public class UserUpdateDaoimpl
 
 		public int updateUserPassword(UserUpdateModel uum, String fid, String epwd)
 		{
-			String sql5 = "UPDATE fundraisers_detail SET personal_password='"+epwd+"' where fundraisers_id  = '"+fid+"'";
+			String sql5 = "UPDATE fundraisers_detail SET personal_password='"+epwd+"', personal_updated_date='"+date+"' where fundraisers_id  = '"+fid+"'";
 			return template.update(sql5);
 		}
 

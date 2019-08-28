@@ -1,6 +1,8 @@
 package com.destiny.dao;
 
 import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,12 +18,15 @@ public class FundraiserDaoimpl
 {
 	@Autowired
 	JdbcTemplate template;
+	
+	String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+	
 	int key1;
 	
 	public int InserIntoFundraiser(FundraiserModel fm)
 	{
-		String sql = "insert into fundraisers_detail (category_type, personal_name, personal_email, personal_password, personal_number, personal_city)"+ 
-				"values('"+fm.getCategory_type()+"', '"+fm.getPersonal_name()+"', '"+fm.getPersonal_email()+"', '"+fm.getPersonal_password()+"', '"+fm.getPersonal_number()+"', '"+fm.getPersonal_city()+"')";
+		String sql = "insert into fundraisers_detail (category_type, personal_name, personal_email, personal_password, personal_number, personal_city, personal_updated_date)"+ 
+				"values('"+fm.getCategory_type()+"', '"+fm.getPersonal_name()+"', '"+fm.getPersonal_email()+"', '"+fm.getPersonal_password()+"', '"+fm.getPersonal_number()+"', '"+fm.getPersonal_city()+"', '"+date+"')";
 		KeyHolder key = new GeneratedKeyHolder();
 		
 		

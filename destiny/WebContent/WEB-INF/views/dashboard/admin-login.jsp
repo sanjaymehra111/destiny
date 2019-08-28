@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--Embeded Style Sheet-->
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/destiny/files/style/style.css">
 
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -161,7 +161,7 @@
             <p style="font-size:30px; text-align: center">Admin Login</p>
             <hr style="border:solid 0.5px rgb(148, 115, 115);">
  
-        <form name="admin-login" method="GET" action="admin_login" modelAttributes="admin_login_model">
+        <form name="admin-login" method="POST" action="admin-login" modelAttributes="admin_login_model">
     
             <span class="fa fa-eye show_hide_password"></span>
             <input type="text" name="admin_id" class="form-control forgot-all-button" placeholder="ID"><br>
@@ -194,23 +194,9 @@
     }
     
     </style>
-	    <span class="hide-error">${message}</span>
-		<span class="show-error">invalid id and password</span><br>
+	    <span class="hide-error" style="color:red;">${message}</span>
 	    <span class="forgot-password"><a href="#" style="text-decoration:auto">Forgot Password Click Here</a></span>
     </div>
-    
-    <script>
-    $(function(){
-    	var hr = $(".hide-error").html().length;
-    	//alert(hr);
-    	if (hr == 5)
-    		$(".show-error").css({"font-size":"18px"});
-    	else
-    		return true;
-    		
-    })
-    </script>
-    
     </div>
     
     

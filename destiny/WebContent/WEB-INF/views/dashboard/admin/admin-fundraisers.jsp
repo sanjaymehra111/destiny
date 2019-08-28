@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
 
@@ -18,10 +22,166 @@
 
     
     <!--Table-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     
+
     
   
+<script>
+
+		$(function(){
+		$(".ajax-unblock-user-button").click(function unblock_user(){
+		var unblock_user = $(this).val();
+		
+		var url1 = "/destiny/unblock_user";
+		var data1 = new FormData();
+		
+		data1.append("unblock_user", unblock_user);
+		
+		$.ajax({
+			
+			url:url1,
+			data:data1,
+			type : 'post',
+			cache : false,
+			processData : false,
+			contentType : false,
+			dataType: 'text',
+ 			success : function(){alert("success")},
+			error : function(){alert("error")}
+			
+		}); //ajax-close
+		});//	
+		
+		
+		$(".ajax-block-user-button").click(function(){
+			var block_user = $(this).val();
+			var url2 = "/destiny/block_user";
+			var data2 = new FormData();
+		
+			data2.append("block_user", block_user);
+		
+			$.ajax({
+				
+				url:url2,
+				data:data2,
+				type : 'post',
+				cache : false,
+				processData : false,
+				contentType : false,
+				dataType: 'text',
+				success : function(){alert("success")},
+				error : function(){alert("error")}
+				
+			}); //ajax-close
+			});//	
+		
+		});
+		
+</script>
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+
+<style>
+
+input[type=search]
+{
+    width: 60%;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius:10px;
+    margin-left:10px;
+    outline:none;
+    border:none;
+    border-bottom:solid 2px #0e84b3;
+}
+#example_wrapper
+{
+	text-align: center;
+}
+
+#example_filter
+{
+	text-align:left;
+	width:60%;
+	float:right;
+}
+
+#example_length
+{
+	text-align:left;
+	width:40%;
+	float:left;
+}
+
+#example_paginate, #example_info
+{
+	padding: 10px;
+}
+
+
+.paginate_button
+{
+ 	padding:10px;
+	background-color:#e4e4e4;
+	color:black;
+	border:none;
+	transition:0.3s;
+	margin-left:5px;
+	margin-right:5px;
+	border-radius:1000px;
+	cursor:pointer;
+	outline:none;
+}
+
+.paginate_button:focus 
+{
+	text-decoration:none;
+	outline:0;
+}
+.paginate_button:hover
+{
+	text-decoration:none;
+	background-color:#0e84b3;
+	color:white;
+	outline:none;
+}
+
+.current
+{
+	background-color:#0e84b3;
+	color:white;
+}
+.previous, .next
+{
+	cursor:pointer;
+	text-decoration:none;
+	padding:10px;
+	background-color:#e4e4e4;
+	color:black;
+	border:none;
+	transition:0.3s;
+	border-radius:0px;
+	width:100px;
+	
+}
+
+.previous:hover, .next:hover
+{
+cursor:pointer;
+	text-decoration:none;
+	padding:10px;
+	background-color:#0e84b3;
+	color:white;
+}
+
+
+</style>
+
       
 
 </head>
@@ -318,11 +478,11 @@
             <option value="PERSONAL">Personal</option>
     </select>    
     </span>
-    FUNDRAISERS 
+    FUNDRAISERS  data:${data2} 
     <span class="br-tag"><br></span>
-    <span class="search-bar">
+    <!-- <span class="search-bar">
         <input id="myInput" class="myinput" placeholder="Search.." type="text"> &nbsp; <i class="fa fa-search search-icon"></i>
-    </span>
+    </span> -->
 </p>
 </div>
 
@@ -424,6 +584,7 @@ table {
 
 th, td {
   padding: 15px;
+  min-width: 100px;
 }
 
 .circle-1
@@ -442,8 +603,9 @@ th, td {
 
 }
 
-.block-user, .unblock-user
+.block-user, .unblock-user, .edit-user
 {
+	width:100px;
     color:white;
     border-radius: 50px;
     outline: none;
@@ -460,7 +622,7 @@ th, td {
 }
 .unblock-user
 {
-    display: none;
+    display: block;
     background: rgb(50, 177, 11);
 }
 
@@ -473,6 +635,22 @@ th, td {
 {
     background: rgb(27, 100, 5);
 }
+
+.edit-user
+{
+	border:solid 2px #0e84b3;
+	background-color:white;
+	color:black;
+}
+
+.edit-user:hover
+{
+	border:solid 2px #0e84b3;
+	background-color:#0e84b3;
+	color:white;
+}
+
+
 
 .deta-process::-webkit-scrollbar {
   width: 0px;
@@ -504,150 +682,127 @@ th, td {
     display: none;
 }
 
+.deta-process
+	{
+	    overflow: scroll;
+	}
+
 @media(max-width:975px)
 {
-    .br-tag
-{
-    margin-top: -10px;
-    display: block;
-}
-.search-bar
-{
-    float:none;
-}
+	th, td {
+	  min-width: 100px;
+	}
 
-    .fundraisers-table th
-{
-    min-width: 100px;
-}
-
-.deta-process
-{
-    overflow: scroll;
-}
+	    .br-tag
+	{
+	    margin-top: -10px;
+	    display: block;
+	}
+	.search-bar
+	{
+	    float:none;
+	}
+	
+	    .fundraisers-table th
+	{
+	    min-width: 100px;
+	}
+	
+	.deta-process
+	{
+	    overflow: scroll;
+	}
 }
 
 </style>
 
+<script>
+
+		$(function(){
+		$(".ajax-edit-user-button").click(function unblock_user(){
+		var edit_user_id = $(this).val();
+		
+		var url3 = "/destiny/edit_user";
+		var data3 = new FormData();
+		data3.append("edit_user_id", edit_user_id);
+		
+		$.ajax({
+			
+			url:url3,
+			data:{edit_user_id : edit_user_id},
+			type : 'GET',
+			contentType : "application/json; charset=utf-8",
+			dataType: 'text',
+ 			success : function(data)
+ 			 	{
+	 				 $(".ajax-data").html(data); 
+ 				 },
+ 			error : function(){alert("error")}
+			
+		}); //ajax-close
+		});//	
+		
+		
+		
+		
+		});
+		
+</script>
+
+ajax data is :
+
+<div class="ajax-data">
+</div>
 
 <div class="fundraisers-details">
-<table class="fundraisers-table">
+<table id="example" class="fundraisers-table">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>TYPE</th>
         <th>NAME</th>
+        <th>TYPE</th>
         <th>CONTACT</th>
+        <th>DOB</th>
+        <th>CITY</th>
+        <th>PAN NO.</th>
+        <th>AADHAR NO.</th>
+        <th>PROFILE</th>
+        <th>UPDATED</th>
         <th>STATUS</th>
+        <th>MODIFY</th>
     </tr>
 </thead>
 
 <tbody id="myTable">
+<c:forEach var="fm" items="${data1}">
+
         <tr>
-          <td class="u_id">12312456</td>
-          <td class="u_type">NGO</td>
-          <td class="u_name">raj</td>
-          <td class="u_contact">84474948595</td>
+          <td>${fm.personal_name}</td>
+          <td>${fm.category_type}</td>
+          <td>${fm.personal_number}</td>
+          <td>${fm.personal_dob}</td>
+          <td>${fm.personal_city}</td>
+          <td>${fm.personal_pan_no}</td>
+          <td>${fm.personal_aadhar_no}</td>
+          <td style="text-align:center"><img src="${fm.personal_profile_image}"  style="width:50px; height:50px; border-radius: 100px;"></td>
+          <td>${fm.personal_updated_date}</td>
           <td>
               <span class="user-status">
-                  <button class="block-user">Block</button>
-                  <button class="unblock-user">Un-Block</button>
+	              <c:if test="${fm.personal_status == 0}">
+	              	<button value="${fm.fundraisers_id}" type="button" class="unblock-user ajax-unblock-user-button">Un-Block</button>
+	              </c:if>
+	
+	              <c:if test="${fm.personal_status == 1}">
+	              	<button value="${fm.fundraisers_id}" type="button" class="block-user ajax-block-user-button">Block</button>
+	              </c:if>
               </span>
           </td>
-        </tr>
-      
-       <tr>
-          <td class="u_id">123567456</td>
-          <td class="u_type">NGO</td>
-          <td class="u_name">rajan</td>
-          <td class="u_contact">596321686568</td>
           <td>
-              <span class="user-status">
-                  <button class="block-user">Block</button>
-                  <button class="unblock-user">Un-Block</button>
-              </span>
+          	<button value="${fm.fundraisers_id}" type="button" data-toggle="modal" data-target="#myModal" class="edit-user ajax-edit-user-button">Edit</button>
           </td>
         </tr>
-      
-        <tr>
-          <td class="u_id">12356456</td>
-          <td class="u_type">IDEAS</td>
-          <td class="u_name">nitin</td>
-          <td class="u_contact">25584858976</td>
-          <td>
-              <span class="user-status">
-                  <button class="block-user">Block</button>
-                  <button class="unblock-user">Un-Block</button>
-              </span>
-          </td>
-        </tr>
-      
-      
-        <tr>
-              <td class="u_id">12345656</td>
-              <td class="u_type">PERSONAL</td>
-              <td class="u_name">sam</td>
-              <td class="u_contact">7448459216</td>
-              <td>
-                  <span class="user-status">
-                      <button class="block-user">Block</button>
-                      <button class="unblock-user">Un-Block</button>
-                  </span>
-              </td>
-            </tr>
-          
-        <tr>
-              <td class="u_id">123451236</td>
-              <td class="u_type">IDEAS</td>
-              <td class="u_name">kunal</td>
-              <td class="u_contact">8447494296</td>
-              <td>
-                  <span class="user-status">
-                      <button class="block-user">Block</button>
-                      <button class="unblock-user">Un-Block</button>
-                  </span>
-              </td>
-            </tr>
-          
-            <tr>
-              <td class="u_id">12349856</td>
-              <td class="u_type">MEDICAL</td>
-              <td class="u_name">shubham</td>
-              <td class="u_contact">8447495854</td>
-              <td>
-                  <span class="user-status">
-                      <button class="block-user">Block</button>
-                      <button class="unblock-user">Un-Block</button>
-                  </span>
-              </td>
-            </tr>
-          
-      
-             <tr>
-          <td class="u_id">123123456</td>
-          <td class="u_type">NGO</td>
-          <td class="u_name">rahul</td>
-          <td class="u_contact">8447494296</td>
-          <td>
-              <span class="user-status">
-                  <button class="block-user">Block</button>
-                  <button class="unblock-user">Un-Block</button>
-              </span>
-          </td>
-        </tr>
-      
-        <tr>
-          <td class="u_id">123445656</td>
-          <td class="u_type">MEDICAL</td>
-          <td class="u_name">shiva</td>
-          <td class="u_contact">4845854758</td>
-          <td>
-              <span class="user-status">
-                  <button class="block-user">Block</button>
-                  <button class="unblock-user">Un-Block</button>
-              </span>
-          </td>
-        </tr>
+        
+</c:forEach>    
+    
       </tbody>
       
 </table>
@@ -670,6 +825,61 @@ th, td {
 
 <br><br>
 <br><br>
+
+
+
+
+
+  <!-- Modal -->
+<style>
+.edit-mode-text
+{
+	text-align:center;
+	border:none;
+	outline:none;
+	border-bottom:solid 2px #0e84b3; 
+	border-radius:20px;
+	width:50%;
+	height:40px;
+	padding:10px;
+	font-size:17px;
+}
+
+</style>  
+  
+ 
+  
+  <div class="modal fade" id="myModal" role="dialog" style="z-index: 9999; margin-top:10%"">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="text-align: center">Modification Mode On</h4>
+        </div>
+        
+        <c:forEach var="fm" items="${data2}">
+        
+        <div class="modal-body" style="text-align:center;">
+          <p><input class="edit-mode-text" type="text" value="${fm.fundraisers_id}"></p>
+          <p><input class="edit-mode-text" type="email" maxlength="50" value="${fm.personal_email}" placeholder="User Email"></p>
+          <p><input class="edit-mode-text" type="text" maxlength="20" value="${fm.personal_pan_no}" placeholder="User PAN Number"></p>
+          <p><input class="edit-mode-text" type="text" maxlength="20" value="${fm.personal_aadhar_no}" placeholder="User Aadhar Number"></p>
+        </div>
+        
+        </c:forEach>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success update-user-details">Update</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+
 
 
 <!--Footer Start-->

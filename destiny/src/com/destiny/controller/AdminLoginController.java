@@ -1,6 +1,5 @@
 package com.destiny.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +21,7 @@ public class AdminLoginController
 	@Autowired
 	AdminLoginDaoimpl aldao;
 	
-	@RequestMapping("/admin_login")
+	@RequestMapping("/admin-login")
 	public String admin_login(@ModelAttribute("admin_login_model")AdminLoginModel alm, Model model, HttpSession session, HttpServletRequest req, RedirectAttributes redirectAttributes)
 	{
 		
@@ -41,15 +40,12 @@ public class AdminLoginController
 			redirectAttributes.addFlashAttribute("admin_id", data.getA_id());
 			redirectAttributes.addFlashAttribute("adminModel", alm);
 			
-			/*System.out.println("admin id con: " +data.getA_id());
-			System.out.println("admin alm  con: " +alm);
-			*/
 			return "redirect:/admin-dashboard";
 		}
 			
 		else
 		{
-			model.addAttribute("message", "errors");
+			model.addAttribute("message", "Invalid ID and PASSWORD");
 			return "dashboard/admin-login";
 		} 
 	}

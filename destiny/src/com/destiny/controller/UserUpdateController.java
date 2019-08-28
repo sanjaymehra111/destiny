@@ -3,8 +3,6 @@ package com.destiny.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.security.SecureRandom;
-import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -24,7 +22,6 @@ import com.destiny.dao.PasswordEncryptionSha512;
 import com.destiny.dao.UniqueCodeGeneratorDaoimpl;
 import com.destiny.dao.UserUpdateDaoimpl;
 import com.destiny.model.CampaignAccountModel;
-import com.destiny.model.EditCampaignModel;
 import com.destiny.model.SessionModel;
 import com.destiny.model.UserUpdateModel;
 

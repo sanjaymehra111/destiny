@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.destiny.dao.AdminDetailsDaoimpl;
 import com.destiny.dao.AdminLoginDaoimpl;
+import com.destiny.dao.AdminUpdateDaoimpl;
 import com.destiny.dao.BrowseFundraiserDaoimpl;
 import com.destiny.dao.CampaignAccountDaoimpl;
 import com.destiny.dao.CampaignWithdrawAmountDaoimpl;
@@ -56,6 +58,9 @@ public class StoreController
 	
 	@Autowired
 	AdminDetailsDaoimpl admdao;
+	
+	@Autowired
+	AdminUpdateDaoimpl adupdao;
 	
 	//************************* Controller *************************//
 	
@@ -204,7 +209,13 @@ public class StoreController
 		if(!aid.equals(""))
 		{
 			List<AdminLoginModel> data1 = admdao.FetchAdminDetails(AsesModel.getUser_id());
+			AdminLoginModel data2 = adupdao.FundraisersQuantity();
+			AdminLoginModel data3 = adupdao.CampaignsQuantity();
+			
 			model.addAttribute("data1", data1);
+			model.addAttribute("fundraisers_qty", data2.getFundraisers_qty());
+			model.addAttribute("campaigns_qty", data3.getCampaign_qty());
+			
 			return "dashboard/admin/admin-dashboard";
 		}
 		
@@ -212,8 +223,15 @@ public class StoreController
 		{
 			if(AsesModel!=null)
 			{
+				
 				List<AdminLoginModel> data1 = admdao.FetchAdminDetails(AsesModel.getUser_id());
+				AdminLoginModel data2 = adupdao.FundraisersQuantity();
+				AdminLoginModel data3 = adupdao.CampaignsQuantity();
+				
 				model.addAttribute("data1", data1);
+				model.addAttribute("fundraisers_qty", data2.getFundraisers_qty());
+				model.addAttribute("campaigns_qty", data3.getCampaign_qty());
+				
 				return "dashboard/admin/admin-dashboard";				
 			}
 			else
@@ -527,13 +545,12 @@ public class StoreController
 	
 	
 	
-	@RequestMapping("/admin-login")
+	@RequestMapping("/admin_login")
 	public String admin_login(Model model)
 	{
 		return "dashboard/admin-login";
 		
 	}
-	
 	
 	@RequestMapping("/admin-header")
 	public String admin_header(Model model)
@@ -549,16 +566,42 @@ public class StoreController
 	}
 	
 	@RequestMapping("/admin-fundraisers")
-	public String admin_fundraisers(Model model)
+	public String admin_fundraisers(Model model, HttpSession session)
 	{
-		return "dashboard/admin/admin-fundraisers";
+		SessionModel sessionModel = (SessionModel) session.getAttribute("AsessionData");
+		
+		if(sessionModel != null)
+		{
+			List<FundraiserModel> data1 =  adupdao.FetchFundraisers();
+			model.addAttribute("data1", data1);
+			
+			return "dashboard/admin/admin-fundraisers";	
+		}
+		else
+		{
+			return "redirect:/admin_login";
+			
+		}
+		
 	}
 	
-	
 	@RequestMapping("/admin-campaign")
-	public String admin_campaign(Model model)
+	public String admin_campaign(Model model, HttpSession session)
 	{
-		return "dashboard/admin/admin-campaign";
+		SessionModel sessionModel = (SessionModel) session.getAttribute("AsessionData");
+		
+		if(sessionModel != null)
+		{
+			List<CampaignsModel> data1 =  adupdao.FetchCampaigns();
+			model.addAttribute("data1", data1);
+			return "dashboard/admin/admin-campaign";
+		}
+		else
+		{
+			return "redirect:/admin_login";
+			
+		}
+		
 	}
 	
 	

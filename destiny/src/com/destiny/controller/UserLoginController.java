@@ -40,24 +40,33 @@ public class UserLoginController
 		
 		String epwd = pwdenc.PasswordEncrypt(ulm.getUser_password());
 		UserLoginModel data = uldao.checkLogin(ulm, epwd);
+		
 		if(data != null) 	
 		{
-			//model.addAttribute("fundraisers_id", data.getfundraisers_id());
+			UserLoginModel status = uldao.UserStatus(data.getfundraisers_id());
+			//System.out.println("user login status is :" + status.getPersonal_status());
 			
-			SessionModel sessionModel = new SessionModel();
-			sessionModel.setUser_id(data.getfundraisers_id());
-			sessionModel.setSession_id(req.getSession().getId());
-			sessionModel.setTime(session.getCreationTime());
-			session.setAttribute("sessionData", sessionModel);
-			
-			redirectAttributes.addFlashAttribute("fundraisers_id", data.getfundraisers_id());
-			/*redirectAttributes.addFlashAttribute("fundraiserModel",fm)	;*/	
+			if(status.getPersonal_status().equals("" +1))
+			{
+				SessionModel sessionModel = new SessionModel();
+				sessionModel.setUser_id(data.getfundraisers_id());
+				sessionModel.setSession_id(req.getSession().getId());
+				sessionModel.setTime(session.getCreationTime());
+				session.setAttribute("sessionData", sessionModel);
+				redirectAttributes.addFlashAttribute("fundraisers_id", data.getfundraisers_id());
 				return "redirect:/user-dashboard";
+			}
+			
+			else
+			{
+				model.addAttribute("message", "YOUR ACCOUNT IS TEMPORARILY BLOCKED");
+				return "login";
+			}
 		}
 		
 		 else  
 		 {
-			 model.addAttribute("message", "invalid id and password");
+			 model.addAttribute("message", "INCORRECT EMIAL ID AND PASSWORD");
 			 return "login";
 		 }
 	}

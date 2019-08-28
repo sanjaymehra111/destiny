@@ -106,7 +106,7 @@ public class BrowseFundraiserDaoimpl
 						DonationModel dm = new DonationModel();
 						dm.setCampaign_id(rs.getString("campaign_id"));
 						dm.setAmount(rs.getString("sum(amount)"));
-						System.out.println("bdao camp id 1 : " +dm.getCampaign_id());
+						
 						String query3 = "UPDATE campaign_details SET fundraisers_raised_amount='"+dm.getAmount()+"' WHERE campaign_id ='"+dm.getCampaign_id()+"'";
 								
 								template.update(query3);

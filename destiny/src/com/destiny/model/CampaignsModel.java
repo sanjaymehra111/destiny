@@ -22,6 +22,7 @@ public class CampaignsModel
 	String fundraisers_upi_number;
 	String fundraisers_campaign_images;
 	String fundraisers_campaign_documents;
+	String fundraisers_campaign_updated_date;
 	
 	
 
@@ -266,6 +267,16 @@ public class CampaignsModel
 		this.fundraisers_campaign_documents = fundraisers_campaign_documents;
 	}
 
+	
+	public String getFundraisers_campaign_updated_date() {
+		return fundraisers_campaign_updated_date;
+	}
+
+
+	public void setFundraisers_campaign_updated_date(String fundraisers_campaign_updated_date) {
+		this.fundraisers_campaign_updated_date = fundraisers_campaign_updated_date;
+	}
+
 
 	@Override
 	public String toString() {
@@ -284,7 +295,8 @@ public class CampaignsModel
 				.append(fundraisers_profile_image).append(", fundraisers_upi_image=").append(fundraisers_upi_image)
 				.append(", fundraisers_upi_number=").append(fundraisers_upi_number)
 				.append(", fundraisers_campaign_images=").append(fundraisers_campaign_images)
-				.append(", fundraisers_campaign_documents=").append(fundraisers_campaign_documents).append("]");
+				.append(", fundraisers_campaign_documents=").append(fundraisers_campaign_documents)
+				.append(", fundraisers_campaign_updated_date=").append(fundraisers_campaign_updated_date).append("]");
 		return builder.toString();
 	}
 
@@ -295,7 +307,8 @@ public class CampaignsModel
 			String fundraisers_beneficiary_relation, String fundraisers_story, String fundraisers_start_date,
 			String fundraisers_end_date, String fundraisers_created_date, String fundraisers_status,
 			String fundraisers_profile_image, String fundraisers_upi_image, String fundraisers_upi_number,
-			String fundraisers_campaign_images, String fundraisers_campaign_documents) {
+			String fundraisers_campaign_images, String fundraisers_campaign_documents,
+			String fundraisers_campaign_updated_date) {
 		super();
 		this.campaign_id = campaign_id;
 		this.fundraisers_id = fundraisers_id;
@@ -317,10 +330,10 @@ public class CampaignsModel
 		this.fundraisers_upi_number = fundraisers_upi_number;
 		this.fundraisers_campaign_images = fundraisers_campaign_images;
 		this.fundraisers_campaign_documents = fundraisers_campaign_documents;
+		this.fundraisers_campaign_updated_date = fundraisers_campaign_updated_date;
 	}
 
 
-	
 
 
 
