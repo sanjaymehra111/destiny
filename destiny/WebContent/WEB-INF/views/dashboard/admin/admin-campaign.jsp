@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="org.json.*"%>
+
 
 <html>
 <head>
@@ -29,7 +31,103 @@
       <!--Table-->
   	  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
    
-      
+   
+ <script>
+ $(function(){
+	 
+	 $(".ajax-submit-approve-campaign").click(function campaign_approve(){
+		 var cid = $(this).attr('value');
+		 var url1 ="/destiny/campaign_approve";
+		 
+		 $.ajax
+		 ({
+			url:url1,
+			data:{cid:cid},
+		 	type:'GET',
+		 	dataType:"text",
+		 	contentType:"json",
+		 	cache:false,
+			success : function(){alert("Approved")},
+			error : function(){alert("error")} 
+		 }); //ajax close
+	 }); //campaign approve close
+	 
+	 
+	 
+	 $(".ajax-submit-disapprove-campaign").click(function campaign_approve(){
+		 var cid = $(this).attr('value');
+		 var url2 ="/destiny/campaign_disapprove";
+		 
+		 $.ajax
+		 ({
+			url:url2,
+			data:{cid:cid},
+		 	type:'GET',
+		 	dataType:"text",
+		 	contentType:"json",
+		 	cache:false,
+			success : function(){alert("Disapproved")},
+			error : function(){alert("error")} 
+		 }); //ajax close
+	 }); //campaign approve close
+	
+	 
+	 
+	 
+	 $(".ajax-submit-success-campaign").click(function campaign_approve(){
+		 var cid = $(this).attr('value');
+		 var url3 ="/destiny/campaign_success";
+		 
+		 $.ajax
+		 ({
+			url:url3,
+			data:{cid:cid},
+		 	type:'GET',
+		 	dataType:"text",
+		 	contentType:"json",
+		 	cache:false,
+			success : function(){alert("Success")},
+			error : function(){alert("error")} 
+		 }); //ajax close
+	 }); //campaign approve close
+	
+	 
+	 
+	 $(".ajax-edit-campaign").click(function(){
+		 var cid = $(this).attr('cid');
+		 var fid = $(this).attr('fid');
+		 var url4 ="/destiny/fetch_campaign_details";
+		 
+		 $.ajax
+		 ({
+			url:url4,
+			data:{cid:cid, fid:fid},
+		 	type:'GET',
+		 	dataType:"json",
+		 	contentType:"json",
+		 	cache:false,
+			success : function(data)
+			{
+				
+				var cm=data[0];
+				var fm=data[1];
+
+				$(".ajax-data").html(cm.fundraisers_id);
+				$(".camp_title").html(cm.fundraisers_title);
+				$(".camp_goal_amount").html(cm.fundraisers_goal_amount);
+				$(".camp_raised_amount").html(cm.fundraisers_raised_amount);
+			},
+			error : function(){alert("error")} 
+		 }); //ajax close
+		 
+	 })
+	 
+	 
+ })
+ 
+ </script>
+ 
+
 <script>
 $(document).ready(function() {
     $('#example').DataTable();
@@ -132,14 +230,14 @@ cursor:pointer;
 
 </style>
 
+<title> Destiny World</title>
 
 
 </head>
 
 
-<title> Destiny World</title>
-
 <body style="font-family: algerrian sans-serif; background-color: rgba(224, 224, 224, 0.527);">
+
 
 
 <!--Header Start-->
@@ -428,7 +526,9 @@ cursor:pointer;
             <option value="PERSONAL">Personal</option>
     </select>    
     </span>
-    CAMPAINGS 
+    CAMPAINGS Data
+    
+    <span class="ajax-data">  </span>
     <span class="br-tag"><br></span>
     <!-- <span class="search-bar">
         <input id="myInput" class="myinput" placeholder="Search.." type="text"> &nbsp; <i class="fa fa-search search-icon"></i>
@@ -553,37 +653,6 @@ th, td {
 
 }
 
-.block-campaign, .unblock-campaign
-{
-    color:white;
-    border-radius: 50px;
-    outline: none;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border:none;
-    font-size: 15px;
-    transition: 0.3s;
-}
-.block-campaign
-{
-    background: rgb(236, 26, 26);
-}
-.unblock-campaign
-{
-    display: none;
-    background: rgb(50, 177, 11);
-}
-
-
-.block-campaign:hover
-{
-    background: rgb(131, 9, 9);
-}
-.unblock-campaign:hover
-{
-    background: rgb(27, 100, 5);
-}
 
 .deta-process::-webkit-scrollbar {
   width: 0px;
@@ -679,7 +748,7 @@ font-size: 16px;
 
 
 
-.block-campaign, .unblock-campaign
+.block-campaign, .unblock-campaign, .success-campaign
 {
 	width:100px;
     color:white;
@@ -712,6 +781,15 @@ font-size: 16px;
     background: rgb(27, 100, 5);
 }
 
+.success-campaign
+{	
+	background-color:#169dde;
+}
+
+.success-campaign:hover
+{	
+	background-color:#31708f;
+}
 
 @media(max-width:975px)
 
@@ -828,25 +906,29 @@ font-size: 16px;
           <td>
           <span class="user-status">
 	              <c:if test="${cm.fundraisers_status == 0}">
-	              	<button value="${cm.campaign_id}" type="button" class="unblock-campaign ajax-unblock-campaign-button">Un-Block</button>
+	              	<button value="${cm.campaign_id}" type="button" class="block-campaign ajax-block-campaign-button">Disapprove</button>
 	              </c:if>
 	
 	              <c:if test="${cm.fundraisers_status == 1}">
-	              	<button value="${cm.campaign_id}" type="button" class="block-campaign ajax-block-campaign-button">Block</button>
+	              	<button value="${cm.campaign_id}" type="button" class="unblock-campaign ajax-unblock-campaign-button">Approve</button>
 	              </c:if>
-              </span>
+	              
+	              <c:if test="${cm.fundraisers_status == 2}">
+	              	<button value="${cm.campaign_id}" type="button" class="success-campaign ajax-unblock-campaign-button"><i class="fa fa-thumbs-o-up"></i> Success</button>
+	              </c:if>
+	          </span>
           </td>
           
           <td class="u_action">
               <span class="user-status">
-                    <img value="${cm.campaign_id}" class="img-for-all approve-logo" src="/destiny/files/dashboard-admin-images/app.jpg">
-                    <img value="${cm.campaign_id}" class="img-for-all disapprove-logo" src="/destiny/files/dashboard-admin-images/dis.jpg">
-                    <img value="${cm.campaign_id}" class="img-for-all success-logo" src="/destiny/files/dashboard-admin-images/suc.jpg">
+                    <img value="${cm.campaign_id}" class="img-for-all approve-logo ajax-submit-approve-campaign" src="/destiny/files/dashboard-admin-images/app.jpg">
+                    <img value="${cm.campaign_id}" class="img-for-all disapprove-logo ajax-submit-disapprove-campaign" src="/destiny/files/dashboard-admin-images/dis.jpg">
+                    <img value="${cm.campaign_id}" class="img-for-all success-logo ajax-submit-success-campaign" src="/destiny/files/dashboard-admin-images/suc.jpg">
                     <!-- <img class="img-for-all delete-logo" src="/destiny/files/dashboard-admin-images/del.jpg"> -->
                 </span>
           </td>
           
-          <td class="u_view"><img value="${cm.campaign_id}" class="img-for-all view-logo" data-toggle="modal" data-target="#myModal" src="/destiny/files/dashboard-admin-images/view1.jpg"></td>
+          <td class="u_view"><img cid="${cm.campaign_id}" fid="${cm.fundraisers_id}" class="img-for-all view-logo ajax-edit-campaign" data-toggle="modal" data-target="#myModal" src="/destiny/files/dashboard-admin-images/view1.jpg"></td>
         </tr>
         
 </c:forEach>
@@ -1037,6 +1119,7 @@ $(function(){
 
 </style>
 
+
 <div class="cause-details-main">
 
 <div class="cause-details-section">
@@ -1047,12 +1130,12 @@ $(function(){
 <div class="container-fluid">
     <div class="cause_amount">
     
-        <div class="cause_title">Help My Friend Rahul</div>
+        <div class="cause_title camp_title"></div>
 
         <br><br>
-        <div class="col-md-6">
-        <span class="t-amount amount-text">Goal &#8377; <span class="goal-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">201205152</span> </span>
-        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); font-weight: bold"> 55111265  </span></span>
+        <div class="col-md-5">
+        <span class="t-amount amount-text">Goal &#8377; <span class="goal-percent camp_goal_amount" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"></span></span>
+        <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent camp_raised_amount" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"></span></span>
         <br><br><br>
         </div>
 <script>
@@ -1060,6 +1143,7 @@ $(function()
 {
     var gl= $(".goal-percent").html();
     var ac= $(".achieved-percent").html();
+    
     var tp=ac/gl*100;
     var tp2=Math.round(tp);
     $(".ach-percent").html(tp2 +"%");
@@ -1067,13 +1151,13 @@ $(function()
 
 })
 </script>
-        <div class="col-md-6">
+        <div class="col-md-5">
         <span class="p-amount amount-text">OF OUR GOAL <span class="ach-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"></span> </span>
         <span class="d-amount amount-text">Share <span style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">48</span> </span>
         <br><br><br>
         </div>
-        <div class="col-md-2" style="display: none">
-                <a href="#" style="text-decoration: none" class="donate-popup"><span class="d-button amount-text"><span style="font-weight: bold">Donate Now</span> </span></a>
+        <div class="col-md-2">
+                <a href="#" style="text-decoration: none"  class=" donate-popup"><span class="d-button amount-text"><button value="${cm.campaign_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;">Donate Now</button> </span></a>
            <br><br>
         </div>
         
@@ -1089,6 +1173,15 @@ $(function()
     
 
 <style>
+        .user-images1
+{
+    height: 450px;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0);
+    transition: 0.3s;
+}
+
 .user-images .slick-slide
 {
     height: auto;
@@ -1109,7 +1202,7 @@ $(function()
         {
             transform: scale(1.2);
             opacity: 0.3;
-        }  
+        }
 </style>    
 
 <script>
@@ -1129,14 +1222,12 @@ $(function(){
 </script>
 
 
-<div class="col-md-8 container-fluid">
+<div class="col-md-8 container-fluid user-images1">
 <div class="user-images">
 
-    <div><img src="/destiny/files/images/drintwater.jpg" style="width:100%; height: 400px;"></div>
-    <div><img src="/destiny/files/images/parallax-1.jpg" style="width:100%; height: 400px;"></div>
-    <div><img src="/destiny/files/images/volunteer.jpg" style="width:100%; height: 400px;"></div>
-    <div><img src="/destiny/files/images/water.jpg" style="width:100%; height: 400px;"></div>
-    <div><img src="/destiny/files/images/causes.jpg" style="width:100%; height: 400px;"></div>
+<c:forTokens items = "${cm.fundraisers_campaign_images}" delims = "," var = "name">
+         	<img class="img-path1" src="<c:out value = "${name}"/>" style="width:100%; height: 400px;">
+</c:forTokens>
 
 </div>
 <br><br>
@@ -1153,7 +1244,6 @@ $(function(){
     color:rgb(255, 255, 255); 
     text-align: left;
     font-size: 18px;
-
 }
 
 
@@ -1181,6 +1271,7 @@ $(function(){
 
 .img-icon
 {
+	background:rgb(21, 160, 214);
     width:60px;
     height:60px;
     border-radius: 50px;
@@ -1218,14 +1309,15 @@ $(function(){
 <div class="camp-details" style="line-height: 15px; background-color: rgb(21, 160, 214); padding: 15px; border-radius: 5px">
 <br>
 <p class="cb-details"> Campaigner Details 
-<img class="img-icon" src="/destiny/files/images/voulnteer-d.jpg"></p>
+<img class="img-icon camp_personal_profile" src=""></p>
 <br><br>
-<button class="verified-button">VERIFIED <i class="fa fa-check-circle"></i></button>
-<p class="tips-text"> Mandar Avhad </p>
-<p class="tips-text"> Self </p>
+	<button type="button" style="display: none" class="verified-button varifies-personal camp_verified_fundraisers">VERIFIED <i class="fa fa-check-circle"></i></button>
+	<button type="button" style="display: none" class="verified-button unvarified camp_unverified_fundraisers">UNVERIFIED <i class="fa fa-times-circle"></i></button>
+
+<p class="tips-text" style="text-transform: capitalize;"><i class="fa fa-user"style="width:15px;" ></i> &nbsp; <span class="camp_personal_name"></span></p>
+<p class="tips-text camp_category_type" style="text-transform: capitalize;"><i class="fa fa-vcard" style="font-size:15px; width:15px;"></i> &nbsp; <span class="camp_category_type"></span></p>
 <p class="tips-text">
-<i class="fa fa-map-marker"></i> &nbsp; Delhi 
-&nbsp;<span style="cursor:pointer"> <i class="fa fa-envelope"></i> &nbsp; Message </p></span>
+<i class="fa fa-map-marker" style="width:15px; text-transform: capitalize;"></i> &nbsp; <span class="camp_personal_city"></span></p>
 </div>
 
 <br>
@@ -1233,12 +1325,16 @@ $(function(){
 <div class="camp-details" style="line-height: 15px; background-color: rgb(21, 160, 214); padding: 15px; border-radius: 5px">
 <br>
 <p class="cb-details">Beneficiary Details
-<img class="img-icon" src="/destiny/files/images/voulnteer-a.jpg"></p>
-
+<img class="img-icon camp_fundraisers_profile_image" src="${cm.fundraisers_profile_image}"></p>
 <br><br>
 
-<button class="verified-button">VERIFIED <i class="fa fa-check-circle"></i></button>
-<p class="tips-text"> Vikas Bharadwaj</p>
+	<button type="button" style="display: none" class="verified-button varifies-personal camp_verified_campaign">VERIFIED <i class="fa fa-check-circle"></i></button>
+	<button type="button" style="display: none" class="verified-button unvarified camp_unverified_campaign">UNVERIFIED <i class="fa fa-times-circle"></i></button>
+
+<p class="tips-text" style="text-transform: capitalize;"> <i class="fa fa-user" style="width:30px;"></i> <span class="camp_fundraisers_name"></span></p>
+<p class="tips-text" style="text-transform: capitalize;"> <i class="fa fa-phone" style="width:30px;"></i> <span class="camp_fundraisers_contact"></span></p>
+<p class="tips-text"> <i class="fa fa-envelope" style="width:30px;"></i> <span class="camp_fundraisers_email"></span></p>
+
 <br>
 </div>
 
@@ -1327,8 +1423,42 @@ $(function hide_show(){
     
     });
 
+/*
+    $(".amount-image").click(function(){
+    
+        $(".eligibility-image").css({"transform":"scale(0.50)", "opacity":"0.5"});
+    $(".speed-image").css({"transform":"scale(0.50)", "opacity":"0.5"});
+    $(".cost-image").css({"transform":"scale(0.50)", "opacity":"0.5"});
+    $(".amount-image").css({"transform":"scale(0.6)", "opacity":"1"});
+
+    $(".donation-section").show();
+    $(".description-section").hide();
+    $(".document-section").hide();
+    $(".comment-section").hide();
+    
+    });
+
+    $(".cost-image").click(function(){
+    
+     
+        $(".eligibility-image").css({"transform":"scale(0.50)", "opacity":"0.5"});
+    $(".speed-image").css({"transform":"scale(0.50)", "opacity":"0.5"});
+    $(".cost-image").css({"transform":"scale(0.6)", "opacity":"1"});
+    $(".amount-image").css({"transform":"scale(0.50)", "opacity":"0.5"});
+
+    $(".comment-section").show();
+    $(".description-section").hide();
+    $(".document-section").hide();
+    $(".donation-section").hide();
+    
+    });
+    
+    */
+
 })
 </script>
+
+
 
 <style>
 
@@ -1351,7 +1481,6 @@ $(function hide_show(){
 
 
 </style>
-
 <br>
 <center>
 <button class="details-button speed-image" style="border-bottom:solid 2px rgb(150, 150, 150)">DESCRIPTION</button>
@@ -1459,20 +1588,7 @@ $(function hide_show(){
 
 
 <div class="col-md-12">
-    <p style="font-size: 15px; text-align: justify;">
-            Struggling to pen down a fundraiser story on your own? No worries, just use the template below:
-
-<br><br>
-
-            Hi,
-            <br><br>
-            
-            My name is (your name) and I am raising money for (your cause/problem). This is important to me because (write why you want to do this and how will it benefit). I am unable to fund this myself due to (explain your situation and the need for donations). I want to request for your help to achieve this. Please help by donating or sharing the fundraiser with your friends and family.
-            
-            <br><br>
-            
-            
-            We are grateful for your helps!
+    <p style="font-size: 15px; text-align: justify;" class="camp_fundraisers_story">
             
             
     </p>
@@ -1495,7 +1611,7 @@ $(function hide_show(){
 -->
 
 <style>
-.document-details
+.document-details img
 {
     width:200px; 
     height: 200px;
@@ -1503,17 +1619,42 @@ $(function hide_show(){
     border-radius: 5px;
     border:solid 2px rgba(0, 0, 0, 0.616);
     margin-right: 10px;
-    margin-top: 10px;
     opacity: 0.6;
 }
 
-.document-details:hover
+.document-details img:hover
 {
     cursor: pointer;
     transform: scale(1.05);
     opacity: 8;
 
 }
+
+.document-button
+{
+	background-image:url('/destiny/files/images/documents.png');
+	background-size:100% 100%;
+	background-color:white;
+	color:white;
+    width:200px; 
+    height: 200px;
+    transition: 0.2s ease-in-out;
+    border-radius: 5px;
+    border:solid 2px rgba(0, 0, 0, 0.616);
+    outline:none;
+    margin-top:10px;
+    margin-right:10px;
+    opacity: 0.6;
+}
+
+.document-button:hover
+{
+    cursor: pointer;
+    transform: scale(1.05);
+    opacity: 8;
+
+}
+
 
 .images-effct
 {
@@ -1598,10 +1739,24 @@ $(function zoom_image(){
 </script>
 
  <center>
-    <img src="/destiny/files/images/document1.JPG" class="document-details zoom-image">
-    <img src="/destiny/files/images/document2.JPG" class="document-details zoom-image">
-    <img src="/destiny/files/images/document3.JPG" class="document-details zoom-image">
-    <img src="/destiny/files/images/document4.JPG" class="document-details zoom-image">
+
+<span class="old-document document-details">
+<c:forTokens items = "${cm.fundraisers_campaign_documents}" delims = "," var = "doc">
+
+<c:set var="name" value="${doc}"/>
+<c:set var="docf" value="${fn:substringAfter(name, '.')}"/>
+
+<c:if test="${docf == 'jpg' || docf == 'JPG' || docf == 'jpeg' || docf == 'JPEG' || docf == 'png' || docf == 'PNG' || docf == 'svg' || docf == 'SVG'}">
+	<img class="zoom-image" src="${doc}">
+</c:if>	
+
+<c:if test="${docf != 'jpg' && docf != 'JPG' && docf != 'jpeg' && docf != 'JPEG' && docf != 'png' && docf != 'PNG' && docf != 'svg' && docf != 'SVG'}">
+	<a target="_blank" href="${doc}"><button type="button" class="document-button">'</button></a>
+</c:if>
+         
+</c:forTokens>
+</span> 
+ 
 
 
     
@@ -1617,6 +1772,9 @@ $(function zoom_image(){
 <br><br>
 </div>
 
+<!--ELIGIBILITY End-->
+
+
 </div>
 </div>
 
@@ -1626,31 +1784,56 @@ $(function zoom_image(){
 <div class="container-fluid"></div>
 <br><br>
 
+
+
+<c:if test="${fn:length(data5) != 0}">
+<c:forEach var="cam" items="${data5}">
+
+<div class="cd-section5" style="background-color: white; border-radius: 10px; font-size: 18px; padding: 10px;">
+<div class="container-fluid" style="text-transform: capitalize;">
+<br>
+        <div><p  style="font-size: 25px; color:rgb(41, 41, 41)">Bank Account Details</p></div>
+        <hr>
+
+Account Number : <b> ${cam.account_number}</b>
+<br>
+Account Holder Name : <b> ${cam.account_holder_name}</b>
+<br>
+Bank Name: <b> ${cam.account_bank_name}</b>
+<br>
+IFSC Code : <b> ${cam.account_ifsc}</b>
+<br><br>
+<a href="#" style="text-decoration: none;">Click here to read this before you donate via the above options</a>
+<br>
+</div>
+</div>
+
+</c:forEach>
+</c:if>
+
+
+
+<c:if test="${fn:length(data5) == 0}">
+
 <div class="cd-section5" style="background-color: white; border-radius: 10px; font-size: 18px; padding: 10px;">
 <div class="container-fluid">
 <br>
         Use the information below to make a direct bank transfer through NEFT/RTGS/IMPS.
 <br>
 <br>
-
 - Account number : <b> 123456789</b>
 <br>
 - Account name : <b> Rahul</b>
 <br>
 - IFSC code : <b> sbi115822ok</b>
 <br>
-<b> OR</b>
 <br>
-For UPI Transaction: <b> supportvikas67@yesbankltd</b>
-<br><br>
 <a href="#" style="text-decoration: none;">Click here to read this before you donate via the above options</a>
 <br>
-<br>
-
-
 
 </div>
 </div>
+</c:if>
 
 <br><br>
 
@@ -1707,7 +1890,10 @@ For UPI Transaction: <b> supportvikas67@yesbankltd</b>
     transform: scale(0.98);
 }
 
-
+.cd-section5
+{
+    /*margin-top: 115px;*/
+}
 
 @media (max-width:975px)
 {
@@ -1767,7 +1953,7 @@ For UPI Transaction: <b> supportvikas67@yesbankltd</b>
 
 <script>
 function myFunction() {
-  var uid = document.getElementById("myInput2");
+  var uid = document.getElementById("myInput");
   uid.select();
   document.execCommand("copy");
   //alert("Copied the text: " + copyText.value);
@@ -1777,7 +1963,7 @@ function myFunction() {
 
 
 
-<button class="form-control dn-button donate-popup" style="display: none"><i class="fa fa-thumbs-up"></i> DONATE NOW </span></button>    
+<button class="ourcausebtn1 form-control dn-button donate-popup" value="${cm.campaign_id}"><i class="fa fa-thumbs-up"></i> DONATE NOW </span></button>    
 <br>
 <p style="font-size: 18px;font-weight: bold; text-align: justify; text-align: center; font-style: italic">Funds will be transferred to the hospital</p>
 <br>
@@ -1788,11 +1974,11 @@ function myFunction() {
         </p>
         <hr style="border: solid 0.5px black; margin-top: -2px;">
             <div class="col-md-6">
-                <img src="/destiny/files/images/qr-code.png" style="width:100px; height: 150px;">    
+                <img src="${cm.fundraisers_upi_image}" style="width:150px; height: 150px;">    
             </div>
             <div class="col-md-6">
                 <img src="/destiny/files/images/upi.png" style="width:100px; height: 40px;"><br><br>
-                <textarea readonly id="myInput2" class="upi-text">9999991111@ybl</textarea>
+                <textarea readonly id="myInput" class="upi-text">${cm.fundraisers_upi_number}</textarea>
                 <br>
                 <center><button onclick="myFunction()" class="form-control copy-code" style="width:100px; border-radius: 50px;">COPY</button></center>
                 <br>
@@ -1800,7 +1986,6 @@ function myFunction() {
 
     </div>
 </div>
-
 
 <br><br>
 <button class="form-control fb-button"><i class="fa fa-facebook-official"></i> SHARE ON FACEBOOK</span></button>    
@@ -1814,7 +1999,7 @@ function myFunction() {
 
 <br><br>
 </div>
-
+ 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

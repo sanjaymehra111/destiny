@@ -30,27 +30,28 @@
 <script>
 
 		$(function(){
+			
 		$(".ajax-unblock-user-button").click(function unblock_user(){
-		var unblock_user = $(this).val();
-		
-		var url1 = "/destiny/unblock_user";
-		var data1 = new FormData();
-		
-		data1.append("unblock_user", unblock_user);
-		
-		$.ajax({
+			var unblock_user = $(this).val();
 			
-			url:url1,
-			data:data1,
-			type : 'post',
-			cache : false,
-			processData : false,
-			contentType : false,
-			dataType: 'text',
- 			success : function(){alert("success")},
-			error : function(){alert("error")}
+			var url1 = "/destiny/unblock_user";
+			var data1 = new FormData();
 			
-		}); //ajax-close
+			data1.append("unblock_user", unblock_user);
+			
+			$.ajax({
+				
+				url:url1,
+				data:data1,
+				type : 'post',
+				cache : false,
+				processData : false,
+				contentType : false,
+				dataType: 'text',
+	 			success : function(){alert("success")},
+				error : function(){alert("error")}
+				
+			}); //ajax-close
 		});//	
 		
 		
@@ -74,11 +75,74 @@
 				error : function(){alert("error")}
 				
 			}); //ajax-close
-			});//	
+		});//	
 		
+			
+		$(".ajax-edit-user-button").click(function unblock_user(){
+			var edit_user_id = $(this).val();
+			
+			var url3 = "/destiny/edit_user";
+			var data3 = new FormData();
+			data3.append("edit_user_id", edit_user_id);
+			
+			$.ajax({
+				
+				url:url3,
+				data:{edit_user_id : edit_user_id},
+				type : 'GET',
+				contentType : "application/json; charset=utf-8",
+				dataType: 'json',
+	 			success : function(data)
+	 			 	{
+	 					$(".ajax-user-id").val(data.fundraisers_id);
+	 					$(".ajax-user-email").val(data.personal_email);
+	 					$(".ajax-user-pan_no").val(data.personal_pan_no);
+	 					$(".ajax-user-aadhar_no").val(data.personal_aadhar_no);
+	 				},
+	 			error : function(){alert("error")}
+				
+			}); //ajax-close
+		});//	
+			
+		
+		//update_user_details 
+		
+		$(".ajax-user-update-details").click(function update_user_details(){
+			
+			var id = $(".ajax-user-id").val();
+			var email = $(".ajax-user-email").val();
+			var pan = $(".ajax-user-pan_no").val();
+			var aadhar = $(".ajax-user-aadhar_no").val();
+			
+			var url4="/destiny/update_user_details"
+			
+			$.ajax
+			({
+				
+				
+				url:url4,
+				data:{id:id, email:email, pan:pan, aadhar:aadhar},
+				type:'GET',
+				cache:false,
+				contentType:"application/json; charset=utf-8",
+				dataType:"text",
+				success : function(){alert("success")},
+				error : function(){alert("error")} 
+
+			
+			}); //ajax close
+			}); // update_user_details close
+
+	
+			
 		});
 		
 </script>
+
+
+
+
+
 
 <script>
 $(document).ready(function() {
@@ -584,7 +648,7 @@ table {
 
 th, td {
   padding: 15px;
-  min-width: 100px;
+  min-width: 110px;
 }
 
 .circle-1
@@ -716,41 +780,6 @@ th, td {
 
 </style>
 
-<script>
-
-		$(function(){
-		$(".ajax-edit-user-button").click(function unblock_user(){
-		var edit_user_id = $(this).val();
-		
-		var url3 = "/destiny/edit_user";
-		var data3 = new FormData();
-		data3.append("edit_user_id", edit_user_id);
-		
-		$.ajax({
-			
-			url:url3,
-			data:{edit_user_id : edit_user_id},
-			type : 'GET',
-			contentType : "application/json; charset=utf-8",
-			dataType: 'json',
- 			success : function(data)
- 			 	{
- 					$(".ajax-user-id").val(data.fundraisers_id);
- 					$(".ajax-user-email").val(data.personal_email);
- 					$(".ajax-user-pan_no").val(data.personal_pan_no);
- 					$(".ajax-user-aadhar_no").val(data.personal_aadhar_no);
- 				},
- 			error : function(){alert("error")}
-			
-		}); //ajax-close
-		});//	
-		
-		
-		
-		
-		});
-		
-</script>
 
 <div class="fundraisers-details">
 <table id="example" class="fundraisers-table">
@@ -843,9 +872,31 @@ th, td {
 	font-size:17px;
 }
 
+.show-user-email, .show-user-pan, .show-user-aadhar
+{
+	font-size:0px;
+	transition:0.3s;
+	color:white;
+}
+
+.ajax-user-email:hover ~ .show-user-email, .ajax-user-email:focus ~ .show-user-email
+{
+	font-size:15px;
+	color:#0e84b3;
+}
+.ajax-user-pan_no:hover ~ .show-user-pan, .ajax-user-pan_no:focus ~ .show-user-pan
+{
+	font-size:15px;
+	color:#0e84b3;
+}
+.ajax-user-aadhar_no:hover ~ .show-user-aadhar, .ajax-user-aadhar_no:focus ~ .show-user-aadhar
+{
+	font-size:15px;
+	color:#0e84b3;
+}
 </style>  
   
- 
+
   
   <div class="modal fade" id="myModal" role="dialog" style="z-index: 9999; margin-top:10%"">
     <div class="modal-dialog">
@@ -858,15 +909,15 @@ th, td {
         </div>
          
         <div class="modal-body" style="text-align:center;">
-          <p><input class="edit-mode-text ajax-user-id" type="text" value="${fm.fundraisers_id}"></p>
-          <p><input class="edit-mode-text ajax-user-email" type="email" maxlength="50" value="${fm.personal_email}" placeholder="User Email"></p>
-          <p><input class="edit-mode-text ajax-user-pan_no" type="text" maxlength="20" value="${fm.personal_pan_no}" placeholder="User PAN Number"></p>
-          <p><input class="edit-mode-text ajax-user-aadhar_no" type="text" maxlength="20" value="${fm.personal_aadhar_no}" placeholder="User Aadhar Number"></p>
+          <p><input class="edit-mode-text ajax-user-id hidden" type="text" value="${fm.fundraisers_id}"></p>
+          <p><input class="edit-mode-text ajax-user-email" type="email" maxlength="50" value="${fm.personal_email}" placeholder="User Email"><span class="show-user-email" style="margin-left:20px;"> Email</span></p>
+          <p><input class="edit-mode-text ajax-user-pan_no" type="text" maxlength="20" value="${fm.personal_pan_no}" placeholder="User Pan Number"><span class="show-user-pan" style="margin-left:20px;"> Pan</span></p>
+          <p><input class="edit-mode-text ajax-user-aadhar_no" type="text" maxlength="20" value="${fm.personal_aadhar_no}" placeholder="User Aadhar Number"><span class="show-user-aadhar" style="margin-left:20px;"> Aadhar</span></p>
         </div>
         
         
         <div class="modal-footer">
-          <button type="button" class="btn btn-success update-user-details">Update</button>
+          <button type="button" class="btn btn-success ajax-user-update-details">Update</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>
