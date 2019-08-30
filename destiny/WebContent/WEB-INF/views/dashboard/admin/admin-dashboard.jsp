@@ -726,7 +726,7 @@ th, td {
 
   <tr>
     <td class="fund">Volunteer</td>
-    <td class="batch">4</td>
+    <td class="batch">${volunteers_qty}</td>
     <td class="link"><a href="admin-volunteer"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
   </tr>
 

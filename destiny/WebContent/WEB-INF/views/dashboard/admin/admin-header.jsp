@@ -95,7 +95,7 @@ var currentScrollPos = window.pageYOffset;
 <div class="container-fluid" style="text-align:center">
 
 <div class="col-md-3" style="text-align:center">
-  <a href="index" style="text-decoration: none; color: white"><img src="/destiny/files/images/logo.png" style="width:100px"><span style="font-size:3.9vmin; font-family:algerian">Destiny World</span></a>
+  <a href="/destiny/index" style="text-decoration: none; color: white"><img src="/destiny/files/images/logo.png" style="width:100px"><span style="font-size:3.9vmin; font-family:algerian">Destiny World</span></a>
  </div>
  
 <div class="col-md-9"> 
@@ -147,12 +147,12 @@ var currentScrollPos = window.pageYOffset;
                     <ul class="navbar-nav" style="list-style-type:none; font-size: 20px; text-align: left;  margin-left: -40px;">
   
 
-                      <li class="headerlist"><a href="admin-dashboard"class="white cause-menu" style="text-decoration:none; cursor: pointer;">Dashboard</a>                          
+                      <li class="headerlist"><a href="/destiny/admin-dashboard"class="white cause-menu" style="text-decoration:none; cursor: pointer;">Dashboard</a>                          
                       </li>
         
                       
                       
-                      <li class="headerlist"><a href="admin-fundraisers" class="white ad-menu-1 shop-menu" style="text-decoration:none; cursor: pointer;">Fundraisers</a>
+                      <li class="headerlist"><a href="/destiny/admin-fundraisers" class="white ad-menu-1 shop-menu" style="text-decoration:none; cursor: pointer;">Fundraisers</a>
                         <!--<ul class="dropdown-content user-menu3 contact-menu2" style="list-style-type:none; position: absolute;">
                           <div class="ad-second1" style="display: block">
                               <a class="internalmenu" href="individual-fundraisers.jsp" style="text-decoration:none"><li class="padding"> INDIVIDUAL</li></a>
@@ -161,7 +161,7 @@ var currentScrollPos = window.pageYOffset;
                         </ul>-->
                       </li>
 
-                      <li class="headerlist"><a href="admin-campaign" class="white ad-menu-2 shop-menu" style="text-decoration:none; cursor: pointer;">Campaigns</a>
+                      <li class="headerlist"><a href="/destiny/admin-campaign" class="white ad-menu-2 shop-menu" style="text-decoration:none; cursor: pointer;">Campaigns</a>
                         <!--<ul class="dropdown-content user-menu4 contact-menu2" style="list-style-type:none; position: absolute">
                           <div class="ad-second2" style="display: block">
                               <a class="internalmenu" href="personal-campaign.jsp" style="text-decoration:none"><li class="padding"> PERSONAL</li></a>
@@ -170,7 +170,7 @@ var currentScrollPos = window.pageYOffset;
                         </ul>-->
                       </li>       
                       
-                      <li class="headerlist"><a href="admin-volunteer" class="white events-menu" style="text-decoration:none; cursor: pointer;">Volunteer</a>
+                      <li class="headerlist"><a href="/destiny/admin-volunteer" class="white events-menu" style="text-decoration:none; cursor: pointer;">Volunteer</a>
                       </li>
 
 
@@ -285,8 +285,8 @@ var amount = $(this).html();
 </div>      
 
 <div class="second" style="display: block">
-    <a class="internalmenu" href="admin-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Change Password</li></a>
-    <a class="internalmenu" href="admin_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
+    <a class="internalmenu" href="/destiny/admin-change-password" style="text-decoration:none"><li class="padding"><i class="fa fa-lock"></i> Change Password</li></a>
+    <a class="internalmenu" href="/destiny/admin_logout" style="text-decoration:none"><li class="padding"><i class="fa fa-sign-out"></i> Logout</li></a>
 </div>  
 
   </ul>

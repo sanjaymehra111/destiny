@@ -245,22 +245,21 @@ $(".vol-email").val(mail);
 
 </script>
 
-
-
-
-    <form name="volunbteer-form"> 
+    <form name="volunbteer-form" action="/destiny/volunteer_details" method="post" modelattribute="VolunteerModel"> 
         <p style="font-size: 20px;">Fill It</p> 
         <p style="font-size: 40px; font-weight: bold;">Subscribe</p>
 
         <input type="text" name="volunteer_name" class="form-control vol-name" style="height: 50px; background-color: rgba(124, 124, 124, 0.068)" placeholder="Name"> <br>
         <input type="text" name="volunteer_email" class="form-control vol-email" style="height: 50px; background-color: rgba(124, 124, 124, 0.068)" placeholder="Email Id"> <br>
-        <input type="text" name="volunteer_contact" class="form-control vol-number" style="height: 50px; background-color: rgba(124, 124, 124, 0.068)" maxlength="10" placeholder="Number"> <br>
+        <input type="text" name="volunteer_contact" class="form-control vol-number" style="height: 50px; background-color: rgba(124, 124, 124, 0.068)" maxlength="10" placeholder="Contact"> <br>
 
-        <textarea name="volunteer_message" class="form-control" rows="4" style="max-width: 100%; resize: none; max-height: 50%; background-color: rgba(122, 122, 122, 0.089);  color:rgb(168, 168, 168); font-size: 18px;" placeholder="Message"></textarea>
+        <textarea name="volunteer_message" class="form-control" rows="4" maxlength="100" style="max-width: 100%; resize: none; max-height: 50%; background-color: rgba(122, 122, 122, 0.089);  color:rgb(168, 168, 168); font-size: 18px;" placeholder="Message"></textarea>
 
         <button class="form-control ourcausebtn1 submit-button" type="submit" style="height:50px; width: 200px; background-color: rgb(39, 157, 165); color:white; font-size: 20px; border-radius: 50px;">Submit</button>
-<br><br>
-</form>
+		<br><br>
+	</form>
+	
+	
 </div>    
         
         

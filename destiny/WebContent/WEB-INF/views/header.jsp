@@ -97,7 +97,7 @@ var currentScrollPos = window.pageYOffset;
 <div class="container-fluid" style="text-align:center">
 
 <div class="col-md-3" style="text-align:center">
-  <a href="/destiny/index" style="text-decoration: none; color: white"><img src="/destiny/files/images/logo.png" style="width:100px"><span style="font-size:3.9vmin; font-family:algerian">Destiny World</span></a>
+  <a href="/destiny/index" style="text-decoration: none; color: white"><img src="/destiny/files/images/logo.png" style="width:200px; height:50px;"><span style="font-size:3.9vmin; font-family:algerian"></span></a>
  </div>
 <div class="col-md-9">
 

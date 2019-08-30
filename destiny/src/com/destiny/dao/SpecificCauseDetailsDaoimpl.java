@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.destiny.model.CampaignsModel;
+import com.destiny.model.DonationModel;
 import com.destiny.model.FundraiserModel;
 import com.destiny.model.UserUpdateModel;
 
@@ -123,6 +124,49 @@ public class SpecificCauseDetailsDaoimpl
 				);
 		return query2;
 	}
+	
+	
+	//fetch donor list
+
+	public List<DonationModel> FetchDonorDetails(String camp_id)
+	{
+		
+		List<DonationModel> query1 = template.query("SELECT * FROM donation_details WHERE campaign_id = '"+camp_id+"'", new RowMapper<DonationModel>()
+				{
+
+					@Override
+					public DonationModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO Auto-generated method stub
+						
+						DonationModel dm = new DonationModel();
+						
+						dm.setDonor_id(rs.getString("donor_id"));
+						dm.setCampaign_id(rs.getString("campaign_id"));
+						dm.setDonor_name(rs.getString("donor_name"));
+						dm.setDonor_contact(rs.getString("donor_contact"));
+						dm.setDonor_email(rs.getString("donor_email"));
+						dm.setDonor_address(rs.getString("donor_address"));
+						dm.setDonor_city(rs.getString("donor_city"));
+						dm.setDonor_country(rs.getString("donor_country"));
+						dm.setDonor_message(rs.getString("donor_message"));
+						dm.setAmount_type(rs.getString("amount_type"));
+						dm.setAmount(rs.getString("amount"));
+						dm.setDonation_date(rs.getString("donation_date"));
+						
+						return dm;
+					}
+			
+				}
+				);
+		if(query1.size() > 0)
+		return query1;
+		
+		else return null;
+	}
+	
+	
+	
+	
 
 	//check user Password
 	

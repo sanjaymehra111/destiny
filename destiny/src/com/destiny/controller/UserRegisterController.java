@@ -81,7 +81,9 @@ public class UserRegisterController
 	{
 		//System.out.println("data is :" + cm.toString());
 		
-		fdmdao.InserIntoLoginCampaign(cm);
+	 FundraiserModel data =	fdmdao.FetchFundraisersType(cm.getFundraisers_id());
+	 String type = data.getCategory_type();
+		fdmdao.InserIntoLoginCampaign(cm, type);
 		
 		return "redirect:/user-dashboard";
 		

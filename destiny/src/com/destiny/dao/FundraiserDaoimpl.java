@@ -1,11 +1,15 @@
 package com.destiny.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -44,18 +48,42 @@ public class FundraiserDaoimpl
 		
 	}
 
+	//create new campaing
+	
 	public void InserIntoCampaign(CampaignsModel cm, FundraiserModel fm)
 	{
-		String sql2 = "insert into campaign_details (fundraisers_id, fundraisers_title, fundraisers_goal_amount, fundraisers_name, fundraisers_contact, fundraisers_email, fundraisers_beneficiary_relation, fundraisers_story, fundraisers_created_date, fundraisers_start_date,  fundraisers_end_date)"
-				+ "values('"+fm.getFundraisers_id()+"','"+cm.getFundraisers_title()+"', '"+cm.getFundraisers_goal_amount()+"', '"+cm.getFundraisers_name()+"', '"+cm.getFundraisers_contact()+"', '"+cm.getFundraisers_email()+"', '"+cm.getFundraisers_beneficiary_relation()+"', '"+cm.getFundraisers_story()+"', '"+cm.getFundraisers_created_date()+"', '"+cm.getfundraisers_start_date()+"', '"+cm.getFundraisers_end_date()+"')";
+		String sql2 = "insert into campaign_details (fundraisers_id, fundraisers_title, campaign_type, fundraisers_goal_amount, fundraisers_name, fundraisers_contact, fundraisers_email, fundraisers_beneficiary_relation, fundraisers_story, fundraisers_created_date, fundraisers_start_date,  fundraisers_end_date)"
+				+ "values('"+fm.getFundraisers_id()+"','"+cm.getFundraisers_title()+"', '"+fm.getCategory_type()+"', '"+cm.getFundraisers_goal_amount()+"', '"+cm.getFundraisers_name()+"', '"+cm.getFundraisers_contact()+"', '"+cm.getFundraisers_email()+"', '"+cm.getFundraisers_beneficiary_relation()+"', '"+cm.getFundraisers_story()+"', '"+cm.getFundraisers_created_date()+"', '"+cm.getfundraisers_start_date()+"', '"+cm.getFundraisers_end_date()+"')";
 		
 		template.update(sql2);
 	}
 	
-	public void InserIntoLoginCampaign(CampaignsModel cm)
+	
+	
+	
+	//fetch fundraisers category type
+	
+		public FundraiserModel FetchFundraisersType(String fid)
+		{
+			List<FundraiserModel> query1 = template.query("select category_type from fundraisers_detail where fundraisers_id = '"+fid+"'", new RowMapper<FundraiserModel>()
+					{
+						@Override
+						public FundraiserModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+							FundraiserModel fm= new FundraiserModel();
+							fm.setCategory_type(rs.getString("category_type"));
+							return fm;
+						}
+					});
+			return query1.get(0);
+		}
+		
+		
+		//after login create campaing 
+		
+	public void InserIntoLoginCampaign(CampaignsModel cm, String type)
 	{
-		String sql2 = "insert into campaign_details (fundraisers_id, fundraisers_title, fundraisers_goal_amount, fundraisers_name, fundraisers_contact, fundraisers_email, fundraisers_beneficiary_relation, fundraisers_story, fundraisers_created_date, fundraisers_start_date,  fundraisers_end_date)"
-				+ "values('"+cm.getFundraisers_id()+"','"+cm.getFundraisers_title()+"', '"+cm.getFundraisers_goal_amount()+"', '"+cm.getFundraisers_name()+"', '"+cm.getFundraisers_contact()+"', '"+cm.getFundraisers_email()+"', '"+cm.getFundraisers_beneficiary_relation()+"', '"+cm.getFundraisers_story()+"', '"+cm.getFundraisers_created_date()+"', '"+cm.getfundraisers_start_date()+"', '"+cm.getFundraisers_end_date()+"')";
+		String sql2 = "insert into campaign_details (fundraisers_id, fundraisers_title, campaign_type, fundraisers_goal_amount, fundraisers_name, fundraisers_contact, fundraisers_email, fundraisers_beneficiary_relation, fundraisers_story, fundraisers_created_date, fundraisers_start_date,  fundraisers_end_date)"
+				+ "values('"+cm.getFundraisers_id()+"','"+cm.getFundraisers_title()+"', '"+type+"', '"+cm.getFundraisers_goal_amount()+"', '"+cm.getFundraisers_name()+"', '"+cm.getFundraisers_contact()+"', '"+cm.getFundraisers_email()+"', '"+cm.getFundraisers_beneficiary_relation()+"', '"+cm.getFundraisers_story()+"', '"+cm.getFundraisers_created_date()+"', '"+cm.getfundraisers_start_date()+"', '"+cm.getFundraisers_end_date()+"')";
 		
 		template.update(sql2);
 	}
@@ -75,5 +103,11 @@ public class FundraiserDaoimpl
 		return f_id;
 	}
 	
-
+	
+	
+	
+	
+	
+	
+	
 }

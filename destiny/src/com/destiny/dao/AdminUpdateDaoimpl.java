@@ -1,6 +1,6 @@
 package com.destiny.dao;
 
-import java.sql.ResultSet;
+ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,8 +12,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.destiny.model.AdminLoginModel;
+import com.destiny.model.CampaignAccountModel;
 import com.destiny.model.CampaignsModel;
 import com.destiny.model.FundraiserModel;
+import com.destiny.model.VolunteerModel;
 
 @Repository
 public class AdminUpdateDaoimpl 
@@ -57,6 +59,24 @@ public class AdminUpdateDaoimpl
 				});
 		return query2.get(0);
 	}
+	
+	
+	//Get volunteer Quantit
+	
+		public AdminLoginModel VolunteerQuantity()
+		{
+			List<AdminLoginModel> query16 = template.query("SELECT COUNT(volunteer_id) FROM volunteer_details", new RowMapper<AdminLoginModel>()
+					{
+						@Override
+						public AdminLoginModel mapRow(ResultSet rs, int arg1) throws SQLException {
+							AdminLoginModel alm = new AdminLoginModel();
+							alm.setVolunteer_qty(rs.getString("count(volunteer_id)"));
+							
+							return alm;
+						}
+					});
+			return query16.get(0);
+		}
 	
 	
 	
@@ -105,6 +125,7 @@ public class AdminUpdateDaoimpl
 							
 							cm.setCampaign_id(rs.getString("campaign_id"));
 							cm.setFundraisers_id(rs.getString("fundraisers_id"));
+							cm.setCampaign_type(rs.getString("campaign_type"));
 							cm.setFundraisers_title(rs.getString("fundraisers_title"));
 							cm.setFundraisers_goal_amount(rs.getString("fundraisers_goal_amount"));
 							cm.setFundraisers_raised_amount(rs.getString("fundraisers_raised_amount"));
@@ -131,6 +152,31 @@ public class AdminUpdateDaoimpl
 			return query3;
 		}
 	
+		
+		//Get fundraisers Details
+		
+			public List<VolunteerModel> FetchVolunteer()
+			{
+				List<VolunteerModel> query14 = template.query("SELECT * FROM volunteer_details", new RowMapper<VolunteerModel>()
+						{
+
+							@Override
+							public VolunteerModel mapRow(ResultSet rs, int arg1) throws SQLException {
+								VolunteerModel vm = new VolunteerModel();
+								vm.setVolunteer_id(rs.getString("volunteer_id"));
+								vm.setVolunteer_name(rs.getString("volunteer_name"));
+								vm.setVolunteer_contact(rs.getString("volunteer_contact"));
+								vm.setVolunteer_email(rs.getString("volunteer_email"));
+								vm.setVolunteer_message(rs.getString("volunteer_message"));
+								vm.setVolunteer_joining_date(rs.getString("volunteer_joining_date"));
+								vm.setVolunteer_status(rs.getString("volunteer_status"));
+								
+								return vm;
+							}
+						});
+				return query14;
+			}
+		
 	
 	//Update unblock_user
 
@@ -202,7 +248,7 @@ public class AdminUpdateDaoimpl
 			return template.update(query10);
 		}
 		
-		//Update Fetch fundraisers details 
+		//Fetch fundraisers details 
 
 		public FundraiserModel FetchFundraisersDetails(String fid)
 		{
@@ -236,7 +282,7 @@ public class AdminUpdateDaoimpl
 
 
 
-		//Update Fetch fundraisers details 
+		//fetch campaign details 
 
 			public CampaignsModel FetchCampaignDetails(String cid)
 				{
@@ -278,5 +324,69 @@ public class AdminUpdateDaoimpl
 					
 					return query12.get(0);
 				}
+			
+			//Fetch Account details 
+			
+			public CampaignAccountModel FetchCampaignAccountDetails(String cid)
+			{
+				
+				List<CampaignAccountModel> query13 = template.query("SELECT * FROM campaign_account_details WHERE campaign_id = '"+cid+"'", new RowMapper<CampaignAccountModel>()
+						{
+
+							@Override
+							public CampaignAccountModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+								// TODO Auto-generated method stub
+								
+								CampaignAccountModel cam = new CampaignAccountModel();
+								
+								cam.setFundraisers_id(rs.getString("fundraisers_id"));
+								cam.setCampaign_id(rs.getString("campaign_id"));
+								cam.setAccount_type(rs.getString("account_type"));
+								cam.setAccount_holder_name(rs.getString("account_holder_name"));
+								cam.setAccount_number(rs.getString("account_number"));
+								cam.setAccount_ifsc(rs.getString("account_ifsc"));
+								cam.setAccount_swift(rs.getString("account_swift"));
+								cam.setAccount_bank_name(rs.getString("account_bank_name"));
+								cam.setPan_image(rs.getString("pan_image"));
+								cam.setCancel_cheque_image(rs.getString("cancel_cheque_image"));
+								cam.setdoc_files(rs.getString("doc_files"));
+								
+								return cam;
+							}
+						});
+				
+				if(query13.size() > 0)
+				{
+					return query13.get(0);	
+				}
+				
+				else
+				{
+					return null;
+				}
+				
+			}
+			
+			
+			
+			//Update unblock_user
+
+			public int UpdateUnblockVolunteer(String id)
+			{
+				String query15 = "update volunteer_details set volunteer_status=1 where volunteer_id ='"+id+"'";
+				return template.update(query15);
+			}
+			
+			//Update block_user
+
+			public int UpdateBlockVolunteer(String id)
+			{
+				String query16 = "update volunteer_details set volunteer_status=0 where volunteer_id ='"+id+"'";
+				return template.update(query16);
+			}
+			
+			
+			
+			
 
 }

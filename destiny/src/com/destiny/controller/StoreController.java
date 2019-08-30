@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.descriptor.tld.TldRuleSet.Variable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,27 +11,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.destiny.dao.AdminDetailsDaoimpl;
-import com.destiny.dao.AdminLoginDaoimpl;
 import com.destiny.dao.AdminUpdateDaoimpl;
 import com.destiny.dao.BrowseFundraiserDaoimpl;
 import com.destiny.dao.CampaignAccountDaoimpl;
 import com.destiny.dao.CampaignWithdrawAmountDaoimpl;
 import com.destiny.dao.Daoimpl;
-import com.destiny.dao.DonationDaoimpl;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
 import com.destiny.dao.UserUpdateDaoimpl;
 import com.destiny.model.AdminLoginModel;
 import com.destiny.model.CampaignAccountModel;
 import com.destiny.model.CampaignWithdrawAmountModel;
 import com.destiny.model.CampaignsModel;
+import com.destiny.model.DonationModel;
 import com.destiny.model.FundraiserModel;
 import com.destiny.model.SessionModel;
 import com.destiny.model.StoreModel;
 import com.destiny.model.UserUpdateModel;
+import com.destiny.model.VolunteerModel;
 
 @Controller
 public class StoreController 
@@ -211,10 +208,12 @@ public class StoreController
 			List<AdminLoginModel> data1 = admdao.FetchAdminDetails(AsesModel.getUser_id());
 			AdminLoginModel data2 = adupdao.FundraisersQuantity();
 			AdminLoginModel data3 = adupdao.CampaignsQuantity();
+			AdminLoginModel data4 = adupdao.VolunteerQuantity();
 			
 			model.addAttribute("data1", data1);
 			model.addAttribute("fundraisers_qty", data2.getFundraisers_qty());
 			model.addAttribute("campaigns_qty", data3.getCampaign_qty());
+			model.addAttribute("volunteers_qty", data4.getVolunteer_qty());
 			
 			return "dashboard/admin/admin-dashboard";
 		}
@@ -227,10 +226,12 @@ public class StoreController
 				List<AdminLoginModel> data1 = admdao.FetchAdminDetails(AsesModel.getUser_id());
 				AdminLoginModel data2 = adupdao.FundraisersQuantity();
 				AdminLoginModel data3 = adupdao.CampaignsQuantity();
+				AdminLoginModel data4 = adupdao.VolunteerQuantity();
 				
 				model.addAttribute("data1", data1);
 				model.addAttribute("fundraisers_qty", data2.getFundraisers_qty());
 				model.addAttribute("campaigns_qty", data3.getCampaign_qty());
+				model.addAttribute("volunteers_qty", data4.getVolunteer_qty());
 				
 				return "dashboard/admin/admin-dashboard";				
 			}
@@ -606,9 +607,23 @@ public class StoreController
 	
 	
 	@RequestMapping("/admin-volunteer")
-	public String admin_volunteer(Model model)
+	public String admin_volunteer(Model model, HttpSession session)
 	{
-		return "dashboard/admin/admin-volunteer";
+		
+		SessionModel sessionModel = (SessionModel) session.getAttribute("AsessionData");
+		
+		if(sessionModel != null)
+		{
+			List<VolunteerModel> data1 =  adupdao.FetchVolunteer();
+			model.addAttribute("data1", data1);
+			return "dashboard/admin/admin-volunteer";
+		}
+		else
+		{
+			return "redirect:/admin_login";
+			
+		}
+		
 	}
 	
 	
@@ -625,12 +640,44 @@ public class StoreController
 		return "dashboard/admin/campaign-donors";
 	}
 	
-	@RequestMapping("/edit-campaign")
+	@RequestMapping("/admin-edit-campaign/{fund_id}/{camp_id}")
+	public String admin_campaign_details(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, HttpSession session)
+	{
+	
+		SessionModel sesModel = (SessionModel) session.getAttribute("AsessionData");
+		
+		if (sesModel!= null)
+		{
+			List<FundraiserModel> data1 = smdao.fetchFundraisersDetails(fund_id);
+			List<CampaignsModel> data2 = smdao.fetchCampaignsDetails(camp_id);
+			CampaignsModel data3 = smdao.fetchCampaignsImages(camp_id);
+			List<CampaignAccountModel> data4 = camdao.FetchCampaignAccount(camp_id);
+			List<DonationModel> data5 = smdao.FetchDonorDetails(camp_id);
+			String images = data3.getFundraisers_campaign_images();
+			
+			model.addAttribute("allimages", images);
+			model.addAttribute("data1", data1);
+			model.addAttribute("data2", data2);
+			model.addAttribute("data4", data4);
+			model.addAttribute("data5", data5);
+			
+			return "dashboard/admin/edit-campaign";
+		}
+		else
+		{
+			return "redirect:/admin-login";
+		} 
+	}
+	
+	
+	
+	
+/*	@RequestMapping("/edit-campaign")
 	public String edit_campaign(Model model)
 	{
 		return "dashboard/admin/edit-campaign";
 	}
-	
+*/	
 
 	
 	//*************************redundant mapping*************************//

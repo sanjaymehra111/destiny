@@ -4,6 +4,7 @@ public class CampaignsModel
 {	
 	String campaign_id;
 	String fundraisers_id;
+	String campaign_type;
 	String fundraisers_title;
 	String fundraisers_goal_amount;
 	String fundraisers_raised_amount;
@@ -55,6 +56,16 @@ public class CampaignsModel
 		this.fundraisers_id = fundraisers_id;
 	}
 
+
+
+	public String getCampaign_type() {
+		return campaign_type;
+	}
+
+
+	public void setCampaign_type(String campaign_type) {
+		this.campaign_type = campaign_type;
+	}
 
 
 	public String getFundraisers_title() {
@@ -282,8 +293,8 @@ public class CampaignsModel
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("CampaignsModel [campaign_id=").append(campaign_id).append(", fundraisers_id=")
-				.append(fundraisers_id).append(", fundraisers_title=").append(fundraisers_title)
-				.append(", fundraisers_goal_amount=").append(fundraisers_goal_amount)
+				.append(fundraisers_id).append(", campaign_type=").append(campaign_type).append(", fundraisers_title=")
+				.append(fundraisers_title).append(", fundraisers_goal_amount=").append(fundraisers_goal_amount)
 				.append(", fundraisers_raised_amount=").append(fundraisers_raised_amount)
 				.append(", fundraisers_donor_list=").append(fundraisers_donor_list).append(", fundraisers_name=")
 				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
@@ -301,7 +312,7 @@ public class CampaignsModel
 	}
 
 
-	public CampaignsModel(String campaign_id, String fundraisers_id, String fundraisers_title,
+	public CampaignsModel(String campaign_id, String fundraisers_id, String campaign_type, String fundraisers_title,
 			String fundraisers_goal_amount, String fundraisers_raised_amount, String fundraisers_donor_list,
 			String fundraisers_name, String fundraisers_contact, String fundraisers_email,
 			String fundraisers_beneficiary_relation, String fundraisers_story, String fundraisers_start_date,
@@ -312,6 +323,7 @@ public class CampaignsModel
 		super();
 		this.campaign_id = campaign_id;
 		this.fundraisers_id = fundraisers_id;
+		this.campaign_type = campaign_type;
 		this.fundraisers_title = fundraisers_title;
 		this.fundraisers_goal_amount = fundraisers_goal_amount;
 		this.fundraisers_raised_amount = fundraisers_raised_amount;
@@ -333,6 +345,8 @@ public class CampaignsModel
 		this.fundraisers_campaign_updated_date = fundraisers_campaign_updated_date;
 	}
 
+
+	
 
 
 

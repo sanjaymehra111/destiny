@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="org.json.*"%>
+
 <html>
 <head>
 
@@ -17,12 +22,161 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     
-    <!--Table-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
-    
+   <!--Table-->
+  	  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+     
   
-      
+  
+  
+  <script>
+  
+  $(function(){
+	  
+	  
+	  $(".ajax-unblock-volunteer-button").click(function unblock_volunteer(){
+			var unblock_volunteer = $(this).val();
+			var url1 = "/destiny/unblock_volunteer";
+			
+			
+			$.ajax({
+				
+				url:url1,
+				data:{unblock_volunteer:unblock_volunteer},
+				type : 'get',
+				cache : false,
+				dataType: 'text',
+	 			success : function(){alert("Volunteer Un-Blocked")},
+				error : function(){alert("error")}
+				
+			}); //ajax-close
+		});//	
+		
+		
+		$(".ajax-block-volunteer-button").click(function block_volunteer(){
+
+			var block_volunteer = $(this).val();
+			var url2 = "/destiny/block_volunteer";
+			
+			
+			$.ajax({
+				url:url2,
+				data:{block_volunteer:block_volunteer},
+				type : 'get',
+				cache : false,
+				dataType: 'text',
+	 			success : function(){alert("Volunteer Blocked")},
+				error : function(){alert("error")}
+				
+			}); //ajax-close
+		});//	
+		
+  })
+  
+  </script>
+  
+  
+  
+   <style>
+
+input[type=search]
+{
+    width: 60%;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius:10px;
+    margin-left:10px;
+    outline:none;
+    border:none;
+    border-bottom:solid 2px #0e84b3;
+}
+#example_wrapper
+{
+	text-align: center;
+}
+
+#example_filter
+{
+	text-align:left;
+	width:60%;
+	float:right;
+}
+
+#example_length
+{
+	text-align:left;
+	width:40%;
+	float:left;
+}
+
+#example_paginate, #example_info
+{
+	padding: 10px;
+}
+
+
+.paginate_button
+{
+ 	padding:10px;
+	background-color:#e4e4e4;
+	color:black;
+	border:none;
+	transition:0.3s;
+	margin-left:5px;
+	margin-right:5px;
+	border-radius:1000px;
+	cursor:pointer;
+	outline:none;
+}
+
+.paginate_button:focus 
+{
+	text-decoration:none;
+	outline:0;
+}
+.paginate_button:hover
+{
+	text-decoration:none;
+	background-color:#0e84b3;
+	color:white;
+	outline:none;
+}
+
+.current
+{
+	background-color:#0e84b3;
+	color:white;
+}
+.previous, .next
+{
+	cursor:pointer;
+	text-decoration:none;
+	padding:10px;
+	background-color:#e4e4e4;
+	color:black;
+	border:none;
+	transition:0.3s;
+	border-radius:0px;
+	width:100px;
+	
+}
+
+.previous:hover, .next:hover
+{
+cursor:pointer;
+	text-decoration:none;
+	padding:10px;
+	background-color:#0e84b3;
+	color:white;
+}
+
+
+</style>
+     
+     <script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script> 
 
 </head>
 
@@ -311,10 +465,10 @@
 <p style="text-align: center; color:black; font-weight: bold; font-size: 20PX;">
         VOLUNTEER
          <span class="br-tag"><br></span>
-    <span class="search-bar">
+<!--     <span class="search-bar">
         <input id="myInput" class="myinput" placeholder="Search.." type="text"> &nbsp; <i class="fa fa-search search-icon"></i>
     </span>
-</p>
+ --></p>
 </div>
 
 <div class="deta-process">
@@ -347,6 +501,41 @@ $(".search-icon").click(function(){
 
 
 <style>
+
+.block-volunteer, .unblock-volunteer
+{
+	width:100px;
+    color:white;
+    border-radius: 50px;
+    outline: none;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border:none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+.block-volunteer
+{
+    background: rgb(236, 26, 26);
+}
+.unblock-volunteer
+{
+    display: block;
+    background: rgb(50, 177, 11);
+}
+
+
+.block-volunteer:hover
+{
+    background: rgb(131, 9, 9);
+}
+.unblock-volunteer:hover
+{
+    background: rgb(27, 100, 5);
+}
+
+
     .search-icon
     {
         cursor: pointer;
@@ -384,6 +573,7 @@ $(".search-icon").click(function(){
 table, td, th {  
   border: 1px solid rgba(212, 212, 212, 0.397);
   text-align: left;
+  min-width: 150px;
   
 }
 
@@ -475,6 +665,11 @@ th, td {
     display: none;
 }
 
+    .volunteer-table th
+{
+    min-width: 150px;
+}
+
 @media(max-width:975px)
 {
     .br-tag
@@ -486,7 +681,7 @@ th, td {
 {
     float:none;
 }
-    .fundraisers-table th
+    .volunteer-table th
 {
     min-width: 100px;
 }
@@ -499,83 +694,50 @@ th, td {
 
 </style>
 
-
-<div class="fundraisers-details">
-<table class="fundraisers-table">
+<div class="volunteer-details">
+<table id="example" class="volunteer-table">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>NAME</th>
-        <th>EMAIL ID</th>
-        <th>CONTACT</th>
-        <th>ABOUT</th>
+    	<th>NAME</th>
+    	<th>CONTACT</th>
+    	<th>JOINING DATE</th>
+        <th>EAMIL</th>
+        <th>MESSAGE</th>
         <th>STATUS</th>
-    </tr>
+     </tr>
 </thead>
 
 <tbody id="myTable">
-  <tr>
-    <td class="u_id">12312456</td>
-    <td class="u_name">raj</td>
-    <td class="u_email">raj@AKSJ</td>
-    <td class="u_contact">84474948595</td>
-    <td class="u_message">hi thaasd asda s asd nks</td>
-    <td>
-        <span class="user-status">
-            <button class="block-user">Block</button>
-            <button class="unblock-user">Un-Block</button>
-        </span>
-    </td>
-  </tr>
 
- <tr>
-    <td class="u_id">123567456</td>
-    <td class="u_name">rajan</td>
-    <td class="u_email">rajan@sdf</td>
-    <td class="u_contact">596321686568</td>
-    <td class="u_message">hi thaasd asda s asd nkshasd nkshi thaasd asda s asd nks</td>
-    <td>
-        <span class="user-status">
-            <button class="block-user">Block</button>
-            <button class="unblock-user">Un-Block</button>
-        </span>
-    </td>
-  </tr>
+<c:forEach var="vm" items="${data1}">
 
-  <tr>
-    <td class="u_id">12356456</td>
-    <td class="u_name">nitin</td>
-    <td class="u_email">nitin@sdf</td>
-    <td class="u_contact">25584858976</td>
-    <td class="u_message">hi thaasd asda s asd nks</td>
-
-    <td>
-        <span class="user-status">
-            <button class="block-user">Block</button>
-            <button class="unblock-user">Un-Block</button>
-        </span>
-    </td>
-  </tr>
-
-
-  <tr>
-        <td class="u_id">12345656</td>
-        <td class="u_name">sam</td>
-        <td class="u_email">sam@sa</td>
-        <td class="u_contact">7448459216</td>
-        <td class="u_message">hi thanks</td>
-        <td>
-            <span class="user-status">
-                <button class="block-user">Block</button>
-                <button class="unblock-user">Un-Block</button>
-            </span>
-        </td>
-      </tr>
-
-</tbody>
-
+        <tr>
+          <td>${vm.volunteer_name}</td>
+          <td>${vm.volunteer_contact}</td>
+          <td>${vm.volunteer_joining_date}</td>
+          <td>${vm.volunteer_email}</td>
+          <td>${vm.volunteer_message}</td>
+          <td>
+          <span class="user-status">
+	              <c:if test="${vm.volunteer_status == 0}">
+	              	<button value="${vm.volunteer_id}" type="button" class="unblock-volunteer ajax-unblock-volunteer-button">Un-Block</button>
+	              </c:if>
+	
+	              <c:if test="${vm.volunteer_status == 1}">
+	              	<button value="${vm.volunteer_id}" type="button" class="block-volunteer ajax-block-volunteer-button">Block</button>
+	              </c:if>
+	          </span>
+          </td>
+        
+        </tr>
+        
+</c:forEach>
+    </tbody>
+      
 </table>
 </div>
+
+
 
 <br>
 </div>

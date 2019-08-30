@@ -1,19 +1,18 @@
 package com.destiny.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.destiny.dao.AdminUpdateDaoimpl;
+import com.destiny.dao.CampaignAccountDaoimpl;
+import com.destiny.dao.SpecificCauseDetailsDaoimpl;
+import com.destiny.model.CampaignAccountModel;
 import com.destiny.model.CampaignsModel;
 import com.destiny.model.FundraiserModel;
 import com.google.gson.Gson;
@@ -25,6 +24,12 @@ public class AdminFunctionController
 	@Autowired
 	AdminUpdateDaoimpl audao;
 	
+	@Autowired
+	SpecificCauseDetailsDaoimpl smdao;
+
+	@Autowired
+	CampaignAccountDaoimpl camdao;
+
 	// unlock user 
 	
 	@RequestMapping(value="/unblock_user", method=RequestMethod.POST)
@@ -103,14 +108,34 @@ public class AdminFunctionController
 		Gson gson = new Gson();
 		FundraiserModel data3 = audao.FetchFundraisersDetails(fid);
 		CampaignsModel data4 = audao.FetchCampaignDetails(cid);
+		CampaignAccountModel data5 = audao.FetchCampaignAccountDetails(cid);
+		
 		String fundraisers_details = gson.toJson(data3);
 		String campaign_details= gson.toJson(data4);
-		String details = "["+campaign_details+","+fundraisers_details+"]";
+		String account_details= gson.toJson(data5);
+		String details = "["+campaign_details+","+fundraisers_details+","+account_details+"]";
 		
 		return details;
 	}
 
 		
+		// unlock volunteer 
+	
+		@RequestMapping(value="/unblock_volunteer", method=RequestMethod.GET)
+		public String unblock_volunteer(@RequestParam String unblock_volunteer, Model model)
+		{
+			audao.UpdateUnblockVolunteer(unblock_volunteer);
+			return "redirect:/admin-fundraisers";
+		}
+		
+		// block voluneer
+		
+		@RequestMapping(value="/block_volunteer", method=RequestMethod.GET)
+		public String block_volunteer(@RequestParam String block_volunteer, Model model)
+		{
+			audao.UpdateBlockVolunteer(block_volunteer);
+			return "redirect:/admin-fundraisers";
+		}
 	
 
 }

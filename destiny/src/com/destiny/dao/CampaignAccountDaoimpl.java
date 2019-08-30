@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.destiny.model.CampaignAccountModel;
+import com.destiny.model.DonationModel;
 
 @Repository
 public class CampaignAccountDaoimpl 
@@ -56,6 +57,11 @@ public class CampaignAccountDaoimpl
 				);
 		return query1;
 	}
+	
+	
+	
+	
+	
 	
 	
 	public int DeleteCampaignAccount(String camp_id, String fund_id)
