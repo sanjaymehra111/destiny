@@ -633,7 +633,7 @@ $(function()
         <br><br><br>
         </div>
         <div class="col-md-2">
-                <a href="#" style="text-decoration: none"><span class="d-button amount-text"><button type="button" value="${cm.campaign_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;" data-toggle="modal" data-target="#myModal">Donor List</button> </span></a>
+                <a style="text-decoration: none"><span class="d-button amount-text"><button type="button" value="${cm.campaign_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;" data-toggle="modal" data-target="#myModal">Donor List</button> </span></a>
            <br><br>
         </div>
         

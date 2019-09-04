@@ -713,21 +713,27 @@ th, td {
     </tr>
 
   <tr>
-    <td class="fund">Fundraisers</td>
+    <td class="fund">Fundraisers Profile</td>
     <td class="batch">${fundraisers_qty}</td>
-    <td class="link"><a href="admin-fundraisers"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
+    <td class="link"><a href="/destiny/admin-fundraisers"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
   </tr>
 
   <tr>
-    <td class="fund">Campaign</td>
+    <td class="fund">Campaign Profile</td>
     <td class="batch">${campaigns_qty}</td>
-    <td class="link"><a href="admin-campaign"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
+    <td class="link"><a href="/destiny/admin-campaign"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
   </tr>
 
   <tr>
-    <td class="fund">Volunteer</td>
+    <td class="fund">Volunteer Profile</td>
     <td class="batch">${volunteers_qty}</td>
-    <td class="link"><a href="admin-volunteer"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
+    <td class="link"><a href="/destiny/admin-volunteer"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
+  </tr>
+
+  <tr>
+    <td class="fund">Withdraw Request</td>
+    <td class="batch">${withdraw_request_qty}</td>
+    <td class="link"><a href="/destiny/admin-withdraw-request"><img class="img-for-all view-logo" src="/destiny/files/dashboard-admin-images/view2.jpg"></a></td>
   </tr>
 
 

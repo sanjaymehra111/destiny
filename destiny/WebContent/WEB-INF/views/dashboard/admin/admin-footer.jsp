@@ -6,7 +6,7 @@
         <br><br>
         <div class="col-md-6">
         <br><br>
-        <img src="/destiny/files/images/logo.png" style="width:120px"><span style="font-size:25px; font-family:algerian">Destiny World</span>
+        <img src="/destiny/files/images/logo.png" style="width:100px; height:80px;"><span style="font-size:25px; font-family:algerian">Destiny World</span>
         <br><br><br>
         
         <p style="color:rgba(255, 255, 255, 0.699)">Lorem ipsum dolor sit amet, consectetuer adipiscing elit aenean comm odo ligula eget dolor massa Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas magna at porttitor vehicula nullam.</p>

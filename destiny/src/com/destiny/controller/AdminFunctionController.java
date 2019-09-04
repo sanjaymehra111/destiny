@@ -2,6 +2,8 @@ package com.destiny.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.destiny.dao.AdminUpdateDaoimpl;
 import com.destiny.dao.CampaignAccountDaoimpl;
+import com.destiny.dao.CampaignWithdrawAmountDaoimpl;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
 import com.destiny.model.CampaignAccountModel;
+import com.destiny.model.CampaignWithdrawAmountModel;
 import com.destiny.model.CampaignsModel;
 import com.destiny.model.FundraiserModel;
 import com.google.gson.Gson;
@@ -20,7 +24,10 @@ import com.google.gson.Gson;
 @Controller
 public class AdminFunctionController 
 {
-	
+
+	@Autowired
+	CampaignWithdrawAmountDaoimpl cwadao;
+
 	@Autowired
 	AdminUpdateDaoimpl audao;
 	
@@ -136,6 +143,55 @@ public class AdminFunctionController
 			audao.UpdateBlockVolunteer(block_volunteer);
 			return "redirect:/admin-fundraisers";
 		}
+		
+		
+		
+		// approved withdraw request  
+		
+			@RequestMapping(value="/unblock_withdraw", method=RequestMethod.GET)
+			public String unblock_withdraw(@RequestParam String unblock_withdraw, String c_id, String f_id, Model model)
+			{
+				audao.UpdateUnblockWithdraw(unblock_withdraw);
+
+				//update fundraisers balance amount
+				audao.UpdateBalanceAmount(c_id);
+				
+				return "redirect:/admin-fundraisers";
+			}
+			
+			
+			// una-pproved withdraw request
+			
+			@RequestMapping(value="/block_withdraw", method=RequestMethod.GET)
+			public String block_withdraw(@RequestParam String block_withdraw, String c_id, String f_id, Model model)
+			{
+				audao.UpdateBlockWithdraw(block_withdraw);
+				return "redirect:/admin-fundraisers";
+			}
+			
+			
+			// una-pproved withdraw request
+			@ResponseBody
+			@RequestMapping(value="/action_withdraw", method=RequestMethod.GET)
+			public String action_withdraw(@RequestParam String cid, String fid, Model model)
+			{
+				//update fundraisers balance amount
+				audao.UpdateBalanceAmount(cid);
+				
+				Gson gson = new Gson();
+				
+				// all withdraw transaction details
+				List<CampaignWithdrawAmountModel> data1 = cwadao.FetchWithdrawRequest(cid);
+				// campaign balance amount details 
+				CampaignsModel data2 =  audao.FetchCampaignDetails(cid);
+				
+				String transaction = gson.toJson(data1);
+				String balance_amount = gson.toJson(data2.getFundraisers_balance_amount());
+				String details = "["+transaction+","+balance_amount+"]";
+				
+				System.out.println(details);
+				return details;
+			}
 	
 
 }

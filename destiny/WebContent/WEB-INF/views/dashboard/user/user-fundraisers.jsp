@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -240,12 +241,14 @@ Unapproved
 <div class="col-md-12" style="text-align: center">
 <br>
 <div class="col-md-3">
-<span class="fund data1"><i class="fa fa-money"></i> Fund Raised <br> 
+<span class="fund data1"><i class="fa fa-money"></i> Fund Goal <br> 
     <span class="fatch-data2 fa fa-inr"> ${cm.fundraisers_goal_amount}</span></span><br><br>
 </div>
 <div class="col-md-3">    
-<span class="view data1"><i class="fa fa-eye"></i> View <br>
-    <span class="fatch-data2">2</span></span><br><br>
+<span class="view data1"><i class="fa fa-money"></i> Fund Raised <br>
+    <span class="fatch-data2 fa fa-inr"><c:set var="ramount" value="${fn:substringBefore(cm.fundraisers_raised_amount, '.')}"/>
+			${ramount}
+	</span></span><br><br>
 </div>
 <div class="col-md-3">   
 <span class="start-date data1"><i class="fa fa-calendar"></i> Fundraiser Start Date <br>

@@ -13,7 +13,9 @@ import org.springframework.stereotype.Repository;
 
 import com.destiny.model.AdminLoginModel;
 import com.destiny.model.CampaignAccountModel;
+import com.destiny.model.CampaignWithdrawAmountModel;
 import com.destiny.model.CampaignsModel;
+import com.destiny.model.DonationModel;
 import com.destiny.model.FundraiserModel;
 import com.destiny.model.VolunteerModel;
 
@@ -77,6 +79,23 @@ public class AdminUpdateDaoimpl
 					});
 			return query16.get(0);
 		}
+		
+		//Get volunteer Quantit
+		
+			public AdminLoginModel WithdrawRequestQuantity()
+			{
+				List<AdminLoginModel> query19 = template.query("SELECT COUNT(withdraw_id) FROM campaign_withdraw_request", new RowMapper<AdminLoginModel>()
+						{
+							@Override
+							public AdminLoginModel mapRow(ResultSet rs, int arg1) throws SQLException {
+								AdminLoginModel alm = new AdminLoginModel();
+								alm.setWithdraw_request_qty(rs.getString("count(withdraw_id)"));
+								
+								return alm;
+							}
+						});
+				return query19.get(0);
+			}
 	
 	
 	
@@ -129,6 +148,8 @@ public class AdminUpdateDaoimpl
 							cm.setFundraisers_title(rs.getString("fundraisers_title"));
 							cm.setFundraisers_goal_amount(rs.getString("fundraisers_goal_amount"));
 							cm.setFundraisers_raised_amount(rs.getString("fundraisers_raised_amount"));
+							cm.setFundraisers_withdraw_amount(rs.getString("fundraisers_withdraw_amount"));
+							cm.setFundraisers_balance_amount(rs.getString("fundraisers_balance_amount"));
 							cm.setFundraisers_donor_list(rs.getString("fundraisers_donor_list"));
 							cm.setFundraisers_name(rs.getString("fundraisers_name"));
 							cm.setFundraisers_contact(rs.getString("fundraisers_contact"));
@@ -178,6 +199,56 @@ public class AdminUpdateDaoimpl
 			}
 		
 	
+			
+			//Get withdraw request Details
+			
+			public List<CampaignWithdrawAmountModel> FetchWithdrawRequest()
+			{
+				List<CampaignWithdrawAmountModel> query14 = template.query("SELECT * FROM campaign_withdraw_request", new RowMapper<CampaignWithdrawAmountModel>()
+						{
+
+							@Override
+							public CampaignWithdrawAmountModel mapRow(ResultSet rs, int arg1) throws SQLException {
+								CampaignWithdrawAmountModel cwam = new CampaignWithdrawAmountModel();
+								
+								cwam.setWithdraw_id(rs.getString("withdraw_id"));
+								cwam.setCampaign_id(rs.getString("campaign_id"));
+								cwam.setFundraisers_id(rs.getString("fundraisers_id"));
+								cwam.setWithdraw_amount(rs.getString("withdraw_amount"));
+								cwam.setBalance_amount(rs.getString("balance_amount"));
+								cwam.setRequest_date(rs.getString("request_date"));
+								cwam.setCampaign_title(rs.getString("campaign_title"));
+								cwam.setWithdraw_status(rs.getString("withdraw_status"));
+				
+								return cwam;
+							}
+						});
+				return query14;
+			}
+		
+			
+			//Get fundraisers Balance amount Details
+			
+			public CampaignsModel FetchFundraisersBalanceAmount(String id)
+			{
+				List<CampaignsModel> query14_1 = template.query("SELECT fundraisers_balance_amount FROM campaign_details where campaign_id ='"+id+"'", new RowMapper<CampaignsModel>()
+						{
+
+							@Override
+							public CampaignsModel mapRow(ResultSet rs, int arg1) throws SQLException {
+								CampaignsModel cm = new CampaignsModel();
+								
+								cm.setFundraisers_balance_amount(rs.getString("fundraisers_balance_amount"));
+								return cm;
+							}
+						});
+				if(query14_1.size() > 0)
+				return query14_1.get(0);
+				else
+					return null;
+			}
+			
+			
 	//Update unblock_user
 
 	public int UpdateUnblockUser(String fid)
@@ -300,6 +371,8 @@ public class AdminUpdateDaoimpl
 									cm.setFundraisers_title(rs.getString("fundraisers_title"));
 									cm.setFundraisers_goal_amount(rs.getString("fundraisers_goal_amount"));
 									cm.setFundraisers_raised_amount(rs.getString("fundraisers_raised_amount"));
+									cm.setFundraisers_withdraw_amount(rs.getString("fundraisers_withdraw_amount"));
+									cm.setFundraisers_balance_amount(rs.getString("fundraisers_balance_amount"));
 									cm.setFundraisers_donor_list(rs.getString("fundraisers_donor_list"));
 									cm.setFundraisers_name(rs.getString("fundraisers_name"));
 									cm.setFundraisers_contact(rs.getString("fundraisers_contact"));
@@ -386,6 +459,41 @@ public class AdminUpdateDaoimpl
 			}
 			
 			
+
+			//Update unblock_user
+
+			public int UpdateUnblockWithdraw(String id)
+			{
+				String query17 = "update campaign_withdraw_request set withdraw_status=1 where withdraw_id ='"+id+"'";
+				return template.update(query17);
+			}
+			
+			//Update block_user
+
+			public int UpdateBlockWithdraw(String id)
+			{
+				String query18 = "update campaign_withdraw_request set withdraw_status=0 where withdraw_id ='"+id+"'";
+				return template.update(query18);
+			}
+			
+			
+			//Update balance amount
+			public int UpdateBalanceAmount(String c_id)
+			{
+				
+				String query20 = "UPDATE campaign_details SET fundraisers_balance_amount = IF (((SELECT SUM(amount) FROM donation_details WHERE campaign_id = '"+c_id+"' ) - (SELECT SUM(withdraw_amount) FROM campaign_withdraw_request WHERE withdraw_status = 1 AND campaign_id = '"+c_id+"')) IS NULL, (SELECT SUM(amount) FROM donation_details WHERE campaign_id = '"+c_id+"'), ((SELECT SUM(amount) FROM donation_details WHERE campaign_id = '"+c_id+"' ) - (SELECT SUM(withdraw_amount) FROM campaign_withdraw_request WHERE withdraw_status = 1 AND campaign_id = '"+c_id+"'))) WHERE campaign_id = '"+c_id+"'";
+						
+				//String query20 = "UPDATE campaign_details SET fundraisers_balance_amount = (CASE WHEN ((SELECT SUM(amount) FROM donation_details WHERE campaign_id = '"+c_id+"' ) - (SELECT SUM(withdraw_amount) FROM campaign_withdraw_request WHERE withdraw_status = 1 AND campaign_id = '"+c_id+"')) IS NULL THEN (SELECT SUM(amount) FROM donation_details WHERE campaign_id = '"+c_id+"') else  0 END) WHERE campaign_id = '"+c_id+"'";
+
+				//String query20 = "UPDATE campaign_details SET fundraisers_balance_amount = ((SELECT SUM(amount) FROM donation_details WHERE campaign_id = '"+c_id+"' ) - (SELECT SUM(withdraw_amount) FROM campaign_withdraw_request WHERE withdraw_status = 1 AND campaign_id = '"+c_id+"')) WHERE campaign_id = '"+c_id+"' ";
+				//String query21 = "UPDATE campaign_withdraw_request SET balance_amount = ((SELECT SUM(amount) FROM donation_details WHERE campaign_id = '"+id+"' ) - (SELECT SUM(withdraw_amount) FROM campaign_withdraw_request WHERE withdraw_status = 1 AND campaign_id = '"+id+"')) WHERE campaign_id = '"+id+"' ";
+			
+				//String query20 = "update campaign_details set fundraisers_balance_amount='"+amount+"' where campaign_id='"+id+"'";
+				//template.update(query21);
+				return template.update(query20);
+			}
+
+
 			
 			
 

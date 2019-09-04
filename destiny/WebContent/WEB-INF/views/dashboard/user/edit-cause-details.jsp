@@ -629,7 +629,7 @@ $(function()
         <br><br><br>
         </div>
         <div class="col-md-2">
-                <a href="#" style="text-decoration: none"  class=" donate-popup"><span class="d-button amount-text"><button type="button" value="${cm.campaign_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;">Donate Now</button> </span></a>
+                <a style="text-decoration: none"  class=" donate-popup"><span class="d-button amount-text"><button type="button" value="${cm.campaign_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;">Donate Now</button> </span></a>
            <br><br>
         </div>
         

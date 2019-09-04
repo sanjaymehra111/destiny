@@ -2,6 +2,8 @@ package com.destiny.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,12 @@ public class CampaignWithdrawAmountDaoimpl
 	@Autowired
 	JdbcTemplate template;
 	
+	String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+	
 	public int CampaignWithdrawRequest(CampaignWithdrawAmountModel cwam)
 	{
-		String sql1 = "insert into campaign_withdraw_request (fundraisers_id, campaign_id, withdraw_amount, request_date)"
-				+ "values('"+cwam.getFundraisers_id()+"', '"+cwam.getCampaign_id()+"', '"+cwam.getWithdraw_amount()+"', '"+cwam.getRequest_date()+"')";
+		String sql1 = "insert into campaign_withdraw_request (fundraisers_id, campaign_id, withdraw_amount, request_date, campaign_title)"
+				+ "values('"+cwam.getFundraisers_id()+"', '"+cwam.getCampaign_id()+"', '"+cwam.getWithdraw_amount()+"', '"+date+"', '"+cwam.getCampaign_title()+"')";
 		
 		return template.update(sql1);
 	}
@@ -40,8 +44,11 @@ public class CampaignWithdrawAmountDaoimpl
 						CampaignWithdrawAmountModel cwam = new CampaignWithdrawAmountModel();
 						cwam.setCampaign_id(rs.getString("campaign_id"));
 						cwam.setFundraisers_id(rs.getString("fundraisers_id"));
+						cwam.setCampaign_id(rs.getString("campaign_id"));
 						cwam.setWithdraw_amount(rs.getString("withdraw_amount"));
+						cwam.setBalance_amount(rs.getString("balance_amount"));
 						cwam.setRequest_date(rs.getString("request_date"));
+						cwam.setCampaign_title(rs.getString("campaign_title"));
 						cwam.setWithdraw_status(rs.getString("withdraw_status"));
 						
 						return cwam;

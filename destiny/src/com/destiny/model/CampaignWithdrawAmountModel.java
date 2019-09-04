@@ -7,7 +7,9 @@ public class CampaignWithdrawAmountModel
 	String fundraisers_id;
 	String campaign_id;
 	String withdraw_amount;
+	String balance_amount;
 	String request_date;
+	String campaign_title;
 	String withdraw_status;
 	
 	public CampaignWithdrawAmountModel(){}
@@ -17,7 +19,8 @@ public class CampaignWithdrawAmountModel
 		StringBuilder builder = new StringBuilder();
 		builder.append("CampaignWithdrawAmountModel [withdraw_id=").append(withdraw_id).append(", fundraisers_id=")
 				.append(fundraisers_id).append(", campaign_id=").append(campaign_id).append(", withdraw_amount=")
-				.append(withdraw_amount).append(", request_date=").append(request_date).append(", withdraw_status=")
+				.append(withdraw_amount).append(", balance_amount=").append(balance_amount).append(", request_date=")
+				.append(request_date).append(", campaign_title=").append(campaign_title).append(", withdraw_status=")
 				.append(withdraw_status).append("]");
 		return builder.toString();
 	}
@@ -53,14 +56,33 @@ public class CampaignWithdrawAmountModel
 	public void setWithdraw_amount(String withdraw_amount) {
 		this.withdraw_amount = withdraw_amount;
 	}
-
 	
+	
+	
+	public String getBalance_amount() {
+		return balance_amount;
+	}
+
+	public void setBalance_amount(String balance_amount) {
+		this.balance_amount = balance_amount;
+	}
+
 	public String getRequest_date() {
 		return request_date;
 	}
 
 	public void setRequest_date(String request_date) {
 		this.request_date = request_date;
+	}
+	
+	
+
+	public String getCampaign_title() {
+		return campaign_title;
+	}
+
+	public void setCampaign_title(String campaign_title) {
+		this.campaign_title = campaign_title;
 	}
 
 	public String getWithdraw_status() {
@@ -72,16 +94,21 @@ public class CampaignWithdrawAmountModel
 	}
 
 	public CampaignWithdrawAmountModel(String withdraw_id, String fundraisers_id, String campaign_id,
-			String withdraw_amount, String request_date, String withdraw_status) {
+			String withdraw_amount, String balance_amount, String request_date, String campaign_title,
+			String withdraw_status) {
 		super();
 		this.withdraw_id = withdraw_id;
 		this.fundraisers_id = fundraisers_id;
 		this.campaign_id = campaign_id;
 		this.withdraw_amount = withdraw_amount;
+		this.balance_amount = balance_amount;
 		this.request_date = request_date;
+		this.campaign_title = campaign_title;
 		this.withdraw_status = withdraw_status;
 	}
 
+	
+	
 	
 	
 	

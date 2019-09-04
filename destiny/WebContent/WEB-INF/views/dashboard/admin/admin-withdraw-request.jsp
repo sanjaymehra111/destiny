@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="org.json.*"%>
 
 <html>
 <head>
@@ -13,7 +14,7 @@
 
     <!--Embeded Style Sheet-->
     <link rel="stylesheet" type="text/css" href="/destiny/files/style/style.css">
- 
+
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,136 +22,90 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     
-    <!--Table-->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    
-
-    
+   <!--Table-->
+  	  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+     
   
-<script>
-
-		$(function(){
+  
+  
+  <script>
+  
+  $(function(){
+	  
+	  
+	  $(".ajax-unblock-withdraw-button").click(function unblock_withdraw(){
+			var unblock_withdraw = $(this).val();
+			var w_amount= $(this).attr('w_amount');
+			var b_amount= $(this).attr('b_amount');
+			var c_id= $(this).attr('c_id');
+			var f_id= $(this).attr('f_id');
 			
-		$(".ajax-unblock-user-button").click(function unblock_user(){
-			var unblock_user = $(this).val();
+			var unblock_withdraw = $(this).val();
+			var url1 = "/destiny/unblock_withdraw";
 			
-			var url1 = "/destiny/unblock_user";
-			var data1 = new FormData();
-			
-			data1.append("unblock_user", unblock_user);
 			
 			$.ajax({
 				
 				url:url1,
-				data:data1,
-				type : 'post',
+				data:
+					{
+						unblock_withdraw : unblock_withdraw,
+						w_amount : w_amount,
+						b_amount : b_amount,
+						c_id : c_id,
+						f_id : f_id
+						
+					},
+				type : 'get',
 				cache : false,
-				processData : false,
-				contentType : false,
 				dataType: 'text',
-	 			success : function(){alert("success")},
+	 			success : function(){alert("withdraw Request Approved")},
 				error : function(){alert("error")}
 				
 			}); //ajax-close
 		});//	
 		
 		
-		$(".ajax-block-user-button").click(function(){
-			var block_user = $(this).val();
-			var url2 = "/destiny/block_user";
-			var data2 = new FormData();
-		
-			data2.append("block_user", block_user);
-		
+		$(".ajax-block-withdraw-button").click(function block_withdraw(){
+
+			var block_withdraw = $(this).val();
+			var w_amount= $(this).attr('w_amount');
+			var b_amount= $(this).attr('b_amount');
+			var c_id= $(this).attr('c_id');
+			var f_id= $(this).attr('f_id');
+			
+			//alert("w : " + w_amount +"b :" + b_amount);
+			
+			var url2 = "/destiny/block_withdraw";
+			
+			
 			$.ajax({
-				
 				url:url2,
-				data:data2,
-				type : 'post',
+				data:
+					{
+						block_withdraw : block_withdraw,
+						w_amount : w_amount,
+						b_amount : b_amount,
+						c_id : c_id,
+						f_id : f_id
+						
+					},
+				type : 'get',
 				cache : false,
-				processData : false,
-				contentType : false,
 				dataType: 'text',
-				success : function(){alert("success")},
+	 			success : function(){alert("withdraw Request Un-Approved")},
 				error : function(){alert("error")}
 				
 			}); //ajax-close
 		});//	
 		
-			
-		$(".ajax-edit-user-button").click(function unblock_user(){
-			var edit_user_id = $(this).val();
-			
-			var url3 = "/destiny/edit_user";
-			var data3 = new FormData();
-			data3.append("edit_user_id", edit_user_id);
-			
-			$.ajax({
-				
-				url:url3,
-				data:{edit_user_id : edit_user_id},
-				type : 'GET',
-				contentType : "application/json; charset=utf-8",
-				dataType: 'json',
-	 			success : function(data)
-	 			 	{
-	 					$(".ajax-user-id").val(data.fundraisers_id);
-	 					$(".ajax-user-email").val(data.personal_email);
-	 					$(".ajax-user-pan_no").val(data.personal_pan_no);
-	 					$(".ajax-user-aadhar_no").val(data.personal_aadhar_no);
-	 				},
-	 			error : function(){alert("error")}
-				
-			}); //ajax-close
-		});//	
-			
-		
-		//update_user_details 
-		
-		$(".ajax-user-update-details").click(function update_user_details(){
-			
-			var id = $(".ajax-user-id").val();
-			var email = $(".ajax-user-email").val();
-			var pan = $(".ajax-user-pan_no").val();
-			var aadhar = $(".ajax-user-aadhar_no").val();
-			
-			var url4="/destiny/update_user_details"
-			
-			$.ajax
-			({
-				
-				
-				url:url4,
-				data:{id:id, email:email, pan:pan, aadhar:aadhar},
-				type:'GET',
-				cache:false,
-				contentType:"application/json; charset=utf-8",
-				dataType:"text",
-				success : function(){alert("success")},
-				error : function(){alert("error")} 
-
-			
-			}); //ajax close
-			}); // update_user_details close
-
-	
-			
-		});
-		
-</script>
-
-
-
-
-
-
-<script>
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
-</script>
-
-<style>
+  })
+  
+  </script>
+  
+  
+  
+   <style>
 
 input[type=search]
 {
@@ -245,8 +200,12 @@ cursor:pointer;
 
 
 </style>
-
-      
+     
+     <script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script> 
 
 </head>
 
@@ -532,46 +491,29 @@ cursor:pointer;
 
 <div class="heading" style="border-bottom: solid 2px rgba(0, 0, 0, 0.363)">
 <br>
-<p style="text-align: center; color:black; font-weight: bold; font-size: 20PX;">
-    <span> 
-    <select class="select-fundraisers">
-            <option value="">all</option>
-            <option value="IDEAS">Creative IDEAS</option>
-            <option value="MEDICAL">Medical</option>
-            <option value="NGO">NGO</option>
-            <option value="PERSONAL">Personal</option>
-    </select>    
-    </span>
-    FUNDRAISERS  
-    <span class="br-tag"><br></span>
-    <!-- <span class="search-bar">
+<p style="text-align: center; color:black; font-weight: bold; font-size: 20PX; text-transform: uppercase;">
+        Withdraw Request
+         <span class="br-tag"><br></span>
+<!--     <span class="search-bar">
         <input id="myInput" class="myinput" placeholder="Search.." type="text"> &nbsp; <i class="fa fa-search search-icon"></i>
-    </span> -->
-</p>
+    </span>
+ --></p>
 </div>
 
 <div class="deta-process">
 <br>
 
-
 <script>
 $(function(){
+    
+    //sesearch function
 
-    $(".select-fundraisers").change(function()
-    {
-        var a = $(".select-fundraisers").val();
-        //$("#myInput").on("keyup", function() {
-        var value = $(".select-fundraisers").val().toLowerCase();
-        $("#myTable tr").filter(function() {
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
-});
-        $("#myInput").on("keyup", function() {
-            var value2 = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value2) > -1)
-            });
-        });
+  });
 
 //search show
 
@@ -588,6 +530,48 @@ $(".search-icon").click(function(){
 
 
 <style>
+
+.block-withdraw, .unblock-withdraw, .action-withdraw
+{
+	width:100px;
+    color:white;
+    border-radius: 50px;
+    outline: none;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border:none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+.block-withdraw
+{
+    background: rgb(236, 26, 26);
+}
+.unblock-withdraw
+{
+    background: rgb(50, 177, 11);
+}
+
+.action-withdraw
+{	
+background: #0e84b3;
+}
+
+.block-withdraw:hover
+{
+    background: rgb(131, 9, 9);
+}
+.unblock-withdraw:hover
+{
+    background: rgb(27, 100, 5);
+}
+
+.action-withdraw:hover
+{	
+background: #384755;
+}
+
     .search-icon
     {
         cursor: pointer;
@@ -615,29 +599,17 @@ $(".search-icon").click(function(){
         width:200px;
     }
 
+    
 
 .u_type
 {
     text-transform: uppercase;
 }
-.select-fundraisers
-{
-    width:10%;
-    font-size: 20px;
-    color:rgb(13, 88, 138);
-    text-transform: uppercase;
-    outline: none;
-    border:none;
-    border-bottom: 2px solid rgb(0, 0, 0);
-}
-.select-fundraisers
-{
-    width:200px;
-}
 
 table, td, th {  
   border: 1px solid rgba(212, 212, 212, 0.397);
   text-align: left;
+  min-width: 150px;
   
 }
 
@@ -648,7 +620,6 @@ table {
 
 th, td {
   padding: 15px;
-  min-width: 110px;
 }
 
 .circle-1
@@ -667,9 +638,8 @@ th, td {
 
 }
 
-.block-user, .unblock-user, .edit-user
+.block-user, .unblock-user
 {
-	width:100px;
     color:white;
     border-radius: 50px;
     outline: none;
@@ -686,7 +656,7 @@ th, td {
 }
 .unblock-user
 {
-    display: block;
+    display: none;
     background: rgb(50, 177, 11);
 }
 
@@ -699,22 +669,6 @@ th, td {
 {
     background: rgb(27, 100, 5);
 }
-
-.edit-user
-{
-	border:solid 2px #0e84b3;
-	background-color:white;
-	color:black;
-}
-
-.edit-user:hover
-{
-	border:solid 2px #0e84b3;
-	background-color:#0e84b3;
-	color:white;
-}
-
-
 
 .deta-process::-webkit-scrollbar {
   width: 0px;
@@ -735,6 +689,7 @@ th, td {
   background: rgb(9, 68, 92); 
 }
 
+
 .search-bar
 {
     float:right;
@@ -746,94 +701,167 @@ th, td {
     display: none;
 }
 
-.deta-process
-	{
-	    overflow: scroll;
-	}
+    .withdraw-table th
+{
+    min-width: 150px;
+}
+
+.img-for-all
+{
+    padding: 2px;
+    width:40px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.img-for-all:hover
+{
+    border: 2px solid rgb(141, 143, 139);
+    transform: scale(1.1);
+}
 
 @media(max-width:975px)
 {
-	th, td {
-	  min-width: 100px;
-	}
+    .br-tag
+{
+    margin-top: -20px;
+    display: block;
+}
+.search-bar
+{
+    float:none;
+}
+    .withdraw-table th
+{
+    min-width: 100px;
+}
 
-	    .br-tag
-	{
-	    margin-top: -10px;
-	    display: block;
-	}
-	.search-bar
-	{
-	    float:none;
-	}
-	
-	    .fundraisers-table th
-	{
-	    min-width: 100px;
-	}
-	
-	.deta-process
-	{
-	    overflow: scroll;
-	}
+.deta-process
+{
+    overflow: scroll;
+}
 }
 
 </style>
 
 
-<div class="fundraisers-details">
-<table id="example" class="fundraisers-table">
+
+<script type="text/javascript">
+$(function(){
+	
+	$(".ajax-action-withdraw-button").click(function action_withdraw(){
+		
+		var w_amount= $(this).attr('w_amount');
+		var cid= $(this).attr('c_id');
+		var fid= $(this).attr('f_id');
+		var id= $(this).val();
+		
+		var url3 = "/destiny/action_withdraw";
+		
+		$.ajax({
+			
+			url:url3,
+			data:
+				{
+					cid : cid,
+					fid : fid
+				},
+				
+			type : 'get',
+			cache:false,
+			contentType : "application/json; charset=utf-8",
+			dataType: 'json',
+ 			success : function(data)
+			 	{
+ 					var data1 = data[0];
+ 					var data2 = data[1];
+ 					var i;
+ 					var html = '';
+ 					 
+ 					for (i = 0; i < data1.length; i++) 
+ 					{
+ 						html+='<tr>';
+                        html+='<td>'+data1[i].withdraw_amount+'</td>';
+                        html+='<td>'+data1[i].request_date+'</td>';
+                        if(data1[i].withdraw_status == 0)
+                        	html+='<td>'+"<button type='button' class='block-withdraw'>Disapproved</button>"+'</td>';
+                        else
+                        	html+='<td>'+"<button type='button' class='unblock-withdraw'>Approved</button>"+'</td>';
+                        html+='</tr>';
+                        //so on 
+                    }
+                     $('.action_withdraw').html(html);
+                     $('.action_w_amount').html(w_amount);
+                     $('.action_b_amount').html(data2);
+                     
+                     $('.ajax-block-withdraw-button').val(id);
+                     $('.ajax-unblock-withdraw-button').val(id);
+                     
+                     
+	 				
+				},
+			error : function(){alert("error")}
+			
+		}); //ajax-close
+		
+	}); // action_withdraw function close
+}); // Main function close
+
+</script>
+
+<div class="withdraw-details">
+<table id="example" class="withdraw-table">
     <thead>
     <tr>
-    	<th>NAME</th>
-        <th>TYPE</th>
-        <th>CONTACT</th>
-        <th>DOB</th>
-        <th>CITY</th>
-        <th>PAN NO.</th>
-        <th>AADHAR NO.</th>
-        <th>PROFILE</th>
-        <th>UPDATED</th>
+    	<th>CAMPAIGN TITLE</th>
+    	<th>WITHDRAW AMOUNT</th>
+    	<th>REQUEST DATE</th>
         <th>STATUS</th>
-        <th>MODIFY</th>
+        <th>ACTION</th>
+        <th>VIEW CAMPAIGN</th>
     </tr>
 </thead>
 
 <tbody id="myTable">
-<c:forEach var="fm" items="${data1}">
+
+<c:forEach var="cvam" items="${data1}">
 
         <tr>
-          <td>${fm.personal_name}</td>
-          <td>${fm.category_type}</td>
-          <td>${fm.personal_number}</td>
-          <td>${fm.personal_dob}</td>
-          <td>${fm.personal_city}</td>
-          <td>${fm.personal_pan_no}</td>
-          <td>${fm.personal_aadhar_no}</td>
-          <td style="text-align:center"><img src="${fm.personal_profile_image}"  style="width:50px; height:50px; border-radius: 100px;"></td>
-          <td>${fm.personal_updated_date}</td>
+          <td style="text-transform: capitalize;">${cvam.campaign_title}</td>
+          <td>${cvam.withdraw_amount}</td>
+          <td>${cvam.request_date}</td>
           <td>
-              <span class="user-status">
-	              <c:if test="${fm.personal_status == 0}">
-	              	<button value="${fm.fundraisers_id}" type="button" class="unblock-user ajax-unblock-user-button">Un-Block</button>
+          <span class="user-status">
+	              <c:if test="${cvam.withdraw_status == 0}">
+	              	<button type="button" class="block-withdraw">Disapproved</button>
+	              	<%-- <button value="${cvam.withdraw_id}" c_id="${cvam.campaign_id}" f_id="${cvam.fundraisers_id}" w_amount="${cvam.withdraw_amount}" type="button" class="unblock-withdraw ajax-unblock-withdraw-button">Approve</button> --%>
 	              </c:if>
 	
-	              <c:if test="${fm.personal_status == 1}">
-	              	<button value="${fm.fundraisers_id}" type="button" class="block-user ajax-block-user-button">Block</button>
+	              <c:if test="${cvam.withdraw_status == 1}">
+					<button type="button" class="unblock-withdraw">Approved</button>
+					<%-- <button value="${cvam.withdraw_id}" c_id="${cvam.campaign_id}" f_id="${cvam.fundraisers_id}" w_amount="${cvam.withdraw_amount}" type="button" class="block-withdraw ajax-block-withdraw-button">Disapprove</button> --%>
 	              </c:if>
-              </span>
+	          </span>
           </td>
-          <td>
-          	<button value="${fm.fundraisers_id}" type="button" data-toggle="modal" data-target="#myModal" class="edit-user ajax-edit-user-button">Edit</button>
+        
+        <td>
+        	<button value="${cvam.withdraw_id}" c_id="${cvam.campaign_id}" f_id="${cvam.fundraisers_id}" w_amount="${cvam.withdraw_amount}"  type="button"  data-toggle="modal" data-target="#myModal" class="action-withdraw ajax-action-withdraw-button">CLICK</button>
+        </td>
+        
+        
+        <td class="u_view">
+          	<a target="_blank" href="/destiny/admin-edit-campaign/${cvam.fundraisers_id}/${cvam.campaign_id}"><img cid="${cm.campaign_id}" fid="${cm.fundraisers_id}" class="img-for-all view-logo ajax-edit-campaign" src="/destiny/files/dashboard-admin-images/view1.jpg"></a>
           </td>
         </tr>
         
-</c:forEach>    
-    
-      </tbody>
+</c:forEach>
+    </tbody>
       
 </table>
 </div>
+
+
 
 <br>
 </div>
@@ -855,9 +883,7 @@ th, td {
 
 
 
-
-
-  <!-- Modal -->
+<!-- Modal -->
   
 <style>
 .edit-mode-text
@@ -895,30 +921,116 @@ th, td {
 	font-size:15px;
 	color:#0e84b3;
 }
+.table-hide
+{
+	height:0px;
+	overflow: hidden;
+	transition:0.3s;
+}
+.transaction_button
+{
+	width:40%;
+	padding:5px;
+	border-radius: 20px;
+	background: #49aad2;
+	color:white;
+	outline:none;
+	border:none;
+}
+
+.transaction_button:FOCUS ~ .table-hide
+{
+	
+	height:40%;
+	overflow: scroll;
+	
+}
+.transaction_button:focus
+{
+	background-color:white;
+ 	width:0px;
+	font-size:0px;
+	outline:0px;
+	border:none;
+}
+
+
+.table-hide::-webkit-scrollbar {
+  width: 0px;
+  height: 7px;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+
+.table-hide::-webkit-scrollbar-track {
+  background: rgb(228, 228, 228); 
+}
+ 
+.table-hide::-webkit-scrollbar-thumb {
+  background: rgb(14, 132, 179); 
+}
+
+.table-hide::-webkit-scrollbar-thumb:hover {
+  background: rgb(9, 68, 92); 
+}
+.modal-dialog
+{
+	width:50%; 
+}
+@media(max-width:975px)
+{
+.modal-dialog
+{
+	width:100%; 
+}	
+}
 </style>  
   
-  <div class="modal fade" id="myModal" role="dialog" style="z-index: 9999; margin-top:10%"">
+  <div class="modal fade" id="myModal" role="dialog" style="z-index: 9999; margin-top: 5%;">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" style="text-align: center">Update Details</h4>
+          <h4 class="modal-title" style="text-align: center">WITHRAW REQUEST APPROVAL</h4>
         </div>
          
         <div class="modal-body" style="text-align:center;">
-          <p><input class="edit-mode-text ajax-user-id hidden" type="text" value="${fm.fundraisers_id}"></p>
-          <p><input class="edit-mode-text ajax-user-email" type="email" maxlength="50" value="${fm.personal_email}" placeholder="User Email"><span class="show-user-email" style="margin-left:20px;"> Email</span></p>
-          <p><input class="edit-mode-text ajax-user-pan_no" type="text" maxlength="20" value="${fm.personal_pan_no}" placeholder="User Pan Number"><span class="show-user-pan" style="margin-left:20px;"> Pan</span></p>
-          <p><input class="edit-mode-text ajax-user-aadhar_no" type="text" maxlength="20" value="${fm.personal_aadhar_no}" placeholder="User Aadhar Number"><span class="show-user-aadhar" style="margin-left:20px;"> Aadhar</span></p>
+     
+     <button type="button" class="transaction_button">View All Transaction</button><br>
+        
+<div class="table-hide">     
+	<table id="example" class="withdraw-table">
+	    <thead>
+		    <tr>
+		    	<th>WITHDRAW AMOUNT</th>
+		    	<th>DATE</th>
+		        <th>STATUS</th>
+		    </tr>
+		</thead>
+	
+		<tbody id="myTable" class="action_withdraw">
+		</tbody>
+	</table>
+</div>
+
+        <br>
+        <div style="font-size:18px;"><span>Request Amount</span> : &#8377 <span class="action_w_amount"></span></div>
+        <div style="font-size:20px; font-weight: bold"><span>Balance Amount</span> : &#8377 <span class="action_b_amount"></span></div>
+      	
+        
+        
+        
         </div>
         
         
         <div class="modal-footer">
-          <button type="button" class="btn btn-success ajax-user-update-details">Update</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
+        
+        <button data-dismiss="modal" c_id="${cvam.campaign_id}" f_id="${cvam.fundraisers_id}" w_amount="${cvam.withdraw_amount}" type="button" class="block-withdraw ajax-block-withdraw-button">Disapprove</button>
+	    <button c_id="${cvam.campaign_id}" f_id="${cvam.fundraisers_id}" w_amount="${cvam.withdraw_amount}" type="button" class="unblock-withdraw ajax-unblock-withdraw-button">Approve</button>
+		          
+	    </div>
       </div>
       
     </div>

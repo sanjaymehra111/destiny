@@ -8,6 +8,8 @@ public class CampaignsModel
 	String fundraisers_title;
 	String fundraisers_goal_amount;
 	String fundraisers_raised_amount;
+	String fundraisers_withdraw_amount;
+	String fundraisers_balance_amount;
 	String fundraisers_donor_list;
 	String fundraisers_name;
 	String fundraisers_contact;
@@ -288,6 +290,27 @@ public class CampaignsModel
 		this.fundraisers_campaign_updated_date = fundraisers_campaign_updated_date;
 	}
 
+	
+
+	public String getFundraisers_withdraw_amount() {
+		return fundraisers_withdraw_amount;
+	}
+
+
+	public void setFundraisers_withdraw_amount(String fundraisers_withdraw_amount) {
+		this.fundraisers_withdraw_amount = fundraisers_withdraw_amount;
+	}
+
+
+	public String getFundraisers_balance_amount() {
+		return fundraisers_balance_amount;
+	}
+
+
+	public void setFundraisers_balance_amount(String fundraisers_balance_amount) {
+		this.fundraisers_balance_amount = fundraisers_balance_amount;
+	}
+
 
 	@Override
 	public String toString() {
@@ -296,6 +319,8 @@ public class CampaignsModel
 				.append(fundraisers_id).append(", campaign_type=").append(campaign_type).append(", fundraisers_title=")
 				.append(fundraisers_title).append(", fundraisers_goal_amount=").append(fundraisers_goal_amount)
 				.append(", fundraisers_raised_amount=").append(fundraisers_raised_amount)
+				.append(", fundraisers_withdraw_amount=").append(fundraisers_withdraw_amount)
+				.append(", fundraisers_balance_amount=").append(fundraisers_balance_amount)
 				.append(", fundraisers_donor_list=").append(fundraisers_donor_list).append(", fundraisers_name=")
 				.append(fundraisers_name).append(", fundraisers_contact=").append(fundraisers_contact)
 				.append(", fundraisers_email=").append(fundraisers_email).append(", fundraisers_beneficiary_relation=")
@@ -313,13 +338,13 @@ public class CampaignsModel
 
 
 	public CampaignsModel(String campaign_id, String fundraisers_id, String campaign_type, String fundraisers_title,
-			String fundraisers_goal_amount, String fundraisers_raised_amount, String fundraisers_donor_list,
-			String fundraisers_name, String fundraisers_contact, String fundraisers_email,
-			String fundraisers_beneficiary_relation, String fundraisers_story, String fundraisers_start_date,
-			String fundraisers_end_date, String fundraisers_created_date, String fundraisers_status,
-			String fundraisers_profile_image, String fundraisers_upi_image, String fundraisers_upi_number,
-			String fundraisers_campaign_images, String fundraisers_campaign_documents,
-			String fundraisers_campaign_updated_date) {
+			String fundraisers_goal_amount, String fundraisers_raised_amount, String fundraisers_withdraw_amount,
+			String fundraisers_balance_amount, String fundraisers_donor_list, String fundraisers_name,
+			String fundraisers_contact, String fundraisers_email, String fundraisers_beneficiary_relation,
+			String fundraisers_story, String fundraisers_start_date, String fundraisers_end_date,
+			String fundraisers_created_date, String fundraisers_status, String fundraisers_profile_image,
+			String fundraisers_upi_image, String fundraisers_upi_number, String fundraisers_campaign_images,
+			String fundraisers_campaign_documents, String fundraisers_campaign_updated_date) {
 		super();
 		this.campaign_id = campaign_id;
 		this.fundraisers_id = fundraisers_id;
@@ -327,6 +352,8 @@ public class CampaignsModel
 		this.fundraisers_title = fundraisers_title;
 		this.fundraisers_goal_amount = fundraisers_goal_amount;
 		this.fundraisers_raised_amount = fundraisers_raised_amount;
+		this.fundraisers_withdraw_amount = fundraisers_withdraw_amount;
+		this.fundraisers_balance_amount = fundraisers_balance_amount;
 		this.fundraisers_donor_list = fundraisers_donor_list;
 		this.fundraisers_name = fundraisers_name;
 		this.fundraisers_contact = fundraisers_contact;
@@ -346,6 +373,9 @@ public class CampaignsModel
 	}
 
 
+	
+	
+	
 	
 
 

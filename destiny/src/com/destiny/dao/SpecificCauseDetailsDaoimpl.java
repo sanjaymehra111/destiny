@@ -65,6 +65,8 @@ public class SpecificCauseDetailsDaoimpl
 						cm.setFundraisers_title(rs.getString("fundraisers_title"));
 						cm.setFundraisers_goal_amount(rs.getString("fundraisers_goal_amount"));
 						cm.setFundraisers_raised_amount(rs.getString("fundraisers_raised_amount"));
+						cm.setFundraisers_withdraw_amount(rs.getString("fundraisers_withdraw_amount"));
+						cm.setFundraisers_balance_amount(rs.getString("fundraisers_balance_amount"));
 						cm.setFundraisers_donor_list(rs.getString("fundraisers_donor_list"));
 						cm.setFundraisers_name(rs.getString("fundraisers_name"));
 						cm.setFundraisers_contact(rs.getString("fundraisers_contact"));
@@ -106,6 +108,7 @@ public class SpecificCauseDetailsDaoimpl
 						cm.setFundraisers_id(rs.getString("fundraisers_id"));
 						cm.setFundraisers_title(rs.getString("fundraisers_title"));
 						cm.setFundraisers_goal_amount(rs.getString("fundraisers_goal_amount"));
+						cm.setFundraisers_raised_amount(rs.getString("fundraisers_raised_amount"));
 						cm.setFundraisers_name(rs.getString("fundraisers_name"));
 						cm.setFundraisers_contact(rs.getString("fundraisers_contact"));
 						cm.setFundraisers_email(rs.getString("fundraisers_email"));

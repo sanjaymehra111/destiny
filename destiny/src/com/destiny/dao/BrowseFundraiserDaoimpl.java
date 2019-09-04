@@ -93,6 +93,9 @@ public class BrowseFundraiserDaoimpl
 		
 	}
 	
+	
+	// update fundraisers raised amount
+	
 	public List<DonationModel> fetchDonationDetails()
 	{
 		List<DonationModel> query2 = template.query("select campaign_id, sum(amount) from donation_details group by campaign_id ", new RowMapper<DonationModel>()
@@ -107,11 +110,8 @@ public class BrowseFundraiserDaoimpl
 						dm.setCampaign_id(rs.getString("campaign_id"));
 						dm.setAmount(rs.getString("sum(amount)"));
 						
-						String query3 = "UPDATE campaign_details SET fundraisers_raised_amount='"+dm.getAmount()+"' WHERE campaign_id ='"+dm.getCampaign_id()+"'";
-								
+						String query3 = "UPDATE campaign_details SET fundraisers_raised_amount='"+dm.getAmount()+"'  WHERE campaign_id ='"+dm.getCampaign_id()+"'";
 								template.update(query3);
-						
-								
 						
 						return dm;
 					}

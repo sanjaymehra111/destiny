@@ -34,7 +34,12 @@ import com.destiny.model.VolunteerModel;
 @Controller
 public class StoreController 
 {
-	
+	@Autowired
+	AdminUpdateDaoimpl audao;
+
+	@Autowired
+	BrowseFundraiserDaoimpl fmdao2;
+
 	@Autowired
 	Daoimpl dao;
 	
@@ -209,11 +214,13 @@ public class StoreController
 			AdminLoginModel data2 = adupdao.FundraisersQuantity();
 			AdminLoginModel data3 = adupdao.CampaignsQuantity();
 			AdminLoginModel data4 = adupdao.VolunteerQuantity();
+			AdminLoginModel data5 = adupdao.WithdrawRequestQuantity();
 			
 			model.addAttribute("data1", data1);
 			model.addAttribute("fundraisers_qty", data2.getFundraisers_qty());
 			model.addAttribute("campaigns_qty", data3.getCampaign_qty());
 			model.addAttribute("volunteers_qty", data4.getVolunteer_qty());
+			model.addAttribute("withdraw_request_qty", data5.getWithdraw_request_qty());
 			
 			return "dashboard/admin/admin-dashboard";
 		}
@@ -227,11 +234,13 @@ public class StoreController
 				AdminLoginModel data2 = adupdao.FundraisersQuantity();
 				AdminLoginModel data3 = adupdao.CampaignsQuantity();
 				AdminLoginModel data4 = adupdao.VolunteerQuantity();
+				AdminLoginModel data5 = adupdao.WithdrawRequestQuantity();
 				
 				model.addAttribute("data1", data1);
 				model.addAttribute("fundraisers_qty", data2.getFundraisers_qty());
 				model.addAttribute("campaigns_qty", data3.getCampaign_qty());
 				model.addAttribute("volunteers_qty", data4.getVolunteer_qty());
+				model.addAttribute("withdraw_request_qty", data5.getWithdraw_request_qty());
 				
 				return "dashboard/admin/admin-dashboard";				
 			}
@@ -348,7 +357,9 @@ public class StoreController
 	@RequestMapping("/manage-overview/{fund_id}/{camp_id}")
 	public String manage_overview(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, CampaignsModel cm, CampaignAccountModel cam, FundraiserModel fm, HttpSession session)
 	{
+		//update donor list
 		bfdao.fetchDonorList();
+		
 		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
 		
 		
@@ -442,16 +453,20 @@ public class StoreController
 	public String manage_withdrawl(Model model, @PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, CampaignsModel cm, FundraiserModel fm, HttpSession session)
 	
 	{
+		//update sum of donation amount details in campaign.fundraisers_raised_amount
+				fmdao2.fetchDonationDetails();
+				
 		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
 		
 		if (sesModel!= null)
 		{
+			audao.UpdateBalanceAmount(camp_id);
+
 			List<FundraiserModel> data1 = smdao.fetchFundraisersDetails(fund_id);
 			List<CampaignsModel> data2 = smdao.fetchCampaignsDetails(camp_id);
 			CampaignsModel data3 = smdao.fetchCampaignsImages(camp_id);
 			List<CampaignAccountModel> data4 = camdao.FetchCampaignAccount(camp_id);
 			List<CampaignWithdrawAmountModel> data5 = cwadao.FetchWithdrawRequest(camp_id);
-			
 			
 			String images = data3.getFundraisers_campaign_images();
 			
@@ -617,6 +632,33 @@ public class StoreController
 			List<VolunteerModel> data1 =  adupdao.FetchVolunteer();
 			model.addAttribute("data1", data1);
 			return "dashboard/admin/admin-volunteer";
+		}
+		else
+		{
+			return "redirect:/admin_login";
+			
+		}
+		
+	}
+	
+	
+	@RequestMapping("/admin-withdraw-request")
+	public String admin_withdraw_request(Model model, HttpSession session)
+	{
+		SessionModel sessionModel = (SessionModel) session.getAttribute("AsessionData");
+		
+		if(sessionModel != null)
+		{
+			List<CampaignWithdrawAmountModel> data1 =  adupdao.FetchWithdrawRequest();
+			
+			/*String id = data1.getCampaign_id();
+			System.out.println("id : " +id);
+			CampaignsModel data2 =  adupdao.FetchFundraisersBalanceAmount(id);
+			System.out.println("balance amount : " + data2.getFundraisers_balance_amount());
+			*/
+			model.addAttribute("data1", data1);
+			/*model.addAttribute("b_amount", data2.getFundraisers_balance_amount());*/
+			return "dashboard/admin/admin-withdraw-request";
 		}
 		else
 		{

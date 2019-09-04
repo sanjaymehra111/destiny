@@ -473,7 +473,10 @@ Need help? Contact your campaign manager at 1234567890  or send e-mail at destin
 <br>
 
     <span style="font-size: 30px; font-weight: bold; color: rgb(9, 84, 128)">Available For Withdrawal</span><br>
-    <span style="font-size: 30px; font-weight: bold; color: rgb(9, 84, 128)">&#8377; ${ramount}</span><br><br>
+    <span style="font-size: 30px; font-weight: bold; color: rgb(9, 84, 128)">&#8377; 
+    <%-- <c:set var="balance" value="${fn:substringBefore(cm.fundraisers_balance_amount, '.')}"/> --%>
+			${cm.fundraisers_balance_amount}
+	</span><br><br>
 </div>
 <!-- 
 <div class="col-md-6" style="text-align: center">
@@ -634,12 +637,14 @@ background-color:#109cbf;
 <button class="withdraw-button" type="text">Withdraw Amount Request</button><br>
 
 <span class="request-form" style="display:none">
-<input class="available-amount hidden" value="${ramount}">
 
+ <input class="available-amount hidden" name="balance_amount" value="${cm.fundraisers_balance_amount}"> 
+	
 <form name="campaign_withdraw_amount" action="/destiny/campaign_withdraw_amount_request" model="CampaignWithdrawAmountModel">
 
 	<input class="hidden" name="campaign_id" value="${cm.campaign_id}">
 	<input class="hidden" name="fundraisers_id" value="${cm.fundraisers_id}">
+	<input class="hidden" name="campaign_title" value="${cm.fundraisers_title}">
 	<input class="request_date hidden" name="request_date" type="text">
 	<input name="withdraw_amount" type="number" class="withdraw-amount" placeholder="Withdraw Amount" min="0" max="${amount}"><br><br>
 
