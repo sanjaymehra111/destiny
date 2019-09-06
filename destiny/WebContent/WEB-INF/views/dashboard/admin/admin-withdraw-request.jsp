@@ -99,6 +99,66 @@
 			}); //ajax-close
 		});//	
 		
+		
+		$(".ajax-action-withdraw-button").click(function action_withdraw(){
+			
+			var w_amount= $(this).attr('w_amount');
+			var cid= $(this).attr('c_id');
+			var fid= $(this).attr('f_id');
+			var id= $(this).val();
+			
+			var url3 = "/destiny/action_withdraw";
+			
+			$.ajax({
+				
+				url:url3,
+				data:
+					{
+						cid : cid,
+						fid : fid
+					},
+					
+				type : 'get',
+				cache:false,
+				contentType : "application/json; charset=utf-8",
+				dataType: 'json',
+	 			success : function(data)
+				 	{
+	 					var data1 = data[0];
+	 					var data2 = data[1];
+	 					var i;
+	 					var html = '';
+	 					 
+	 					for (i = 0; i < data1.length; i++) 
+	 					{
+	 						html+='<tr>';
+	                        html+='<td>'+data1[i].withdraw_amount+'</td>';
+	                        html+='<td>'+data1[i].request_date+'</td>';
+	                        if(data1[i].withdraw_status == 0)
+	                        	html+='<td>'+"<button type='button' class='block-withdraw'>Disapproved</button>"+'</td>';
+	                        else
+	                        	html+='<td>'+"<button type='button' class='unblock-withdraw'>Approved</button>"+'</td>';
+	                        html+='<td>'+data1[i].approved_date+'</td>';
+	                            
+	                        html+='</tr>';
+	                        //so on 
+	                    }
+	                     $('.action_withdraw').html(html);
+	                     $('.action_w_amount').html(w_amount);
+	                     $('.action_b_amount').html(data2);
+	                     
+	                     $('.ajax-block-withdraw-button').val(id);
+	                     $('.ajax-unblock-withdraw-button').val(id);
+	                     
+	                     
+		 				
+					},
+				error : function(){alert("error")}
+				
+			}); //ajax-close
+			
+		}); // action_withdraw function close
+		
   })
   
   </script>
@@ -746,70 +806,6 @@ th, td {
 </style>
 
 
-
-<script type="text/javascript">
-$(function(){
-	
-	$(".ajax-action-withdraw-button").click(function action_withdraw(){
-		
-		var w_amount= $(this).attr('w_amount');
-		var cid= $(this).attr('c_id');
-		var fid= $(this).attr('f_id');
-		var id= $(this).val();
-		
-		var url3 = "/destiny/action_withdraw";
-		
-		$.ajax({
-			
-			url:url3,
-			data:
-				{
-					cid : cid,
-					fid : fid
-				},
-				
-			type : 'get',
-			cache:false,
-			contentType : "application/json; charset=utf-8",
-			dataType: 'json',
- 			success : function(data)
-			 	{
- 					var data1 = data[0];
- 					var data2 = data[1];
- 					var i;
- 					var html = '';
- 					 
- 					for (i = 0; i < data1.length; i++) 
- 					{
- 						html+='<tr>';
-                        html+='<td>'+data1[i].withdraw_amount+'</td>';
-                        html+='<td>'+data1[i].request_date+'</td>';
-                        if(data1[i].withdraw_status == 0)
-                        	html+='<td>'+"<button type='button' class='block-withdraw'>Disapproved</button>"+'</td>';
-                        else
-                        	html+='<td>'+"<button type='button' class='unblock-withdraw'>Approved</button>"+'</td>';
-                        html+='</tr>';
-                        //so on 
-                    }
-                     $('.action_withdraw').html(html);
-                     $('.action_w_amount').html(w_amount);
-                     $('.action_b_amount').html(data2);
-                     
-                     $('.ajax-block-withdraw-button').val(id);
-                     $('.ajax-unblock-withdraw-button').val(id);
-                     
-                     
-	 				
-				},
-			error : function(){alert("error")}
-			
-		}); //ajax-close
-		
-	}); // action_withdraw function close
-}); // Main function close
-
-</script>
-
 <div class="withdraw-details">
 <table id="example" class="withdraw-table">
     <thead>
@@ -937,22 +933,22 @@ $(function(){
 	outline:none;
 	border:none;
 }
-
+/* 
 .transaction_button:FOCUS ~ .table-hide
 {
 	
 	height:40%;
 	overflow: scroll;
 	
-}
-.transaction_button:focus
+} */
+/* .transaction_button:focus
 {
 	background-color:white;
  	width:0px;
 	font-size:0px;
 	outline:0px;
 	border:none;
-}
+} */
 
 
 .table-hide::-webkit-scrollbar {
@@ -975,7 +971,7 @@ $(function(){
 }
 .modal-dialog
 {
-	width:50%; 
+	width:60%; 
 }
 @media(max-width:975px)
 {
@@ -985,6 +981,16 @@ $(function(){
 }	
 }
 </style>  
+  
+  
+<script>
+	$(function(){
+		$(".transaction_button").click(function(){
+			$(".table-hide").css({"height":"40%", "overflow":"scroll"});
+			$(".transaction_button").hide();
+		})
+	})  
+</script>
   
   <div class="modal fade" id="myModal" role="dialog" style="z-index: 9999; margin-top: 5%;">
     <div class="modal-dialog">
@@ -1005,8 +1011,9 @@ $(function(){
 	    <thead>
 		    <tr>
 		    	<th>WITHDRAW AMOUNT</th>
-		    	<th>DATE</th>
-		        <th>STATUS</th>
+		    	<th>REQUEST DATE</th>
+		    	<th>STATUS</th>
+		        <th>UPDATED DATE</th>
 		    </tr>
 		</thead>
 	
@@ -1028,7 +1035,7 @@ $(function(){
         <div class="modal-footer">
         
         <button data-dismiss="modal" c_id="${cvam.campaign_id}" f_id="${cvam.fundraisers_id}" w_amount="${cvam.withdraw_amount}" type="button" class="block-withdraw ajax-block-withdraw-button">Disapprove</button>
-	    <button c_id="${cvam.campaign_id}" f_id="${cvam.fundraisers_id}" w_amount="${cvam.withdraw_amount}" type="button" class="unblock-withdraw ajax-unblock-withdraw-button">Approve</button>
+	    <button data-dismiss="modal" c_id="${cvam.campaign_id}" f_id="${cvam.fundraisers_id}" w_amount="${cvam.withdraw_amount}" type="button" class="unblock-withdraw ajax-unblock-withdraw-button">Approve</button>
 		          
 	    </div>
       </div>

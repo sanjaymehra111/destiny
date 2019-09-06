@@ -170,7 +170,8 @@ public class AdminFunctionController
 			}
 			
 			
-			// una-pproved withdraw request
+			// action withdraw request
+			
 			@ResponseBody
 			@RequestMapping(value="/action_withdraw", method=RequestMethod.GET)
 			public String action_withdraw(@RequestParam String cid, String fid, Model model)
@@ -189,7 +190,6 @@ public class AdminFunctionController
 				String balance_amount = gson.toJson(data2.getFundraisers_balance_amount());
 				String details = "["+transaction+","+balance_amount+"]";
 				
-				System.out.println(details);
 				return details;
 			}
 	

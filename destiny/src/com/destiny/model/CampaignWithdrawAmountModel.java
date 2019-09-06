@@ -9,6 +9,7 @@ public class CampaignWithdrawAmountModel
 	String withdraw_amount;
 	String balance_amount;
 	String request_date;
+	String approved_date;
 	String campaign_title;
 	String withdraw_status;
 	
@@ -20,8 +21,8 @@ public class CampaignWithdrawAmountModel
 		builder.append("CampaignWithdrawAmountModel [withdraw_id=").append(withdraw_id).append(", fundraisers_id=")
 				.append(fundraisers_id).append(", campaign_id=").append(campaign_id).append(", withdraw_amount=")
 				.append(withdraw_amount).append(", balance_amount=").append(balance_amount).append(", request_date=")
-				.append(request_date).append(", campaign_title=").append(campaign_title).append(", withdraw_status=")
-				.append(withdraw_status).append("]");
+				.append(request_date).append(", approved_date=").append(approved_date).append(", campaign_title=")
+				.append(campaign_title).append(", withdraw_status=").append(withdraw_status).append("]");
 		return builder.toString();
 	}
 
@@ -77,6 +78,14 @@ public class CampaignWithdrawAmountModel
 	
 	
 
+	public String getApproved_date() {
+		return approved_date;
+	}
+
+	public void setApproved_date(String approved_date) {
+		this.approved_date = approved_date;
+	}
+
 	public String getCampaign_title() {
 		return campaign_title;
 	}
@@ -94,8 +103,8 @@ public class CampaignWithdrawAmountModel
 	}
 
 	public CampaignWithdrawAmountModel(String withdraw_id, String fundraisers_id, String campaign_id,
-			String withdraw_amount, String balance_amount, String request_date, String campaign_title,
-			String withdraw_status) {
+			String withdraw_amount, String balance_amount, String request_date, String approved_date,
+			String campaign_title, String withdraw_status) {
 		super();
 		this.withdraw_id = withdraw_id;
 		this.fundraisers_id = fundraisers_id;
@@ -103,12 +112,11 @@ public class CampaignWithdrawAmountModel
 		this.withdraw_amount = withdraw_amount;
 		this.balance_amount = balance_amount;
 		this.request_date = request_date;
+		this.approved_date = approved_date;
 		this.campaign_title = campaign_title;
 		this.withdraw_status = withdraw_status;
 	}
 
-	
-	
 	
 	
 	

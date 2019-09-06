@@ -230,6 +230,10 @@ Unapproved
 	<a href="/destiny/edit-cause-details/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-edit button-all">Edit</button></a>
 	<a href="/destiny/manage-withdrawl/${cm.fundraisers_id}/${cm.campaign_id}"><button class="button-withdraw button-all">Withdraw</button></a>
 </c:if>
+<c:if test="${cm.fundraisers_status eq 2}">
+	<a href="/destiny/manage-overview/${cm.fundraisers_id}/${cm.campaign_id}"><button style="background-color: #165615" class="button-manage-approved button-all"><i class="fa fa-thumbs-o-up"></i> Success</button></a>
+</c:if>
+
 
 
 </center>

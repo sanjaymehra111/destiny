@@ -718,7 +718,7 @@ th, td {
 
 .deta-process::-webkit-scrollbar {
   width: 0px;
-  height: 7px;
+  height: 10px;
   border-radius: 100px;
   transition: 0.3s;
 }

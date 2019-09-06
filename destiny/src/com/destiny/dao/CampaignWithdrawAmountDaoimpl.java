@@ -48,6 +48,7 @@ public class CampaignWithdrawAmountDaoimpl
 						cwam.setWithdraw_amount(rs.getString("withdraw_amount"));
 						cwam.setBalance_amount(rs.getString("balance_amount"));
 						cwam.setRequest_date(rs.getString("request_date"));
+						cwam.setApproved_date(rs.getString("approved_date"));
 						cwam.setCampaign_title(rs.getString("campaign_title"));
 						cwam.setWithdraw_status(rs.getString("withdraw_status"));
 						

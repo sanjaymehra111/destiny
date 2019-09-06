@@ -302,7 +302,6 @@
         
         $(function Close_btn(){
             $(".close-btn").click(function(){
-                //alert("asd");
                 $(".close-button-main").click();
             })
         });

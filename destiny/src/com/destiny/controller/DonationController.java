@@ -40,7 +40,7 @@ public class DonationController
 		bfdao.fetchDonorList();
 		
 		if (sesmodel == null)
-			return "index";
+			return "redirect:/index";
 		else
 			return "redirect:/user-dashboard";
 	}

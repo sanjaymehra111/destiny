@@ -20,7 +20,7 @@ public class VolunteerController
 	{
 		vldao.UpdateVolunteer(vm);
 		
-		return "/index";
+		return "redirect:/index";
 	}
 	
 	

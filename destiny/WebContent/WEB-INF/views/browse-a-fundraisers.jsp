@@ -34,7 +34,60 @@
             color: red;
         }
 
-        .ourcausesheet:hover {
+.ajax-browse-button
+{
+	margin-top:50px;
+	width:400px;
+	height:50px;
+	border:none;
+	outline:none;
+	background: #3ca07c;
+	color:white;
+	border-radius: 50px; 	
+	font-size: 22px;
+	font-weight: bold;
+	transition:0.3s;
+}
+
+.ajax-browse-button:hover
+{
+	background: #21936a;
+	box-shadow: 4px 5px 5px rgba(0,0,0,.575);
+}
+
+.ajax-browse-button:ACTIVE
+{
+	transform:scale(0.97);
+}
+
+
+.CampaignType 
+{
+	background: #3ca07c;
+	padding:10px;
+	border-radius: 100px;
+	border:none;
+	outline:none;
+	cursor: pointer;
+	text-align: center;
+	font-size:20px;
+	color:white;
+	transition:0.3s;
+	margin-top: 10px;
+	width:297px;
+	text-transform: uppercase;
+}
+
+.CampaignType:hover 
+{
+	background: #105d41;
+}
+
+.CampaignType:FOCUS
+{
+	background-color:green;
+}
+     .ourcausesheet:hover {
             box-shadow: 5px 5px 20px 2px rgb(139, 133, 133);
         }
 
@@ -99,15 +152,28 @@
           overflow: hidden;
         }
 
-        @media screen and (max-height: 450px) {
+        @media screen and (max-height: 450px) 
+        {
           .sidenav {padding-top: 15px;}
           .sidenav a {font-size: 18px;}
         }
+        
+        
+@media(max-width:975px)
+{
+.CampaignType 
+{
+	font-size:17px;
+	padding:5px;	
+	width:130px;
+}
+.ajax-browse-button
+{
+	width:200px;
+}
+}
+   
 </style>
-
-
-
-  
 
 <script>
   function openNav() {
@@ -172,6 +238,7 @@ var a1=  document.getElementById("mySidenav").style.width;
     <div class="bodymain">
 
         <div class="causes-body1">
+        
           <script>
             $(function(){
               $(".fundraisers-details").slick({
@@ -260,7 +327,6 @@ var a1=  document.getElementById("mySidenav").style.width;
             </div>
         </div>
 
-        <br><br>
 
     
 <style>
@@ -315,6 +381,26 @@ var a1=  document.getElementById("mySidenav").style.width;
 </div>
 
 <div class="causes-start">
+
+<div class="campaign-type" style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
+<style>
+</style>
+
+<script>
+$(function(){
+	$(".CampaignType").click(function(){
+		var text = $(this).val();
+		$(".content").hide();
+		$('.content:contains("'+text+'")').show();
+	})
+})
+</script>
+
+	<input class="CampaignType campaign-type-ngo" readonly type="text" value="ngo">
+	<input class="CampaignType campaign-type-personal" readonly type="text" value="personal">
+	<input class="CampaignType campaign-type-medical" readonly type="text" value="medical">
+	<input class="CampaignType campaign-type-ideas" readonly type="text" value="ideas">
+</div>
 
 <div class="col-md-12 search-items">
 
@@ -374,114 +460,183 @@ $(function search_submit(){
 </style>
  
 
-
+<!-- insert donation id -->
 <script>
+
 $(function transfer_id(){
-	$(".ourcausebtn1").click(function(){
-    var id = (this).value;
-	//alert(id);
-	$(".c_id").html(id);
-	$(".cid").val(id);
-  });
+	$(document).on('click', '.ajax-donate-button', function(){
+		    var id = $(this).val();
+			$(".c_id").html(id);
+			$(".cid").val(id);
+  	})
 });
-</script>
-
-<script>
- 
-$(function searching(){
-//alert("asd");
+ 	
+$(function(){
 	$(".search-text").keyup(function(){
 		var text = $(this).val();	
 		$(".content").hide();
 		 $('.content:contains("'+text+'")').show();
+	})
+	
+})
+
+$(function(){	
+	$(window).ready(function(){
+		$(".ajax-browse-button").trigger('click'); 
 	});
-});
+})
+
+$(function(){
+	var index=0;
+	$(".ajax-browse-button").click(function GetAjaxFundraisersData(){
+	index = index + 6;
+	var url1 = "/destiny/ajax-browse-fundraisers";
+	
+	$.ajax({
+		url:url1,
+		data : {index:index},
+		type:'Get',
+		cache :false,
+		dataType:'json',
+		contentType : "application/json; charset=utf-8",
+		success : function(data)
+			{
+				var data1 = data[0];
+				var data2 = data[1];
+				var i, j;
+				var html="";
+				
+					for(j=0; j<data2.length; j++)
+						
+						{
+							html+='<div class="col-md-4 content">';
+							html+='<div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">';
+							html+='<div class="ourcausecontainer" style="position: relative;">';
+							var imagesa= data2[j].fundraisers_campaign_images;
+							var c=",";
+							if(imagesa.indexOf(c) != -1)
+								{var images = imagesa.substring(0,imagesa.indexOf(","));}
+							else
+								{var images = data2[j].fundraisers_campaign_images;}
+							html+='<img src="'+images+'" style="width:100%; height: 200px;">';
+							html+='<span class="ourcausedonate">';
+							html+='<button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-whatsapp"></i> Share</button>';
+							html+='<button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-facebook"></i> Share</button>';
+							html+='</span>';
+							html+='</div>';
+							html+='<div class="img-text" style="text-align:left; padding: 20px 20px;">';
+							html+='<div class="text-balance" style="height:200px;">';
+							html+='<div class="campaign-title" style="font-size:20px; text-align:center; text-transform:uppercase; font-weight:bold">'+data2[j].fundraisers_title+'</div>';
+							html+='<div class="p-name" style="text-align:center; padding:10px; font-size:16px;"><span class="personal-name" style="text-transform: capitalize">'+data2[j].fundraisers_name+'</span></div>';
+						 	html+='<span class="p-type hidden">Type : <span class="personal-name" style="text-transform: capitalize">'+data2[j].campaign_type+'</span></span>';
+							html+='<span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> '+data2[j].fundraisers_goal_amount+' </span>';
+							var amounta = data2[j].fundraisers_raised_amount;
+							var amount = amounta.substring(0,amounta.indexOf("."));
+							html+='<span style="float:right">Raised : <span class="pr">'+amount+'</span> </span>';
+							html+='</span>';
+							html+='<br><br>';
+							var a = (data2[j].fundraisers_raised_amount / data2[j].fundraisers_goal_amount) * 100;
+							html+='<div class="progress" style="height: 10px;">';
+							html+='<div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" style="width:'+a+'%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>';
+							html+='</div>';
+							html+='<p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify; margin-top:-15px;"> '+data2[j].fundraisers_story+'</p>';
+							html+='</div>';
+							html+='<center>';
+							html+='<div class="col-md-6">';
+							html+='<a href="specific-cause-details/'+data2[j].fundraisers_id+'/'+data2[j].campaign_id+'" style="text-decoration: none">';
+							html+='<button class="ourcausebtn1 form-control" value="'+data2[j].fundraisers_id+'" style="background-color:rgb(26, 145, 135); color:white">Read More</button>';
+							html+='</a>';
+							html+='</div>';
+							html+='<div class="col-md-6"> ';
+							html+='<button class="ajax-donate-button ourcausebtn1 form-control donate-popup camp_id" data-toggle="modal"  data-target="#myModal"  type="button" value="'+data2[j].campaign_id+'" style="background-color:rgb(26, 145, 135); color:white">Donate Now</button>';
+							html+='</div>';
+							html+='</center>';
+							html+='<div class="container-fluid"></div>';
+							html+='</div>';
+							html+='</div>';
+							html+='<br><br> '; 
+							html+='</div>';
+					}
+					
+				$(".ajax-browse-fundraisers").html(html)
+			},
+		error: function(){alert("error")}
+
+	}) // ajax close
+	}) // GetAjaxFundraisersData close
+
+}) //main function close
 
 </script> 
 
 
-<span style=" flex-direction: row-reverse;">
+<div class="ajax-browse-fundraisers"></div>
+
+<div class="col-md-12" style="text-align: center;">
+	<button class="ajax-browse-button">Load More</button>
+</div>
+
+
+<%-- 
+<span style=" display:block">
 
 <c:forEach var="fm" items="${data}">
 <c:forEach var="cm" items="${data2}" >
-
 <c:if test="${fm.fundraisers_id == cm.fundraisers_id}">
 
 <div class="col-md-4 content">
-  <div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">
-    
-   <div class="ourcausecontainer" style="position: relative;">
-   
-   	<%-- <img src="${cm.fundraisers_profile_image}" class="ourcauseimage1"> --%>
-    <%-- <img class="img-path1" src="<c:out value = "${name}"/>" style="width:100%; height: 400px;"> --%>
-	
-   	<c:forTokens items = "${cm.fundraisers_campaign_images}" delims = ","  var = "name" step="10">
-         	<img src="${name}" style="width:100%; height: 200px;">
-    </c:forTokens>
-    
-	<span class="ourcausedonate">
-        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-whatsapp"></i> Share</button>
-        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-facebook"></i> Share</button>
-    </span>
-  </div>
+<div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">
+   	<div class="ourcausecontainer" style="position: relative;">
+		<c:forTokens items = "${cm.fundraisers_campaign_images}" delims = ","  var = "name" step="10">
+	   		<img src="${name}" style="width:100%; height: 200px;">
+	   	</c:forTokens>
+	    <span class="ourcausedonate">
+	        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-whatsapp"></i> Share</button>
+	        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-facebook"></i> Share</button>
+	    </span>
+  	</div>
 
-<style>
-.campaign-title
-{	text-transform: capitalize;
-}
-
-</style>
-  <div class="img-text" style="text-align:left; padding: 20px 20px;">
-    <div class="text-balance" style="height:200px;">
-  
-    <%--  <span style="font-size:25px; color:rgb(126, 131, 131)"> f id is : ${fm.fundraisers_id} </span>
-   	 <span style="font-size:25px; color:rgb(126, 131, 131); float:right"> c id is : ${cm.campaign_id} </span><p></p>
-     <p style="font-size:25px; color:rgb(126, 131, 131)"> c fi id is : ${cm.fundraisers_id} </p>
-     --%> 
-<div class="campaign-title" style="font-size:20px; text-align:center; text-transform:uppercase; font-weight:bold">${cm.fundraisers_title}</div>
-<div class="p-name" style="text-align:center; padding:10px; font-size:16px;">By : <span class="personal-name" style="text-transform: capitalize">${fm.personal_name}</span></div>
-<span class="p-type hidden">Type : <span class="personal-name" style="text-transform: capitalize">${fm.category_type}</span></span>
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> ${cm.fundraisers_goal_amount} </span> 
-    <span style="float:right">Raised : <span class="pr">
-    <c:set var="ramount" value="${fn:substringBefore(cm.fundraisers_raised_amount, '.')}"/>
-	${ramount}
-    </span> </span></span> <br><br>
-    
-    <c:set var="a" value="${cm.fundraisers_goal_amount}"/>
-    <c:set var="b" value="${cm.fundraisers_raised_amount}"/>
-    <c:set var="c" value="${(cm.fundraisers_raised_amount / cm.fundraisers_goal_amount) * 100}"/>
-    
-    <div class="progress" style="height: 10px;">
-        <div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" style="width:${c}%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-      
-    <p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify; margin-top:-15px;"> ${cm.fundraisers_story}</p>
-   </div>
-    <center>
-    <div class="col-md-6">  
-        <a href="specific-cause-details/${fm.fundraisers_id}/${cm.campaign_id}" style="text-decoration: none">
-          <button class="ourcausebtn1 form-control" value="${fm.fundraisers_id}" style="background-color:rgb(26, 145, 135); color:white">Read More</button>
-        </a>
-    </div> 
-    <div class="col-md-6"> 
-      <button class="ourcausebtn1 form-control donate-popup camp_id" value="${cm.campaign_id}" style="background-color:rgb(26, 145, 135); color:white">Donate Now</button>
-    </div>
-    </center>
-    <div class="container-fluid"></div>
-
-  </div>
-  </div>
-<br><br> 
+ 	<div class="img-text" style="text-align:left; padding: 20px 20px;">
+		<div class="text-balance" style="height:200px;">
+		<div class="campaign-title" style="font-size:20px; text-align:center; text-transform:uppercase; font-weight:bold">${cm.fundraisers_title}</div>
+		<div class="p-name" style="text-align:center; padding:10px; font-size:16px;">By : <span class="personal-name" style="text-transform: capitalize">${fm.personal_name}</span></div>
+		<span class="p-type hidden">Type : <span class="personal-name" style="text-transform: capitalize">${fm.category_type}</span></span>
+	    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> ${cm.fundraisers_goal_amount} </span> 
+	    	<span style="float:right">Raised : <span class="pr"><c:set var="ramount" value="${fn:substringBefore(cm.fundraisers_raised_amount, '.')}"/>${ramount}</span> </span>
+	    </span>
+	    <br><br>
+	    
+	    <c:set var="a" value="${cm.fundraisers_goal_amount}"/>
+	    <c:set var="b" value="${cm.fundraisers_raised_amount}"/>
+	    <c:set var="c" value="${(cm.fundraisers_raised_amount / cm.fundraisers_goal_amount) * 100}"/>
+	    
+	    <div class="progress" style="height: 10px;">
+	        <div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" style="width:${c}%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+	    </div>
+	    <p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify; margin-top:-15px;"> ${cm.fundraisers_story}</p>
+	   	</div>
+	    <center>
+	    <div class="col-md-6">  
+	        <a href="specific-cause-details/${fm.fundraisers_id}/${cm.campaign_id}" style="text-decoration: none">
+	          <button class="ourcausebtn1 form-control" value="${fm.fundraisers_id}" style="background-color:rgb(26, 145, 135); color:white">Read More</button>
+	        </a>
+	    </div> 
+	    <div class="col-md-6"> 
+	      <button class="ourcausebtn1 form-control donate-popup camp_id" value="${cm.campaign_id}" style="background-color:rgb(26, 145, 135); color:white">Donate Now</button>
+	    </div>
+	    </center>
+	    <div class="container-fluid"></div>
+	</div>
 </div>
+<br><br> 
+</div> 
 
 </c:if>
- 	
 </c:forEach>
 </c:forEach>
 
 </span>
-
-
+ --%>
 
 
 <br><br>
@@ -515,23 +670,23 @@ $(function searching(){
         </script>
     </div>
 
-
     <!--Footer End-->
 
+<!--Donate popup Start-->
 
-
-    <!--Donate popup Start-->
-
+<!-- close donation popup  -->
     <script>
     $(function(){
-        $(".donate-popup").click(function(){
-            $(".close-button-main").click();
-        })
-    })
+    	$.ajaxComplete(function(){
+    		$("#donate-popup-id").click(function(){
+        		$(".close-button-main").click();
+        	})
+    	})
+	})
     </script>
     
-    <span data-toggle="modal" class="close-button-main" data-target="#myModal"></span>
-          
+    
+    <span data-toggle="modal" data-target="#myModal" class="close-button-main"></span>
     
     <div class="donate-import">
     <script>

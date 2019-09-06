@@ -870,9 +870,11 @@ font-size: 16px;
         <th>CREATED</th>
         <th>START DATE</th>
         <th>END DATE</th>
+        <th>UPDATE ON</th>
         <th>GOAL</th>
         <th>RAISED</th>
         <th>DONORS</th>
+        <th>SUCCESS</th>
         <th>STATUS</th>
         <th>ACTION
                 <span class="status-text">
@@ -901,9 +903,11 @@ font-size: 16px;
           <td>${cm.fundraisers_created_date}</td>
           <td>${cm.fundraisers_start_date}</td>
           <td>${cm.fundraisers_end_date}</td>
+          <td>${cm.fundraisers_campaign_updated_date}</td>
           <td>${cm.fundraisers_goal_amount}</td>
           <td>${cm.fundraisers_raised_amount}</td>
           <td>${cm.fundraisers_donor_list}</td>
+          <td>${cm.fundraisers_campaign_success_date}</td>
           <td>
           <span class="user-status">
 	              <c:if test="${cm.fundraisers_status == 0}">

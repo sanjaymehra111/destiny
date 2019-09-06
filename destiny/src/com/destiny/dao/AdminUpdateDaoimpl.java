@@ -165,6 +165,7 @@ public class AdminUpdateDaoimpl
 							cm.setFundraisers_campaign_images(rs.getString("fundraisers_campaign_images"));
 							cm.setFundraisers_campaign_documents(rs.getString("fundraisers_campaign_documents"));
 							cm.setFundraisers_campaign_updated_date(rs.getString("fundraisers_campaign_updated_date"));
+							cm.setFundraisers_campaign_success_date(rs.getString("fundraisers_campaign_success_date"));
 							cm.setFundraisers_status(rs.getString("fundraisers_status"));
 							
 							return cm;
@@ -315,7 +316,7 @@ public class AdminUpdateDaoimpl
 		
 		public int CampaignSuccess(String cid) 
 		{
-			String query10 = "update campaign_details set fundraisers_status=2 where campaign_id ='"+cid+"'";
+			String query10 = "update campaign_details set fundraisers_campaign_success_date = '"+date+"', fundraisers_status=2 where campaign_id ='"+cid+"'";
 			return template.update(query10);
 		}
 		
@@ -464,7 +465,7 @@ public class AdminUpdateDaoimpl
 
 			public int UpdateUnblockWithdraw(String id)
 			{
-				String query17 = "update campaign_withdraw_request set withdraw_status=1 where withdraw_id ='"+id+"'";
+				String query17 = "update campaign_withdraw_request set approved_date = '"+date+"', withdraw_status=1 where withdraw_id ='"+id+"'";
 				return template.update(query17);
 			}
 			
@@ -472,7 +473,7 @@ public class AdminUpdateDaoimpl
 
 			public int UpdateBlockWithdraw(String id)
 			{
-				String query18 = "update campaign_withdraw_request set withdraw_status=0 where withdraw_id ='"+id+"'";
+				String query18 = "update campaign_withdraw_request set approved_date = '"+date+"', withdraw_status=0 where withdraw_id ='"+id+"'";
 				return template.update(query18);
 			}
 			

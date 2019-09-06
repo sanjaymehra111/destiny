@@ -624,8 +624,8 @@ $(function()
 })
 </script>
         <div class="col-md-4">
-        <span class="p-amount amount-text">OF OUR GOAL <span class="ach-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"></span> </span>
-        <span class="d-amount amount-text">Share <span style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">48</span> </span>
+        <span class="p-amount amount-text">GOAL <span class="ach-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"></span> </span>
+        <span class="d-amount amount-text">DONOR <span style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${cm.fundraisers_donor_list}</span> </span>
         <br><br><br>
         </div>
         <div class="col-md-2">

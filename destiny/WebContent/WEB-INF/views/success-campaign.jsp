@@ -171,6 +171,7 @@
         <div class="cause_title">${cm.fundraisers_title}</div>
 
         <br><br>
+        <div class="col-md-1"></div>
         <div class="col-md-6">
         <span class="t-amount amount-text">Goal &#8377; <span class="goal-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${cm.fundraisers_goal_amount}</span> </span>
         <span class="r-amount amount-text">Achieved  &#8377; <span class="achieved-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">
@@ -191,15 +192,15 @@ $(function()
 
 })
 </script>
-        <div class="col-md-4">
-        <span class="p-amount amount-text">GOAL <span class="ach-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"></span> </span>
+        <div class="col-md-4" style="text-align: center;">
+        <span class="p-amount amount-text">OF OUR GOAL <span class="ach-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"></span> </span>
         <span class="d-amount amount-text">DONOR <span style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${cm.fundraisers_donor_list}</span> </span>
         <br><br><br>
         </div>
-        <div class="col-md-2">
+        <%-- <div class="col-md-2">
                 <a href="#" style="text-decoration: none"  class=" donate-popup"><span class="d-button amount-text"><button value="${cm.campaign_id}" class="ourcausebtn1" style="font-weight: bold; outline:none; border:none; background-color:transparent;">Donate Now</button> </span></a>
            <br><br>
-        </div>
+        </div> --%>
         
     </div>
 </div>
@@ -397,7 +398,7 @@ $(function(){
 
 <br><br>
 
-<div class="col-md-8 cd-section4-sction5">
+<div class="col-md-12 cd-section4-sction5">
     
 <div class="cd-section4" style="background-color: white; border-top-left-radius: 10px; border-top-right-radius: 10px;">
 
@@ -602,16 +603,6 @@ $(function hide_show(){
 
 
 
-
-
-<!--
-    <div class="col-md-12" style="text-align: center;"> 
-    <img src="/destiny/files/images/des-icon.png" class="images-style speed-image" style="transform: scale(0.6); opacity: 1;">
-    <img src="/destiny/files/images/document-icon.png" class="images-style eligibility-image">
-    
-    <img src="/destiny/files/images/donation-icon.png" class="images-style amount-image">
-    <img src="/destiny/files/images/comment-icon.png" class="images-style cost-image">
--->
 
     <br><br>
 
@@ -833,219 +824,9 @@ $(function zoom_image(){
 <div class="container-fluid"></div>
 <br><br>
 
-
-
-<c:if test="${fn:length(data5) != 0}">
-<c:forEach var="cam" items="${data5}">
-
-<div class="cd-section5" style="background-color: white; border-radius: 10px; font-size: 18px; padding: 10px;">
-<div class="container-fluid" style="text-transform: capitalize;">
-<br>
-        <div><p  style="font-size: 25px; color:rgb(41, 41, 41)">Bank Account Details</p></div>
-        <hr>
-
-Account Number : <b> ${cam.account_number}</b>
-<br>
-Account Holder Name : <b> ${cam.account_holder_name}</b>
-<br>
-Bank Name: <b> ${cam.account_bank_name}</b>
-<br>
-IFSC Code : <b> ${cam.account_ifsc}</b>
-<br><br>
-<a href="#" style="text-decoration: none;">Click here to read this before you donate via the above options</a>
-<br>
-</div>
-</div>
-
-</c:forEach>
-</c:if>
-
-
-
-<c:if test="${fn:length(data5) == 0}">
-
-<div class="cd-section5" style="background-color: white; border-radius: 10px; font-size: 18px; padding: 10px;">
-<div class="container-fluid">
-<br>
-        Use the information below to make a direct bank transfer through NEFT/RTGS/IMPS.
-<br>
-<br>
-- Account number : <b> 123456789</b>
-<br>
-- Account name : <b> Rahul</b>
-<br>
-- IFSC code : <b> sbi115822ok</b>
-<br>
-<br>
-<a href="#" style="text-decoration: none;">Click here to read this before you donate via the above options</a>
-<br>
-
-</div>
-</div>
-</c:if>
-
-<br><br>
-
-
 </div>    
-  
 </div>
-
-<div class="col-md-4 cd-section5">
-
-<style>
-
-.fb-button
-{
-    font-size: 20px;
-    height: 50px;
-    background-color: rgb(12, 26, 88);
-    outline: none;
-    border: none;
-    color:white;
-    transition: 0.3s ease-in-out;
-    border-radius: 50px;
-    
-}
-.fb-button:hover
-{
-    background-color: rgb(50, 77, 194);
-}
-.fb-button:active
-{
-    transition: 0.1s ease-in-out;
-    transform: scale(0.98);
-}
-
-.dn-button
-{
-    font-size: 20px;
-    height: 50px;
-    background-color: rgb(218, 77, 42);
-    outline: none;
-    border: none;
-    color:rgb(255, 255, 255);
-    transition: 0.3s ease-in-out;
-    border-radius: 50px;
-    
-}
-.dn-button:hover
-{
-    background-color: rgb(160, 45, 17);
-}
-.dn-button:active
-{
-    transition: 0.1s ease-in-out;
-    transform: scale(0.98);
-}
-
-.cd-section5
-{
-    /*margin-top: 115px;*/
-}
-
-@media (max-width:975px)
-{
-    .fb-button
-{
-    font-size: 20px;
-}
-}
-</style>
-
-
-
-
-<style>
-.upi-text
-{
-    outline: none;
-    border:none;
-    background-color: transparent;
-    resize: none;
-    font-weight: bold;
-    max-width: 100%;
-    text-align: center;
-}
-
-.upi-text:hover
-{
-    cursor: copy;
-}
-
-.upi-text:focus
-{
-    outline: none;
-}
-
-.copy-code
-{
-    transition: 0.3s ease-in-out;
-    color:white;
-    background-color: rgb(20, 92, 20);
-
-}
-.copy-code:hover
-{
-    background-color: rgb(23, 194, 23);
-    color:white;
-}
-
-.copy-code:active
-{
-    transition: 0.1s ease-in-out;
-    transform: scale(0.90)
-}
-
-
-</style>
-
-<script>
-function myFunction() {
-  var uid = document.getElementById("myInput");
-  uid.select();
-  document.execCommand("copy");
-  //alert("Copied the text: " + copyText.value);
-}
-</script>
-
-
-
-
-<button class="ourcausebtn1 form-control dn-button donate-popup" value="${cm.campaign_id}"><i class="fa fa-thumbs-up"></i> DONATE NOW </span></button>    
-<br>
-<p style="font-size: 18px;font-weight: bold; text-align: justify; text-align: center; font-style: italic">Funds will be transferred to the hospital</p>
-<br>
-<div class="upi" style="box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.534); background-color: white; border-radius: 10px; text-align: center;">
-    <div class="container-fluid"><br>
-        <p style="font-size: 15px;font-weight: bold; text-align: justify;  font-style: italic">
-            Donate Via PayTm Or UPI
-        </p>
-        <hr style="border: solid 0.5px black; margin-top: -2px;">
-            <div class="col-md-6">
-                <img src="${cm.fundraisers_upi_image}" style="width:150px; height: 150px;">    
-            </div>
-            <div class="col-md-6">
-                <img src="/destiny/files/images/upi.png" style="width:100px; height: 40px;"><br><br>
-                <textarea readonly id="myInput" class="upi-text">${cm.fundraisers_upi_number}</textarea>
-                <br>
-                <center><button onclick="myFunction()" class="form-control copy-code" style="width:100px; border-radius: 50px;">COPY</button></center>
-                <br>
-            </div>
-
-    </div>
-</div>
-
-<br><br>
-<button class="form-control fb-button"><i class="fa fa-facebook-official"></i> SHARE ON FACEBOOK</span></button>    
-<br>
-<p style="font-size: 18px;font-weight: bold; text-align: justify; text-align: center; font-style: italic">Every social media share can bring &#8377;5,000 </p>
-
-</div>
-
 <div class="container-fluid"></div>
-
-
 <br><br>
 </div>
 

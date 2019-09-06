@@ -116,8 +116,20 @@ public class StoreController
 	
 
 	@RequestMapping("/")
-	public String blank_indexpage(Model model)
+	public String blank_indexpage(Model model, FundraiserModel fm, CampaignsModel cm)
 	{
+		//update sum of donation amount details in campaign.fundraisers_raised_amount
+		fmdao2.fetchDonationDetails();
+	
+		// Get success fundraisers details
+		List<FundraiserModel> data1 = fmdao2.fetchFundraisersDetails();
+		List<CampaignsModel> data2 = fmdao2.fetchCampaignsDetails(); // campaign
+		List<CampaignsModel> data3 = fmdao2.fetchSuccessCampaignsDetails(); //seccess campaign
+		
+		model.addAttribute("data1", data1);
+		model.addAttribute("data2", data2);
+		model.addAttribute("data3", data3);
+		
 		return "index";
 		
 	}
@@ -125,6 +137,18 @@ public class StoreController
 	@RequestMapping("index")
 	public String indexpage(Model model)
 	{
+		//update sum of donation amount details in campaign.fundraisers_raised_amount
+		fmdao2.fetchDonationDetails();
+			
+		// Get success fundraisers details
+		List<FundraiserModel> data1 = fmdao2.fetchFundraisersDetails();
+		List<CampaignsModel> data2 = fmdao2.fetchCampaignsDetails(); // campaign
+		List<CampaignsModel> data3 = fmdao2.fetchSuccessCampaignsDetails(); //seccess campaign
+		
+		model.addAttribute("data1", data1);
+		model.addAttribute("data2", data2);
+		model.addAttribute("data3", data3);
+				
 		return "index";
 		
 	}

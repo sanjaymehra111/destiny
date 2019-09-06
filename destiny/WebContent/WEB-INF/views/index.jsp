@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
 
@@ -14,7 +18,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+	<!--For slick bar-->         
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.5/slick.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.5/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
     
+
+        
 
       <style>
 
@@ -222,93 +233,90 @@
 
 </div>
 
+<span style=" flex-direction: row-reverse;">
 
-<div class="col-md-4">
+<c:forEach var="fm" items="${data1}">
+<c:forEach var="cm" items="${data2}" end="2" >
+<c:if test="${fm.fundraisers_id == cm.fundraisers_id}">
+
+<div class="col-md-4 content">
   <div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">
     
    <div class="ourcausecontainer" style="position: relative;">
-    <img src="/destiny/files/images/drintwater.jpg" class="ourcauseimage1">
-    <span class="ourcausedonate"><button class=" donate-popup ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white">Donate Now</button></span>
+   
+   	<%-- <img src="${cm.fundraisers_profile_image}" class="ourcauseimage1"> --%>
+    <%-- <img class="img-path1" src="<c:out value = "${name}"/>" style="width:100%; height: 400px;"> --%>
+	
+   	<c:forTokens items = "${cm.fundraisers_campaign_images}" delims = ","  var = "name" step="10">
+         	<img src="${name}" style="width:100%; height: 200px;">
+    </c:forTokens>
+    
+	<span class="ourcausedonate">
+        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-whatsapp"></i> Share</button>
+        <button class="ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(26, 145, 135); color:white"><i class="fa fa-facebook"></i> Share</button>
+    </span>
   </div>
 
+<style>
+.campaign-title
+{	text-transform: capitalize;
+}
+
+</style>
   <div class="img-text" style="text-align:left; padding: 20px 20px;">
-    <div style="height: 30%; overflow: hidden;">
+    <div class="text-balance" style="height:180px;">
   
-    <p style="font-size:25px; color:rgb(126, 131, 131)">Water For All Children</p>
-
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : 25000 $ Raised : 18000 $</span> <br><br>
-    <p style="font-size:17px; color:rgb(155, 160, 160); text-align: justify; ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in magna ac tellus fringilla eleifend.</p>
-  </div>
-    <center>
-    <a href="cause-details" style="text-decoration: none;">
-    <button class="ourcausebtn1 form-control" style="background-color:rgb(26, 145, 135); color:white">Read More</button>
-    </a>
-    </center>
+    <%--  <span style="font-size:25px; color:rgb(126, 131, 131)"> f id is : ${fm.fundraisers_id} </span>
+   	 <span style="font-size:25px; color:rgb(126, 131, 131); float:right"> c id is : ${cm.campaign_id} </span><p></p>
+     <p style="font-size:25px; color:rgb(126, 131, 131)"> c fi id is : ${cm.fundraisers_id} </p>
+     --%> 
+<div class="campaign-title" style="font-size:20px; text-align:center; text-transform:uppercase; font-weight:bold">${cm.fundraisers_title}</div>
+<div class="p-name" style="text-align:center; padding:10px; font-size:16px;">By : <span class="personal-name" style="text-transform: capitalize">${fm.personal_name}</span></div>
+<span class="p-type hidden">Type : <span class="personal-name" style="text-transform: capitalize">${fm.category_type}</span></span>
+    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> ${cm.fundraisers_goal_amount} </span> 
+    <span style="float:right">Raised : <span class="pr">
+    <c:set var="ramount" value="${fn:substringBefore(cm.fundraisers_raised_amount, '.')}"/>
+	${ramount}
+    </span> </span></span> <br><br>
     
-  </div>
-  </div>
-</div>
-
-<br><br>
-
-
-<div class="col-md-4">
-    <div class="ourcausesheet" style="border:solid 1px rgba(175, 171, 171, 0.445);">
+    <c:set var="a" value="${cm.fundraisers_goal_amount}"/>
+    <c:set var="b" value="${cm.fundraisers_raised_amount}"/>
+    <c:set var="c" value="${(cm.fundraisers_raised_amount / cm.fundraisers_goal_amount) * 100}"/>
     
-      <div class="ourcausecontainer" style="position: relative;">
-        <img src="/destiny/files/images/type2.jpg" class="ourcauseimage1">
-        <span class="ourcausedonate"><button class="donate-popup ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(204, 94, 131); color:white">Donate Now</button></span>
-      </div>
-    
-    <div class="img-text" style="text-align:left; padding: 20px 20px;">
-      <div style="height: 30%; overflow: hidden;">
-    
-      <p style="font-size:25px; color:rgb(127, 133, 133)">Clean Water For All</p>
-  
-      <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : 25000 $ Raised : 18000 $</span> <br><br>
-  
-      <p style="font-size:17px; color:rgb(155, 160, 160); text-align: justify; ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in magna ac tellus fringilla eleifend.</p>
-      </div>
-      <center>
-    <a href="cause-details" style="text-decoration: none;">
-        <button class="ourcausebtn1 form-control" style="background-color:rgb(204, 94, 131); color:white">Read More</button>
-      </a>
-    </center>
+    <div class="progress" style="height: 10px;">
+        <div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" style="width:${c}%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
       
-    </div>
-    </div>
-  </div>
-   <br><br>
-
-<div class="col-md-4">
-  <div class="ourcausesheet" style="border:solid 1px rgba(185, 180, 180, 0.445);">
-  
-    <div class="ourcausecontainer" style="position: relative;">
-      <img src="/destiny/files/images/type3.jpg" class="ourcauseimage1">
-      <span class="ourcausedonate"><button class="donate-popup ourcausebtn1 ourcausebtn2 form-control" style="width:100%; background-color:rgb(145, 90, 26); color:white">Donate Now</button></span>
-    </div>
-
-  <div class="img-text" style="text-align:left; padding: 20px 20px;">
-    <div style="height: 30%; overflow: hidden;">
-    <p style="font-size:25px; color:rgb(123, 128, 128)">New School Teachers</p>
-
-    <span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal : 25000 $ Raised : 18000 $</span> <br><br>
-
-    <p style="font-size:17px; color:rgb(155, 160, 160); text-align: justify; ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in magna ac tellus fringilla eleifend.</p>
-  </div>    
+    <p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify; margin-top:-15px;"> ${cm.fundraisers_story}</p>
+   </div>
     <center>
-    <a href="cause-details" style="text-decoration: none;">
-        <button class="ourcausebtn1 form-control" style="background-color:rgb(145, 90, 26); color:white">Read More</button>
-      </a>
+    <div class="col-md-6">  
+        <a href="specific-cause-details/${fm.fundraisers_id}/${cm.campaign_id}" style="text-decoration: none">
+          <button class="ourcausebtn1 form-control" value="${fm.fundraisers_id}" style="background-color:rgb(26, 145, 135); width:100px; height:30px; color:white">Read More</button>
+        </a>
+    </div> 
+    <div class="col-md-6"> 
+      <button class="ourcausebtn1 form-control donate-popup camp_id donation_id" value="${cm.campaign_id}" style="background-color:rgb(26, 145, 135); width:100px; height:30px; color:white">Donate Now</button>
+    </div>
     </center>
-    
+    <div class="container-fluid"></div>
+
   </div>
   </div>
+<br><br> 
 </div>
-<br><br>
+
+</c:if>
+</c:forEach>
+</c:forEach>
+
+</span>
+
 </div>
 </div>
 </div>
+
+
 
 <br><br>
 
@@ -365,7 +373,7 @@
 
 <br><br><br><br>
 
-<div class="body5">
+<!-- <div class="body5">
 <div class="container-fluid">
 
   <div class="body5upper">
@@ -394,7 +402,7 @@
 
 <div class="body5lower">
   
-  <div class="container" style="line-height: 35px; text-align: justify;">  
+<div class="container" style="line-height: 35px; text-align: justify;">  
     
 <div class="col-md-1"></div>
   <div class="col-md-5"> 
@@ -478,6 +486,10 @@
 <div class="col-md-4">
 </div>
 
+ 
+ 
+ 
+ 
   <div class="col-md-4">
     <center>
       <a href="become_a_volunteer" style="text-decoration: none">
@@ -493,7 +505,194 @@
 
 </div>
 </div>
+ -->
+ 
+ 
+ <div class="how-body3" style="background-color: rgba(226, 226, 226, 0.534);">
+<div class="container">
+<br><br><br>
+        <p style="text-align: center; font-size: 25px;">
+            Our Successful Fundraisers Stories    
+        <hr style="border:solid 1.2px rgb(153, 187, 29); text-align: center; width: 50%;">
+<br><br>
 
+
+<style>
+
+.text-balance {
+	margin-right:5px;
+	margin-left:5px;
+	height: 70px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.body3-items .slick-slide
+{
+    cursor: pointer;
+    height: auto;
+    width:100%;
+}
+
+
+.body3-items .slick-next
+{
+    background-image: url('/destiny/files/images/right.jpg');
+    background-size: 100% 100%;
+    text-indent: -9999;
+    
+} 
+
+.body3-items .slick-prev
+{
+    background-image: url('/destiny/files/images/left.jpg');
+    background-size: 100% 100%;
+    text-indent: -9999;
+} 
+
+.body3-items .slick-prev:focus
+{
+    background-image: url('/destiny/files/images/left.jpg');
+    background-size: 100% 100%;
+    border-radius: 50px;
+}
+
+.body3-items .slick-prev:hover
+{
+    background-color: white;
+    background-image: url('/destiny/files/images/left.jpg');
+    background-size: 100% 100%;
+    border-radius: 50px;
+    box-shadow: 0px 0px 10px 1px rgb(255, 255, 255);
+    z-index: 999;
+
+}
+
+
+.body3-items .slick-next:focus 
+{
+    background-image: url('/destiny/files/images/right.jpg');
+    background-size: 100% 100%;
+    border-radius: 50px;
+}
+
+.body3-items .slick-next:hover
+{
+    background-color: white;
+    background-image: url('/destiny/files/images/right.jpg');
+    background-size: 100% 100%;
+    border-radius: 50px;
+    box-shadow: 0px 0px 10px 1px rgb(255, 255, 255);
+    z-index: 999;
+}
+
+
+
+.body3-items .slick-dots li button 
+{
+
+    background-color: rgb(82, 73, 73);
+    border-radius: 25px;
+    width: 12px;
+    height: 12px;
+    text-indent: -9999px;
+}
+
+.body3-items .slick-dots li.slick-active
+{
+    transform: scale(1.2);
+    opacity: 0.3;
+}
+
+
+</style>
+ 
+<script>
+$(function(){
+  
+  $('.body3-items').slick({
+      
+             infinite: true,
+             speed: 2000,
+             slidesToShow: 4,
+             slidesToScroll:2,
+             autoplay:true,
+             arrows: true,
+             centerMode:true,
+             dots:true,
+
+   
+    
+                 responsive: [                        
+                {
+                 breakpoint: 990,
+                 settings: {
+                    slidesToShow: 3,
+                    slidesToScroll:2,
+                    arrows: false,
+                    dots:true,
+                 }
+               },
+
+               {
+                 breakpoint: 700,
+                 settings: {
+                    slidesToShow: 1,
+                    slidesToScroll:1,
+                    arrows: false,
+                    dots:true,
+
+                 }
+               },
+           ]
+             
+     });
+   
+ });
+</script>
+
+<div class="body3-items" style="width:100%;">
+	<c:forEach var="fm" items="${data1}">
+	<c:forEach var="scm" items="${data3}" end="11" >
+	<c:if test="${fm.fundraisers_id == scm.fundraisers_id}">
+	
+		<div class="col-md-1">
+			<div class="body3-item1" style="text-align: center; background-color: white; border-radius: 15px; height:350px; overflow: hidden;">
+			<c:forTokens items = "${scm.fundraisers_campaign_images}" delims = ","  var = "name" step="10">
+	         	<img src="${name}" style="width:100%; height: 180px;">
+		    </c:forTokens>
+			<hr style="border:solid 0.5px rgb(153, 187, 29); text-align: center; width: 50%;">
+			<div class="text-balance">
+				<p style="text-align: center; font-size: 20px; font-weight: bold">${scm.fundraisers_title}</p>
+				<p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify; margin-top:-15px;"> ${scm.fundraisers_story}</p>
+			</div>
+			<center><a href="success-campaign/${fm.fundraisers_id}/${scm.campaign_id}" style="text-decoration: none"><button class="ourcausebtn1 form-control" style="background-color:#00a2e8; width:100px; height:30px; margin-top:15px; color:white">Read More</button></a></center>
+			<br>
+			</div>
+		</div>
+	</c:if>
+	</c:forEach>
+	</c:forEach>
+	
+</div>
+	
+<br><br><br>
+</div>
+</div>
+ 
+ <br><br><br><br>
+ 
+  <div class="col-md-4"></div><div class="col-md-4">
+    <center>
+      <a href="become_a_volunteer" style="text-decoration: none">
+        <button class="ourcausebtn1 form-control" style="padding-top:20px; padding-bottom:45px; width: 100%;  border-radius: 50px; font-weight: bold; font-size:3vmin; color:white; background: rgba(35, 133, 150, 0.774);">BECOME OUR VOLOUNTEER</button>
+      </a>
+      </center>
+  </div>
+<div class="container-fluid"></div> 
 <br><br><br><br>
 
 <div class="body6">
@@ -647,7 +846,7 @@
   <p style="font-size: 50px; font-weight: bold; color:rgb(121, 111, 111)">OUR BLOGS</p>
   
   </div>
-  
+
   
   <div class="col-md-4">
     <div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">
@@ -798,6 +997,18 @@
 <!--Footer End-->
 
 
+<!-- insert donation id -->
+<script>
+$(function transfer_id(){
+	$(".donation_id").click(function(){
+    var id = (this).value;
+	//alert(id);
+	$(".c_id").html(id);
+	$(".cid").val(id);
+  });
+});
+</script>
+
 
 <!--Donate popup Start-->
 
@@ -807,7 +1018,7 @@
             $(".close-button-main").click();
         })
     })
-    </script>
+</script>
     
     <!--<button class="donate-popup">Donate</button>-->
     

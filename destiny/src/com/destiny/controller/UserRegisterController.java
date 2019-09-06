@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.destiny.dao.BrowseFundraiserDaoimpl;
@@ -22,6 +23,7 @@ import com.destiny.model.CampaignsModel;
 import com.destiny.model.DonationModel;
 import com.destiny.model.FundraiserModel;
 import com.destiny.model.SessionModel;
+import com.google.gson.Gson;
 
 @Controller
 public class UserRegisterController 
@@ -95,20 +97,37 @@ public class UserRegisterController
 	@RequestMapping("/browse-a-fundraisers")
 	public String browse_a_fundraisers(FundraiserModel fm, Model model, CampaignsModel cm, DonationModel dm)
 	{
-		List<FundraiserModel> data = fmdao2.fetchFundraisersDetails();
-		List<CampaignsModel> data2 = fmdao2.fetchCampaignsDetails();
-		
 		//update sum of donation amount details in campaign.fundraisers_raised_amount
 		fmdao2.fetchDonationDetails();
-	
-		//System.out.println("campaign id is : " +dm.getCampaign_id()+  " AND  " + "amount is : " +dm.getAmount() );
+
+		int a = 20;
+		List<FundraiserModel> data = fmdao2.fetchFundraisersDetails();
+		List<CampaignsModel> data2 = fmdao2.FetchBrowseCampaignsDetails(a);
 		
 		model.addAttribute("data", data);
 		model.addAttribute("data2", data2);
-		model.addAttribute("fm", fm);
-		model.addAttribute("cm", cm);
 		
 		return "browse-a-fundraisers";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/ajax-browse-fundraisers")
+	public String ajax_browse_fundraisers(int index)
+	{	
+		Gson gson = new Gson();
+		//update sum of donation amount details in campaign.fundraisers_raised_amount
+		fmdao2.fetchDonationDetails();
+
+		//int a = 20;
+		List<FundraiserModel> data1 = fmdao2.fetchFundraisersDetails();
+		List<CampaignsModel> data2 = fmdao2.FetchBrowseCampaignsDetails(index);
+		
+		//System.out.println("campaign id is : " +dm.getCampaign_id()+  " AND  " + "amount is : " +dm.getAmount() );
+		
+		String fundraisers= gson.toJson(data1);
+		String campaign= gson.toJson(data2);
+		String data = "["+fundraisers+", "+campaign+"]";
+		return data;
 	}
 	
 	
@@ -134,6 +153,27 @@ public class UserRegisterController
 		return "specific-cause-details";	 
 		  
 	}
+	
+	
+	//Fetch Data from database and show success campaign details
+	
+		@RequestMapping("/success-campaign/{fund_id}/{camp_id}")
+		public String success_campaign(@PathVariable("fund_id") String fund_id, @PathVariable("camp_id") String camp_id, Model model )
+		{
+			//System.out.println(camp_id);
+			
+			List<FundraiserModel> data3 = smdao.fetchFundraisersDetails(fund_id);
+			List<CampaignsModel> data4 = smdao.fetchCampaignsDetails(camp_id);
+			List<CampaignAccountModel> data5 = camdao.FetchCampaignAccount(camp_id);
+		
+			model.addAttribute("data3", data3);
+			model.addAttribute("data4", data4);
+			model.addAttribute("data5", data5);
+			
+			
+			return "success-campaign";	 
+			  
+		}
 	 
 }
 
