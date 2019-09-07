@@ -1674,6 +1674,7 @@ $(".ajax-submit-campaign-details").click();
     border:solid 2px rgba(0, 0, 0, 0.616);
     margin-right:10px;
     opacity: 0.6;
+    margin-top:10px; 
 }
 
 .document-details img:hover

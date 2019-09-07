@@ -668,6 +668,7 @@ $(function hide_show(){
     border-radius: 5px;
     border:solid 2px rgba(0, 0, 0, 0.616);
     margin-right: 10px;
+    margin-top: 10px;
     opacity: 0.6;
 }
 
@@ -691,7 +692,6 @@ $(function hide_show(){
     border-radius: 5px;
     border:solid 2px rgba(0, 0, 0, 0.616);
     outline:none;
-    margin-top:10px;
     margin-right:10px;
     opacity: 0.6;
 }
@@ -711,7 +711,6 @@ $(function hide_show(){
     width:100%;
     height: 100%;
     border-radius: 10px;
-
 }
 
 
@@ -763,6 +762,12 @@ animation-duration: 1.50s;
 {
     right: -40%;
 }
+
+.document-details img
+{
+    margin-top: 10px;
+}
+
 
 }
 </style>

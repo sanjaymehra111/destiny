@@ -193,7 +193,7 @@ $(function()
 })
 </script>
         <div class="col-md-4" style="text-align: center;">
-        <span class="p-amount amount-text">OF OUR GOAL <span class="ach-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"></span> </span>
+        <span class="p-amount amount-text">GOAL<span class="ach-percent" style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold"></span> </span>
         <span class="d-amount amount-text">DONOR <span style="border-bottom: solid 2px rgb(255, 255, 255); padding: 5px; font-weight: bold">${cm.fundraisers_donor_list}</span> </span>
         <br><br><br>
         </div>
@@ -659,6 +659,7 @@ $(function hide_show(){
     border-radius: 5px;
     border:solid 2px rgba(0, 0, 0, 0.616);
     margin-right: 10px;
+    margin-top: 10px;
     opacity: 0.6;
 }
 
@@ -699,7 +700,7 @@ $(function hide_show(){
 .images-effct
 {
     transition: 0.3s ease-in-out;
-    width:100%;
+    width:60%;
     height: 100%;
     border-radius: 10px;
 
@@ -711,8 +712,8 @@ $(function hide_show(){
     display: none;
     font-size: 40px;
     position: relative;
-    right: -45%;
-    top:70px;
+    right: -35%;
+    top:40px;
     color:rgb(83, 19, 19);
     transition: 0.5s ease-in-out;
 }
@@ -748,14 +749,7 @@ animation-duration: 1.50s;
 }
 
 
-@media (max-width:975px)
-{
-    .close-button
-{
-    right: -40%;
-}
 
-}
 </style>
 
 
