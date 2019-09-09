@@ -38,7 +38,7 @@ $(function search_submit(){
 
 	
 $(function(){
-	$(".CampaignType").click(function(){
+	$(".CampaignTypes").click(function(){
 		var text = $(this).attr('values');
 		$(".content").hide();
 		$('.content:contains("'+text+'")').show();
@@ -150,21 +150,52 @@ $(function(){
 
 </script> 
 
-
-
-
-    <style>
+<style>
         html {
             color: red;
         }
 		
-				.search-text
+			.heart:HOVER
+		{
+			color:#ff6700; 
+		}
+		.bulb:HOVER
+		{
+			color:orange;
+		}
+		.medical:HOVER
+		{
+			color:green;
+		}
+		.personal:HOVER
+		{
+			color:#00a2e8;
+		}
+		.CampaignTypes
+		{
+			cursor:pointer;
+		}
+		.opennav
+		{
+			color:#818181;
+			transition:0.3s;
+		}
+		
+		.opennav:HOVER
+		{
+			color:#e61044;
+		}
+		
+		
+		.search-text
 		  {
-		    height: 50px;
-		    font-size: 20px;
+		    height: 40px;
+		    font-size: 15px;
 		    border-radius: 50px;
 		    padding-right: 50px;
 		    padding-left: 30px;
+		    text-align: center;
+		    transition:0.3s;
 		  }
 		  .search-button
 		  {
@@ -274,27 +305,40 @@ $(function(){
           position: fixed;
           z-index: 1;
           top: 0;
-          left: 0;
-          background-color: rgba(17, 17, 17, 0.952);
+          right: 0;
+          background-color: white /* rgba(17, 17, 17, 0.952) */;
           overflow-x: hidden;
           transition: 0.5s;
           padding-top: 60px;
           color:white;
+          text-align:left; 
+          z-index:9999;
+          opacity: 0.4;
         }
 
+ 		.sidenav:HOVER
+ 		{
+ 			opacity:1;
+ 		}
+ 			 
+ 			 .sidenav:FOCUS
+ 		{
+ 			opacity:1;
+ 		}
+ 			 
         .sidenav a {
-          padding: 8px 8px 8px 32px;
+          padding-left: 20px;
           text-decoration: none;
-          font-size: 25px;
-          color: #818181;
-          display: block;
+          font-size: 20px;
+          /* color: #818181;
+           */display: block;
           transition: 0.3s;
         }
 
-        .sidenav a:hover {
-          color: #f1f1f1;
+/*         .sidenav a:hover {
+          color: black;
         }
-
+ */
         .sidenav .closebtn {
           position: absolute;
           top: 0;
@@ -340,6 +384,7 @@ var a1=  document.getElementById("mySidenav").style.width;
       document.getElementById("mySidenav").style.width = "250px";
      // document.getElementById("main").style.marginLeft = "250px";
       $(".causes-start").css({"opacity":"0.5"});
+      $(".sidenav").css({"opacity":"1"});
       $(".filter-items").css({"display":"block"});
 
       $(".rotatenew").css({"display":"block"});
@@ -352,7 +397,7 @@ var a1=  document.getElementById("mySidenav").style.width;
     {
       $(".rotate").css({"display":"block"});
       $(".rotatenew").css({"display":"none"});
-
+      $(".sidenav").css({"opacity":"0.4"});
       document.getElementById("mySidenav").style.width = "40px";
   //  document.getElementById("main").style.marginLeft= "0";
     $(".causes-start").css({"opacity":"1"});
@@ -370,6 +415,7 @@ var a1=  document.getElementById("mySidenav").style.width;
 //  }
   </script>
 </head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <body style="font-family: algerrian sans-serif">
@@ -503,35 +549,32 @@ var a1=  document.getElementById("mySidenav").style.width;
 }
 </style>
 
-<div id="main" class="causes-body2 left-side" >
+<div id="main" class="causes-body2 right-side" >
 <div class="container-fluid"> 
 
 <div style="text-align:center">
 
 
-<div id="mySidenav" class="sidenav" style="text-align:left">
-  <br>
-  <br>
-
-  <span class="opennav" style="font-size:30px;cursor:pointer; margin-top:30px; float: right; margin-right: 10px;"  onclick="openNav()" >
-    
-    <i class="fa fa-bars rotate"></i>
-    <i class="fa fa-times rotatenew" style="display:none"></i>
-
-    
-    </span>
-  <br>
-
-  <div class="filter-items" style="display:none">
-
-  <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()"  style="margin-top:150px;">&times;</a>-->
-<br>
-
-  <a href="#"  style="margin-top:50px;">Medical</a>
-  <a href="#">NGO</a>
-  <a href="#">Personal Cause</a>
-  <a href="#">Creative Ideas</a>
-</div>
+<div id="mySidenav" class="sidenav"><br><br>
+	<span class="opennav" style="font-size:30px; cursor:pointer; margin-top:-80px; float: right; margin-right: 10px;"  onclick="openNav()" >
+		<i class="fa fa-bars rotate"></i>
+		<i class="fa fa-times rotatenew" style="display:none"></i>
+	</span><br>
+	
+	<div class="filter-items" style="display:none;">
+	
+	<div class="col-md-12 search-items" style="margin-top: -60px;">
+	    <br><input type="search" name="search-item" class="form-control search-text" placeholder="Search">
+	    <!-- <i class="fa fa-search search-button"></i>
+	    <button class="search-submit" type="button" style="display: none"></button><br> -->
+	<hr></div>
+	
+		<a class="CampaignTypes heart" values="@ngo@"><i class="fa fa-heart"></i> NGO</a>
+		<hr><a class="CampaignTypes bulb" values="@ideas@"><i class="fa fa-universal-access "></i> IDEAS</a>
+		<hr><a class="CampaignTypes medical" values="@medical@"><i class="fa fa-medkit "></i> MEDICAL</a>
+		<hr><a class="CampaignTypes personal" values="@personal@"><i class="fa fa-user "></i> PERSONAL</a>
+		<hr>
+	</div>
 </div>
 
 
@@ -539,33 +582,17 @@ var a1=  document.getElementById("mySidenav").style.width;
 
 <div class="causes-start">
 
-<div class="campaign-type" style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
-
-<script>
-</script>
-
+<div class="campaign-type hidden" style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
 	<input class="CampaignType campaign-type-ngo" readonly type="text" values="@ngo@" value="ngo">
 	<input class="CampaignType campaign-type-personal" readonly type="text" values="@personal@" value="personal">
 	<input class="CampaignType campaign-type-medical" readonly type="text" values="@medical@" value="medical">
 	<input class="CampaignType campaign-type-ideas" readonly type="text" values="@ideas@" value="ideas">
 </div>
 
-<div class="col-md-12 search-items">
-
-
-
-    <input type="search" name="search-item" class="form-control search-text" placeholder="Search For Fundraisers">
-    <i class="fa fa-search search-button"></i>
-    <button class="search-submit" type="button" style="display: none"></button>
-    <br>
-
-</div>
-
+<br><br>
 
 <!-- insert donation id -->
-
-
-<div class="ajax-browse-fundraisers"></div>
+<div class="col-md-12 ajax-browse-fundraisers"></div>
 
 <div class="col-md-12" style="text-align: center;">
 	<button class="ajax-browse-button">Load More</button>
