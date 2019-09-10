@@ -71,8 +71,8 @@ $(function(){
 $(function(){
 	var index=0;
 	$(".ajax-browse-button").click(function GetAjaxFundraisersData(){
-	index = index + 6;
-	var url1 = "/destiny/ajax-browse-fundraisers";
+	index = index + 4;
+	var url1 = "/destiny/ajax-successfull-stories";
 	
 	$.ajax({
 		url:url1,
@@ -91,7 +91,7 @@ $(function(){
 					for(j=0; j<data2.length; j++)
 						
 						{
-							html+='<div class="col-md-4 content">';
+							html+='<div class="col-md-3 content">';
 							html+='<div class="ourcausesheet" style="border:solid 1px rgba(180, 176, 176, 0.445);">';
 							html+='<div class="ourcausecontainer" style="position: relative;">';
 							var imagesa= data2[j].fundraisers_campaign_images; var c=",";
@@ -106,32 +106,35 @@ $(function(){
 							html+='</span>';
 							html+='</div>';
 							html+='<div class="img-text" style="text-align:left; padding: 20px 20px;">';
-							html+='<div class="text-balance" style="height:200px;">';
+							html+='<div class="text-balance" style="height:100px;">';
 							html+='<div class="campaign-title" style="font-size:20px; text-align:center; text-transform:uppercase; font-weight:bold">'+data2[j].fundraisers_title+'</div>';
-							html+='<div class="p-name" style="text-align:center; padding:10px; font-size:16px;"><span class="personal-name" style="text-transform: capitalize">'+data2[j].fundraisers_name+'</span></div>';
-						 	html+='<span class="p-type hidden">Type : <span class="personal-name" style="text-transform: capitalize">@'+data2[j].campaign_type+'@</span></span>';
-							html+='<span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> '+data2[j].fundraisers_goal_amount+' </span>';
-							var amounta = data2[j].fundraisers_raised_amount;
-							var amount = amounta.substring(0,amounta.indexOf("."));
-							html+='<span style="float:right">Raised : <span class="pr">'+amount+'</span> </span>';
-							html+='</span>';
-							html+='<br><br>';
-							var a = (data2[j].fundraisers_raised_amount / data2[j].fundraisers_goal_amount) * 100;
-							html+='<div class="progress" style="height: 10px;">';
-							html+='<div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" style="width:'+a+'%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>';
-							html+='</div>';
+							//html+='<div class="p-name" style="text-align:center; padding:10px; font-size:16px;"><span class="personal-name" style="text-transform: capitalize">'+data2[j].fundraisers_name+'</span></div>';
+						 	
+							html+='<span class="p-type hidden">Type : <span class="personal-name" style="text-transform: capitalize">@'+data2[j].campaign_type+'@</span></span>';
+							//html+='<span style="font-size:15px; color:rgb(97, 100, 102)"><img src="/destiny/files/images/up.svg" style="width:20px; margin-top:-10px;"> Goal :  <span class="pg"> '+data2[j].fundraisers_goal_amount+' </span>';
+							//var amounta = data2[j].fundraisers_raised_amount;
+							//var amount = amounta.substring(0,amounta.indexOf("."));
+							//html+='<span style="float:right">Raised : <span class="pr">'+amount+'</span> </span>';
+							//html+='</span>'; 
+							//html+='<br><br>';
+							//var a = (data2[j].fundraisers_raised_amount / data2[j].fundraisers_goal_amount) * 100;
+							//html+='<div class="progress" style="height: 10px;">';
+							//html+='<div class="progress-bar progress-bar-pb  progress-bar-success progress-bar-striped active" style="width:'+a+'%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>';
+							//html+='</div>';
+							
+							html+='<br>';
 							html+='<p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify; margin-top:-15px;"> '+data2[j].fundraisers_story+'</p>';
 							html+='</div>';
 							html+='<center>';
-							html+='<div class="col-md-6">';
-							html+='<a href="specific-cause-details/'+data2[j].fundraisers_id+'/'+data2[j].campaign_id+'" style="text-decoration: none">';
+							html+='<div class="col-md-12">'; 
+							html+='<a href="/destiny/success-campaign/'+data2[j].fundraisers_id+'/'+data2[j].campaign_id+'" style="text-decoration: none">';
 							html+='<button class="ourcausebtn1 form-control" value="'+data2[j].fundraisers_id+'" style="background-color:rgb(26, 145, 135); color:white">Read More</button>';
 							html+='</a>';
 							html+='</div>';
-							html+='<div class="col-md-6"> ';
+							/* html+='<div class="col-md-6"> ';
 							html+='<button class="ajax-donate-button ourcausebtn1 form-control donate-popup camp_id" data-toggle="modal"  data-target="#myModal"  type="button" value="'+data2[j].campaign_id+'" style="background-color:rgb(26, 145, 135); color:white">Donate Now</button>';
 							html+='</div>';
-							html+='</center>';
+							 */html+='</center>';
 							html+='<div class="container-fluid"></div>';
 							html+='</div>';
 							html+='</div>';
@@ -440,7 +443,7 @@ var a1=  document.getElementById("mySidenav").style.width;
 
     <div class="bodymain">
 
-        <div class="causes-body1">
+        <div class="causes-body1" style="background-image: url('/destiny/files/images/possible.jpeg'); background-size: 100% 130%;">
         
           <script>
             $(function(){
@@ -480,7 +483,7 @@ var a1=  document.getElementById("mySidenav").style.width;
                 <div class="container-fluid">
 
                     <div class="col-md-12" style="text-align:center">
-                        <p style="font-size: 400%; color:white; margin-top: 120px; ">Browse Fundraisers</p>
+                        <p style="font-size: 400%; color:white; margin-top: 120px; ">Successful Stories</p>
                         <br>
                       </div></div>
 

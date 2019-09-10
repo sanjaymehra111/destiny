@@ -97,7 +97,7 @@ public class UserRegisterController
 	@RequestMapping("/browse-a-fundraisers")
 	public String browse_a_fundraisers(FundraiserModel fm, Model model, CampaignsModel cm, DonationModel dm)
 	{
-		//update sum of donation amount details in campaign.fundraisers_raised_amount
+		/*//update sum of donation amount details in campaign.fundraisers_raised_amount
 		fmdao2.fetchDonationDetails();
 
 		int a = 20;
@@ -106,7 +106,7 @@ public class UserRegisterController
 		
 		model.addAttribute("data", data);
 		model.addAttribute("data2", data2);
-		
+*/		
 		return "browse-a-fundraisers";
 	}
 	
@@ -121,6 +121,33 @@ public class UserRegisterController
 		//int a = 20;
 		List<FundraiserModel> data1 = fmdao2.fetchFundraisersDetails();
 		List<CampaignsModel> data2 = fmdao2.FetchBrowseCampaignsDetails(index);
+		
+		//System.out.println("campaign id is : " +dm.getCampaign_id()+  " AND  " + "amount is : " +dm.getAmount() );
+		
+		String fundraisers= gson.toJson(data1);
+		String campaign= gson.toJson(data2);
+		String data = "["+fundraisers+", "+campaign+"]";
+		return data;
+	}
+	
+	@RequestMapping("/successfull-stories")
+	public String successfull_stories(FundraiserModel fm, Model model, CampaignsModel cm, DonationModel dm)
+	{
+		return "successfull-stories";
+	}
+
+	
+	@ResponseBody
+	@RequestMapping("/ajax-successfull-stories")
+	public String ajax_successfull_stories(int index)
+	{	
+		Gson gson = new Gson();
+		//update sum of donation amount details in campaign.fundraisers_raised_amount
+		fmdao2.fetchDonationDetails();
+
+		//int a = 20;
+		List<FundraiserModel> data1 = fmdao2.fetchFundraisersDetails();
+		List<CampaignsModel> data2 = fmdao2.FetchSuccessCampaignsDetails(index);
 		
 		//System.out.println("campaign id is : " +dm.getCampaign_id()+  " AND  " + "amount is : " +dm.getAmount() );
 		

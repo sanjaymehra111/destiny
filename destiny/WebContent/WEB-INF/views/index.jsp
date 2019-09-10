@@ -507,12 +507,27 @@
 </div>
  -->
  
+ <style>
+ 
+ .success-stories
+ {
+ 	width:280px;
+ 	height:40px;
+ 	border:none;
+ 	outline:none;
+ 	font-size: 20px;
+ 	color:white; 
+ 	background-color: #2f2f2f;
+ }
+ </style>
  
  <div class="how-body3" style="background-color: rgba(226, 226, 226, 0.534);">
 <div class="container">
 <br><br><br>
         <p style="text-align: center; font-size: 25px;">
-            Our Successful Fundraisers Stories    
+            Our Successful Fundraisers Stories
+            <br>
+            <a href="/destiny/successfull-stories" style="text-decoration: none"><button class="ourcausebtn1 success-stories">View All Successful Stories</button></a>    
         <hr style="border:solid 1.2px rgb(153, 187, 29); text-align: center; width: 50%;">
 <br><br>
 
@@ -669,7 +684,7 @@ $(function(){
 				<p style="text-align: center; font-size: 20px; font-weight: bold">${scm.fundraisers_title}</p>
 				<p style="font-size:17px; overflow: hidden; color:rgb(155, 160, 160); text-align: justify; margin-top:-15px;"> ${scm.fundraisers_story}</p>
 			</div>
-			<center><a href="success-campaign/${fm.fundraisers_id}/${scm.campaign_id}" style="text-decoration: none"><button class="ourcausebtn1 form-control" style="background-color:#00a2e8; width:100px; height:30px; margin-top:15px; color:white">Read More</button></a></center>
+			<center><a href="/destiny/success-campaign/${fm.fundraisers_id}/${scm.campaign_id}" style="text-decoration: none"><button class="ourcausebtn1 form-control" style="background-color:#00a2e8; width:100px; height:30px; margin-top:15px; color:white">Read More</button></a></center>
 			<br>
 			</div>
 		</div>

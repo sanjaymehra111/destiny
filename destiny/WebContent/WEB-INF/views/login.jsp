@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-
 <html>
 <head>
     <!--For Responsive-->
@@ -17,11 +16,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     
-
+    <!-- Face book login -->
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1361682397314259&autoLogAppEvents=1"></script>    
+    
 
 </head>
 <body style="font-family: algerrian sans-serif; background-image: url('/destiny/files/images/login-bg.jpg'); background-size: 100% 100%">
 
+       
        
 <!--Header Start-->
 
@@ -35,9 +37,99 @@
     
 <!--Header End-->
 
+<br><br><br><br><br><br>
+
+
+
+<div class="facebook-login" style="color:white;">
+
+
+<script>
+
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response);                   // The current login status of the person.
+    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+      testAPI();  
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this webpage.';
+    }
+  }
+
+
+  function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function(response) {   // See the onlogin handler
+      statusChangeCallback(response);
+    });
+  }
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1361682397314259',
+      cookie     : true,           	          // Enable cookies to allow the server to access the session.
+      xfbml      : true,               	      // Parse social plugins on this webpage.
+      version    : 'v4.0'         			  // Use this Graph API version for this call.
+    });
+
+
+    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+      statusChangeCallback(response);        // Returns the login status.
+    });
+  };
+
+  
+/*   
+ 	(function(d, s, id) {                      // Load the SDK asynchronously
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+*/
+  
+  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+   
+	FB.api('/me?fields=id,name,picture.width(1024).height(1024),email', function(response) 
+    {
+ 		document.getElementById('status').innerHTML = 'Successful login for: ' + response.name;
+	 	document.getElementById('fb_id').value = response.id;
+	      document.getElementById('fb_name').value = response.name;
+	      document.getElementById('fb_email').value = response.email;
+	      document.getElementById('fb_image').src= response.picture.data.url;
+    });
     
-    <br><br><br><br>
-    <br><br>
+    
+     FB.api('/me',
+  		  	function(response) {
+         
+    	  });
+     
+    
+}
+  
+
+  
+</script>
+
+
+//  The JS SDK Login Button 
+
+<fb:login-button scope="" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div class="fb-login-button" onlogin="checkLoginState();" data-width="" data-size="large" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="true"></div>
+
+Name : <input type="text" style="color:black" id="fb_name"><br>
+ID : <input type="text" style="color:black" id="fb_id"><br>
+Email : <input type="text" style="color:black" id="fb_email"><br>
+Image : <img id="fb_image" src="" style="width:200px; height:200px;">
+
+<div id="status">
+</div>
+</div>
 
 
 
@@ -184,7 +276,10 @@ animation-duration: 0.8s;
         <br>
 
 <div class="col-md-6">
-<button class="form-control forgot-all-button fb-button"><i class="fa fa-facebook"></i> | Facebook    </button> <br>
+
+
+<button class="form-control forgot-all-button fb-button"><i class="fa fa-facebook"></i> | Facebook </button> <br>
+
 </div>
 
 <div class="col-md-6" >
