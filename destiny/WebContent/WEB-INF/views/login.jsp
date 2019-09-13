@@ -90,36 +90,50 @@
   }(document, 'script', 'facebook-jssdk'));
 */
   
-  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+   function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
    
 	FB.api('/me?fields=id,name,picture.width(1024).height(1024),email', function(response) 
     {
- 		document.getElementById('status').innerHTML = 'Successful login for: ' + response.name;
-	 	document.getElementById('fb_id').value = response.id;
-	      document.getElementById('fb_name').value = response.name;
-	      document.getElementById('fb_email').value = response.email;
-	      document.getElementById('fb_image').src= response.picture.data.url;
+			document.getElementById('status').innerHTML = 'Successful login for: ' + response.name;
+	 		document.getElementById('fb_id').value = response.id;
+	      	document.getElementById('fb_name').value = response.name;
+	      	document.getElementById('fb_email').value = response.email;
+	      	document.getElementById('fb_image').src= response.picture.data.url;
+	      	
+	      	$.ajax
+	      	({
+	      		url:"/destiny/facebook_login",
+	      		data:{
+		      			id:response.id,
+		      			name:response.name,
+		      			email:response.email,
+		      			profile:response.picture.data.url,
+	      			},
+	      	  	type:'GET',
+				cache :false,
+				dataType:'text',
+				contentType : "text",
+				success: function()
+				{
+					window.location.href = "/destiny/user-dashboard"
+				},
+				error: function()
+				{
+					alert("asd");
+				}
+			});
     });
-    
-    
-     FB.api('/me',
-  		  	function(response) {
-         
-    	  });
-     
-    
-}
+} 
   
 
-  
 </script>
 
 
 //  The JS SDK Login Button 
 
-<fb:login-button scope="" onlogin="checkLoginState();">
+<!-- <fb:login-button scope="" onlogin="checkLoginState();">
 </fb:login-button>
-
+ -->
 <div class="fb-login-button" onlogin="checkLoginState();" data-width="" data-size="large" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="true"></div>
 
 Name : <input type="text" style="color:black" id="fb_name"><br>

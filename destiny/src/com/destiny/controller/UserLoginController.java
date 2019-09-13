@@ -1,6 +1,8 @@
 
 package com.destiny.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,14 +13,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.destiny.dao.PasswordEncryptionSha512;
 import com.destiny.dao.SpecificCauseDetailsDaoimpl;
 import com.destiny.dao.UserLoginDaoimpl;
+import com.destiny.model.CampaignsModel;
 import com.destiny.model.FundraiserModel;
 import com.destiny.model.SessionModel;
 import com.destiny.model.UserLoginModel;
+import com.google.gson.Gson;
 
 @Controller
 @Scope("session")
@@ -69,6 +74,27 @@ public class UserLoginController
 			 model.addAttribute("message", "INCORRECT EMIAL ID AND PASSWORD");
 			 return "login";
 		 }
+	}
+	
+			
+	
+	@RequestMapping(value="/facebook_login", method=RequestMethod.GET)
+	public String facebook_login(@RequestParam String id, String name, String email, String profile, HttpSession session, RedirectAttributes redirectAttributes)
+	{
+		UserLoginModel data =  uldao.CheckFacebookEmail(email, name, profile);
+		String fid = data.getfundraisers_id();
+		
+		SessionModel sessionModel = new SessionModel();
+		sessionModel.setUser_id(fid);
+		sessionModel.setSession_id(session.getId());
+		sessionModel.setTime(session.getCreationTime());
+		session.setAttribute("sessionData", sessionModel);
+		
+		redirectAttributes.addFlashAttribute("fundraisers_id", fid);
+		
+		//return data2;
+		return "redirect:/user-dashboard";
+		
 	}
 	
 	

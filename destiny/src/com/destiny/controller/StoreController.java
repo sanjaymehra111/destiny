@@ -199,10 +199,12 @@ public class StoreController
 	
 
 	@RequestMapping(value="/user-dashboard", method=RequestMethod.GET)
-	public String user_dashboard(HttpSession session, Model model, @ModelAttribute("fundraisers_id")String fid, @ModelAttribute("pwd_message")String pwd_mwssage, @ModelAttribute("fundraisersModel")FundraiserModel fm)
+	public String user_dashboard(HttpSession session, Model model, @ModelAttribute("fundraisers_id") String fid, @ModelAttribute("pwd_message")String pwd_mwssage, @ModelAttribute("fundraisersModel")FundraiserModel fm)
 	{
 		bfdao.fetchDonorList();
 		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+
+		//Edit Password Message Confirmation
 		model.addAttribute("pwd_message", pwd_mwssage);
 		
 		if(!fid.equals("")){
@@ -277,8 +279,14 @@ public class StoreController
 	}
 	
 	@RequestMapping("/login")
-	public String login(Model model)
+	public String login(HttpSession session)
 	{
+		SessionModel sesModel = (SessionModel) session.getAttribute("sessionData");
+		if(sesModel != null)
+		{
+			return "redirect:/user-dashboard";
+		}
+
 		return "login";
 		
 	}
