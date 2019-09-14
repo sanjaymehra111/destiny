@@ -356,7 +356,7 @@ $(".ajax-submit-user-details").click(function()
 <br>
 </div>
 <div class="col-md-4 top-bar-content">
-<span >Email: <br><span class="fatch-data u-o-email">${fm.personal_email}</span></span><br>
+<div style="text-overflow: ellipsis; width: 99%; overflow: hidden">Email: <br><span class="fatch-data u-o-email">${fm.personal_email}</span></div><br>
 <br>
 </div>
 <div class="col-md-4 top-bar-content">
@@ -368,7 +368,7 @@ $(".ajax-submit-user-details").click(function()
 
 <div class="col-md-12 text-center1 change-details">
 <div class="col-md-4">
-<div style="text-overflow: ellipsis; width: 90%; overflow: hidden">
+<div style="text-overflow: ellipsis; width: 99%; overflow: hidden">
 <span >Name: <br> <span class="fatch-data u-o-name">${fm.personal_name}</span></span><br><br>
 <span >City Of Residence: <br><span class="fatch-data u-o-address">${fm.personal_city}</span></span><br><br>
 </div>

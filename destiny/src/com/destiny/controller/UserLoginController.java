@@ -79,9 +79,9 @@ public class UserLoginController
 			
 	
 	@RequestMapping(value="/facebook_login", method=RequestMethod.GET)
-	public String facebook_login(@RequestParam String id, String name, String email, String profile, HttpSession session, RedirectAttributes redirectAttributes)
+	public String facebook_login(@RequestParam String id, String name, String email, String profile, String location, String birthday, HttpSession session, RedirectAttributes redirectAttributes)
 	{
-		UserLoginModel data =  uldao.CheckFacebookEmail(email, name, profile);
+		UserLoginModel data =  uldao.CheckFacebookEmail(email, name, profile, birthday, location);
 		String fid = data.getfundraisers_id();
 		
 		SessionModel sessionModel = new SessionModel();

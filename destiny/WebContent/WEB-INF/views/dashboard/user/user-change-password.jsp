@@ -180,7 +180,7 @@ $(function password_validation()
     <br>
 </div>
 <div class="col-md-12"> 
-<input type="text" class="passwword new-passwword password-validation_pn" minlength="6" name="new_password" placeholder="CREATE PASSWORD" required>   <br> <br>
+<input type="password" class="passwword new-passwword password-validation_pn" minlength="6" name="new_password" placeholder="CREATE PASSWORD" required>   <br> <br>
 </div>
 <center><span class="pwd-length">Password length must be greater then "6"</span></center>
 <div class="col-md-12"> 
@@ -222,10 +222,10 @@ $(function password_validation()
     <p style="text-align: center; font-size: 30px; color:black; ">Change Your Password</p>
     <hr>
     <br>
-<input type="text" class="passwword new-passwword" name="old_password" placeholder="OLD PASSWORD" required>   <br> <br>
+<input type="password" class="passwword new-passwword" name="old_password" placeholder="OLD PASSWORD" required>   <br> <br>
 </div>
 <div class="col-md-12"> 
-<input type="text" class="passwword new-passwword password-validation_py" minlength="6" name="new_password" placeholder="NEW PASSWORD" required>   <br> <br>
+<input type="password" class="passwword new-passwword password-validation_py" minlength="6" name="new_password" placeholder="NEW PASSWORD" required>   <br> <br>
 </div>
 <center><span class="pwd-length">Password length must be greater then "6"</span></center>
 <div class="col-md-12"> 

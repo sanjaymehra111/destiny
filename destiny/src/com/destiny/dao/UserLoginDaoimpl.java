@@ -67,7 +67,7 @@ public class UserLoginDaoimpl
 		
 	}
 
-	public UserLoginModel CheckFacebookEmail(String email, String name, String profile)
+	public UserLoginModel CheckFacebookEmail(String email, String name, String profile, String birthday, String location)
 	{
 		String sql1="Select fundraisers_id from fundraisers_detail where personal_email = '"+email+"' ";
 		List<UserLoginModel> mail =template.query(sql1, new UserLoginModelMapper());
@@ -78,8 +78,8 @@ public class UserLoginDaoimpl
 		}
 		else 
 		{
-				String sql = "insert into fundraisers_detail (personal_name, personal_email, personal_profile_image, personal_updated_date)"+ 
-						"values('"+name+"', '"+email+"', '"+profile+"', '"+date+"')";
+				String sql = "insert into fundraisers_detail (personal_name, personal_email, personal_password, personal_dob, personal_city, personal_profile_image, personal_updated_date)"+ 
+						"values('"+name+"', '"+email+"', '', '"+birthday+"', '"+location+"', '"+profile+"', '"+date+"')";
 
 				template.update(sql);
 				
@@ -91,7 +91,7 @@ public class UserLoginDaoimpl
 	}
 
 
-		public UserLoginModel CreateFacebookId(String email, String name, String profile)
+		/*public UserLoginModel CreateFacebookId(String email, String name, String profile)
 		{
 			String sql = "insert into fundraisers_detail (personal_name, personal_email, personal_profile_image, personal_updated_date)"+ 
 					"values('"+name+"', '"+email+"', '"+profile+"', '"+date+"')";
@@ -102,7 +102,7 @@ public class UserLoginDaoimpl
 			List<UserLoginModel> mail2 =template.query(sql12, new UserLoginModelMapper());
 			
 			return mail2.get(0);
-		}
+		}*/
 	
 
 
