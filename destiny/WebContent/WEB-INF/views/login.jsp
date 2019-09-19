@@ -46,6 +46,9 @@
 
 <script>
 
+//Facebook Token Links
+//https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname%2Cpicture.width(900).height(900)&version=v4.0
+
   function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
     console.log(response);                   // The current login status of the person.
@@ -92,32 +95,79 @@
 	      	document.getElementById('fb_birthday').value = response.birthday;
 	      	document.getElementById('fb_location').value = response.location.name;
 	      	document.getElementById('fb_image').src= response.picture.data.url;
- */
-			$.ajax
-	      	({
-	      		url:"/destiny/facebook_login",
-	      		data:{
-		      			id:response.id,
-		      			name:response.name,
-		      			email:response.email,
-		      			profile:response.picture.data.url,
-		      			birthday:response.birthday,
-		      			location:response.location.name,
-	      			},
-	      	  	type:'GET',
-				cache :false,
-				dataType:'text',
-				contentType : "text",
-				success: function()
-				{
-					/* alert("succcess");*/
-					window.location.href = "/destiny/user-dashboard"
-				},
-				error: function()
-				{
-					alert("alert");
-				}
-			});
+ 		 */
+	      	var user_email = response.email;
+	      	
+	      	if(user_email == null)
+	      		{
+	      			var user_email  = window.prompt("Missing Email Id", user_email);
+	      			//document.getElementById('fb_email').value = user_email  ;
+	      			
+	      			var valid_email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	      			if(user_email == null || user_email == "" || !user_email.match(valid_email))
+		      			{
+		      				alert("Invalid Email id");
+		      				return false;
+		      			}
+	      			else
+	      				{
+			      			$.ajax
+					      	({
+					      		url:"/destiny/facebook_login",
+					      		data:{
+						      			id:response.id,
+						      			name:response.name,
+						      			email:user_email,
+						      			profile:response.picture.data.url,
+						      			birthday:response.birthday,
+						      			location:response.location.name,
+					      			},
+					      	  	type:'GET',
+								cache :false,
+								dataType:'text',
+								contentType : "text",
+								success: function()
+								{
+									alert("succcess");
+									/* window.location.href = "/destiny/user-dashboard" */
+								},
+								error: function()
+								{
+									alert("alert");
+								}
+							});
+	      				}
+	      		}
+	      	
+	      	
+	      	else 
+	      		{
+	      			$.ajax
+			      	({
+			      		url:"/destiny/facebook_login",
+			      		data:{
+				      			id:response.id,
+				      			name:response.name,
+				      			email:user_email,
+				      			profile:response.picture.data.url,
+				      			birthday:response.birthday,
+				      			location:response.location.name,
+			      			},
+			      	  	type:'GET',
+						cache :false,
+						dataType:'text',
+						contentType : "text",
+						success: function()
+						{
+							//alert("succcess");
+							 window.location.href = "/destiny/user-dashboard" 
+						},
+						error: function()
+						{
+							alert("alert");
+						}
+					});
+	      		}
     });
 } 
   
@@ -133,7 +183,7 @@ $(function () {
 			} 
 		else 
 			{
-				alert("login failed");
+				//alert("login failed");
 			}
 		},{scope: 'user_location, email, public_profile, user_birthday'});
 	})
@@ -143,11 +193,8 @@ $(function () {
 
 </script>
 
-
- <div class="fb-status-check">
- 
-
-<!--
+<!-- 
+<div class="fb-status-check">
 <fb:login-button data-scope ="user_location, email"  onlogin="checkLoginState();"> Facebook</fb:login-button>
 <button class="fb-button" data-scope ="user_location, email, public_profile, user_birthday"> fb button </button>
 <div class="fb-login-button" data-scope ="user_location, email, public_profile, user_birthday" onlogin="checkLoginState();" data-width="" data-size="large" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="true"></div>
@@ -161,8 +208,8 @@ Image : <img id="fb_image" src="" style="width:200px; height:200px;">
 
 <div id="status">
 </div>
- -->
 </div>
+ -->
 </div>
 
 
