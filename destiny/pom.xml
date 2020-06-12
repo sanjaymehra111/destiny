@@ -4,18 +4,21 @@
   <artifactId>destiny</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>destiny</name>
+  <!-- <name>destiny</name> -->
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
+      
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
+      	<groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-compiler-plugin</artifactId>
+	      <version>3.1</version>
+	      <configuration>
+		      <source>1.7</source>
+		      <target>1.7</target>
+	      </configuration>
       </plugin>
+            
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
@@ -23,8 +26,10 @@
           <warSourceDirectory>WebContent</warSourceDirectory>
         </configuration>
       </plugin>
+      
     </plugins>
   </build>
+  
   <dependencies>
   	<dependency>
   		<groupId>mysql</groupId>
@@ -87,9 +92,22 @@
 		<version>2.8.5</version>
 	</dependency>
 	<dependency>
-    <groupId>com.googlecode.json-simple</groupId>
-    <artifactId>json-simple</artifactId>
-    <version>1.1.1</version>
-</dependency>
+	    <groupId>com.googlecode.json-simple</groupId>
+	    <artifactId>json-simple</artifactId>
+	    <version>1.1.1</version>
+	</dependency>
+	
+	<dependency>
+	   <groupId>org.json</groupId>
+	   <artifactId>json</artifactId>
+	   <version>20080701</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.16.20</version>
+	</dependency>
+
   </dependencies>
 </project>
